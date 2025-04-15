@@ -63,27 +63,28 @@ group :test do
 end
 
 # Autenticación
-gem 'devise'
+gem "devise"
 
 # Autorización
-gem 'cancancan'
+gem "cancancan"
 
 # Variables de entorno
-gem 'figaro'
+gem "figaro"
 
 # Anotación de modelos
-gem 'annotate'
+gem "annotate"
 
-# aws 
-gem 'aws-sdk-s3'
+# aws
+gem "aws-sdk-s3"
 
 # Testing
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'webdrivers'
-  gem 'factory_bot_rails'
+  gem "rspec-rails"
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "webdrivers"
+  gem "factory_bot_rails"
 end
 
 gem "pagy"
+gem "devise-i18n-views", "~> 0.3.7"
