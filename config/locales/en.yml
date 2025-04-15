@@ -28,4 +28,9 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  home:
+    welcome: "Welcome to CircAdmin 🎪"
+    login: "Login"
+    logout: "Logout"
+    register: "Register"
+    greeting: "Hi, %{email} 👋"

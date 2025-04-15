@@ -1,0 +1,11 @@
+es:
+  hello: "Hola mundo"
+  home:
+    welcome: "Bienvenido a CircAdmin 🎪"
+    greeting: "Hola, %{email} 👋"
+  devise:
+    login: "Iniciar sesión"
+    logout: "Cerrar sesión"
+    register: "Registrarse"
+    edit: "Editar"
+
