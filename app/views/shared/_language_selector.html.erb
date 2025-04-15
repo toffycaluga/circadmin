@@ -1,0 +1,16 @@
+<div class="d-flex justify-content-end mb-3">
+  <%= form_with url: set_language_path, method: :post, local: true, class: "form-inline" do %>
+    <div class="form-group">
+      <%= select_tag :locale,
+          options_for_select(
+            [
+              ['Español', :es],
+              ['English', :en]
+            ],
+            I18n.locale
+          ),
+          class: "form-select",
+          onchange: 'this.form.submit();' %>
+    </div>
+  <% end %>
+</div>
