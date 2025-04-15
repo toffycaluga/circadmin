@@ -26,6 +26,21 @@
   <body>
     <p class="notice"><%= notice %></p>
        <p class="alert"><%= alert %></p>
+       <p style="color: gray;">Locale actual: <%= I18n.locale %></p>
+
+       <div style="float: right;">
+  <%= form_with url: set_language_path, method: :post, local: true do %>
+    <%= select_tag :locale,
+      options_for_select(
+        [
+          ['Español', :es],
+          ['English', :en]
+        ],
+          I18n.locale),
+      onchange: 'this.form.submit();' %>
+  <% end %>
+</div>
+  
     <%= yield %>
   </body>
 </html>

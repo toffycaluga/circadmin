@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "home/index"
   resources :user_profiles
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -11,6 +12,10 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   root to: "home#index"
+
+  # ruta para cambiar idioma
+  post "set_language", to: "application#set_language"
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
