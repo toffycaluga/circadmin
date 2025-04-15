@@ -3,6 +3,7 @@ es:
   home:
     welcome: "Bienvenido a CircAdmin 🎪"
     greeting: "Hola, %{email} 👋"
+    subtitle: "Administra tu circo de forma inteligente y simple"
   devise:
     login: "Iniciar sesión"
     logout: "Cerrar sesión"
