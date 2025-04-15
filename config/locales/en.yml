@@ -30,7 +30,14 @@
 en:
   home:
     welcome: "Welcome to CircAdmin 🎪"
-    login: "Login"
-    logout: "Logout"
-    register: "Register"
     greeting: "Hi, %{email} 👋"
+  devise:
+    login: "Log in"
+    logout: "Log out"
+    register: "Sign up"
+    edit: "Editar"
+    forgot: "Forgot your password?"
+    confirmation: "Didn't receive confirmation instructions"
+    unlock: "Didn't receive unlock instructions?"
+
+
