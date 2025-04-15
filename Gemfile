@@ -61,3 +61,29 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# Autenticación
+gem 'devise'
+
+# Autorización
+gem 'cancancan'
+
+# Variables de entorno
+gem 'figaro'
+
+# Anotación de modelos
+gem 'annotate'
+
+# aws 
+gem 'aws-sdk-s3'
+
+# Testing
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
+  gem 'factory_bot_rails'
+end
+
+gem "pagy"
