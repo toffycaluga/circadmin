@@ -130,6 +130,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n-views (0.3.7)
     diff-lcs (1.6.1)
     dotenv (3.1.8)
     drb (2.2.1)
@@ -426,6 +427,7 @@ DEPENDENCIES
   capybara
   debug
   devise
+  devise-i18n-views (~> 0.3.7)
   factory_bot_rails
   figaro
   importmap-rails
