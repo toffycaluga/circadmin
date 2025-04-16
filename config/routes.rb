@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "dashboard/index"
   get "home/index"
   resources :user_profiles
   devise_for :users
@@ -15,6 +16,14 @@ Rails.application.routes.draw do
 
   # ruta para cambiar idioma
   post "set_language", to: "application#set_language"
+
+  authenticated :user do
+    root to: "dashboard#index", as: :authenticated_root
+  end
+
+  unauthenticated do
+    root to: "devise/sessions#new", as: :unauthenticated_root
+  end
 
   # Defines the root path route ("/")
   # root "posts#index"
