@@ -1,3 +1,18 @@
+<script>
+    document.addEventListener("turbo:load", function () {
+    const moreDetails = document.getElementById("more-details");
+    const navUserLink = document.getElementById("nav-user-link");
+
+    if (moreDetails && navUserLink) {
+        moreDetails.addEventListener("click", function () {
+        navUserLink.classList.toggle("show");
+        });
+    }
+    });
+
+
+</script>
+
 
 <div class="">
     <div class="main-menu-header">
@@ -16,3 +31,77 @@
     </div>
 </div>
 
+
+
+<style>
+
+    .pcoded-navbar .main-menu-header {
+        position: relative;
+        padding: 25px 25px 10px;
+        height: 116px;
+        text-align: center;
+    }
+
+    .pcoded-navbar .main-menu-header .user-details {
+        cursor: pointer;
+    }
+
+    .pcoded-navbar .main-menu-header .user-details>div {
+        transition: all 0.3s ease-in-out;
+    }
+
+    .pcoded-navbar .main-menu-header .img-radius {
+        width: 60px;
+        margin-bottom: 10px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .pcoded-navbar .main-menu-header+div .list-inline {
+        display: flex;
+        width: 80%;
+        margin: 10px auto 0;
+        border-top: 1px solid rgba(151, 167, 193, 0.2);
+        border-bottom: 1px solid rgba(151, 167, 193, 0.2);
+    }
+
+    .pcoded-navbar .main-menu-header+div .list-inline .list-inline-item {
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        flex: 1 1 auto;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 18px;
+        border: none;
+    }
+
+    .pcoded-navbar .main-menu-header+div .list-inline .list-inline-item a {
+        position: relative;
+    }
+
+    .pcoded-navbar .main-menu-header+div .list-inline .list-inline-item .badge {
+        position: absolute;
+        top: -8px;
+        right: -11px;
+        font-size: 11px;
+    }
+
+
+    #nav-user-link {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition:
+        max-height 0.4s ease,
+        opacity 0.4s ease,
+        transform 0.4s ease;
+    }
+
+    #nav-user-link.show {
+    max-height: 300px; /* ⚠️ debe ser mayor al contenido interno */
+    opacity: 1;
+    transform: translateY(0);
+    }
+
+</style>

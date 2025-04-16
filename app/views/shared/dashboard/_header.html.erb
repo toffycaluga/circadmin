@@ -1,117 +1,513 @@
 	<!-- [ Header ] start -->
-	<header class="navbar pcoded-header navbar-expand-lg navbar-light header-blue">
-		
-			
-				<div class="m-header">
-					<a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
-					<a href="#!" class="b-brand">
-						<!-- ========   change your logo hear   ============ -->
-						<img src="assets/images/logo.png" alt="" class="logo">
-						<img src="assets/images/logo-icon.png" alt="" class="logo-thumb">
-					</a>
-					<a href="#!" class="mob-toggler">
-						<i class="feather icon-more-vertical"></i>
-					</a>
-				</div>
-				<div class="collapse navbar-collapse">
-					<ul class="navbar-nav mr-auto">
-						<li class="nav-item">
-							<a href="#!" class="pop-search"><i class="feather icon-search"></i></a>
-							<div class="search-bar">
-								<input type="text" class="form-control border-0 shadow-none" placeholder="Search hear">
-								<button type="button" class="close" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-						</li>
-					</ul>
-					<ul class="navbar-nav ml-auto">
-						<li>
-							<div class="dropdown">
-								<a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i></a>
-								<div class="dropdown-menu dropdown-menu-right notification">
-									<div class="noti-head">
-										<h6 class="d-inline-block m-b-0">Notifications</h6>
-										<div class="float-right">
-											<a href="#!" class="m-r-10">mark as read</a>
-											<a href="#!">clear all</a>
-										</div>
-									</div>
-									<ul class="noti-body">
-										<li class="n-title">
-											<p class="m-b-0">NEW</p>
-										</li>
-										<li class="notification">
-											<div class="media">
-												<img class="img-radius" src="assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
-												<div class="media-body">
-													<p><strong>John Doe</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>5 min</span></p>
-													<p>New ticket Added</p>
-												</div>
-											</div>
-										</li>
-										<li class="n-title">
-											<p class="m-b-0">EARLIER</p>
-										</li>
-										<li class="notification">
-											<div class="media">
-												<img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
-												<div class="media-body">
-													<p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>10 min</span></p>
-													<p>Prchace New Theme and make payment</p>
-												</div>
-											</div>
-										</li>
-										<li class="notification">
-											<div class="media">
-												<img class="img-radius" src="assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
-												<div class="media-body">
-													<p><strong>Sara Soudein</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>12 min</span></p>
-													<p>currently login</p>
-												</div>
-											</div>
-										</li>
-										<li class="notification">
-											<div class="media">
-												<img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
-												<div class="media-body">
-													<p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
-													<p>Prchace New Theme and make payment</p>
-												</div>
-											</div>
-										</li>
-									</ul>
-									<div class="noti-footer">
-										<a href="#!">show all</a>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="dropdown drp-user">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									<i class="feather icon-user"></i>
-								</a>
-								<div class="dropdown-menu dropdown-menu-right profile-notification">
-									<div class="pro-head">
-										<img src="assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
-										<span>John Doe</span>
-										<a href="auth-signin.html" class="dud-logout" title="Logout">
-											<i class="feather icon-log-out"></i>
-										</a>
-									</div>
-									<ul class="pro-body">
-										<li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
-										<li><a href="email_inbox.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
-										<li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li>
-									</ul>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-				
-			
-	</header>
-	<!-- [ Header ] end -->
+<header class="navbar p-2 pcoded-header navbar-expand-lg navbar-light header-blue">
+    
+        
+            <div class="m-header">
+                <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
+                <a href="#!" class="b-brand">
+                    <!-- ========   change your logo hear   ============ -->
+                    <%= image_tag 'icono_w.png', class:"logo"%>
+                    <%# <img src="assets/images/logo.png" alt="" class="logo"> %>
+                    <img src="assets/images/logo-icon.png" alt="" class="logo-thumb">
+                </a>
+                <a href="#!" class="mob-toggler">
+                    <i class="feather icon-more-vertical"></i>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="#!" class="pop-search"><i class="feather icon-search"></i></a>
+                        <div class="search-bar">
+                            <input type="text" class="form-control border-0 shadow-none" placeholder="Search hear">
+                            <button type="button" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right notification">
+                                <div class="noti-head">
+                                    <h6 class="d-inline-block m-b-0">Notifications</h6>
+                                    <div class="float-right">
+                                        <a href="#!" class="m-r-10">mark as read</a>
+                                        <a href="#!">clear all</a>
+                                    </div>
+                                </div>
+                                <ul class="noti-body">
+                                    <li class="n-title">
+                                        <p class="m-b-0">NEW</p>
+                                    </li>
+                                    <li class="notification">
+                                        <div class="media">
+                                            <img class="img-radius" src="assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <p><strong>John Doe</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>5 min</span></p>
+                                                <p>New ticket Added</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="n-title">
+                                        <p class="m-b-0">EARLIER</p>
+                                    </li>
+                                    <li class="notification">
+                                        <div class="media">
+                                            <img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>10 min</span></p>
+                                                <p>Prchace New Theme and make payment</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="notification">
+                                        <div class="media">
+                                            <img class="img-radius" src="assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <p><strong>Sara Soudein</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>12 min</span></p>
+                                                <p>currently login</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="notification">
+                                        <div class="media">
+                                            <img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
+                                                <p>Prchace New Theme and make payment</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="noti-footer">
+                                    <a href="#!">show all</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown drp-user">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="feather icon-user"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right profile-notification">
+                                <div class="pro-head">
+                                    <img src="assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
+                                    <span>John Doe</span>
+                                    <a href="auth-signin.html" class="dud-logout" title="Logout">
+                                        <i class="feather icon-log-out"></i>
+                                    </a>
+                                </div>
+                                <ul class="pro-body">
+                                    <li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
+                                    <li><a href="email_inbox.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
+                                    <li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                     <%= button_to t("devise.logout"), destroy_user_session_path, class: "btn btn-light ", method: :delete %>
+                </ul>
+            </div>
+            
+        
+</header>
+<!-- [ Header ] end -->
 	
+
+
+<style>
+    .logo{
+        width:30px;
+    }
+        /* header css start */
+    .search-bar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 2px 10px -1px rgba(69, 90, 100, 0.3);
+        z-index: 1030;
+        background: #fff;
+        padding: 12px;
+    }
+
+    .search-bar .close {
+        position: absolute;
+        top: 9px;
+        right: 9px;
+        padding: 8px 16px;
+    }
+
+    .pcoded-header {
+        z-index: 1029;
+        position: relative;
+        display: flex;
+        min-height: 50px;
+        padding: 0;
+        top: 0;
+        background: #fff;
+        color: rgba(16, 27, 51, 0.8);
+        width: 100%;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .pcoded-header .m-header {
+        width: 230px;
+        position: relative;
+        height: 50px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 25px;
+    }
+
+    .pcoded-header .m-header .logo-dark,
+    .pcoded-header .m-header .logo-thumb {
+        display: none;
+    }
+
+    .pcoded-header .input-group {
+        background: transparent;
+    }
+
+    .pcoded-header .input-group .input-group-text {
+        margin-right: 0;
+    }
+
+    .pcoded-header .input-group .input-group-text,
+    .pcoded-header a,
+    .pcoded-header dropdown-toggle {
+        color: rgba(16, 27, 51, 0.8);
+    }
+
+    .pcoded-header .input-group .input-group-text:hover,
+    .pcoded-header a:hover,
+    .pcoded-header dropdown-toggle:hover {
+        color: #101b33;
+    }
+
+    .pcoded-header #mobile-header {
+        display: none;
+    }
+
+    .pcoded-header .navbar-nav {
+        padding-left: 0;
+        list-style: none;
+        margin-bottom: 0;
+        display: inline-flex;
+        flex-direction: row;
+    }
+
+    .pcoded-header .navbar-nav>li {
+        line-height: 50px;
+        display: inline-block;
+    }
+
+    .pcoded-header .navbar-nav>li .nav-link {
+        padding: 0;
+    }
+
+    .pcoded-header .navbar-nav>li:first-child {
+        padding-left: 25px;
+    }
+
+    .pcoded-header .navbar-nav>li:last-child {
+        padding-right: 25px;
+    }
+
+    .pcoded-header .navbar-nav .dropdown {
+        height: 50px;
+    }
+
+    .pcoded-header .mr-auto .dropdown-menu {
+        margin-left: -20px;
+    }
+
+    .pcoded-header .ml-auto {
+        float: right;
+        height: 50px;
+    }
+
+    .pcoded-header .ml-auto .dropdown-menu {
+        margin-right: -20px;
+    }
+
+    .pcoded-header .main-search .input-group {
+        border-radius: 3px;
+        padding: 0;
+    }
+
+    .pcoded-header .main-search .input-group .form-control,
+    .pcoded-header .main-search .input-group .input-group-text {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        height: auto;
+    }
+
+    .pcoded-header .main-search .input-group .search-close {
+        display: none;
+    }
+
+    .pcoded-header .main-search .input-group .search-btn {
+        padding: 0;
+        background: transparent;
+        border-color: transparent;
+        box-shadow: none;
+        margin-bottom: 0;
+        margin-right: 0;
+    }
+
+    .pcoded-header .main-search .input-group .form-control {
+        transition: all 0.3s ease-in-out;
+        font-size: 14px;
+    }
+
+    .pcoded-header .main-search .input-group .form-control:active,
+    .pcoded-header .main-search .input-group .form-control:focus,
+    .pcoded-header .main-search .input-group .form-control:hover,
+    .pcoded-header .main-search .input-group .search-btn:active,
+    .pcoded-header .main-search .input-group .search-btn:focus,
+    .pcoded-header .main-search .input-group .search-btn:hover {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .pcoded-header .main-search.open .input-group {
+        background: #ecf0f5;
+        border: 0 solid #ecf0f5;
+        padding: 0 0 0 20px;
+    }
+
+    .pcoded-header .main-search.open .input-group .search-close {
+        display: flex;
+    }
+
+    .pcoded-header .main-search.open .input-group .search-btn {
+        padding: 6px 9px;
+        margin-left: 5px;
+        color: #fff;
+        background: #4680ff;
+        border-color: #4680ff;
+    }
+
+    .pcoded-header .main-search.open .input-group .search-btn .input-group-text {
+        color: #fff;
+    }
+
+    .pcoded-header .main-search.open .input-group .form-control {
+        transition: all 0.3s ease-in-out;
+    }
+
+    .pcoded-header .main-search.open .input-group .form-control:active,
+    .pcoded-header .main-search.open .input-group .form-control:focus,
+    .pcoded-header .main-search.open .input-group .form-control:hover,
+    .pcoded-header .main-search.open .input-group .search-btn:active,
+    .pcoded-header .main-search.open .input-group .search-btn:focus,
+    .pcoded-header .main-search.open .input-group .search-btn:hover {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .pcoded-header .dropdown .dropdown-toggle {
+        line-height: 50px;
+        display: inline-block;
+        text-align: center;
+        width: 40px;
+    }
+
+    .pcoded-header .dropdown .dropdown-toggle:after {
+        display: none;
+    }
+
+    .pcoded-header .dropdown .dropdown-menu {
+        position: absolute;
+        min-width: 250px;
+    }
+
+    .pcoded-header .dropdown .dropdown-menu li {
+        line-height: 1.2;
+    }
+
+    .pcoded-header .dropdown .dropdown-menu li a {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .pcoded-header .dropdown .dropdown-menu li.active a,
+    .pcoded-header .dropdown .dropdown-menu li:active a,
+    .pcoded-header .dropdown .dropdown-menu li:focus a,
+    .pcoded-header .dropdown .dropdown-menu li:hover a {
+        color: #373a3c;
+    }
+
+    .pcoded-header .dropdown .notification {
+        width: 350px;
+        padding: 0;
+        line-height: 1.4;
+        overflow: hidden;
+    }
+
+    .pcoded-header .dropdown .notification a {
+        color: #373a3c;
+    }
+
+    .pcoded-header .dropdown .notification a:hover {
+        color: #37474f;
+    }
+
+    .pcoded-header .dropdown .notification .noti-head {
+        background: #101b33;
+        padding: 15px 20px;
+    }
+
+    .pcoded-header .dropdown .notification .noti-head h6 {
+        color: #fff;
+    }
+
+    .pcoded-header .dropdown .notification .noti-head a {
+        color: #fff;
+        text-decoration: underline;
+        font-size: 13px;
+    }
+
+    .pcoded-header .dropdown .notification .noti-body {
+        padding: 0;
+        position: relative;
+        height: 300px;
+    }
+
+    .pcoded-header .dropdown .notification .noti-body img {
+        width: 40px;
+        margin-right: 20px;
+    }
+
+    .pcoded-header .dropdown .notification .noti-body li {
+        padding: 15px 20px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .pcoded-header .dropdown .notification .noti-body li.n-title {
+        padding-bottom: 0;
+    }
+
+    .pcoded-header .dropdown .notification .noti-body li.n-title p {
+        margin-bottom: 5px;
+    }
+
+    .pcoded-header .dropdown .notification .noti-body li.notification:hover {
+        background: rgba(70, 128, 255, 0.1);
+    }
+
+    .pcoded-header .dropdown .notification .noti-body li p {
+        margin-bottom: 5px;
+        font-size: 13px;
+    }
+
+    .pcoded-header .dropdown .notification .noti-body li p strong {
+        color: #222;
+    }
+
+    .pcoded-header .dropdown .notification .noti-body li .n-time {
+        font-size: 80%;
+        float: right;
+    }
+
+    .pcoded-header .dropdown .notification .noti-footer {
+        border-top: 1px solid #f1f1f1;
+        padding: 15px 20px;
+        text-align: center;
+        background: #ecf0f5;
+    }
+
+    .pcoded-header .dropdown .notification .noti-footer a {
+        text-decoration: underline;
+        font-size: 13px;
+    }
+
+    .pcoded-header .dropdown .notification ul {
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .pcoded-header .dropdown .notification ul li {
+        padding: 20px 15px;
+    }
+
+    .pcoded-header .dropdown .profile-notification {
+        padding: 0;
+        line-height: 1.4;
+        overflow: hidden;
+    }
+
+    .pcoded-header .dropdown .profile-notification .pro-head {
+        color: #fff;
+        padding: 15px;
+        position: relative;
+        background: #101b33;
+    }
+
+    .pcoded-header .dropdown .profile-notification .pro-head img {
+        width: 40px;
+        margin-right: 10px;
+    }
+
+    .pcoded-header .dropdown .profile-notification .pro-head .dud-logout {
+        color: #fff;
+        padding-right: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pcoded-header .dropdown .profile-notification .pro-body {
+        padding: 20px 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .pcoded-header .dropdown .profile-notification .pro-body li {
+        margin: 0 10px;
+        border-radius: 2px;
+    }
+
+    .pcoded-header .dropdown .profile-notification .pro-body li a {
+        color: #373a3c;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .pcoded-header .dropdown .profile-notification .pro-body li a i {
+        margin-right: 10px;
+    }
+
+    .pcoded-header .dropdown .profile-notification .pro-body li.active,
+    .pcoded-header .dropdown .profile-notification .pro-body li:active,
+    .pcoded-header .dropdown .profile-notification .pro-body li:focus,
+    .pcoded-header .dropdown .profile-notification .pro-body li:hover {
+        background: #4680ff;
+        box-shadow: 0 15px 8px -9px rgba(0, 0, 0, 0.25);
+    }
+
+    .pcoded-header .dropdown .profile-notification .pro-body li.active>a,
+    .pcoded-header .dropdown .profile-notification .pro-body li:active>a,
+    .pcoded-header .dropdown .profile-notification .pro-body li:focus>a,
+    .pcoded-header .dropdown .profile-notification .pro-body li:hover>a {
+        color: #fff;
+        background: transparent;
+    }
+
+    /* header css end */
+</style>

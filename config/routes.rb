@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "errors/not_found"
   get "dashboard/index"
   get "home/index"
   resources :user_profiles
@@ -24,6 +25,10 @@ Rails.application.routes.draw do
   unauthenticated do
     root to: "devise/sessions#new", as: :unauthenticated_root
   end
+  # config/routes.rb
+  match "/404", to: "errors#not_found", via: :all
+  # config/routes.rb (al final del archivo)
+  match "*unmatched", to: "errors#not_found", via: :all
 
   # Defines the root path route ("/")
   # root "posts#index"
