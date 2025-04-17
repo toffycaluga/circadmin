@@ -6,9 +6,11 @@ class User < ApplicationRecord
 
 
   has_one :user_profile, dependent: :destroy
-  after_create :build_user_profile
+  after_create :create_blank_profile
 
-  def build_user_profile
-    self.create_user_profile!
+  private
+
+  def create_blank_profile
+    create_user_profile!
   end
 end
