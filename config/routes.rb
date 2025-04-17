@@ -38,6 +38,6 @@ Rails.application.routes.draw do
   # config/routes.rb (al final del archivo)
   match "*unmatched", to: "errors#not_found", via: :all
 
-  # Defines the root path route ("/")
+  # Defines th00.e root path route ("/")
   # root "posts#index"
 end
