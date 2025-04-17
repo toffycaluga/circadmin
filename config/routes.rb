@@ -3,7 +3,14 @@ Rails.application.routes.draw do
   get "dashboard/index"
   get "home/index"
   resources :user_profiles, only: [:new, :create, :edit, :update]
+  patch "/user_profiles/:id/profile_picture", to: "user_profiles#update_picture", as: :profile_picture_user_profile
 
+  resources :user_profiles do
+    member do
+      patch :profile_picture, to: "user_profiles#update_picture"
+    end
+  end
+  
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

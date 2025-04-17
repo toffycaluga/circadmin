@@ -1,12 +1,56 @@
-<% content_for :title, "Editing user profile" %>
+<% content_for :title, t("user_profiles.edit.title") %>
+<div class="col-xl-6 col-md-12">
+    <div class="card table-card">
+        <div class="card-header">
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
 
-<h1>Editing user profile</h1>
+      <!-- 🟦 Formulario: Datos personales -->
+      <div class="card mb-4 shadow">
+        <div class="card-header bg-warning text-dark">
+          <h5 class="mb-0"><%= t("user_profiles.edit.heading") %></h5>
+        </div>
+        <div class="card-body">
+          <%= form_with(model: @user_profile, local: true) do |form| %>
+            <% if @user_profile.errors.any? %>
+              <div class="alert alert-danger">
+                <ul class="mb-0">
+                  <% @user_profile.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
 
-<%= render "form", user_profile: @user_profile %>
+            <div class="mb-3">
+              <%= form.label :full_name, class: "form-label" %>
+              <%= form.text_field :full_name, class: "form-control" %>
+            </div>
 
-<br>
+            <div class="mb-3">
+              <%= form.label :address, class: "form-label" %>
+              <%= form.text_field :address, class: "form-control" %>
+            </div>
 
-<div>
-  <%= link_to "Show this user profile", @user_profile %> |
-  <%= link_to "Back to user profiles", user_profiles_path %>
+            <div class="mb-3">
+              <%= form.label :country, class: "form-label" %>
+              <%= form.text_field :country, class: "form-control" %>
+            </div>
+
+            <div class="d-grid gap-2">
+              <%= form.submit t("user_profiles.actions.save"), class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- 🟩 Partial: Formulario de imagen de perfil -->
+      <%= render "profile_picture_form", user_profile: @user_profile %>
+
+    </div>
+  </div>
+</div>
+</div>
+</div>
 </div>

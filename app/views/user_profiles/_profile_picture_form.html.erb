@@ -1,0 +1,20 @@
+<div class="card shadow">
+  <div class="card-header bg-light">
+    <h5 class="mb-0"><%= t("user_profiles.edit.profile_picture_section") %></h5>
+  </div>
+
+  <div class="card-body text-center">
+    <% if user_profile.profile_picture.attached? %>
+      <%= image_tag user_profile.profile_picture.variant(resize_to_limit: [200, 200]), class: "rounded-circle mb-3" %>
+    <% else %>
+      <p class="text-muted"><%= t("user_profiles.edit.no_picture") %></p>
+    <% end %>
+
+    <%= form_with model: user_profile, url: profile_picture_user_profile_path(user_profile), method: :patch, local: true, html: { multipart: true } do |form| %>
+      <div class="mb-3">
+        <%= form.file_field :profile_picture, class: "form-control" %>
+      </div>
+      <%= form.submit t("user_profiles.edit.upload_picture"), class: "btn btn-outline-primary" %>
+    <% end %>
+  </div>
+</div>
