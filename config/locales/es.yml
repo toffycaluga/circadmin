@@ -12,6 +12,8 @@ es:
     forgot: "¿Olvidaste tu contraseña?"
     confirmation: "¿No recibí las instrucciones de confirmación"
     unlock: "¿No recibí las instrucciones de desbloqueo?" 
+  alerts:
+    complete_profile: "Por favor completa tu perfil antes de continuar."
   footer:
     copyright: "Todos los derechos reservados"
     dev: "Desarrollado por"

@@ -39,5 +39,6 @@ en:
     forgot: "Forgot your password?"
     confirmation: "Didn't receive confirmation instructions"
     unlock: "Didn't receive unlock instructions?"
-
+  alerts:
+    complete_profile: "Please complete your profile before continuing."
 

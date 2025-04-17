@@ -1,4 +1,5 @@
 class UserProfilesController < ApplicationController
+  layout "dashboard"
   before_action :set_user_profile, only: %i[ show edit update destroy ]
 
   # GET /user_profiles or /user_profiles.json
@@ -21,11 +22,11 @@ class UserProfilesController < ApplicationController
 
   # POST /user_profiles or /user_profiles.json
   def create
-    @user_profile = UserProfile.new(user_profile_params)
+    @user_profile = current_user.build_user_profile(user_profile_params)
 
     respond_to do |format|
       if @user_profile.save
-        format.html { redirect_to @user_profile, notice: "User profile was successfully created." }
+        format.html { redirect_to dashboard_index_path, notice: "User profile was successfully created." }
         format.json { render :show, status: :created, location: @user_profile }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,7 @@ class UserProfilesController < ApplicationController
   def update
     respond_to do |format|
       if @user_profile.update(user_profile_params)
-        format.html { redirect_to @user_profile, notice: "User profile was successfully updated." }
+        format.html { redirect_to dashboard_index_path, notice: "User profile was successfully updated." }
         format.json { render :show, status: :ok, location: @user_profile }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -60,11 +61,12 @@ class UserProfilesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user_profile
-      @user_profile = UserProfile.find(params.expect(:id))
+      @user_profile = UserProfile.find(params.require(:id))
     end
 
     # Only allow a list of trusted parameters through.
     def user_profile_params
-      params.expect(user_profile: [ :user_id, :nombre_completo, :direccion, :pais, :tipo_moneda ])
+      params.require(:user_profile).permit(:full_name, :address, :country, :profile_picture)
     end
+    
 end
