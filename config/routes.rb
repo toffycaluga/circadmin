@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   get "errors/not_found"
   get "dashboard/index"
   get "home/index"
-  resources :user_profiles
+  resources :user_profiles, only: [:new, :create, :edit, :update]
+
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
