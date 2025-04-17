@@ -2,13 +2,13 @@
 #
 # Table name: user_profiles
 #
-#  id              :integer          not null, primary key
-#  user_id         :integer          not null
-#  nombre_completo :string
-#  direccion       :string
-#  pais            :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id         :integer          not null, primary key
+#  user_id    :integer          not null
+#  full_name  :string
+#  address    :string
+#  country    :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 # Indexes
 #
