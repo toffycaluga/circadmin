@@ -1,13 +1,13 @@
 class UserProfilesController < ApplicationController
   layout "dashboard"
-  before_action :set_user_profile, only: %i[ show edit update destroy ]
+  before_action :set_user_profile, only: %i[show edit update destroy update_picture]
 
-  # GET /user_profiles or /user_profiles.json
+  # GET /user_profiles
   def index
     @user_profiles = UserProfile.all
   end
 
-  # GET /user_profiles/1 or /user_profiles/1.json
+  # GET /user_profiles/1
   def show
   end
 
@@ -20,53 +20,52 @@ class UserProfilesController < ApplicationController
   def edit
   end
 
-  # POST /user_profiles or /user_profiles.json
+  # POST /user_profiles
   def create
     @user_profile = current_user.build_user_profile(user_profile_params)
 
-    respond_to do |format|
-      if @user_profile.save
-        format.html { redirect_to dashboard_index_path, notice: "User profile was successfully created." }
-        format.json { render :show, status: :created, location: @user_profile }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user_profile.errors, status: :unprocessable_entity }
-      end
+    if @user_profile.save
+      redirect_to dashboard_index_path, notice: t("user_profiles.notices.created")
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /user_profiles/1 or /user_profiles/1.json
+  # PATCH/PUT /user_profiles/1
   def update
-    respond_to do |format|
-      if @user_profile.update(user_profile_params)
-        format.html { redirect_to dashboard_index_path, notice: "User profile was successfully updated." }
-        format.json { render :show, status: :ok, location: @user_profile }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user_profile.errors, status: :unprocessable_entity }
-      end
+    if @user_profile.update(user_profile_params)
+      redirect_to dashboard_index_path, notice: t("user_profiles.notices.updated")
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /user_profiles/1 or /user_profiles/1.json
+  # PATCH /user_profiles/1/profile_picture
+  def update_picture
+    if @user_profile.update(profile_picture_params)
+      redirect_to edit_user_profile_path(@user_profile), notice: t("user_profiles.edit.picture_updated")
+    else
+      redirect_to edit_user_profile_path(@user_profile), alert: t("user_profiles.edit.picture_failed")
+    end
+  end
+
+  # DELETE /user_profiles/1
   def destroy
     @user_profile.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to user_profiles_path, status: :see_other, notice: "User profile was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to user_profiles_path, status: :see_other, notice: t("user_profiles.notices.destroyed")
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user_profile
-      @user_profile = UserProfile.find(params.require(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_profile_params
-      params.require(:user_profile).permit(:full_name, :address, :country, :profile_picture)
-    end
-    
+  def set_user_profile
+    @user_profile = UserProfile.find(params.require(:id))
+  end
+
+  def user_profile_params
+    params.require(:user_profile).permit(:full_name, :address, :country)
+  end
+
+  def profile_picture_params
+    params.require(:user_profile).permit(:profile_picture)
+  end
 end
