@@ -19,8 +19,8 @@ es:
       title: "Nuevo perfil de usuario"
       heading: "Crear tu perfil"
     show:
-      title: "User profile"
-      header: "User profile: %{name}"
+      title: "Perfil"
+      header: "Perfil: %{name}"
     edit:
       title: "Editar perfil de usuario"
       heading: "Editar tu perfil"
