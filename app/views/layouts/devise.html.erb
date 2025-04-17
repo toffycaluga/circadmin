@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
   <head>
     <title>CircAdmin</title>
     <%= csrf_meta_tags %>
@@ -9,21 +9,10 @@
     <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
 
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-      }
+      
 
-      html, body {
-        height: 100%;
-      }
-
-      body {
-        display: flex;
-        flex-direction: column;
-      }
-
-      main {
+    
+      .main-devise {
         flex-grow: 1;
         background-image: url('<%= asset_path("patron.png") %>');
         background-size: 150px;
@@ -41,8 +30,8 @@
     </style>
   </head>
 
-  <body class="bg-light">
-    <main>
+  <body class="bg-light h-100 d-fex">
+    <main class="main-devise">
       <div class="overlay"></div>
       <div class="position-relative z-1 w-100">
 

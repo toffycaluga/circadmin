@@ -31,6 +31,16 @@ class ApplicationController < ActionController::Base
   def render_not_found
     redirect_to "/404"
   end
+  def after_sign_in_path_for(resource)
+    dashboard_index_path # o la ruta que tengas para el dashboard
+  end
+  def after_sign_up_path_for(resource)
+    dashboard_index_path
+  end
+  
+  def after_resetting_password_path_for(resource)
+    dashboard_index_path
+  end
   
   private
   # middleware para asegurar que completen todos los datos 
