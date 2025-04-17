@@ -41,8 +41,13 @@
 
         
     <main class="pcoded-main-container">
-        <%=render 'shared/alert'%>
-        <%= yield %>
+        <div class="pcoded-content">
+          <%= render "shared/dashboard/main/page_header"%>
+          <div class="row">
+            <%=render 'shared/alert'%>
+            <%= yield %>
+          </div>
+        </div>
     </main>
 
     <%= render 'shared/footer'%>
