@@ -10,3 +10,6 @@
 #   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
 DEVISE_MAILER_SENDER: 'no-reply@circadmin.com'
+
+MAILTRAP_USERNAME: 'dacc3a76e73573'
+MAILTRAP_PASSWORD: 'ede0dd071e4825'

@@ -1,43 +1,53 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
+  hello: "Hello world"
   home:
     welcome: "Welcome to CircAdmin 🎪"
-    greeting: "Hi, %{email} 👋"
+    greeting: "Hello, %{email} 👋"
+    subtitle: "Manage your circus smartly and simply"
   devise:
     login: "Log in"
     logout: "Log out"
     register: "Sign up"
-    edit: "Editar"
+    edit: "Edit"
     forgot: "Forgot your password?"
-    confirmation: "Didn't receive confirmation instructions"
+    confirmation: "Didn't receive confirmation instructions?"
     unlock: "Didn't receive unlock instructions?"
-
-
+  alerts:
+    complete_profile: "Please complete your profile before continuing."
+  user_profiles:
+    new:
+      title: "New user profile"
+      heading: "Create your profile"
+    show:
+      title: "User profile"
+      header: "User profile: %{name}"
+    edit:
+      title: "Edit user profile"
+      heading: "Edit your profile"
+      show: "View this user profile"
+      profile_picture_section: "Profile picture"
+      upload_picture: "Upload new picture"
+      picture_updated: "Profile picture was successfully updated."
+      picture_failed: "Failed to update the profile picture."
+      no_picture: "You don't have a profile picture yet"
+    actions:
+      save: "Save profile"
+      back: "← Back"
+      back_to_list: "← Back to profiles"
+      edit: "Edit"
+      destroy: "Delete"
+      confirm_destroy: "Are you sure you want to delete this profile?"
+    notices:
+      created: "The profile was successfully created."
+      updated: "The profile was successfully updated."
+      destroyed: "The profile was deleted."
+  activerecord:
+    attributes:
+      user_profile:
+        full_name: "Full name"
+        address: "Address"
+        country: "Country"
+        profile_picture: "Profile picture"
+  footer:
+    copyright: "All rights reserved"
+    dev: "Developed by"

@@ -3,12 +3,51 @@ es:
   home:
     welcome: "Bienvenido a CircAdmin 🎪"
     greeting: "Hola, %{email} 👋"
+    subtitle: "Administra tu circo de forma inteligente y simple"
   devise:
     login: "Iniciar sesión"
     logout: "Cerrar sesión"
     register: "Registrarse"
     edit: "Editar"
     forgot: "¿Olvidaste tu contraseña?"
-    confirmation: "¿No recibí las instrucciones de confirmación"
+    confirmation: "¿No recibí las instrucciones de confirmación?"
     unlock: "¿No recibí las instrucciones de desbloqueo?" 
-
+  alerts:
+    complete_profile: "Por favor completa tu perfil antes de continuar."
+  user_profiles:
+    new:
+      title: "Nuevo perfil de usuario"
+      heading: "Crear tu perfil"
+    show:
+      title: "Perfil"
+      header: "Perfil: %{name}"
+    edit:
+      title: "Editar perfil de usuario"
+      heading: "Editar tu perfil"
+      show: "Ver este perfil de usuario"
+      profile_picture_section: "Foto de perfil"
+      upload_picture: "Subir nueva foto"
+      picture_updated: "La foto de perfil fue actualizada con éxito."
+      picture_failed: "No se pudo actualizar la foto de perfil."
+      no_picture: "Aún no tienes una foto de perfil"
+    actions:
+      save: "Guardar perfil"
+      back: "← Volver "
+      back_to_list: "← Volver a los perfiles"
+      edit: "Editar"
+      destroy: "Eliminar"
+      confirm_destroy: "¿Estás seguro de que deseas eliminar este perfil?"
+    notices:
+      created: "El perfil fue creado exitosamente."
+      updated: "El perfil fue actualizado exitosamente."
+      destroyed: "El perfil fue eliminado."
+  activerecord:
+    attributes:
+      user_profile:
+        full_name: "Nombre completo"
+        address: "Dirección"
+        country: "País"
+        profile_picture: "Foto de perfil"
+  footer:
+    copyright: "Todos los derechos reservados"
+    dev: "Desarrollado por"

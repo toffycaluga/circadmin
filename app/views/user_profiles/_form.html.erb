@@ -1,42 +1,31 @@
-<%= form_with(model: user_profile) do |form| %>
+<%= form_with(model: user_profile, local: true, html: { class: "needs-validation" }) do |form| %>
   <% if user_profile.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(user_profile.errors.count, "error") %> prohibited this user_profile from being saved:</h2>
-
+    <div class="alert alert-danger">
+      <h4 class="alert-heading"><%= pluralize(user_profile.errors.count, "error") %> prohibited this profile from being saved:</h4>
       <ul>
-        <% user_profile.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% user_profile.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
+  <div class="mb-3">
+    <%= form.label :full_name, class: "form-label" %>
+    <%= form.text_field :full_name, class: "form-control", required: true %>
   </div>
 
-  <div>
-    <%= form.label :nombre_completo, style: "display: block" %>
-    <%= form.text_field :nombre_completo %>
+  <div class="mb-3">
+    <%= form.label :address, class: "form-label" %>
+    <%= form.text_field :address, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :direccion, style: "display: block" %>
-    <%= form.text_field :direccion %>
+  <div class="mb-3">
+    <%= form.label :country, class: "form-label" %>
+    <%= form.text_field :country, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :pais, style: "display: block" %>
-    <%= form.text_field :pais %>
-  </div>
-
-  <div>
-    <%= form.label :tipo_moneda, style: "display: block" %>
-    <%= form.text_field :tipo_moneda %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="d-grid gap-2">
+    <%= form.submit t("user_profiles.actions.save"), class: "btn btn-primary" %>
   </div>
 <% end %>
