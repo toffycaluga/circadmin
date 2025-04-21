@@ -1,0 +1,37 @@
+<div class="">
+    <div class="main-menu-header">
+            <img 
+                class="img-radius" 
+                src="<%= current_user.user_profile&.profile_picture&.attached? ? url_for(current_user.user_profile.profile_picture) : asset_path('avatar.jpg') %>" 
+                alt="User-Profile-Image"
+                />
+
+         <div class="user-details">
+            <div id="more-details"><%= t("home.greeting", email: current_user.email) %><i class="fa fa-caret-down"></i></div>
+        </div>
+    </div>
+    <div class="collapse" id="nav-user-link">
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="user-profile.html" data-toggle="tooltip" title="View Profile">
+             <% if current_user.user_profile.present? %>
+                <%= link_to user_profile_path(current_user.user_profile), title: t("user_profiles.show.title") do %>
+                    <i class="feather icon-user"></i>
+                <% end %>
+
+            <% else %>
+                <%= link_to new_user_profile_path, title: t("user_profiles.show.title") do %>
+                    <i class="feather icon-user"></i>
+                <% end %>
+            <% end %>
+
+            
+            </li>
+            <li class="list-inline-item"><a href="email_inbox.html"><i class="feather icon-mail" data-toggle="tooltip" title="Messages"></i><small class="badge badge-pill badge-primary">5</small></a></li>
+            <li class="list-inline-item">
+                <%= button_to destroy_user_session_path, method: :delete, class: "btn text-danger", title: t("devise.logout"), form: { data: { turbo: false }, class: "d-inline" } do %>
+                    <i class="feather icon-power"></i>
+                <% end %>
+            </li>
+        </ul>
+    </div>
+</div>

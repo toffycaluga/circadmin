@@ -18,29 +18,51 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
+    <!-- Al final del <body> o justo antes de los scripts -->
+    <% unless content_for?(:importmap_loaded) %>
+      <% content_for :importmap_loaded do %>
+        <%= javascript_importmap_tags %>
+      <% end %>
+    <% end %>
+
+    <%= yield :importmap_loaded %>
+
     <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css", rel: "stylesheet", crossorigin: "anonymous" %>
+
+    <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
+
+    <%#= javascript_importmap_tags %>
+    <style>
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  main {
+    flex: 1; /* ocupa todo el espacio disponible */
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
-       <p style="color: gray;">Locale actual: <%= I18n.locale %></p>
+       <%# < style="color: gray;">Locale actual: <%= I18n.locale % %>
+      
+      
+    <main class="bg-light ">
+      <%= render 'shared/language_selector' %>
+      <%=render 'shared/alert'%>
+      <%= yield %>
+    </main>
 
-       <div style="float: right;">
-  <%= form_with url: set_language_path, method: :post, local: true do %>
-    <%= select_tag :locale,
-      options_for_select(
-        [
-          ['Español', :es],
-          ['English', :en]
-        ],
-          I18n.locale),
-      onchange: 'this.form.submit();' %>
-  <% end %>
-</div>
-  
-    <%= yield %>
+    <%= render 'shared/footer'%>
+    <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js", crossorigin: "anonymous" %>
+
   </body>
 </html>

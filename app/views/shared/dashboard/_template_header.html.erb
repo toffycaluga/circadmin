@@ -1,0 +1,42 @@
+<header class="navbar pcoded-header navbar-expand-lg navbar-light header-blue">
+  <div class="m-header">
+    <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
+    <a href="/" class="b-brand">
+        <%= image_tag 'icono_w.png', class: "logo" %><h3>CircAdmin</h3>
+      <%# <%= image_tag "logo-icon.png", class: "logo-thumb" %> 
+    </a>
+    <a href="#!" class="mob-toggler"><i class="feather icon-more-vertical"></i></a>
+  </div>
+
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <!-- Aquí puedes copiar todo lo del buscador -->
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <!-- Aquí copias todo lo de notificaciones y usuario -->
+    </ul>
+    <div class="d-flex">
+    <%= render 'shared/language_selector' %>
+  </div>
+  </div>
+</header>
+
+
+<style>
+    .logo{
+        width:30px;
+    }
+        /* header css start */
+    /* .search-bar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 2px 10px -1px rgba(69, 90, 100, 0.3);
+        z-index: 1030;
+        background: #fff;
+        padding: 12px;
+    } */
+
+</style>

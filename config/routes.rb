@@ -1,6 +1,16 @@
 Rails.application.routes.draw do
+  get "errors/not_found"
+  get "dashboard/index"
   get "home/index"
-  resources :user_profiles
+  resources :user_profiles, only: [:new, :create, :edit, :update]
+  patch "/user_profiles/:id/profile_picture", to: "user_profiles#update_picture", as: :profile_picture_user_profile
+
+  resources :user_profiles do
+    member do
+      patch :profile_picture, to: "user_profiles#update_picture"
+    end
+  end
+  
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -16,6 +26,18 @@ Rails.application.routes.draw do
   # ruta para cambiar idioma
   post "set_language", to: "application#set_language"
 
-  # Defines the root path route ("/")
+  authenticated :user do
+    root to: "dashboard#index", as: :authenticated_root
+  end
+
+  unauthenticated do
+    root to: "devise/sessions#new", as: :unauthenticated_root
+  end
+  # config/routes.rb
+  match "/404", to: "errors#not_found", via: :all
+  # config/routes.rb (al final del archivo)
+  match "*unmatched", to: "errors#not_found", via: :all
+
+  # Defines th00.e root path route ("/")
   # root "posts#index"
 end

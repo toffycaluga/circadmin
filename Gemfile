@@ -84,7 +84,9 @@ group :development, :test do
   gem "selenium-webdriver"
   gem "webdrivers"
   gem "factory_bot_rails"
+  gem 'annotate'
 end
 
 gem "pagy"
 gem "devise-i18n-views", "~> 0.3.7"
+gem "sassc-rails"

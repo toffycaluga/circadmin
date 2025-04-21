@@ -59,3 +59,10 @@ es:
       not_saved:
         one: "1 error impidió que este %{resource} fuese guardado:"
         other: "%{count} errores impidieron que este %{resource} fuese guardado:"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            reset_password_token:
+              invalid: "El enlace para restablecer la contraseña no es válido o ha expirado."
