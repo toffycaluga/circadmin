@@ -26,9 +26,9 @@
     <div class="card-footer d-flex justify-content-between">
       <div>
         <%= link_to t("user_profiles.actions.edit"), edit_user_profile_path(@user_profile), class: "btn btn-outline-primary me-2" %>
-        <%= link_to t("user_profiles.actions.back"), user_profiles_path, class: "btn btn-outline-secondary" %>
+        <%= link_to t("user_profiles.actions.back"), root_path, class: "btn btn-outline-secondary" %>
       </div>
-      <%= button_to t("user_profiles.actions.destroy"), @user_profile, method: :delete, data: { confirm: t("user_profiles.actions.confirm_destroy") }, class: "btn btn-outline-danger" %>
+      <%# button_to t("user_profiles.actions.destroy"), @user_profile, method: :delete, data: { confirm: t("user_profiles.actions.confirm_destroy") }, class: "btn btn-outline-danger" %>
     </div>
   </div>
 </div>
