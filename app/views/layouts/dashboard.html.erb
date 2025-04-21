@@ -37,7 +37,7 @@
       
         <%# render 'shared/dashboard/pre_loader'%>
         <%= render 'shared/dashboard/navigation_menu'%>
-        <%= render 'shared/dashboard/header'%>
+        <%= render 'shared/dashboard/template_header'%>
 
         
     <main class="pcoded-main-container">
@@ -51,9 +51,25 @@
     </main>
 
     <%= render 'shared/footer'%>
-    
+
+
+      
+      <!-- Scripts generales -->
+    <%= load_template_scripts(:base) %>
+    <%= load_template_scripts(:plugins) %>
+    <%= load_template_scripts(:pages) %>
+        
+        <!-- Al final del <body> o justo antes de los scripts -->
+    <% unless content_for?(:importmap_loaded) %>
+      <% content_for :importmap_loaded do %>
+        <%= javascript_importmap_tags %>
+      <% end %>
+    <% end %>
+
+    <%= yield :importmap_loaded %>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <%= javascript_importmap_tags %>
+    <%# <%= javascript_importmap_tags  %> 
     <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js", crossorigin: "anonymous" %>
     <%# = javascript_include_tag "https://cdn.jsdelivr.net/npm/@popperjs/core@2", crossorigin: "anonymous" %>
 
