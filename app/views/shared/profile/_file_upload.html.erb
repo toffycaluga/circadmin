@@ -1,0 +1,39 @@
+<div class="col-sm-12">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="mb-0"><%= t("user_profiles.edit.profile_picture_section") %></h5>
+    </div>
+
+    <div class="card-body text-center">
+      <%= image_tag(
+        current_user.user_profile&.profile_picture&.attached? ?
+          url_for(current_user.user_profile.profile_picture.variant(resize_to_limit: [200, 200])) :
+          asset_path("avatar.jpg"),
+        class: "rounded-circle mb-3 img-fluid",
+        alt: "Imagen de perfil"
+      ) %>
+
+      <%= form_with model: @user_profile,
+                    url: update_picture_user_profile_path(@user_profile),
+                    method: :patch,
+                    local: true,
+                    html: { multipart: true } do |form| %>
+
+        <div class="mb-3">
+          <%= form.file_field :profile_picture, class: "form-control" %>
+        </div>
+
+        <div class="text-center">
+          <%= form.submit t("user_profiles.edit.upload_picture"), class: "btn btn-primary" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% if current_user.user_profile.profile_picture.attached? %>
+  <%= image_tag url_for(current_user.user_profile.profile_picture.variant(resize_to_limit: [200, 200])), class: "rounded-circle mb-3" %>
+<% else %>
+  <%= image_tag "avatar.jpg", class: "rounded-circle mb-3", width: 200 %>
+<% end %>
