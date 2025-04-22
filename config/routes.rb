@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :circus
+  resources :circuses
   # Rutas básicas
   get "errors/not_found"
   get "dashboard/index"

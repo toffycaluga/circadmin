@@ -1,6 +1,6 @@
-class CreateCircus < ActiveRecord::Migration[8.0]
+class CreateCircuses < ActiveRecord::Migration[8.0]
   def change
-    create_table :circus do |t|
+    create_table :circuses do |t|
       t.string :name
       t.text :description
       t.string :country

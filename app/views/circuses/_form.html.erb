@@ -1,0 +1,84 @@
+<%= form_with(model: circus, local: true, class: "needs-validation") do |form| %>
+  <% if circus.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(circus.errors.count, "error") %> impidieron guardar el circo:</h4>
+      <ul>
+        <% circus.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label :country, class: "form-label" %>
+    <%= select_tag "circus[country]",
+          options_for_select(country_options_with_flags, selected: @circus.country),
+          class: "form-control", id: "country-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :currency, class: "form-label" %>
+    <%= select_tag "circus[currency]",
+          options_for_select(currency_options_data, selected: @circus.currency),
+          id: "currency-select", class: "form-control" %>
+  </div>
+
+  <div class="form-check mb-3">
+    <%#= form.check_box :active, class: "form-check-input" %>
+    <%#= form.label :active, class: "form-check-label" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :logo, "Logo del circo", class: "form-label" %>
+    <%= form.file_field :logo, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Guardar", class: "btn btn-primary" %>
+  </div>
+<% end %>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const countrySelect = document.getElementById("country-select");
+    const currencySelect = document.getElementById("currency-select");
+
+    countrySelect.addEventListener("change", function () {
+      const selectedCountryCode = this.value;
+      let targetOption = null;
+
+      // Buscar la opción de moneda que coincide con el país
+      for (let i = 0; i < currencySelect.options.length; i++) {
+        const option = currencySelect.options[i];
+        const optionCountry = option.getAttribute("data-country-code");
+
+        if (optionCountry === selectedCountryCode) {
+          targetOption = option;
+          break;
+        }
+      }
+
+      if (targetOption) {
+        // Crear una copia de la opción
+        const newOption = targetOption.cloneNode(true);
+        newOption.selected = true;
+
+        // Eliminar la opción original
+        currencySelect.removeChild(targetOption);
+
+        // Insertar al comienzo
+        currencySelect.insertBefore(newOption, currencySelect.firstChild);
+      }
+    });
+  });
+</script>

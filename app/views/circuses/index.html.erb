@@ -1,0 +1,14 @@
+<h1>Mis Circos</h1>
+
+<ul>
+  <% @circuses.each do |circus| %>
+    <li>
+      <strong><%= circus.name %></strong><br>
+      <%= link_to "Ver", circus_path(circus), class: "btn btn-sm btn-outline-info" %>
+      <%= link_to "Editar", edit_circus_path(circus), class: "btn btn-sm btn-outline-warning" %>
+      <%= link_to "Eliminar", circus_path(circus), method: :delete, data: { confirm: "¿Estás seguro?" }, class: "btn btn-sm btn-outline-danger" %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Crear nuevo circo", new_circus_path, class: "btn btn-primary mt-3" %>

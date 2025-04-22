@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: circus
+# Table name: circuses
 #
 #  id          :integer          not null, primary key
 #  name        :string
@@ -14,10 +14,18 @@
 #
 # Indexes
 #
-#  index_circus_on_user_id  (user_id)
+#  index_circuses_on_user_id  (user_id)
 #
 
 class Circus < ApplicationRecord
   belongs_to :user
   has_one_attached :logo
+
+  after_initialize :set_defaults, if: :new_record?
+
+  private
+
+  def set_defaults
+    self.active = true if active.nil?
+  end
 end

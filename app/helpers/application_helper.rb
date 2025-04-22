@@ -143,4 +143,112 @@ module ApplicationHelper
 
       script_list.map { |file| javascript_include_tag "/#{path}/#{file}" }.join("\n").html_safe
     end
+
+
+    def country_options
+      ISO3166::Country.all.map do |country|
+        localized_name = country.translations[I18n.locale.to_s] || country.translations["en"] || country.common_name
+        [ localized_name, country.alpha2 ] # puedes usar alpha2 como valor si luego lo necesitas para lógica
+      end.sort_by(&:first)
+    end
+
+    def currency_options
+      # Monedas únicas extraídas de todos los países
+      ISO3166::Country.all.map(&:currency_code).uniq.compact.map do |code|
+        [ "#{code}", code ]
+      end.sort_by(&:first)
+    end
+    def country_options_with_flags
+      ISO3166::Country.all.map do |country|
+        flag = country.emoji_flag rescue ""
+        localized_name = country.translations[I18n.locale.to_s] || country.translations["en"] || country.common_name
+        [ "#{localized_name} #{flag}", country.alpha2 ]
+      end.sort_by(&:first)
+    end
+
+    def currency_options_with_flags(selected_country_code = nil)
+      countries = ISO3166::Country.all
+
+      # Hash que mapea código de moneda => [nombre, código de país]
+      currency_map = {}
+
+      countries.each do |country|
+        next unless country.currency_code && country.translations.present?
+
+        currency_code = country.currency_code
+        currency_name = country.currency["name"] rescue currency_code
+        alpha2 = country.alpha2
+
+        # Solo guardar si no existe aún (queremos la bandera del "primer" país)
+        currency_map[currency_code] ||= {
+          name: currency_name,
+          country_code: alpha2
+        }
+      end
+
+      # Si hay país seleccionado, obtenemos su moneda
+      preferred_currency_code = nil
+      if selected_country_code.present?
+        selected_country = countries.find { |c| c.alpha2 == selected_country_code }
+        preferred_currency_code = selected_country&.currency_code
+      end
+
+      # Construimos el array con emojis y ordenamos: la moneda preferida va primero
+      options = currency_map.map do |code, info|
+        flag = ISO3166::Country[info[:country_code]]&.emoji_flag || ""
+        label = "#{flag} #{code} - #{info[:name]}"
+        [ label, code ]
+      end
+
+      if preferred_currency_code
+        options.sort_by! { |(label, code)| code == preferred_currency_code ? 0 : 1 }
+      end
+
+      options
+    end
+    # def currency_options_data
+    #   countries = ISO3166::Country.all
+    #   currency_map = {}
+
+    #   countries.each do |country|
+    #     next unless country.currency_code && country.translations.present?
+
+    #     currency_code = country.currency_code
+    #     currency_name = country.currency["name"] rescue currency_code
+    #     alpha2 = country.alpha2
+
+    #     currency_map[currency_code] ||= {
+    #       name: currency_name,
+    #       country_code: alpha2
+    #     }
+    #   end
+
+    #   currency_map.map do |code, info|
+    #     flag = ISO3166::Country[info[:country_code]]&.emoji_flag || ""
+    #     [
+    #       "#{flag} #{code} - #{info[:name]}",      # label visible
+    #       code,                                    # value
+    #       { 'data-country-code': info[:country_code] } # extra data attr
+    #     ]
+    #   end.sort_by(&:first)
+    # end
+    def currency_options_data
+      require "money"
+      countries = ISO3166::Country.all.index_by(&:currency_code)
+      currencies = Money::Currency.table
+
+      currencies.map do |code_sym, data|
+        code = code_sym.to_s.upcase
+        name = data[:name]
+        country = countries[code]
+        flag = country ? ISO3166::Country[country.alpha2]&.emoji_flag : ""
+        country_code = country&.alpha2 || ""
+
+        [
+          "#{code} - #{name} #{flag}", # label visible
+          code,                        # value
+          { 'data-country-code': country_code } # 👈 esto es lo que usa el JS
+        ]
+      end
+    end
 end
