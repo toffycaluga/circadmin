@@ -90,3 +90,5 @@ end
 gem "pagy"
 gem "devise-i18n-views", "~> 0.3.7"
 gem "sassc-rails"
+gem "image_processing", "~> 1.2"
+gem "mini_magick"

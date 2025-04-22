@@ -1,10 +1,16 @@
 <div class="">
     <div class="main-menu-header">
-            <img 
-                class="img-radius" 
-                src="<%= current_user.user_profile&.profile_picture&.attached? ? url_for(current_user.user_profile.profile_picture) : asset_path('avatar.jpg') %>" 
-                alt="User-Profile-Image"
-                />
+            <%= image_tag(
+  current_user.user_profile.profile_picture.attached? ?
+    url_for(current_user.user_profile.profile_picture) :
+    asset_path("avatar.jpg"),
+  class: "img-radius img-fluid rounded-circle",
+  alt: "Foto de perfil",
+    width: 150,
+  height: 150,
+  style: "object-fit: cover;aspect-ratio: 1/1;"
+
+) %>
 
          <div class="user-details">
             <div id="more-details"><%= t("home.greeting", email: current_user.email) %><i class="fa fa-caret-down"></i></div>
