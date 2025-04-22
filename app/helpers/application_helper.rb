@@ -166,48 +166,13 @@ module ApplicationHelper
       end.sort_by(&:first)
     end
 
-    def currency_options_with_flags(selected_country_code = nil)
-      countries = ISO3166::Country.all
-
-      # Hash que mapea código de moneda => [nombre, código de país]
-      currency_map = {}
-
-      countries.each do |country|
-        next unless country.currency_code && country.translations.present?
-
-        currency_code = country.currency_code
-        currency_name = country.currency["name"] rescue currency_code
-        alpha2 = country.alpha2
-
-        # Solo guardar si no existe aún (queremos la bandera del "primer" país)
-        currency_map[currency_code] ||= {
-          name: currency_name,
-          country_code: alpha2
-        }
-      end
-
-      # Si hay país seleccionado, obtenemos su moneda
-      preferred_currency_code = nil
-      if selected_country_code.present?
-        selected_country = countries.find { |c| c.alpha2 == selected_country_code }
-        preferred_currency_code = selected_country&.currency_code
-      end
-
-      # Construimos el array con emojis y ordenamos: la moneda preferida va primero
-      options = currency_map.map do |code, info|
-        flag = ISO3166::Country[info[:country_code]]&.emoji_flag || ""
-        label = "#{flag} #{code} - #{info[:name]}"
-        [ label, code ]
-      end
-
-      if preferred_currency_code
-        options.sort_by! { |(label, code)| code == preferred_currency_code ? 0 : 1 }
-      end
-
-      options
-    end
-    # def currency_options_data
+    # def currency_options_with_flags(selected_country_code = nil)
+    #   require "money"
     #   countries = ISO3166::Country.all
+
+    #   country_code = SPECIAL_CURRENCY_COUNTRIES[code] || alpha2
+
+
     #   currency_map = {}
 
     #   countries.each do |country|
@@ -217,38 +182,70 @@ module ApplicationHelper
     #     currency_name = country.currency["name"] rescue currency_code
     #     alpha2 = country.alpha2
 
-    #     currency_map[currency_code] ||= {
-    #       name: currency_name,
-    #       country_code: alpha2
-    #     }
+    #     unless currency_map[currency_code]
+    #       currency_map[currency_code] = {
+    #         name: currency_name,
+    #         country_code: SPECIAL_CURRENCY_COUNTRIES[currency_code] || alpha2
+    #       }
+    #     end
     #   end
 
-    #   currency_map.map do |code, info|
-    #     flag = ISO3166::Country[info[:country_code]]&.emoji_flag || ""
-    #     [
-    #       "#{flag} #{code} - #{info[:name]}",      # label visible
-    #       code,                                    # value
-    #       { 'data-country-code': info[:country_code] } # extra data attr
-    #     ]
-    #   end.sort_by(&:first)
+    #   # Moneda preferida según país seleccionado
+    #   preferred_currency_code = nil
+    #   if selected_country_code.present?
+    #     selected_country = countries.find { |c| c.alpha2 == selected_country_code }
+    #     preferred_currency_code = selected_country&.currency_code
+    #   end
+
+    #   # Construcción de las opciones del select (¡ahora con data-country-code!)
+    #   options = currency_map.map do |code, info|
+    #     flag = info[:country_code] == "EU" ? "🇪🇺" : ISO3166::Country[info[:country_code]]&.emoji_flag || ""
+    #     label = "#{flag} #{code} - #{info[:name]}"
+    #     [ label, code, { 'data-country-code': info[:country_code] } ]
+    #   end
+
+    #   # Ordenar con preferida al principio
+    #   if preferred_currency_code
+    #     options.sort_by! { |(_, code, _)| code == preferred_currency_code ? 0 : 1 }
+    #   end
+
+    #   options
     # end
+    def country_options_with_flags
+      ISO3166::Country.all.map do |country|
+        name = country.translations[I18n.locale.to_s] || country.translations["en"] || country.name
+        flag = country.emoji_flag rescue ""
+        currency_code = country.currency_code
+
+        [
+          "#{name} #{flag}",
+          country.alpha2,
+          { 'data-currency-code': currency_code }
+        ]
+      end.sort_by(&:first)
+    end
+
+
     def currency_options_data
       require "money"
-      countries = ISO3166::Country.all.index_by(&:currency_code)
       currencies = Money::Currency.table
 
       currencies.map do |code_sym, data|
         code = code_sym.to_s.upcase
         name = data[:name]
-        country = countries[code]
-        flag = country ? ISO3166::Country[country.alpha2]&.emoji_flag : ""
-        country_code = country&.alpha2 || ""
+
+        # Obtener código de país representativo desde el hash o por búsqueda
+        country_code =
+          SPECIAL_CURRENCY_COUNTRIES[code] ||
+          ISO3166::Country.all.find { |c| c.currency_code == code }&.alpha2
+
+        flag = country_code == "EU" ? "🇪🇺" : ISO3166::Country[country_code]&.emoji_flag || ""
 
         [
           "#{code} - #{name} #{flag}", # label visible
           code,                        # value
-          { 'data-country-code': country_code } # 👈 esto es lo que usa el JS
+          { 'data-country-code': country_code }
         ]
-      end
+      end.sort_by(&:first)
     end
 end

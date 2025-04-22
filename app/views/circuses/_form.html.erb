@@ -1,9 +1,9 @@
-<%= form_with(model: circus, local: true, class: "needs-validation") do |form| %>
-  <% if circus.errors.any? %>
+<%= form_with(model: @circus, local: true, class: "needs-validation") do |form| %>
+  <% if @circus.errors.any? %>
     <div class="alert alert-danger">
-      <h4><%= pluralize(circus.errors.count, "error") %> impidieron guardar el circo:</h4>
+      <h4><%= pluralize(@circus.errors.count, "error") %> impidieron guardar el circo:</h4>
       <ul>
-        <% circus.errors.full_messages.each do |message| %>
+        <% @circus.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -48,36 +48,29 @@
     <%= form.submit "Guardar", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const countrySelect = document.getElementById("country-select");
     const currencySelect = document.getElementById("currency-select");
 
     countrySelect.addEventListener("change", function () {
-      const selectedCountryCode = this.value;
-      let targetOption = null;
+      const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+      const desiredCurrency = selectedOption.getAttribute("data-currency-code");
 
-      // Buscar la opción de moneda que coincide con el país
+      if (!desiredCurrency) return;
+
       for (let i = 0; i < currencySelect.options.length; i++) {
         const option = currencySelect.options[i];
-        const optionCountry = option.getAttribute("data-country-code");
-
-        if (optionCountry === selectedCountryCode) {
-          targetOption = option;
+        if (option.value === desiredCurrency) {
+          const newOption = option.cloneNode(true);
+          newOption.selected = true;
+          currencySelect.removeChild(option);
+          currencySelect.insertBefore(newOption, currencySelect.firstChild);
           break;
         }
-      }
-
-      if (targetOption) {
-        // Crear una copia de la opción
-        const newOption = targetOption.cloneNode(true);
-        newOption.selected = true;
-
-        // Eliminar la opción original
-        currencySelect.removeChild(targetOption);
-
-        // Insertar al comienzo
-        currencySelect.insertBefore(newOption, currencySelect.firstChild);
       }
     });
   });
