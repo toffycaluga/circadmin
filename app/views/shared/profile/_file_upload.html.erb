@@ -32,8 +32,3 @@
   </div>
 </div>
 
-<% if current_user.user_profile.profile_picture.attached? %>
-  <%= image_tag url_for(current_user.user_profile.profile_picture.variant(resize_to_limit: [200, 200])), class: "rounded-circle mb-3" %>
-<% else %>
-  <%= image_tag "avatar.jpg", class: "rounded-circle mb-3", width: 200 %>
-<% end %>
