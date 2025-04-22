@@ -9,13 +9,13 @@
 #  country    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  phone      :string
+#  web        :string
 #
 # Indexes
 #
 #  index_user_profiles_on_user_id  (user_id)
 #
-
-
 
 class UserProfile < ApplicationRecord
   belongs_to :user
