@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @circu %>
+
+<div>
+  <%= link_to "Edit this circu", edit_circu_path(@circu) %> |
+  <%= link_to "Back to circus", circus_path %>
+
+  <%= button_to "Destroy this circu", @circu, method: :delete %>
+</div>

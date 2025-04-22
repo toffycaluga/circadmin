@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Circus" %>
+
+<h1>Circus</h1>
+
+<div id="circus">
+  <% @circus.each do |circu| %>
+    <%= render circu %>
+    <p>
+      <%= link_to "Show this circu", circu %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New circu", new_circu_path %>
