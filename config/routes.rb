@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       get :admin
     end
   end
+  post "admin/invite_user", to: "admin/users#invite", as: :invite_user
 
   # Rutas básicas
   get "errors/not_found"
@@ -21,7 +22,15 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: "users/sessions",
+    registrations: "users/registrations",
+    passwords: "users/passwords",
+    confirmations: "users/confirmations",
+    unlocks: "users/unlocks",
+    # omniauth_callbacks: "users/omniauth_callbacks",
+    invitations: "users/invitations" # <-- esto es nuevo
+  }
 
   # Cambiar idioma
   post "set_language", to: "application#set_language"
