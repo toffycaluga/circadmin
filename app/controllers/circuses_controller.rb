@@ -10,6 +10,11 @@ class CircusesController < ApplicationController
   # GET /circuses/1
   def show
   end
+  # app/controllers/circuses_controller.rb
+  def admin
+    @circus = current_user.circuses.find(params[:id])
+  end
+
 
   # GET /circuses/new
   def new

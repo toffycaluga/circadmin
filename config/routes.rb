@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :circuses
+  resources :circuses do
+    member do
+      get :admin
+    end
+  end
+
   # Rutas básicas
   get "errors/not_found"
   get "dashboard/index"

@@ -1,0 +1,10 @@
+<h2>Administración de: <%= @circus.name %></h2>
+
+<div class="mb-3">
+  <p><strong>Estado:</strong> <%= @circus.active ? "Activo" : "Inactivo" %></p>
+  <p><strong>Ubicación:</strong> <%= @circus.country %>
+  <p><strong>Moneda:</strong> <%= @circus.currency %></p>
+</div>
+
+<%= link_to "Editar circo", edit_circus_path(@circus), class: "btn btn-primary" %>
+<%= link_to "Volver al Dashboard", root_path, class: "btn btn-secondary" %>
