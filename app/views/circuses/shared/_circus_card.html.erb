@@ -1,0 +1,64 @@
+<div class="col-xl-5 col-md-6">
+    <div class="card">
+        <div class="card-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <div class="row align-items-center">
+                        <div class="col-auto col pr-0">
+                              <%= image_tag(
+                                current_user.user_profile&.profile_picture&.attached? ?
+                                    url_for(current_user.user_profile.profile_picture) :
+                                    asset_path("avatar_circus.jpg"),
+                                class: "img-radius img-fluid rounded-circle",
+                                alt: "Foto de perfil",
+                                    width: 100,
+                                height: 100,
+                                style: "object-fit: cover;aspect-ratio: 1/1;"
+                                ) %>
+
+                        </div>
+                        <div class="col">
+                            <h6 class="mb-1"><%= circus.name %></h6>
+                            <p class="mb-0"><%= circus.active ? "Activo" : "Inactivo" %></p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-auto">
+                    <button class="btn waves-effect waves-light btn-primary">Edit</button>
+                </div>
+            </div>
+        </div>
+       <%# para mas tarde %>
+        <%# <div class="card-body">
+            <div class="row text-center">
+                <div class="col">
+                    <h6 class="mb-1">69</h6>
+                    <p class="mb-0">Shots</p>
+                </div>
+                <div class="col">
+                    <h6 class="mb-1">2749</h6>
+                    <p class="mb-0">Followers</p>
+                </div>
+                <div class="col">
+                    <h6 class="mb-1">678</h6>
+                    <p class="mb-0">Following</p>
+                </div>
+                <div class="col">
+                    <h6 class="mb-1">78</h6>
+                    <p class="mb-0">Like</p>
+                </div>
+            </div>
+        </div> %>
+        <%# <div class="card-footer">
+            <div class="row align-items-center">
+                <div class="col">
+                    <a href="#!"><i class="feather icon-mail"></i> Message</a>
+                </div>
+                <div class="col col-auto">
+                    <button class="btn waves-effect waves-light btn-secondory btn-sm m-0">Follow</button>
+                </div>
+            </div>
+        </div> %>
+    </div>
+</div>

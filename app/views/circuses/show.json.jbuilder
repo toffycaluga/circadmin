@@ -1,1 +1,1 @@
-json.partial! "circus/circu", circu: @circu
+json.partial! "circusees/circus", circus: @circus
