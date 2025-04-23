@@ -1,3 +1,9 @@
+<% content_for :page_title, t("profile.title") %>
+
+<% content_for :breadcrumb do %>
+  <li class="breadcrumb-item"><%= link_to t("profile.title"), dashboard_index_path %></li>
+  <%# <li class="breadcrumb-item active">Mis circos</li> %>
+<% end %>
 <%= render 'shared/profile/header'%>
 
 <!-- profile body start -->

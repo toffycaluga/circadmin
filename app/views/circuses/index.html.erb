@@ -1,16 +1,42 @@
-<h1>Mis Circos</h1>
+<% content_for :page_title do %>
+  <%= t("circuses.page_title")%>
+<% end %>
 
-<ul>
-  <% @circuses.each do |circus| %>
-    <%# <li> %>
-      <%# <strong>= circus.name</strong><br> %>
-      <%#= link_to "Ver", circus_path(circus), class: "btn btn-sm btn-outline-info" %>
+<% content_for :breadcrumb do %>
+  <%# <li class="breadcrumb-item"><%= link_to t("circuses.title"), dashboard_index_path %></li> 
+  <li class="breadcrumb-item active"><%= t("circuses.page_title")%></li>
+<% end %>
+
+<div class=" col-sm-12">
+    <div class="card table-card">
+        <div class="card-header">
+            <h1><%= t("circuses.page_title")%></h1>
+            <%# <p>Este será tu panel principal.</p> %>
+        </div>
+    </div>
+</div>
+
+
       <%#= link_to "Editar", edit_circus_path(circus), class: "btn btn-sm btn-outline-warning" %>
-      <%#= link_to "Eliminar", circus_path(circus), method: :delete, data: { confirm: "¿Estás seguro?" }, class: "btn btn-sm btn-outline-danger" %>
-    <%# </li> %>
+  <% @circuses.each do |circus| %>
 
     <%= render partial:'circuses/shared/circus_card', locals: { circus: circus } %>
-  <% end %>
-</ul>
+    <% end %>
 
-<%= link_to "Crear nuevo circo", new_circus_path, class: "btn btn-primary mt-3" %>
+    <div class="col-xl-5 col-md-6 mx-auto align-self-center">
+  <div class="d-flex justify-content-center text-center flex-column align-items-center w-100">
+    
+    <p class="fw-bold fs-4">Agregar nuevo circo</p>
+
+    <div class="card d-flex rounded-circle" style="width: 80px;">
+      <%= link_to new_circus_path, class: "btn btn-outline-primary p-3 fs-4 rounded-circle" do %>
+        <i class="feather icon-plus"></i>
+      <% end %>
+    </div>
+
+  </div>
+</div>
+
+
+
+</div>

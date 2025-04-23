@@ -48,6 +48,12 @@ es:
         address: "Dirección"
         country: "País"
         profile_picture: "Foto de perfil"
+  profile:
+    title: "Perfil"
+  dashboard:
+    title: "Dashboard"
+  circuses:
+    page_title: "Mis Circos"
   footer:
     copyright: "Todos los derechos reservados"
     dev: "Desarrollado por"
