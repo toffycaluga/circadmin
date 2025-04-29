@@ -9,39 +9,39 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def create
+    unless current_user.circus_users.exists?(circus_id: current_circus.id, role: "dueño")
+      redirect_to dashboard_index_path, alert: "No tienes permiso para invitar usuarios a este circo."
+      return
+    end
     email = params[:user][:email]
     role  = params[:user][:role]
     user  = User.find_by(email: email)
 
     if user.present?
       if user.invitation_accepted_at.nil?
-        # Usuario ya existe pero no aceptó → Reenviar invitación
+        # Usuario ya existe pero no aceptó ➔ reenviar invitación normal
         user.invite!
         flash[:notice] = "Invitation resent to #{email}."
       else
-        # Usuario ya aceptó la invitación → solo asociarlo al circo
+        # Usuario ya aceptó ➔ asociarlo manualmente y enviar correo especial
         unless user.circuses.exists?(current_circus.id)
           CircusUser.create!(user: user, circus: current_circus, role: role)
 
-          # Enviar correo especial de invitación a nuevo circo
+          # Enviar correo personalizado de invitación a un nuevo circo
           UserMailer.new_circus_invitation(user, current_circus).deliver_later
 
           flash[:notice] = "User was already registered and has been invited to this circus."
         else
           flash[:alert] = "User is already part of this circus."
         end
-
       end
     else
-      # Usuario nuevo → enviar invitación
+      # Usuario nuevo ➔ enviar invitación normal
       user = User.invite!(email: email) do |u|
         u.inviting_circus_id = current_circus.id
       end
 
-
       if user.persisted?
-        # Guardamos en sesión la intención de asociarlo cuando acepte
-        session["inviting_circus_id_#{user.id}"] = { circus_id: current_circus.id, role: role }
         flash[:notice] = "Invitation sent to #{email}."
       else
         flash[:alert] = user.errors.full_messages.to_sentence
@@ -50,6 +50,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
     redirect_to after_invite_path_for(user)
   end
+
 
   def update
     super do |user|
