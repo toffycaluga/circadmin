@@ -17,7 +17,21 @@
         </div>
     </div>
 </div>
-<% @circuses.each do |circus| %>
+<h3>mis circos </h3>
+<h3>Owned circuses</h3>
+<% if @owned_circuses.any? %>
+  <% @owned_circuses.each do |circus| %>
+    <%= render partial: 'circuses/shared/circus_card', locals: { circus: circus } %>
+  <% end %>
+<% else %>
+  <p>You don't own any circuses yet.</p>
+<% end %>
 
-    <%= render partial:'circuses/shared/circus_card', locals:{circus:circus}%>
-<%end%>
+<h3>Associated circuses</h3>
+<% if @associated_circuses.any? %>
+  <% @associated_circuses.each do |circus| %>
+    <%= render partial: 'circuses/shared/circus_card', locals: { circus: circus } %>
+  <% end %>
+<% else %>
+  <p>You are not associated with any circuses.</p>
+<% end %>

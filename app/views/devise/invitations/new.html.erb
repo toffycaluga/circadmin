@@ -1,13 +1,9 @@
 <%= form_for(User.new, as: :user, url: user_invitation_path, method: :post) do |f| %>
-  <div class="form-group">
-    <%= f.label :email, "Correo electrónico" %>
-    <%= f.email_field :email, class: "form-control" %>
-  </div>
+  <%= f.label :email %>
+  <%= f.email_field :email, class: "form-control" %>
 
-  <div class="form-group">
-    <%= f.label :role, "Rol" %>
-    <%= f.select :role, options_for_select([["Administrador", "admin"], ["Contador", "contador"], ["Representante", "representante"]]), {}, class: "form-control" %>
-  </div>
+  <%= label_tag :role, "Role" %>
+  <%= select_tag :role, options_for_select([["Admin", "admin"], ["Contador", "contador"], ["Representante", "representante"]]), class: "form-control" %>
 
   <%= f.submit "Enviar invitación", class: "btn btn-primary" %>
 <% end %>

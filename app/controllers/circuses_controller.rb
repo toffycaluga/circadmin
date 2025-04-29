@@ -5,6 +5,8 @@ class CircusesController < ApplicationController
   # GET /circuses
   def index
     @circuses = current_user.circuses
+    @owned_circuses = current_user.owned_circuses
+    @associated_circuses= current_user.associated_circuses
   end
 
   # GET /circuses/1
@@ -24,14 +26,22 @@ class CircusesController < ApplicationController
   # GET /circuses/1/edit
   def edit
   end
+  def admin
+    @circus = current_user.circuses.find(params[:id])
+    session[:current_circus_id] = @circus.id
+  end
 
   # POST /circuses
   def create
-    @circus = current_user.circuses.build(circus_params)
-
+    # @circus = current_user.circuses.build(circus_params)
+    @circus = Circus.new(circus_params)
+    @circus.user = current_user
     respond_to do |format|
       if @circus.save
-        format.html { redirect_to @circus, notice: "Circo creado con éxito." }
+        # 👇 Creamos el rol de dueño en la tabla intermedia
+        CircusUser.create!(user: current_user, circus: @circus, role: "dueño")
+
+        format.html { redirect_to root_path, notice: "Circo creado con éxito." }
         format.json { render :show, status: :created, location: @circus }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,6 +49,7 @@ class CircusesController < ApplicationController
       end
     end
   end
+
 
   # PATCH/PUT /circuses/1
   def update

@@ -39,6 +39,11 @@ class ApplicationController < ActionController::Base
     redirect_to "/404"
   end
 
+  def current_circus
+    @current_circus ||= Circus.find_by(id: session[:current_circus_id])
+  end
+  helper_method :current_circus
+
   private
 
   def redirect_if_profile_incomplete

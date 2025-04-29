@@ -1,0 +1,9 @@
+<h1>¡Hola <%= @user.nombre_completo || @user.email %>!</h1>
+
+<p>Te han invitado a formar parte del circo "<strong><%= @circus.name %></strong>" en CircAdmin.</p>
+
+<p>Puedes acceder a tu panel en cualquier momento y administrar tus actividades con el circo.</p>
+
+<p><%= link_to "Ir a CircAdmin", root_url %></p>
+
+<p>¡Te esperamos!</p>

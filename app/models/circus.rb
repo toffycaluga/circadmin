@@ -20,6 +20,8 @@
 class Circus < ApplicationRecord
   belongs_to :user
   has_one_attached :logo
+  has_many :circus_users
+  has_many :users, through: :circus_users
 
   after_initialize :set_defaults, if: :new_record?
 

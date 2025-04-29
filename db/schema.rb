@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_23_041126) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_29_111828) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -40,6 +40,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_23_041126) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "circus_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "circus_id", null: false
+    t.string "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["circus_id"], name: "index_circus_users_on_circus_id"
+    t.index ["user_id"], name: "index_circus_users_on_user_id"
   end
 
   create_table "circuses", force: :cascade do |t|
@@ -82,6 +92,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_23_041126) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.integer "inviting_circus_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
@@ -91,6 +102,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_23_041126) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "circus_users", "circuses"
+  add_foreign_key "circus_users", "users"
   add_foreign_key "circuses", "users"
   add_foreign_key "user_profiles", "users"
 end

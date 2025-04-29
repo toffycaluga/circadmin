@@ -48,6 +48,16 @@ es:
         address: "Dirección"
         country: "País"
         profile_picture: "Foto de perfil"
+        circus:
+          user: "Dueño"
+    models:
+      circus: "Circo"
+    errors:
+      models:
+        circus:
+          attributes:
+            user:
+              required: "debe estar presente"
   profile:
     title: "Perfil"
   dashboard:
@@ -57,3 +67,8 @@ es:
   footer:
     copyright: "Todos los derechos reservados"
     dev: "Desarrollado por"
+  models:
+    circus:
+      attributes:
+        user:
+          required: "debe estar presente"
