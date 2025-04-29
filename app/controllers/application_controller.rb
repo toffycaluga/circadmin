@@ -39,6 +39,20 @@ class ApplicationController < ActionController::Base
     redirect_to "/404"
   end
 
+  def accept_invitation
+    @circus = Circus.find(params[:id])
+    circus_user = CircusUser.find_by(user: current_user, circus: @circus)
+
+    if circus_user.present? && circus_user.accepted_at.nil?
+      circus_user.update!(accepted_at: Time.current)
+      flash[:notice] = "¡Has aceptado ser parte de #{@circus.name}!"
+    else
+      flash[:alert] = "No tienes invitaciones pendientes para este circo."
+    end
+
+    redirect_to dashboard_index_path
+  end
+
   def current_circus
     @current_circus ||= Circus.find_by(id: session[:current_circus_id])
   end
@@ -61,6 +75,7 @@ class ApplicationController < ActionController::Base
 
     if current_user.user_profile.nil?
       redirect_to new_user_profile_path, alert: t("alerts.complete_profile")
+      nil
     end
   end
 

@@ -1,11 +1,11 @@
 <div class="col-xl-5 col-md-6">
-    <div class="card">
-        <div class="card-header">
-            <div class="row align-items-center">
-                <div class="col">
-                    <div class="row align-items-center">
-                        <div class="col-auto col pr-0">
-                              <%= image_tag(
+  <div class="card">
+    <div class="card-header">
+      <div class="row align-items-center">
+        <div class="col">
+          <div class="row align-items-center">
+            <div class="col-auto col pr-0">
+              <%= image_tag(
                                 current_user.user_profile&.profile_picture&.attached? ?
                                     url_for(current_user.user_profile.profile_picture) :
                                     asset_path("avatar_circus.jpg"),
@@ -15,31 +15,27 @@
                                 height: 100,
                                 style: "object-fit: cover;aspect-ratio: 1/1;"
                                 ) %>
-
-                        </div>
-                        <div class="col-6">
-                            <h3 class="mb-1"><%= circus.name %></h3>
-                            <% if current_user.circus_users.exists?(circus_id: circus.id) %>
-                                <% user_role = current_user.circus_users.find_by(circus_id: circus.id)&.role %>
-                                <h5 class="mb-1"><%= user_role.present? ? user_role.capitalize : "Sin rol asignado" %></h5>
-                                <% else %>
-                                <h5 class="mb-1">No perteneces a este circo</h5>
-                                <% end %>
-
-
-                            <p class="mb-0"><%= circus.active ? "Activo" : "Inactivo" %></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-auto mt-2 justify-content-end d-flex gap-2">
-                    <%= link_to "Administrar", admin_circus_path(circus), class: "btn btn-primary" %>
-
-                    <button class="btn waves-effect waves-light btn-primary">Edit</button>
-                </div>
             </div>
+            <div class="col-6">
+              <h3 class="mb-1"><%= circus.name %></h3>
+              <% if current_user.circus_users.exists?(circus_id: circus.id) %>
+                <% user_role = current_user.circus_users.find_by(circus_id: circus.id)&.role %>
+                <h5 class="mb-1"><%= user_role.present? ? user_role.capitalize : "Sin rol asignado" %></h5>
+              <% else %>
+                <h5 class="mb-1">No perteneces a este circo</h5>
+              <% end %>
+              <p class="mb-0"><%= circus.active ? "Activo" : "Inactivo" %></p>
+            </div>
+          </div>
         </div>
-       <%# para mas tarde %>
-        <%# <div class="card-body">
+        <div class="col-12 col-auto mt-2 justify-content-end d-flex gap-2">
+          <%= link_to "Administrar", admin_circus_path(circus), class: "btn btn-primary" %>
+          <button class="btn waves-effect waves-light btn-primary">Edit</button>
+        </div>
+      </div>
+    </div>
+    <%# para mas tarde %>
+    <%# <div class="card-body">
             <div class="row text-center">
                 <div class="col">
                     <h6 class="mb-1">69</h6>
@@ -59,7 +55,7 @@
                 </div>
             </div>
         </div> %>
-        <%# <div class="card-footer">
+    <%# <div class="card-footer">
             <div class="row align-items-center">
                 <div class="col">
                     <a href="#!"><i class="feather icon-mail"></i> Message</a>
@@ -69,5 +65,5 @@
                 </div>
             </div>
         </div> %>
-    </div>
+  </div>
 </div>

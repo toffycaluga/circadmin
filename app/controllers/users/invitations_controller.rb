@@ -9,73 +9,106 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   def create
-    unless current_user.circus_users.exists?(circus_id: current_circus.id, role: "dueño")
-      redirect_to dashboard_index_path, alert: "No tienes permiso para invitar usuarios a este circo."
+    unless current_user.circus_users.exists?(circus_id: current_circus.id, role: "owner")
+      flash[:alert] = "No tienes permiso para invitar usuarios a este circo."
+      redirect_to dashboard_index_path
       return
     end
+
     email = params[:user][:email]
     role  = params[:user][:role]
     user  = User.find_by(email: email)
 
     if user.present?
-      if user.invitation_accepted_at.nil?
-        # Usuario ya existe pero no aceptó ➔ reenviar invitación normal
-        user.invite!
-        flash[:notice] = "Invitation resent to #{email}."
-      else
-        # Usuario ya aceptó ➔ asociarlo manualmente y enviar correo especial
-        unless user.circuses.exists?(current_circus.id)
-          CircusUser.create!(user: user, circus: current_circus, role: role)
-
-          # Enviar correo personalizado de invitación a un nuevo circo
-          UserMailer.new_circus_invitation(user, current_circus).deliver_later
-
-          flash[:notice] = "User was already registered and has been invited to this circus."
-        else
-          flash[:alert] = "User is already part of this circus."
-        end
-      end
+      Rails.logger.info "Usuario existente encontrado: #{email}. Intentando invitar al circo."
+      invite_existing_user(user, role)
     else
-      # Usuario nuevo ➔ enviar invitación normal
-      user = User.invite!(email: email) do |u|
-        u.inviting_circus_id = current_circus.id
-      end
-
-      if user.persisted?
-        flash[:notice] = "Invitation sent to #{email}."
-      else
-        flash[:alert] = user.errors.full_messages.to_sentence
-      end
+      Rails.logger.info "Usuario no encontrado: #{email}. Invitando como nuevo usuario."
+      invite_new_user(email, role)
     end
 
     redirect_to after_invite_path_for(user)
   end
-
 
   def update
     super do |user|
       user.create_user_profile! unless user.user_profile
 
       if user.errors.empty?
-        if user.inviting_circus_id.present?
-          unless user.circuses.exists?(user.inviting_circus_id)
-            CircusUser.create!(
-              user: user,
-              circus_id: user.inviting_circus_id,
-              role: "representante" # o el rol que prefieras
-            )
-          end
-          user.update(inviting_circus_id: nil) # Limpiar el campo después de asociarlo
+        pending_invitation = CircusUser.where(user: user, accepted_at: nil)
+                                       .order(invitation_sent_at: :desc)
+                                       .last
+        if pending_invitation.present?
+          pending_invitation.update!(accepted_at: Time.current)
+          Rails.logger.info "Invitación aceptada por #{user.email} para el circo #{current_circus&.name}"
+        else
+          Rails.logger.warn "No se encontró invitación pendiente para #{user.email} en este circo al aceptar."
         end
       end
     end
   end
-
 
   protected
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:invite, keys: [ :role ])
     devise_parameter_sanitizer.permit(:accept_invitation, keys: [ :nombre_completo ])
+  end
+
+  private
+
+  def invite_existing_user(user, role)
+    circus_user = CircusUser.find_by(user: user, circus: current_circus)
+
+    if user.circuses.exists?(current_circus.id)
+      flash[:alert] = "Este usuario ya forma parte del circo."
+      Rails.logger.info "El usuario #{user.email} ya es miembro del circo #{current_circus&.name}."
+    elsif circus_user.present?
+      if circus_user.accepted_at.nil?
+        if circus_user.invitation_sent_at.present? && circus_user.invitation_sent_at < 48.hours.ago
+          # Reenviar si han pasado más de 48h
+          Rails.logger.info "Reenviando invitación a #{user.email} para el circo #{current_circus&.name}."
+          UserMailer.new_circus_invitation(user, current_circus).deliver_later
+          circus_user.update!(invitation_sent_at: Time.current)
+          flash[:notice] = "Invitación reenviada a #{user.email}."
+        else
+          flash[:alert] = "Ya se envió una invitación recientemente. Espera que el usuario la acepte."
+          Rails.logger.info "Invitación reciente para #{user.email} al circo #{current_circus&.name}. No reenviando."
+        end
+      else
+        flash[:alert] = "El usuario ya aceptó una invitación previa a este circo."
+        Rails.logger.info "El usuario #{user.email} ya aceptó una invitación al circo #{current_circus&.name}."
+      end
+    else
+      # Primera vez que se invita a este circo
+      Rails.logger.info "Invitando por primera vez a #{user.email} al circo #{current_circus&.name}."
+      CircusUser.create!(
+        user: user,
+        circus: current_circus,
+        role: role,
+        invitation_sent_at: Time.current
+      )
+      UserMailer.new_circus_invitation(user, current_circus).deliver_later
+      flash[:notice] = "Usuario invitado correctamente al circo."
+    end
+  end
+
+  def invite_new_user(email, role)
+    Rails.logger.info "Invitando nuevo usuario con correo #{email} al circo #{current_circus&.name}."
+    user = User.invite!(email: email)
+
+    if user.persisted?
+      CircusUser.create!(
+        user: user,
+        circus: current_circus,
+        role: role,
+        invitation_sent_at: Time.current
+      )
+      flash[:notice] = "Invitación enviada a #{email}."
+      Rails.logger.info "Invitación de Devise enviada a #{email} y asociado al circo."
+    else
+      flash[:alert] = user.errors.full_messages.to_sentence
+      Rails.logger.error "Error al invitar a #{email}: #{user.errors.full_messages.to_sentence}"
+    end
   end
 end

@@ -1,4 +1,9 @@
 en:
+  roles:
+    admin: "Admin"
+    accountant: "Accountant"
+    representative: "Representative"
+    owner: "Owner"
   hello: "Hello world"
   home:
     welcome: "Welcome to CircAdmin 🎪"

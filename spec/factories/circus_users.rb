@@ -2,12 +2,14 @@
 #
 # Table name: circus_users
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer          not null
-#  circus_id  :integer          not null
-#  role       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                 :integer          not null, primary key
+#  user_id            :integer          not null
+#  circus_id          :integer          not null
+#  role               :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  invitation_sent_at :datetime
+#  accepted_at        :datetime
 #
 # Indexes
 #

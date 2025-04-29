@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_29_111828) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_29_140707) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -48,6 +48,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_29_111828) do
     t.string "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "invitation_sent_at"
+    t.datetime "accepted_at"
     t.index ["circus_id"], name: "index_circus_users_on_circus_id"
     t.index ["user_id"], name: "index_circus_users_on_user_id"
   end

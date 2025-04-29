@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :circuses do
     member do
       get :admin
+      get :accept_invitation, to: "circuses#accept_invitation"
     end
   end
   post "admin/invite_user", to: "admin/users#invite", as: :invite_user

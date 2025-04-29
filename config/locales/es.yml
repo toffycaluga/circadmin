@@ -72,3 +72,8 @@ es:
       attributes:
         user:
           required: "debe estar presente"
+  roles:
+    admin: "Administrador"
+    accountant: "Contador"
+    representative: "Representante"
+    owner: "Dueño"

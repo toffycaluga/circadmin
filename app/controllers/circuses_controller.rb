@@ -39,7 +39,7 @@ class CircusesController < ApplicationController
     respond_to do |format|
       if @circus.save
         # 👇 Creamos el rol de dueño en la tabla intermedia
-        CircusUser.create!(user: current_user, circus: @circus, role: "dueño")
+        CircusUser.create!(user: current_user, circus: @circus, role: "owner")
 
         format.html { redirect_to root_path, notice: "Circo creado con éxito." }
         format.json { render :show, status: :created, location: @circus }

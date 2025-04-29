@@ -2,8 +2,12 @@
   <%= f.label :email %>
   <%= f.email_field :email, class: "form-control" %>
 
-  <%= label_tag :role, "Role" %>
-  <%= select_tag :role, options_for_select([["Admin", "admin"], ["Contador", "contador"], ["Representante", "representante"]]), class: "form-control" %>
+  <%= label_tag 'user[role]', "Role" %>
+  <%= select_tag 'user[role]', options_for_select(
+        CircusUser::ROLES
+          .reject { |r| r == "owner" }
+          .map { |r| [role_label(r), r] }
+      ), class: "form-control" %>
 
-  <%= f.submit "Enviar invitación", class: "btn btn-primary" %>
+  <%= f.submit "Send Invitation", class: "btn btn-primary" %>
 <% end %>

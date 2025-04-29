@@ -1,4 +1,5 @@
 class DashboardController < ApplicationController
+  before_action :authenticate_user!
   def index
     @circuses = current_user.circuses
     @owned_circuses = current_user.owned_circuses
