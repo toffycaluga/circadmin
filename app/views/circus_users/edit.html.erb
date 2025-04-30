@@ -1,0 +1,17 @@
+<h3>Editar rol de <%= @circus_user.user.email %> en el circo</h3>
+
+<%= form_with(model: @circus_user, local: true) do |f| %>
+  <div class="form-group">
+    <%= f.label :role, "Rol" %>
+    <%= f.select :role,
+        CircusUser::ROLES.reject { |r| r == "owner" }.map { |r| [role_label(r), r] },
+        {}, class: "form-control" %>
+  </div>
+
+  <%= f.submit "Actualizar", class: "btn btn-primary" %>
+<% end %>
+
+<%= button_to "Desactivar usuario", desactivate_circus_user_path(cu),
+      method: :patch,
+      data: { confirm: "¿Seguro que quieres desactivar este usuario?" },
+      class: "btn btn-warning" %>

@@ -12,10 +12,7 @@ class CircusesController < ApplicationController
   # GET /circuses/1
   def show
   end
-  # app/controllers/circuses_controller.rb
-  def admin
-    @circus = current_user.circuses.find(params[:id])
-  end
+
 
 
   # GET /circuses/new
@@ -29,7 +26,12 @@ class CircusesController < ApplicationController
   def admin
     @circus = current_user.circuses.find(params[:id])
     session[:current_circus_id] = @circus.id
+    @circus_users = @circus.circus_users.where(active: true).includes(:user)
+
+    @editing_circus_user = @circus_users.find_by(id: params[:edit_circus_user_id]) if params[:edit_circus_user_id].present?
   end
+
+
 
   # POST /circuses
   def create

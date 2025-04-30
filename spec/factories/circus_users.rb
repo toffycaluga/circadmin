@@ -10,6 +10,7 @@
 #  updated_at         :datetime         not null
 #  invitation_sent_at :datetime
 #  accepted_at        :datetime
+#  active             :boolean
 #
 # Indexes
 #

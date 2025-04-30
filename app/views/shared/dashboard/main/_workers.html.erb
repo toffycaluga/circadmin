@@ -1,0 +1,105 @@
+<div class="card card table-card">
+  <div class="card-body">
+    <ul class="nav nav-tabs px-3 pt-3 mb-0" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active text-uppercase" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><%= t("workers.title")%> </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"><%= t("workers.add")%></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-uppercase" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
+          <i class="fas fa-cog"></i> <%= t("workers.edit")%>
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="table-responsive">
+          <table class="table table-hover m-0">
+            <thead>
+              <tr>
+                <th><%= t("workers.user")%></th>
+                <th><%= t("workers.mail")%></th>
+                <%# <th> </th> %>
+                <%# <th><%= t("workers.role")</th> %>
+                <th><%= t("workers.action")%></th>
+              </thead>
+              <tbody>
+                <% @circus_users.each do |cu| %>
+                  <tr>
+                    <td>
+                      <div class="text-center">
+                        <%= image_tag(
+                            (current_user&.user_profile&.profile_picture&.attached? ?
+                            url_for(current_user.user_profile.profile_picture) :
+                            asset_path("avatar.jpg")),
+                            class: "img-radius img-fluid rounded-circle",
+                            alt: "Foto de perfil",
+                            width: 60,
+                            height: 60,
+                            style: "object-fit: cover; aspect-ratio: 1/1;"
+                        ) %>
+                        <% if current_user.user_profile&.full_name.present? %>
+                          <h5 class="mt-2"><%= current_user.user_profile.full_name %></h5>
+                        <% else %>
+                          <h5 class="mt-2 text-muted">Nombre no disponible</h5>
+                        <% end %>
+                      </div>
+                    </td>
+                    <td>
+                      <h6 class="mb-1"><%= cu.user.email %></h6>
+                    </p>
+                  </td>
+                  <td class="text-c-green">
+                    <span class="fw-bold"><%= t("roles.#{cu.role}") %></span>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th><%= t("users.invite.mail")%></th>
+                <th><%= t("users.invite.role_label")%></th>
+                <th> </th>
+                <%# <th class="text-right">Priority</th> %>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render "shared/dashboard/main/invite_user_form" %>
+            </tbody>
+          </table>
+          <%# <div class="text-right m-r-20">
+                  <a class="btn btn-succes active text-uppercase" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><%= t("workers.back") </a>
+          </div> %>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+        <div class="table-responsive">
+          <table class="table table-hover table-borderless">
+            <thead>
+              <tr>
+                <th><%= t("users.invite.mail")%></th>
+                <th><%= t("users.invite.role_label")%></th>
+                <th> </th>
+                <%# <th class="text-right">Priority</th> %>
+              </tr>
+            </thead>
+            <tbody id="circus-user-forms">
+              <% @circus_users.each do |cu| %>
+                <%= render partial: "shared/dashboard/main/circus_user_row", locals: { cu: cu } %>
+              <% end %>
+            </tbody>
+          </table>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

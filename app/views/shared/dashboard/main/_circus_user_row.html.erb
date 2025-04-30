@@ -1,0 +1,36 @@
+<tr>
+  
+  <td>
+    <div class="d-inline-block align-middle">
+      <%= image_tag cu.user.user_profile&.profile_picture&.variant(resize_to_fill: [40, 40]), class: "img-radius wid-40 align-top m-r-15" if cu.user.user_profile&.profile_picture.attached? %>
+      <div class="d-inline-block">
+        <h6 class="text-muted m-b-0 m-t-15"><%= cu.user.email %></h6>
+      </div>
+    </div>
+  </td>
+
+  <td>
+    <div class="d-inline-block align-middle">
+      <% unless cu.role == "owner" %>
+  <%= form_with(model: cu, url: circus_user_path(cu), method: :patch, local: true) do |f| %>
+    <%= f.select :role, CircusUser::ROLES.reject { |r| r == "owner" }.map { |r| [role_label(r), r] }, {}, class: "form-control form-control-sm d-inline w-auto" %>
+    <%= f.submit t("cu.save"), class: "btn btn-sm btn-success ml-2" %>
+  <% end %>
+<% else %>
+  <span class="text-muted"> <%=t("roles.owner")%></span>
+<% end %>
+
+
+      <%#= button_to "Eliminar", circus_user_path(cu), method: :delete, data: { confirm: "¿Estás seguro?" }, class: "btn btn-sm btn-danger mt-2" unless cu.role == "owner" %>
+    </div>
+  </td>
+  <td>
+      <%= button_to t("cu.delete"), deactivate_circus_user_path(cu),
+      method: :patch,
+      data: { confirm: t("cu.confirm")},
+      class: "btn btn-danger" unless cu.role == "owner"  %>
+
+    </div>
+  </td>
+
+</tr>

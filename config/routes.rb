@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :circus_users, only: [ :edit, :update ] do
+    member do
+      patch :deactivate
+    end
+  end
+
   resources :circuses do
     member do
       get :admin
@@ -6,6 +12,7 @@ Rails.application.routes.draw do
     end
   end
   post "admin/invite_user", to: "admin/users#invite", as: :invite_user
+  resources :circus_users, only: [ :edit, :update ]
 
   # Rutas básicas
   get "errors/not_found"
@@ -50,4 +57,5 @@ Rails.application.routes.draw do
   match "*unmatched", to: "errors#not_found", via: :all, constraints: lambda { |req|
     !req.path.starts_with?("/rails/active_storage")
   }
+  # config/routes.rb
 end

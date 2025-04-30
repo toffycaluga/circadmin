@@ -77,3 +77,27 @@ es:
     accountant: "Contador"
     representative: "Representante"
     owner: "Dueño"
+  workers:
+    title: "Trabajadores"
+    user: "Usuario"
+    role: "Cargo"
+    mail: "correo"
+    action: "Acciones"
+    add: "añadir trabajador"
+    edit: "editar trabajador"
+    back: "volver a trabajadores"
+  users:
+    invite:
+      email_placeholder: "Correo electrónico del usuario"
+      role_label: "Rol"
+      submit: "Invitar"
+      mail: "Correo"
+  cu:
+    save: "guardar"
+    delete: "Eliminar trabajador"
+    confirm: "¿Seguro que quieres desactivar este usuario?" 
+  cu_notice:
+    deactivate: "Trabajador Eliminado con exito."
+    destroy: "Usuario desactivado del circo."
+    update: "Rol actualizado correctamente."
+    
