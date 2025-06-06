@@ -1,0 +1,15 @@
+<h1>Mis notificaciones</h1>
+
+<%= link_to "Marcar todas como leídas", mark_all_as_read_notifications_path, method: :patch, class: "btn btn-sm btn-outline-secondary mb-3" %>
+
+<ul class="list-group">
+  <% @notifications.each do |notification| %>
+    <li class="list-group-item <%= 'bg-light' unless notification.read %>">
+      <h6><%= notification.title %></h6>
+      <p><%= notification.body %></p>
+      <% unless notification.read %>
+        <%= link_to "Marcar como leída", mark_as_read_notification_path(notification), method: :patch, class: "btn btn-sm btn-link" %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

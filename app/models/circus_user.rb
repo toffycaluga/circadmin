@@ -28,11 +28,13 @@ class CircusUser < ApplicationRecord
 
 
   validates :role, presence: true, inclusion: { in: ROLES }
+  
   validates :user_id, uniqueness: {
-    scope: [ :circus_id ],
-    conditions: -> { where(active: true) },
+    scope: [:circus_id],
+    conditions: -> { where(active: true).where.not(accepted_at: nil) },
     message: "ya está activo en este circo"
   }
+
 
 
   def invitation_expired?

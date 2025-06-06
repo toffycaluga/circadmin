@@ -56,3 +56,5 @@ en:
   footer:
     copyright: "All rights reserved"
     dev: "Developed by"
+  invitations:
+    title: "invitacions"

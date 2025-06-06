@@ -1,9 +1,10 @@
 class InvitationsController < ApplicationController
-  before_action :set_invitation, only: %i[ show edit update destroy ]
+  before_action :set_invitation, only: %i[ show edit update destroy accept reject ]
 
+  layout "dashboard"
   # GET /invitations or /invitations.json
   def index
-    @invitations = Invitation.all
+    @invitations = current_user.invitations.order(created_at: :desc)
   end
 
   # GET /invitations/1 or /invitations/1.json
@@ -16,21 +17,32 @@ class InvitationsController < ApplicationController
   end
   # app/controllers/invitations_controller.rb
   def accept
-    invitation = Invitation.find(params[:id])
-    invitation.update!(status: :accepted)
+    @invitation.update!(status: Invitation::STATUSES["accepted"])
 
-    circus_user = CircusUser.find_by(user: invitation.user, circus: invitation.circus)
+    Notification.create!(
+      user: @invitation.sender,
+      title: "Invitación aceptada",
+      body: "#{current_user.email} ha aceptado tu invitación al circo #{@invitation.circus.name}."
+    )
+
+    circus_user = CircusUser.find_by(user: @invitation.user, circus: @invitation.circus)
     circus_user.update!(active: true, accepted_at: Time.current) if circus_user
 
     redirect_to invitations_path, notice: "Invitación aceptada."
   end
 
-
   def reject
-    invitation = Invitation.find(params[:id])
-    invitation.update!(status: :rejected)
-    redirect_to invitations_path, alert: "Invitation rejected."
+    @invitation.update!(status: Invitation::STATUSES["rejected"])
+
+    Notification.create!(
+      user: @invitation.sender,
+      title: "Invitación rechazada",
+      body: "#{current_user.email} ha rechazado tu invitación al circo #{@invitation.circus.name}."
+    )
+
+    redirect_to invitations_path, alert: "Invitación rechazada."
   end
+
 
 
   # GET /invitations/1/edit
@@ -78,11 +90,10 @@ class InvitationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_invitation
-      @invitation = Invitation.find(params.expect(:id))
+      @invitation = Invitation.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def invitation_params
-      params.expect(invitation: [ :user_id, :circus_id, :sender_id, :message, :status ])
+      params.require(:invitation).permit(:user_id, :circus_id, :sender_id, :message, :status)
     end
 end

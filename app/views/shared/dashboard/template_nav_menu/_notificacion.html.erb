@@ -7,63 +7,91 @@
           <%= current_user.unread_notifications.count %>
         </span>
       <% end %>
-    10
-  </span>
     </a>
+
     <div class="dropdown-menu dropdown-menu-right notification">
       <div class="noti-head">
         <h6 class="d-inline-block m-b-0">Notifications</h6>
         <div class="float-right">
-          <a href="#!" class="m-r-10">mark as read</a>
-          <a href="#!">clear all</a>
+          <%= link_to "mark all as read", mark_all_as_read_notifications_path, method: :patch, class: "m-r-10" %>
         </div>
       </div>
+
       <ul class="noti-body">
-        <li class="n-title">
-          <p class="m-b-0">NEW</p>
-        </li>
-        <li class="notification">
-          <div class="media">
-            <img class="img-radius" src="assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
-            <div class="media-body">
-              <p><strong>John Doe</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>5 min</span></p>
-              <p>New ticket Added</p>
-            </div>
-          </div>
-        </li>
-        <li class="n-title">
-          <p class="m-b-0">EARLIER</p>
-        </li>
-        <li class="notification">
-          <div class="media">
-            <img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
-            <div class="media-body">
-              <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>10 min</span></p>
-              <p>Prchace New Theme and make payment</p>
-            </div>
-          </div>
-        </li>
-        <li class="notification">
-          <div class="media">
-            <img class="img-radius" src="assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
-            <div class="media-body">
-              <p><strong>Sara Soudein</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>12 min</span></p>
-              <p>currently login</p>
-            </div>
-          </div>
-        </li>
-        <li class="notification">
-          <div class="media">
-            <img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
-            <div class="media-body">
-              <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
-              <p>Prchace New Theme and make payment</p>
-            </div>
-          </div>
-        </li>
+        <% unread = current_user.unread_notifications.order(created_at: :desc).limit(5) %>
+        <% read = current_user.notifications.where(read: true).order(created_at: :desc).limit(5) %>
+
+        <% if unread.any? %>
+          <li class="n-title"><p class="m-b-0">NEW</p></li>
+          <% unread.each do |n| %>
+            <%= link_to invitations_path, class: "text-reset text-decoration-none" do %>
+              <li class="notification bg-light">
+                <div class="media">
+                  <%= image_tag(
+                    (n.user&.user_profile&.profile_picture&.attached? ?
+                      url_for(n.user.user_profile.profile_picture) :
+                      asset_path("avatar.jpg")),
+                    class: "img-radius img-fluid rounded-circle",
+                    alt: "Foto de perfil",
+                    width: 40,
+                    height: 40,
+                    style: "object-fit: cover; aspect-ratio: 1/1;"
+                  ) %>
+                  <div class="media-body">
+                    <p><strong><%= n.title %></strong>
+                      <span class="n-time text-muted">
+                        <i class="icon feather icon-clock m-r-10"></i>
+                        <%= time_ago_in_words(n.created_at) %> ago
+                      </span>
+                    </p>
+                    <p><%= truncate(n.body, length: 60) %></p>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if read.any? %>
+          <li class="n-title"><p class="m-b-0">EARLIER</p></li>
+          <% read.each do |n| %>
+            <%= link_to invitations_path, class: "text-reset text-decoration-none" do %>
+              <li class="notification">
+                <div class="media">
+                  <%= image_tag(
+                    (n.user&.user_profile&.profile_picture&.attached? ?
+                      url_for(n.user.user_profile.profile_picture) :
+                      asset_path("avatar.jpg")),
+                    class: "img-radius img-fluid rounded-circle",
+                    alt: "Foto de perfil",
+                    width: 40,
+                    height: 40,
+                    style: "object-fit: cover; aspect-ratio: 1/1;"
+                  ) %>
+                  <div class="media-body">
+                    <p><strong><%= n.title %></strong>
+                      <span class="n-time text-muted">
+                        <i class="icon feather icon-clock m-r-10"></i>
+                        <%= time_ago_in_words(n.created_at) %> ago
+                      </span>
+                    </p>
+                    <p><%= truncate(n.body, length: 60) %></p>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if unread.empty? && read.empty? %>
+          <li class="text-center text-muted py-3">
+            No notifications available.
+          </li>
+        <% end %>
       </ul>
+
       <div class="noti-footer">
-        <a href="#!">show all</a>
+        <%= link_to "show all", notifications_path %>
       </div>
     </div>
   </div>

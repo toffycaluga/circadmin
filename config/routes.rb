@@ -72,4 +72,12 @@ Rails.application.routes.draw do
   match "*unmatched", to: "errors#not_found", via: :all, constraints: ->(req) {
     !req.path.starts_with?("/rails/active_storage")
   }
+  resources :notifications, only: [ :index ] do
+    member do
+      patch :mark_as_read
+    end
+    collection do
+      patch :mark_all_as_read
+    end
+  end
 end

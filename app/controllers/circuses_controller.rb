@@ -1,8 +1,8 @@
 class CircusesController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
-  before_action :set_circus, only: %i[ show edit update destroy ]
-  before_action :check_user_is_active_in_circus
+  before_action :set_circus, only: %i[ show edit update destroy admin ]
+  before_action :check_user_is_active_in_circus, only: [ :show, :admin ]
 
   def check_user_is_active_in_circus
     unless current_user.circus_users.find_by(circus_id: params[:id])&.active?
@@ -10,14 +10,12 @@ class CircusesController < ApplicationController
     end
   end
 
-  # GET /circuses
   def index
     @circuses = current_user.circuses
     @owned_circuses = current_user.owned_circuses
-    @associated_circuses= current_user.associated_circuses
+    @associated_circuses = current_user.associated_circuses
   end
 
-  # GET /circuses/1
   def show
   end
 
@@ -35,39 +33,37 @@ class CircusesController < ApplicationController
     redirect_to dashboard_index_path
   end
 
-
-  # GET /circuses/new
   def new
     @circus = current_user.circuses.build
   end
 
-  # GET /circuses/1/edit
   def edit
   end
+
   def admin
     @circus = Circus.find(params[:id])
-    session[:circus_id] = @circus.id # ✅ Setea el contexto
+    session[:circus_id] = @circus.id
     authorize! :admin, @circus
 
-    @circus_users = @circus
-      .circus_users
-      .includes(user: :invitations)
-      .where(active: true)
-      .where.not(users: { invitations: { status: 2 } })
+    current_cu = current_user.circus_users.find_by(circus: @circus)
+
+    filtered_users = if current_cu&.role == "owner"
+      @circus.circus_users.includes(user: [ :user_profile, :invitations ])
+    else
+      @circus.circus_users.includes(user: [ :user_profile, :invitations ])
+              .where(active: true)
+              .where.not(accepted_at: nil)
+    end
+
+    owner = @circus.circus_users.find_by(role: "owner")
+    @circus_users = [ owner ] + filtered_users.reject { |cu| cu.id == owner&.id }
   end
 
-
-
-
-
-  # POST /circuses
   def create
-    # @circus = current_user.circuses.build(circus_params)
     @circus = Circus.new(circus_params)
     @circus.user = current_user
     respond_to do |format|
       if @circus.save
-        # 👇 Creamos el rol de dueño en la tabla intermedia
         CircusUser.create!(user: current_user, circus: @circus, role: "owner")
 
         format.html { redirect_to root_path, notice: "Circo creado con éxito." }
@@ -79,8 +75,6 @@ class CircusesController < ApplicationController
     end
   end
 
-
-  # PATCH/PUT /circuses/1
   def update
     respond_to do |format|
       if @circus.update(circus_params)
@@ -93,7 +87,6 @@ class CircusesController < ApplicationController
     end
   end
 
-  # DELETE /circuses/1
   def destroy
     @circus.destroy
     respond_to do |format|

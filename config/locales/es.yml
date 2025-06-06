@@ -100,4 +100,5 @@ es:
     deactivate: "Trabajador Eliminado con exito."
     destroy: "Usuario desactivado del circo."
     update: "Rol actualizado correctamente."
-    
+  invitations:
+    title: "invitaciones"

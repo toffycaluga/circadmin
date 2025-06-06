@@ -1,16 +1,51 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :page_title ,t("dashboard.title") %>
+  
+<% content_for :breadcrumb do %>
+  <li class="breadcrumb-item"><%= link_to t("dashboard.title"), dashboard_index_path %></li>
+  <li class="breadcrumb-item active"><% t("invitations.title") %></li>
+<% end %>
 
-<% content_for :title, "Invitations" %>
 
-<h1>Invitations</h1>
+<% content_for :title, "Invitaciones recibidas" %>
 
-<div id="invitations">
-  <% @invitations.each do |invitation| %>
-    <%= render invitation %>
-    <p>
-      <%= link_to "Show this invitation", invitation %>
-    </p>
-  <% end %>
-</div>
+<% if notice %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= notice %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>
 
-<%= link_to "New invitation", new_invitation_path %>
+<h2 class="mb-4">Mis invitaciones</h2>
+
+<% if @invitations.empty? %>
+  <div class="alert alert-info">No tienes invitaciones en este momento.</div>
+<% else %>
+  <div class="row">
+    <% @invitations.each do |invitation| %>
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title">
+              <i class="feather icon-users mr-2"></i>
+              <%= invitation.circus.name %>
+            </h5>
+            <p class="card-text"><strong>Mensaje:</strong> <%= invitation.message %></p>
+            <p class="card-text">
+              <strong>Estado:</strong> <%= status_badge(invitation) %>
+            </p>
+
+            <% if invitation.status == Invitation::STATUSES["pending"] %>
+              <div class="d-flex justify-content-between">
+                <%= button_to "Aceptar", accept_invitation_path(invitation), method: :patch, class: "btn btn-success btn-sm" %>
+                <%= button_to "Rechazar", reject_invitation_path(invitation), method: :patch, class: "btn btn-outline-danger btn-sm" %>
+
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
