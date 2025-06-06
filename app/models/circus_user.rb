@@ -25,8 +25,16 @@ class CircusUser < ApplicationRecord
   ROLES = %w[admin accountant representative owner]
   scope :active, -> { where(active: true) }
   attribute :active, :boolean, default: true
-  
+
+
   validates :role, presence: true, inclusion: { in: ROLES }
+  validates :user_id, uniqueness: {
+    scope: [ :circus_id ],
+    conditions: -> { where(active: true) },
+    message: "ya está activo en este circo"
+  }
+
+
   def invitation_expired?
     invitation_sent_at.present? && invitation_sent_at < 48.hours.ago
   end

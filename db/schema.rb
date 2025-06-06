@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_30_030105) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_05_030527) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -67,6 +67,29 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_30_030105) do
     t.index ["user_id"], name: "index_circuses_on_user_id"
   end
 
+  create_table "invitations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "circus_id", null: false
+    t.bigint "sender_id", null: false
+    t.text "message"
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["circus_id"], name: "index_invitations_on_circus_id"
+    t.index ["sender_id"], name: "index_invitations_on_sender_id"
+    t.index ["user_id"], name: "index_invitations_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title"
+    t.text "body"
+    t.boolean "read", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "user_profiles", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "full_name"
@@ -108,5 +131,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_30_030105) do
   add_foreign_key "circus_users", "circuses"
   add_foreign_key "circus_users", "users"
   add_foreign_key "circuses", "users"
+  add_foreign_key "invitations", "circuses"
+  add_foreign_key "invitations", "users"
+  add_foreign_key "invitations", "users", column: "sender_id"
+  add_foreign_key "notifications", "users"
   add_foreign_key "user_profiles", "users"
 end

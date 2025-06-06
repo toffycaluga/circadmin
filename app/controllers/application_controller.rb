@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
   before_action :redirect_if_profile_incomplete, unless: :active_storage_request?
+  before_action :ensure_circus_context!
+
+  helper_method :current_circus
 
   def set_locale
     I18n.locale = session[:locale] ||
@@ -10,8 +13,16 @@ class ApplicationController < ActionController::Base
       I18n.default_locale
   end
 
+  def current_circus
+    @current_circus ||= begin
+      circus = Circus.find_by(id: session[:circus_id])
+      Rails.logger.info "🐞 current_circus desde sesión: #{session[:circus_id]} -> #{circus&.name}"
+      circus
+    end
+  end
+
   def extract_locale_from_accept_language_header
-    locale if [ "es", "en" ].include? locale.to_s
+    locale if %w[es en].include?(locale.to_s)
   end
 
   def set_language
@@ -53,12 +64,13 @@ class ApplicationController < ActionController::Base
     redirect_to dashboard_index_path
   end
 
-  def current_circus
-    @current_circus ||= Circus.find_by(id: session[:current_circus_id])
-  end
-  helper_method :current_circus
-
   private
+
+  def ensure_circus_context!
+    if controller_name == "custom_invitations" && session[:circus_id].blank?
+      redirect_to dashboard_index_path, alert: "Debes seleccionar un circo antes de invitar."
+    end
+  end
 
   def redirect_if_profile_incomplete
     return unless user_signed_in?
@@ -75,7 +87,6 @@ class ApplicationController < ActionController::Base
 
     if current_user.user_profile.nil?
       redirect_to new_user_profile_path, alert: t("alerts.complete_profile")
-      nil
     end
   end
 

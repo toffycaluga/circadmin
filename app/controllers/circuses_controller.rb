@@ -2,6 +2,14 @@ class CircusesController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
   before_action :set_circus, only: %i[ show edit update destroy ]
+  before_action :check_user_is_active_in_circus
+
+  def check_user_is_active_in_circus
+    unless current_user.circus_users.find_by(circus_id: params[:id])&.active?
+      redirect_to root_path, alert: "Debes aceptar la invitación antes de acceder al circo."
+    end
+  end
+
   # GET /circuses
   def index
     @circuses = current_user.circuses
@@ -13,6 +21,19 @@ class CircusesController < ApplicationController
   def show
   end
 
+  def accept_invitation
+    @circus = Circus.find(params[:id])
+    circus_user = CircusUser.find_by(user: current_user, circus: @circus)
+
+    if circus_user.present? && circus_user.accepted_at.nil?
+      circus_user.update!(accepted_at: Time.current)
+      flash[:notice] = "Has aceptado la invitación al circo #{@circus.name}."
+    else
+      flash[:alert] = "No tienes una invitación pendiente para este circo."
+    end
+
+    redirect_to dashboard_index_path
+  end
 
 
   # GET /circuses/new
@@ -24,12 +45,18 @@ class CircusesController < ApplicationController
   def edit
   end
   def admin
-    @circus = current_user.circuses.find(params[:id])
-    session[:current_circus_id] = @circus.id
-    @circus_users = @circus.circus_users.where(active: true).includes(:user)
+    @circus = Circus.find(params[:id])
+    session[:circus_id] = @circus.id # ✅ Setea el contexto
+    authorize! :admin, @circus
 
-    @editing_circus_user = @circus_users.find_by(id: params[:edit_circus_user_id]) if params[:edit_circus_user_id].present?
+    @circus_users = @circus
+      .circus_users
+      .includes(user: :invitations)
+      .where(active: true)
+      .where.not(users: { invitations: { status: 2 } })
   end
+
+
 
 
 

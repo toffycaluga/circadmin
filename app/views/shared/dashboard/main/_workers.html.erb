@@ -19,43 +19,62 @@
           <table class="table table-hover m-0">
             <thead>
               <tr>
-                <th><%= t("workers.user")%></th>
-                <th><%= t("workers.mail")%></th>
-                <%# <th> </th> %>
-                <%# <th><%= t("workers.role")</th> %>
-                <th><%= t("workers.action")%></th>
-              </thead>
-              <tbody>
-                <% @circus_users.each do |cu| %>
-                  <tr>
-                    <td>
-                      <div class="text-center">
-                        <%= image_tag(
-                            (current_user&.user_profile&.profile_picture&.attached? ?
-                            url_for(current_user.user_profile.profile_picture) :
-                            asset_path("avatar.jpg")),
-                            class: "img-radius img-fluid rounded-circle",
-                            alt: "Foto de perfil",
-                            width: 60,
-                            height: 60,
-                            style: "object-fit: cover; aspect-ratio: 1/1;"
-                        ) %>
-                        <% if current_user.user_profile&.full_name.present? %>
-                          <h5 class="mt-2"><%= current_user.user_profile.full_name %></h5>
-                        <% else %>
-                          <h5 class="mt-2 text-muted">Nombre no disponible</h5>
-                        <% end %>
-                      </div>
-                    </td>
-                    <td>
-                      <h6 class="mb-1"><%= cu.user.email %></h6>
-                    </p>
+                <th><%= t("workers.user") %></th>
+                <th><%= t("workers.mail") %></th>
+                <th><%= t("workers.role") %></th>
+                <th><%= t("workers.status") %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @circus_users.each do |cu| %>
+                <tr>
+                  <td>
+                    <div class="text-center">
+                      <%= image_tag(
+              (cu.user.user_profile&.profile_picture&.attached? ?
+                url_for(cu.user.user_profile.profile_picture) :
+                asset_path("avatar.jpg")),
+              class: "img-radius img-fluid rounded-circle",
+              alt: "Foto de perfil",
+              width: 60,
+              height: 60,
+              style: "object-fit: cover; aspect-ratio: 1/1;"
+            ) %>
+                      <h5 class="mt-2">
+                        <%= cu.user.user_profile&.full_name.presence || content_tag(:span, "Nombre no disponible", class: "text-muted") %>
+                      </h5>
+                    </div>
                   </td>
-                  <td class="text-c-green">
+                  <td>
+                    <h6 class="mb-1"><%= cu.user.email %></h6>
+                  </td>
+                  <td>
                     <span class="fw-bold"><%= t("roles.#{cu.role}") %></span>
                   </td>
+                  <td>
+                    <% invitation = cu.user.invitations.find_by(circus: @circus) %>
+                    <% if invitation.present? %>
+                      <% if invitation.status == Invitation::STATUSES["pending"] %>
+                        <div class="d-flex gap-3">
+                          <span class="badge bg-warning text-dark">Pendiente</span>
+                          <%= button_to resend_email_custom_invitation_path(invitation),
+                            method: :post,
+                            class: "btn btn-sm btn-outline-secondary d-flex align-items-center gap-1",
+                            data: {
+                              turbo_confirm: "¿Estás seguro que deseas reenviar esta invitación? Se enviará nuevamente al correo del usuario."
+                            } do %>
+                            <i class="fas fa-paper-plane"></i> Reenviar
+                          <% end %>
+                        </div>
+                      <% elsif invitation.status == Invitation::STATUSES["accepted"] %>
+                        <span class="badge bg-success ">Aceptado</span>
+                      <% end %>
+                    <% else %>
+                      <span class="badge bg-secondary">Sin invitación</span>
+                    <% end %>
+                  </td>
                 </tr>
-              <% end %>
+              <% end %> <!-- este cierre estaba faltando o mal posicionado -->
             </tbody>
           </table>
         </div>
@@ -97,7 +116,6 @@
               <% end %>
             </tbody>
           </table>
-          
         </div>
       </div>
     </div>

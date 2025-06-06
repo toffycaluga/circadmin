@@ -12,4 +12,11 @@ class UserMailer < ApplicationMailer
         subject: "¡Has sido invitado a unirte a #{@circus.name} en CircAdmin!"
       )
     end
+    def notify(invitation)
+      @invitation = invitation
+      mail(
+        to: @invitation.user.email,
+        subject: "Invitación a unirte al circo #{@invitation.circus.name}"
+      )
+    end
 end

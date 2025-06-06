@@ -22,6 +22,8 @@ class Circus < ApplicationRecord
   has_one_attached :logo
   has_many :circus_users
   has_many :users, through: :circus_users
+  has_many :invitations
+
 
   after_initialize :set_defaults, if: :new_record?
 
