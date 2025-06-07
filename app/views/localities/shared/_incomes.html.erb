@@ -1,0 +1,24 @@
+<div class="card col col-md-5">
+  <div class="col-md-6">
+    <h4>💰 Ingresos</h4>
+    <% if can?(:manage, locality) %>
+      <%= link_to "➕ Agregar ingreso", new_transaction_path(transaction_type: "income", locality_id: locality.id), class: "btn btn-success btn-sm mb-2" %>
+    <% end %>
+
+    <% if incomes.any? %>
+      <ul class="list-group">
+        <% incomes.each do |income| %>
+          <li class="list-group-item d-flex justify-content-between">
+            <div>
+              <strong><%= income.title %></strong><br>
+              <small><%= l(income.date, format: :short) %> - <%= income.category %></small>
+            </div>
+            <span>€ <%= number_with_precision(income.amount, precision: 2) %></span>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-muted">No hay ingresos registrados.</p>
+    <% end %>
+  </div>
+</div>

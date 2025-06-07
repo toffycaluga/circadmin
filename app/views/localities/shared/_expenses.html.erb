@@ -1,0 +1,24 @@
+<div class="card col col-md-5">
+  <div class="col-md-6">
+    <h4>💸 Gastos</h4>
+    <% if can?(:manage, locality) %>
+      <%= link_to "➕ Agregar gasto", new_transaction_path(transaction_type: "expense", locality_id: locality.id), class: "btn btn-danger btn-sm mb-2" %>
+    <% end %>
+
+    <% if expenses.any? %>
+      <ul class="list-group">
+        <% expenses.each do |expense| %>
+          <li class="list-group-item d-flex justify-content-between">
+            <div>
+              <strong><%= expense.title %></strong><br>
+              <small><%= l(expense.date, format: :short) %> - <%= expense.category %></small>
+            </div>
+            <span>€ <%= number_with_precision(expense.amount, precision: 2) %></span>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-muted">No hay gastos registrados.</p>
+    <% end %>
+  </div>
+</div>

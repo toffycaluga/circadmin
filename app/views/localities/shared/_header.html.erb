@@ -1,0 +1,21 @@
+<div class="card p-3 mb-4">
+  <h2 class="mb-3">🎪 Administración del evento: <%= locality.title.presence || "Sin nombre" %></h2>
+  <div class="row">
+    <div class="col-md-8">
+      <p class="mb-1"><strong>Ciudad:</strong> <%= locality.city %></p>
+      <p class="mb-1"><strong>Fechas:</strong>
+        <%= l(locality.start_date) %>
+        <% if locality.end_date.present? %>
+          – <%= l(locality.end_date) %>
+        <% else %>
+          – en curso
+        <% end %>
+      </p>
+    </div>
+    <% if can?(:manage, locality) %>
+      <div class="col-md-4 text-md-end d-flex align-items-start justify-content-md-end mt-3 mt-md-0">
+        <%= render "localities/shared/status_controls", locality: locality %>
+      </div>
+    <% end %>
+  </div>
+</div>

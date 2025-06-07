@@ -23,6 +23,7 @@ class Circus < ApplicationRecord
   has_many :circus_users
   has_many :users, through: :circus_users
   has_many :invitations
+  has_many :localities, dependent: :destroy
 
 
   after_initialize :set_defaults, if: :new_record?

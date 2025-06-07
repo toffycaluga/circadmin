@@ -1,0 +1,6 @@
+<div class="mt-4">
+  <h5>📊 Resumen</h5>
+  <p>Total ingresos: € <%= number_with_precision(incomes.sum(:amount), precision: 2) %></p>
+  <p>Total gastos: € <%= number_with_precision(expenses.sum(:amount), precision: 2) %></p>
+  <p><strong>Balance:</strong> € <%= number_with_precision(incomes.sum(:amount) - expenses.sum(:amount), precision: 2) %></p>
+</div>

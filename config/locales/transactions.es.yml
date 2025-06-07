@@ -1,0 +1,5 @@
+es:
+  transactions:
+    actions:
+      new_income: "➕ Registrar Ingreso"
+      new_expense: "➖ Registrar Gasto"

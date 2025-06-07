@@ -1,0 +1,20 @@
+<% content_for :page_title, t("localities.new.title", default: "Nueva Localidad") %>
+
+<% content_for :breadcrumb do %>
+  <li class="breadcrumb-item"><%= link_to t("dashboard.title"), dashboard_index_path %></li>
+  <li class="breadcrumb-item"><%= link_to t("circus.admin.title"), admin_circus_path(@circus) %></li>
+  <li class="breadcrumb-item active"><%= t("localities.new.title", default: "Nuevas Localidad") %></li>
+<% end %>
+
+<div class="col-12 col-lg-8 mx-auto mb-4">
+  <div class="card shadow-sm">
+    <div class="card-header d-flex align-items-center gap-2">
+      <i class="fas fa-map-marker-alt text-primary"></i>
+      <h5 class="mb-0"><%= t("localities.new.title", default: "Nueva Localidad") %></h5>
+    </div>
+
+    <div class="card-body">
+      <%= render 'form', locality: @locality %>
+    </div>
+  </div>
+</div>

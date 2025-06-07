@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :localities
+  resources :transactions
   # Autenticación Devise
   devise_for :users, controllers: {
     sessions: "users/sessions",
@@ -34,6 +36,15 @@ Rails.application.routes.draw do
       patch :update_picture
     end
   end
+  # config/routes.rb
+  resources :localities do
+    member do
+      get :admin
+      patch :deactivate
+      patch :reactivate
+    end
+  end
+
 
   # Circuses y administración
   resources :circuses do
@@ -80,4 +91,10 @@ Rails.application.routes.draw do
       patch :mark_all_as_read
     end
   end
+  resources :transactions do
+  collection do
+    get :new_income
+    get :new_expense
+  end
+end
 end

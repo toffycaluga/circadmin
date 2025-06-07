@@ -1,0 +1,10 @@
+<div class="mb-3 d-flex gap-2">
+  <%= link_to "✏️ Editar evento", edit_locality_path(locality), class: "btn btn-outline-secondary btn-sm" %>
+
+  <% if locality.active? %>
+    <%= button_to "🚫 Cerrar evento", deactivate_locality_path(locality), method: :patch, class: "btn btn-outline-danger btn-sm", data: { confirm: "¿Estás seguro de cerrar este evento?" } %>
+  <% else %>
+    <%= button_to "✅ Reabrir evento", reactivate_locality_path(locality), method: :patch, class: "btn btn-outline-success btn-sm", data: { confirm: "¿Quieres reabrir este evento?" } %>
+    <span class="badge badge-danger align-self-center">Evento cerrado</span>
+  <% end %>
+</div>

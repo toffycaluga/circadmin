@@ -1,0 +1,14 @@
+<div class="container mt-4">
+  <%= render "localities/shared/header", locality: @locality %>
+  <hr>
+  <%= render "localities/shared/summary_cards", 
+           incomes: @incomes, 
+           expenses: @expenses, 
+           locality: @locality %>
+
+  <hr>
+  <div class="row gap-2 px-4">
+    <%= render "localities/shared/incomes", incomes: @incomes, locality: @locality %>
+    <%= render "localities/shared/expenses", expenses: @expenses, locality: @locality %>
+  </div>
+</div>

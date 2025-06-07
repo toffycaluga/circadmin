@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Localities" %>
+
+<h1>Localities</h1>
+
+<div id="localities">
+  <% @localities.each do |locality| %>
+    <%= render locality %>
+    <p>
+      <%= link_to "Show this locality", locality %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New locality", new_locality_path %>

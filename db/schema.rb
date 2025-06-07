@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_05_030527) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_07_201711) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -80,6 +80,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_05_030527) do
     t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
+  create_table "localities", force: :cascade do |t|
+    t.string "title"
+    t.string "location"
+    t.string "city"
+    t.date "start_date"
+    t.date "end_date"
+    t.boolean "active"
+    t.bigint "circus_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["circus_id"], name: "index_localities_on_circus_id"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title"
@@ -88,6 +101,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_05_030527) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string "title"
+    t.decimal "amount", precision: 10, scale: 2
+    t.string "transaction_type"
+    t.text "description"
+    t.datetime "date"
+    t.bigint "user_id", null: false
+    t.bigint "circus_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "category"
+    t.bigint "locality_id", null: false
+    t.index ["circus_id"], name: "index_transactions_on_circus_id"
+    t.index ["locality_id"], name: "index_transactions_on_locality_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "user_profiles", force: :cascade do |t|
@@ -134,6 +164,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_05_030527) do
   add_foreign_key "invitations", "circuses"
   add_foreign_key "invitations", "users"
   add_foreign_key "invitations", "users", column: "sender_id"
+  add_foreign_key "localities", "circuses"
   add_foreign_key "notifications", "users"
+  add_foreign_key "transactions", "circuses"
+  add_foreign_key "transactions", "localities"
+  add_foreign_key "transactions", "users"
   add_foreign_key "user_profiles", "users"
 end

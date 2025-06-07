@@ -1,0 +1,11 @@
+es:
+  dashboard:
+    financial_resources:
+      title: "Recursos financieros"
+      description: "Accede al registro de ingresos y gastos del circo."
+    localities: 
+      title: "Localidades"
+      description: "Lleva el control de cada evento o presentación del circo, ya sea en una plaza distinta o en un mismo lugar. Registra ingresos y gastos fácilmente."
+      new_locality: "➕ Nueva Localidad"
+      view: "ver"
+      admin: "administrar"

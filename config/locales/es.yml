@@ -102,3 +102,36 @@ es:
     update: "Rol actualizado correctamente."
   invitations:
     title: "invitaciones"
+  localities:
+    form:
+      form_errors: "impidieron guardar la localidad"
+      title: "Nombre de la localidad"
+      title_placeholder: "Ej. Plaza de armas, Feria de verano"
+      location: "Dirección"
+      location_placeholder: "Ej. Calle Falsa 123, Sector norte"
+      city: "Ciudad"
+      city_placeholder: "Ej. Valparaíso"
+      start_date: "Fecha de inicio"
+      end_date: "Fecha de término (opcional)"
+      active: "Localidad activa"
+      active_hint: "Activa esta casilla si ya están trabajando en esta localidad. Si solo está en preparación (publicidad, permisos, etc.), no la marques aún, pero puedes registrar gastos desde ya."
+      notes: "Observaciones"
+      notes_placeholder: "Ej. Dueño del terreno: Juan Pérez, terreno privado"
+      submit: "Guardar"
+    notices:
+      created: "La localidad fue creada con éxito."
+      updated: "La localidad fue actualizada con éxito."
+      destroyed: "La localidad fue eliminada."
+  circus:
+    admin:
+      title: "Administración del Circo"
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d %b"          # ejemplo: 06 jun
+      long: "%d de %B de %Y"  # ejemplo: 6 de junio de 2025
+  time:
+    formats:
+      default: "%H:%M"
+      default: "%d/%m/%Y"
+      short: "%d %b"
