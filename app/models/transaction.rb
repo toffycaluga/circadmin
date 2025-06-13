@@ -49,8 +49,8 @@ class Transaction < ApplicationRecord
 
   validates :title, :amount, :transaction_type, :date, presence: true
 
-  INCOME_CATEGORIES = %w[boletería evento dulcería souvenires otros]
-  EXPENSE_CATEGORIES = %w[planilla alquiler transporte alimentación otros]
+  INCOME_CATEGORIES = %w[ticket_sales events candy souvenirs others]
+  EXPENSE_CATEGORIES = %w[payroll rent transport food permits others]
 
   # ✅ estos métodos deben ir *fuera* de cualquier bloque o macro
   def transaction_type_income?

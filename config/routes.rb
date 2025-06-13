@@ -11,14 +11,6 @@ Rails.application.routes.draw do
     invitations: "users/invitations"
   }
 
-  # Root y redirecciones autenticadas
-  root to: "home#index"
-  authenticated :user do
-    root to: "dashboard#index", as: :authenticated_root
-  end
-  unauthenticated do
-    root to: "devise/sessions#new", as: :unauthenticated_root
-  end
 
   # Dashboard y páginas básicas
   get "dashboard/index"
@@ -40,6 +32,7 @@ Rails.application.routes.draw do
   resources :localities do
     member do
       get :admin
+      get "summary", to: "localities#summary"
       patch :deactivate
       patch :reactivate
     end
@@ -76,6 +69,15 @@ Rails.application.routes.draw do
     member do
       post :resend_email
     end
+  end
+
+  # Root y redirecciones autenticadas
+  root to: "home#index"
+  authenticated :user do
+    root to: "dashboard#index", as: :authenticated_root
+  end
+  unauthenticated do
+    root to: "devise/sessions#new", as: :unauthenticated_root
   end
 
   # Rutas de error y fallback

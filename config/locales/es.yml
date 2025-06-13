@@ -11,7 +11,7 @@ es:
     edit: "Editar"
     forgot: "¿Olvidaste tu contraseña?"
     confirmation: "¿No recibí las instrucciones de confirmación?"
-    unlock: "¿No recibí las instrucciones de desbloqueo?" 
+    unlock: "¿No recibí las instrucciones de desbloqueo?"
   alerts:
     complete_profile: "Por favor completa tu perfil antes de continuar."
   user_profiles:
@@ -67,11 +67,6 @@ es:
   footer:
     copyright: "Todos los derechos reservados"
     dev: "Desarrollado por"
-  models:
-    circus:
-      attributes:
-        user:
-          required: "debe estar presente"
   roles:
     admin: "Administrador"
     accountant: "Contador"
@@ -81,11 +76,11 @@ es:
     title: "Trabajadores"
     user: "Usuario"
     role: "Cargo"
-    mail: "correo"
+    mail: "Correo"
     action: "Acciones"
-    add: "añadir trabajador"
-    edit: "editar trabajador"
-    back: "volver a trabajadores"
+    add: "Añadir trabajador"
+    edit: "Editar trabajador"
+    back: "Volver a trabajadores"
   users:
     invite:
       email_placeholder: "Correo electrónico del usuario"
@@ -93,18 +88,18 @@ es:
       submit: "Invitar"
       mail: "Correo"
   cu:
-    save: "guardar"
+    save: "Guardar"
     delete: "Eliminar trabajador"
-    confirm: "¿Seguro que quieres desactivar este usuario?" 
+    confirm: "¿Seguro que quieres desactivar este usuario?"
   cu_notice:
-    deactivate: "Trabajador Eliminado con exito."
+    deactivate: "Trabajador eliminado con éxito."
     destroy: "Usuario desactivado del circo."
     update: "Rol actualizado correctamente."
   invitations:
-    title: "invitaciones"
+    title: "Invitaciones"
   localities:
     form:
-      form_errors: "impidieron guardar la localidad"
+      form_errors: "Impidieron guardar la localidad"
       title: "Nombre de la localidad"
       title_placeholder: "Ej. Plaza de armas, Feria de verano"
       location: "Dirección"
@@ -128,10 +123,108 @@ es:
   date:
     formats:
       default: "%d/%m/%Y"
-      short: "%d %b"          # ejemplo: 06 jun
-      long: "%d de %B de %Y"  # ejemplo: 6 de junio de 2025
+      short: "%d %b"
+      long: "%d de %B de %Y"
+    abbr_month_names:
+      - ~
+      - "ene"
+      - "feb"
+      - "mar"
+      - "abr"
+      - "may"
+      - "jun"
+      - "jul"
+      - "ago"
+      - "sep"
+      - "oct"
+      - "nov"
+      - "dic"
+    month_names:
+    - ~
+    - "Enero"
+    - "Febrero"
+    - "Marzo"
+    - "Abril"
+    - "Mayo"
+    - "Junio"
+    - "Julio"
+    - "Agosto"
+    - "Septiembre"
+    - "Octubre"
+    - "Noviembre"
+    - "Diciembre"
+
   time:
     formats:
-      default: "%H:%M"
-      default: "%d/%m/%Y"
+      default: "%d/%m/%Y %H:%M"
       short: "%d %b"
+      long: "%d de %B de %Y a las %H:%M"
+  transactions:
+    sections:
+      expenses_title: "💸 Gastos"
+      incomes_title: "💰 Ingresos"
+    actions:
+      add_expense: "➕ Agregar gasto"
+      see_more_expenses: "Ver más gastos"
+      add_income: "➕ Agregar ingreso"
+      see_more_incomes: "Ver más ingresos"
+    empty:
+      expenses: "No hay gastos registrados."
+      incomes: "No hay ingresos registrados."
+    categories:
+      ticket_sales: "Boletería"
+      boleteria: "Boletería"
+      events: "Evento"
+      candy: "Dulcería"
+      dulceria: "Dulcería"
+      souvenirs: "Souvenires"
+      souvenires: "Souvenires"
+      others: "Otros"
+      otros: "Otros"
+      payroll: "Planilla"
+      rent: "Alquiler"
+      transport: "Transporte"
+      food: "Alimentación"
+      permits: "Permisos"
+    summary:
+      breakdown: "Desglose por categoría"
+      view_details: "Ver detalles"
+    form:
+      errors_title: "%{count} error(es) impidieron guardar la transacción:"
+      title: "Título"
+      amount: "Monto"
+      category: "Categoría"
+      description: "Descripción"
+      date: "Fecha"
+      receipt: "Comprobante (solo para gastos)"
+      current_receipt: "Comprobante actual:"
+      submit: "Guardar"
+      prompts:
+        category: "Selecciona una categoría"
+      placeholders:
+        title:
+          income: "Ventas de entradas vermouth"
+          expense: "Ej: Compra de materiales"
+        amount: "Ej: 15000"
+        description:
+          income: "Ej: Ingreso por función extra"
+          expense: "Ej: Detalles del gasto realizado"
+      hints:
+        title:
+          income: "Describe el origen del ingreso."
+          expense: "Describe el motivo del gasto."
+        amount: "Ingresa el monto en la moneda del circo."
+        category: "Ayuda a clasificar mejor la transacción."
+        description:
+          income: "Puedes incluir el tipo de ingreso."
+          expense: "Puedes especificar detalles útiles para la contabilidad."
+        date: "¿Cuándo ocurrió esta transacción?"
+        receipt: "Opcional, puedes subir una boleta o factura."
+  summary_card:
+    last_day: "Resumen del último día"
+    weekly: "Resumen semanal"
+    last_week: "Resume última semana"
+    monthly: "Resumen mensual"
+    last_month: "Resumen úlimo mes"
+    overall: "Total acumulado"
+    view_details: "Ver detalles"

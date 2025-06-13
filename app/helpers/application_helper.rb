@@ -165,6 +165,15 @@ module ApplicationHelper
         [ "#{localized_name} #{flag}", country.alpha2 ]
       end.sort_by(&:first)
     end
+    def clean_currency(amount)
+      decimals = amount.to_f == amount.to_i ? 0 : 2
+      number_with_precision(amount,
+        precision: decimals,
+        delimiter: ".",  # separador de miles
+        separator: ","   # separador decimal
+      )
+    end
+
 
     # def currency_options_with_flags(selected_country_code = nil)
     #   require "money"

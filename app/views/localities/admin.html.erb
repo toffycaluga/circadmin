@@ -1,14 +1,64 @@
 <div class="container mt-4">
   <%= render "localities/shared/header", locality: @locality %>
   <hr>
+   
   <%= render "localities/shared/summary_cards", 
            incomes: @incomes, 
            expenses: @expenses, 
            locality: @locality %>
 
   <hr>
+ <%# inicio bloque resumenes %>
+ <div class="row">
+  <%# Resumen ingreso diario %>
+  <% if @last_day_summary %>
+    <%= render "transactions/shared/summary_card",
+      title: t("summary_card.last_day"),
+      locality: @locality,
+      amount: @last_day_summary[:total],
+      change_percent: @last_day_summary[:change_percent],
+      categories: @last_day_summary[:by_category],
+      target_date: @last_day_summary[:target_date] %>
+  <% end %>
+
+  <%# Resumen ingreso semanal %>
+  <% if @weekly_summary %>
+    <%= render "transactions/shared/summary_card",
+      title: t("summary_card.weekly"),
+      locality: @locality,
+      amount: @weekly_summary[:total],
+      change_percent: @weekly_summary[:change_percent],
+      categories: @weekly_summary[:by_category],
+      range: @weekly_summary[:range] %>
+  <% end %>
+
+  <%# Resumen ingreso mensual %>
+  <% if @monthly_summary %>
+    <%= render "transactions/shared/summary_card",
+      title: t("summary_card.monthly"),
+      locality: @locality,
+      amount: @monthly_summary[:total],
+      change_percent: @monthly_summary[:change_percent],
+      categories: @monthly_summary[:by_category],
+      range: @monthly_summary[:range] %>
+  <% end %>
+
+  <%# Resumen ingreso total (opcional) %>
+  <% if @overall_summary %>
+    <%= render "transactions/shared/summary_card",
+      title: t("summary_card.overall"),
+      locality: @locality,
+      amount: @overall_summary[:total],
+      change_percent: 0,
+      categories: @overall_summary[:by_category] %>
+  <% end %>
+</div>
+
+ <%# fin bloque resumenes %>
   <div class="row gap-2 px-4">
-    <%= render "localities/shared/incomes", incomes: @incomes, locality: @locality %>
-    <%= render "localities/shared/expenses", expenses: @expenses, locality: @locality %>
+    <%= render "localities/shared/incomes", incomes: @incomes, locality: @locality, circus: @locality.circus %>
+
+    <%= render "localities/shared/expenses", expenses: @expenses, locality: @locality, circus:@locality.circus %>
   </div>
+ 
 </div>

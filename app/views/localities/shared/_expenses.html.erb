@@ -1,24 +1,43 @@
-<div class="card col col-md-5">
-  <div class="col-md-6">
-    <h4>💸 Gastos</h4>
-    <% if can?(:manage, locality) %>
-      <%= link_to "➕ Agregar gasto", new_transaction_path(transaction_type: "expense", locality_id: locality.id), class: "btn btn-danger btn-sm mb-2" %>
-    <% end %>
+<div class="card col-md-5">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h4 class="card-title mb-0"><%= t("transactions.sections.expenses_title") %></h4>
 
-    <% if expenses.any? %>
-      <ul class="list-group">
-        <% expenses.each do |expense| %>
-          <li class="list-group-item d-flex justify-content-between">
+      <% if can?(:manage, locality) %>
+        <%= link_to t("transactions.actions.add_expense"), new_transaction_path(transaction_type: "expense", locality_id: locality.id), class: "btn btn-danger btn-sm" %>
+      <% end %>
+    </div>
+
+    <% latest_expenses = expenses.sort_by(&:date).reverse.first(3) %>
+
+    <% if latest_expenses.any? %>
+      <ul class="list-group mb-2">
+        <% latest_expenses.each do |expense| %>
+          <li class="list-group-item d-flex justify-content-between align-items-start">
             <div>
-              <strong><%= expense.title %></strong><br>
-              <small><%= l(expense.date, format: :short) %> - <%= expense.category %></small>
+              <strong class="d-block"><%= expense.title %></strong>
+              <small class="text-muted">
+                <%= l(expense.date, format: :short) %> – <%= t("transactions.categories.#{expense.category}") %>
+              </small>
             </div>
-            <span>€ <%= number_with_precision(expense.amount, precision: 2) %></span>
+            <span class="fw-semibold">
+              <%= currency_symbol(locality.circus.currency) %> <%= number_with_precision(expense.amount,
+                precision: expense.amount.to_f == expense.amount.to_i ? 0 : 2,
+                delimiter: ".",  # separador de miles
+                separator: ","   # separador decimal
+              ) %>
+            </span>
           </li>
         <% end %>
       </ul>
+
+      <% if expenses.size > 3 %>
+        <div class="text-end">
+          <%= link_to t("transactions.actions.see_more_expenses"), admin_locality_path(locality, anchor: "expenses"), class: "btn btn-sm btn-outline-danger" %>
+        </div>
+      <% end %>
     <% else %>
-      <p class="text-muted">No hay gastos registrados.</p>
+      <p class="text-muted fst-italic"><%= t("transactions.empty.expenses") %></p>
     <% end %>
   </div>
 </div>

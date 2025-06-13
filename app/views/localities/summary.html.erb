@@ -1,0 +1,32 @@
+<% content_for :page_title, "Detalle del resumen" %>
+
+<h2 class="mb-4"><%= t("summary_card.#{params[:period]}") %> – <%= @locality.name %></h2>
+
+<p class="text-muted">
+  Rango: <%= l(@summary[:range].first.to_date) %> — <%= l(@summary[:range].last.to_date) %><br>
+  Total: <strong><%= currency_symbol(@locality.circus.currency) %> <%= number_with_delimiter(@summary[:total]) %></strong>
+</p>
+
+<hr>
+
+<h4>Transacciones</h4>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Categoría</th>
+      <th>Descripción</th>
+      <th>Monto</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @transactions.each do |tx| %>
+      <tr>
+        <td><%= l(tx.date.to_date) %></td>
+        <td><%= t("transactions.categories.#{tx.category}", default: tx.category.titleize) %></td>
+        <td><%= tx.description %></td>
+        <td><%= currency_symbol(@locality.circus.currency) %> <%= number_with_delimiter(tx.amount) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
