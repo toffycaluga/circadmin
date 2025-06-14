@@ -160,6 +160,23 @@ es:
       short: "%d %b"
       long: "%d de %B de %Y a las %H:%M"
   transactions:
+    filters:
+      group_by: "Agrupar por"
+      type: "Tipo de transacción"
+      order_by: "Ordenar por"
+      submit: "Filtrar"
+      see_more: "Ver más"
+    group:
+      day: "Día"
+      week: "Semana"
+      month: "Mes"
+      total: "Total"
+    type:
+      income: "Ingresos"
+      expense: "Egresos"
+    order:
+      date: "Fecha"
+      category: "Categoría"
     sections:
       expenses_title: "💸 Gastos"
       incomes_title: "💰 Ingresos"
@@ -223,8 +240,21 @@ es:
   summary_card:
     last_day: "Resumen del último día"
     weekly: "Resumen semanal"
-    last_week: "Resume última semana"
+    last_weekly: "Resumem última semana"
     monthly: "Resumen mensual"
     last_month: "Resumen úlimo mes"
     overall: "Total acumulado"
     view_details: "Ver detalles"
+  insights:
+    title: "Análisis detallado"
+    filters:
+      title: "Filtros de búsqueda"
+      start_date: "Desde"
+      end_date: "Hasta"
+      category: "Categoría"
+      apply: "Aplicar filtros"
+      all_categories: "Todas las categorías"
+    summary:
+      title: "Resumen por categoría"
+    transactions:
+      title: "Transacciones detalladas"

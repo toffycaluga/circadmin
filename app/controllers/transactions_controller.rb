@@ -11,6 +11,30 @@ class TransactionsController < ApplicationController
   def show
   end
 
+  # controlador para ver los detalles
+  def overview
+    @locality = Locality.find(params[:id])
+    @group_type = params[:group] || "daily"
+    @type = params[:type] || "income"
+    @order = params[:order] || "date"
+
+    scope = Transaction
+      .where(locality: @locality, transaction_type: @type)
+
+    @summaries = case @group_type
+    when "daily"
+      scope.group_by_day(:date).sum(:amount)
+    when "weekly"
+      scope.group_by_week(:date).sum(:amount)
+    when "monthly"
+      scope.group_by_month(:date).sum(:amount)
+    else
+      { "Total" => scope.sum(:amount) }
+    end
+  end
+
+
+
   # GET /transactions/new
   def new
     puts "Tipo recibido: #{params[:transaction_type]}"

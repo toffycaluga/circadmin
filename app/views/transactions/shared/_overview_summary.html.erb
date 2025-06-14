@@ -1,0 +1,67 @@
+<div class="card shadow-sm mb-4">
+  <div class="card-header bg-light d-flex justify-content-between align-items-center">
+    <h5 class="mb-0"><%= t("transactions.filters.title", default: "Filtros de resumen") %></h5>
+  </div>
+
+  <div class="card-body">
+    <%= form_with url: overview_transactions_locality_path(@locality), method: :get, local: true, html: { data: { controller: "filter" } } do %>
+      <div class="row g-3">
+        <div class="col-md-3">
+          <%= label_tag :group, t("transactions.filters.group_by") %>
+          <%= select_tag :group,
+              options_for_select([
+                [t("transactions.group.day"), "daily"],
+                [t("transactions.group.week"), "weekly"],
+                [t("transactions.group.month"), "monthly"],
+                [t("transactions.group.total"), "total"]
+              ], @group_type),
+              class: "form-select",
+              data: { action: "change->filter#submit" } %>
+        </div>
+
+        <div class="col-md-3">
+          <%= label_tag :type, t("transactions.filters.type") %>
+          <%= select_tag :type,
+              options_for_select([
+                [t("transactions.type.income"), "income"],
+                [t("transactions.type.expense"), "expense"]
+              ], @type),
+              class: "form-select",
+              data: { action: "change->filter#submit" } %>
+        </div>
+
+        <div class="col-md-3">
+          <%= label_tag :order, t("transactions.filters.order_by") %>
+          <%= select_tag :order,
+              options_for_select([
+                [t("transactions.order.date"), "date"],
+                [t("transactions.order.amount"), "amount"]
+              ], @order),
+              class: "form-select",
+              data: { action: "change->filter#submit" } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <% @summaries.each do |label, amount| %>
+    <div class="col-md-4">
+      <div class="card mb-4 shadow border-start border-4 border-primary">
+        <div class="card-body">
+          <h6 class="text-muted fw-bold">
+            <%= formatted_label(label, @group_type, @locality) %>
+          </h6>
+          <% currency_code = @locality.circus.currency %>
+          <h4 class="text-success fw-bold">
+            <%= number_to_currency(amount, unit: currency_symbol(currency_code)) %>
+          </h4>
+          <%= link_to t("transactions.filters.see_more"),
+                      transactions_path(group: @group_type, type: @type, date: label),
+                      class: "btn btn-sm btn-outline-primary mt-2" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -33,6 +33,8 @@ Rails.application.routes.draw do
     member do
       get :admin
       get "summary", to: "localities#summary"
+      get :overview_transactions, to: "transactions#overview"
+      get :insights
       patch :deactivate
       patch :reactivate
     end
@@ -93,10 +95,11 @@ Rails.application.routes.draw do
       patch :mark_all_as_read
     end
   end
+  # get "transactions/overview", to: "transactions#overview", as: :overview_transactions
   resources :transactions do
-  collection do
-    get :new_income
-    get :new_expense
+    collection do
+      get :new_income
+      get :new_expense
+    end
   end
-end
 end

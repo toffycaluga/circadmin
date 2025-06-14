@@ -8,11 +8,10 @@
             <%= currency_symbol(locality.circus.currency) %> <%= number_with_delimiter(amount, delimiter: ".", separator: ",") %>
           </h4>
           <%# <h6 class="text-white"> %>
-            <%#= change_percent.positive? ? "+" : "" %><%#= number_with_precision(change_percent, precision: 2) %>
+          <%#= change_percent.positive? ? "+" : "" %><%#= number_with_precision(change_percent, precision: 2) %>
           <%# </h6> %>
         </div>
       </div>
-
       <div id="summary-chart-line"></div>
       <div class="row justify-content-center">
         <div class="col-8">
@@ -20,7 +19,6 @@
         </div>
       </div>
     </div>
-
     <div class="card-footer">
       <%# Mostrar fecha o rango según disponibilidad %>
       <div class="col text-right">
@@ -30,12 +28,10 @@
           <small class="text-muted"><%= l(range.first.to_date, format: :long) %> — <%= l(range.last.to_date, format: :long) %></small>
         <% end %>
       </div>
-
       <h4>
         <%= currency_symbol(locality.circus.currency) %> <%= number_with_delimiter(amount, delimiter: ".", separator: ",") %>
       </h4>
       <p class="text-muted"><%= t("transactions.summary.breakdown") %></p>
-
       <div class="d-flex flex-wrap gap-3">
         <% (categories || {}).each do |label, value| %>
           <div class="text-center">
@@ -58,13 +54,10 @@
               'custom'
             end
         %>
-
-        <%= link_to t("transactions.summary.view_details"),
-          summary_locality_path(locality, period: period_param),
+          <%= link_to t("transactions.summary.view_details"),
+          summary_locality_path(locality, period: period),
           class: "btn btn-sm btn-light" %>
-  
       </div>
-
     </div>
     <%# fin footer %>
   </div>

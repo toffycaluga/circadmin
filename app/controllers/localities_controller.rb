@@ -16,14 +16,44 @@ class LocalitiesController < ApplicationController
   end
   def admin
     @locality = Locality.find(params[:id])
-    @incomes = @locality.transactions.where(transaction_type: "income")
+    @incomes  = @locality.transactions.where(transaction_type: "income")
     @expenses = @locality.transactions.where(transaction_type: "expense")
 
     @last_day_summary  = TransactionSummaryService.new(@locality, :day).call
     @weekly_summary    = TransactionSummaryService.new(@locality, :week).call
-    @monthly_summary   = TransactionSummaryService.new(@locality, :month).call
+
+    # Mostrar resumen mensual solo si hay transacciones en más de un mes
+    months_with_income = @incomes.pluck(:date).map(&:beginning_of_month).uniq
+    @monthly_summary = if months_with_income.size > 1
+      TransactionSummaryService.new(@locality, :month).call
+    else
+      nil
+    end
+
     @overall_summary   = TransactionSummaryService.new(@locality, :all).call
   end
+
+  def insights
+    @locality = Locality.find(params[:id])
+
+    @start_date = params[:start_date]&.to_date || 1.month.ago.to_date
+    @end_date = params[:end_date]&.to_date || Date.today
+
+    transactions = @locality.transactions
+      .where(date: @start_date..@end_date, transaction_type: "income")
+
+    @summary_by_category = transactions
+      .group("LOWER(TRIM(category))")
+      .sum(:amount)
+      .sort_by { |_, amount| -amount }
+      .to_h
+
+    @transactions = transactions.order(date: :desc)
+  end
+
+
+
+
   # para desactivar una localidad
   def deactivate
     @locality = Locality.find(params[:id])

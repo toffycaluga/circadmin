@@ -99,3 +99,5 @@ gem 'money-rails' # opcional si quieres integrarlo con ActiveRecord
 
 # Gemfile
 gem 'devise_invitable'
+
+gem "groupdate"
