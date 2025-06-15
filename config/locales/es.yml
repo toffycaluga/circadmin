@@ -160,6 +160,14 @@ es:
       short: "%d %b"
       long: "%d de %B de %Y a las %H:%M"
   transactions:
+    details:
+      back_to_summary: "volver al resumen"
+    graph:
+      title: "Resumen financiero del terreno"
+      subtitle_daily: "Ingresos vs Egresos por día"
+      subtitle_weekly: "Ingresos vs Egresos por semana"
+      subtitle_monthly: "Ingresos vs Egresos por mes"
+      subtitle_total: "Ingresos vs Egresos totales"
     filters:
       group_by: "Agrupar por"
       type: "Tipo de transacción"

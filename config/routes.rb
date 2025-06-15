@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :localities
-  resources :transactions
+  # resources :transactions
   # Autenticación Devise
   devise_for :users, controllers: {
     sessions: "users/sessions",
@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   resources :localities do
     member do
       get :admin
+      get "transactions/summary_details", to: "transactions#summary_details", as: :summary_details_transactions
       get "summary", to: "localities#summary"
       get :overview_transactions, to: "transactions#overview"
       get :insights
@@ -82,11 +83,7 @@ Rails.application.routes.draw do
     root to: "devise/sessions#new", as: :unauthenticated_root
   end
 
-  # Rutas de error y fallback
-  match "/404", to: "errors#not_found", via: :all
-  match "*unmatched", to: "errors#not_found", via: :all, constraints: ->(req) {
-    !req.path.starts_with?("/rails/active_storage")
-  }
+
   resources :notifications, only: [ :index ] do
     member do
       patch :mark_as_read
@@ -101,5 +98,13 @@ Rails.application.routes.draw do
       get :new_income
       get :new_expense
     end
+    member do
+      get :card
+    end
   end
+  # Rutas de error y fallback
+  match "/404", to: "errors#not_found", via: :all
+  match "*unmatched", to: "errors#not_found", via: :all, constraints: ->(req) {
+    !req.path.starts_with?("/rails/active_storage")
+  }
 end

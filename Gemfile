@@ -101,3 +101,4 @@ gem 'money-rails' # opcional si quieres integrarlo con ActiveRecord
 gem 'devise_invitable'
 
 gem "groupdate"
+gem "chartkick"

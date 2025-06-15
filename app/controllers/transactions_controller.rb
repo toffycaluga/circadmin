@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  before_action :set_transaction, only: %i[ show edit update destroy ]
+  before_action :set_transaction, only: %i[ show edit update destroy card]
   layout "dashboard"
 
   # GET /transactions
@@ -11,28 +11,97 @@ class TransactionsController < ApplicationController
   def show
   end
 
+  def summary_details
+    @locality = Locality.find(params[:id])
+    @group_type = params[:group]
+    @type = params[:type]
+    @label = parse_label(params[:date], @group_type)
+
+    scope = @type == "income" ? @locality.transactions.incomes : @locality.transactions.expenses
+
+    @transactions = case @group_type
+    when "daily"
+      scope.where(date: @label)
+
+    when "weekly"
+      first_date = scope.minimum(:date)
+
+      if first_date
+        start_date = @label.beginning_of_week
+        end_date = @label.end_of_week
+        scope.where(date: start_date..end_date)
+      else
+        scope.none
+      end
+
+    when "monthly"
+      scope.where(date: @label.beginning_of_month..@label.end_of_month)
+
+    when "total"
+      scope
+
+    else
+      scope.none
+    end
+  end
+
+  def card
+    puts "✅ Entrando a la acción 'card'"
+    @transaction = Transaction.find(params[:id])
+    # render plain: "Transacción: #{@transaction.title}"
+  end
+
+
+
+
+  def parse_label(label, group_type)
+    return Date.today if label.blank?
+
+    case group_type
+    when "monthly"
+      begin
+        # si es string tipo "2025-06", se parsea bien
+        Date.strptime(label.to_s, "%Y-%m")
+      rescue
+        Date.today
+      end
+    when "weekly", "daily"
+      Date.parse(label.to_s) rescue Date.today
+    else
+      Date.today
+    end
+  end
+
+
   # controlador para ver los detalles
+
   def overview
     @locality = Locality.find(params[:id])
     @group_type = params[:group] || "daily"
     @type = params[:type] || "income"
     @order = params[:order] || "date"
 
-    scope = Transaction
-      .where(locality: @locality, transaction_type: @type)
+    scope = Transaction.where(locality: @locality, transaction_type: @type)
 
     @summaries = case @group_type
     when "daily"
       scope.group_by_day(:date).sum(:amount)
+
     when "weekly"
-      scope.group_by_week(:date).sum(:amount)
+      first_date = scope.minimum(:date)
+      if first_date
+        scope.group_by_week(:date, week_start: :monday, range: first_date.beginning_of_week..) .sum(:amount)
+      else
+        {}
+      end
+
     when "monthly"
       scope.group_by_month(:date).sum(:amount)
+
     else
       { "Total" => scope.sum(:amount) }
     end
   end
-
 
 
   # GET /transactions/new

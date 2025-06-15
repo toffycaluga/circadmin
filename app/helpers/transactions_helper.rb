@@ -28,9 +28,10 @@ module TransactionsHelper
     def formatted_label(label, group_type, locality)
         case group_type
         when "weekly"
-            start_date = label.beginning_of_week.to_date
-            end_date = label.end_of_week.to_date
-            "#{l(start_date, format: :short)} — #{l(end_date, format: :short)}"
+        start_date = label.beginning_of_week.to_date
+        end_date = label.end_of_week.to_date
+        "#{l(start_date, format: '%d %b %Y')} — #{l(end_date, format: '%d %b %Y')}"
+
         when "monthly"
             l(label.to_date, format: "%B %Y")
         when "total"
@@ -39,6 +40,15 @@ module TransactionsHelper
             "#{l(start, format: :long)} — #{end_date}"
         else
             l(label.to_date, format: :long)
+        end
+    end
+
+    def group_method_for(type)
+        case type
+        when "daily" then "group_by_day"
+        when "weekly" then "group_by_week"
+        when "monthly" then "group_by_month"
+        else "group_by_day" # fallback
         end
     end
 end

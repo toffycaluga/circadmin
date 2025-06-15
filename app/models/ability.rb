@@ -30,6 +30,12 @@ class Ability
       user.circus_users.any? { |cu| %w[owner admin].include?(cu.role) && cu.active? && cu.accepted_at.present? }
     end
 
+    can :read, Transaction do |tx|
+      user_circus_ids = user.circuses.pluck(:id)
+      tx.circus_id.in?(user_circus_ids)
+    end
+
+
     # Puede administrar usuarios si es dueño
     can :manage, CircusUser, circus: { id: user.owned_circuses.ids }
 

@@ -1,5 +1,4 @@
 <%= form_with url: overview_transactions_locality_path(@locality), method: :get, local: true do %>
-
   <div class="row mb-4">
     <div class="col-md-3">
       <%= select_tag :group,
@@ -30,7 +29,14 @@
             <%= label.respond_to?(:strftime) ? l(label.to_date, format: :long) : label %>
           </h6>
           <h4><%= number_to_currency(amount, unit: currency_symbol(current_user)) %></h4>
-          <%= link_to "Ver más", transactions_path(group: @group_type, type: @type, date: label), class: "btn btn-outline-primary btn-sm mt-2" %>
+         <%= link_to t("transactions.filters.see_more", default: "Ver más"),
+            summary_details_transactions_locality_path(@locality,
+                group: @group_type,
+                type: @type,
+                date: label.to_s),
+            class: "btn btn-sm btn-outline-primary mt-2" %>
+
+
         </div>
       </div>
     </div>
