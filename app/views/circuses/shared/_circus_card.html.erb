@@ -1,59 +1,50 @@
+<div class="card shadow-sm">
+  <div class="card-header d-flex flex-wrap align-items-center gap-3">
+    <!-- Logo del circo -->
+    <%= image_tag(
+          circus.logo.attached? ? url_for(circus.logo) : asset_path("default_circus_logo.jpg"),
+          class: "rounded border",
+          alt: t("dashboard.circus_logo_alt", default: "Logo del circo"),
+          width: 80,
+          height: 80,
+          style: "object-fit: contain; aspect-ratio: 1/1; background: #fff;",
+          loading: "lazy"
+        ) %>
 
-  <div class="card shadow-sm">
-    <div class="card-header">
-      <div class="d-flex align-items-center">
-        <div class="me-3">
-          <%= image_tag(
-                current_user.user_profile&.profile_picture&.attached? ?
-                  url_for(current_user.user_profile.profile_picture) :
-                  asset_path("avatar_circus.jpg"),
-                class: "img-radius img-fluid rounded-circle",
-                alt: t("dashboard.profile_picture_alt", default: "Foto de perfil"),
-                width: 80,
-                height: 80,
-                style: "object-fit: cover; aspect-ratio: 1/1;"
-              ) %>
-        </div>
+    <!-- Información del circo -->
+    <div class="flex-grow-1">
+      <h5 class="mb-1"><%= circus.name %></h5>
 
-        <div class="flex-grow-1">
-          <h5 class="mb-1"><%= circus.name %></h5>
+      <% user_role = current_user.circus_users.find_by(circus_id: circus.id)&.role %>
+      <small class="<%= user_role ? 'text-muted' : 'text-danger' %>">
+        <%= user_role ? t("roles.#{user_role}", default: user_role.capitalize) : t("dashboard.not_member", default: "No perteneces a este circo") %>
+      </small>
 
-          <% if current_user.circus_users.exists?(circus_id: circus.id) %>
-            <% user_role = current_user.circus_users.find_by(circus_id: circus.id)&.role %>
-            <small class="text-muted">
-              <%= t("roles.#{user_role}", default: user_role.capitalize) %>
-            </small>
-          <% else %>
-            <small class="text-danger"><%= t("dashboard.not_member", default: "No perteneces a este circo") %></small>
-          <% end %>
-
-          <div class="mt-1">
-            <span class="badge <%= circus.active ? 'bg-success' : 'bg-secondary' %>">
-              <%= circus.active ? t("circus.status.active", default: "Activo") : t("circus.status.inactive", default: "Inactivo") %>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-3 d-flex gap-2 justify-content-end flex-wrap">
-        <%= link_to t("dashboard.actions.admin", default: "🎛 Administrar"), admin_circus_path(circus), class: "btn btn-sm btn-outline-primary" %>
-        <%= link_to t("dashboard.actions.edit", default: "✏️ Editar"), edit_circus_path(circus), class: "btn btn-sm btn-outline-secondary" %>
+      <div class="mt-1">
+        <span class="badge <%= circus.active ? 'bg-success' : 'bg-secondary' %>">
+          <%= circus.active ? t("circus.status.active", default: "Activo") : t("circus.status.inactive", default: "Inactivo") %>
+        </span>
       </div>
     </div>
 
-    <% if defined?(show_actions) && show_actions && circus.localities.active.any? %>
-      <% locality = circus.localities.active.last %>
-      <div class="card-footer bg-light">
-        <div class="text-center text-muted small mb-2">
-          <%= t("dashboard.active_locality", default: "Localidad activa:") %>
-          <strong><%= locality.title %></strong>
-        </div>
-        <div class="d-flex flex-wrap gap-2 justify-content-center">
-          <%= link_to t("dashboard.actions.add_income", default: "💰 Ingreso"), new_transaction_path(type: "income", locality_id: locality.id), class: "btn btn-sm btn-outline-success" %>
-          <%= link_to t("dashboard.actions.add_expense", default: "💸 Egreso"), new_transaction_path(type: "expense", locality_id: locality.id), class: "btn btn-sm btn-outline-danger" %>
-          <%= link_to t("dashboard.actions.full_summary", default: "📊 Resumen de Ingresos y Gastos"), overview_transactions_locality_path(locality), class: "btn btn-info w-100" %>
-
-        </div>
-      </div>
-    <% end %>
+    <!-- Acciones principales -->
+    <div class="ms-auto d-flex gap-2 flex-wrap justify-content-end">
+      <%= link_to t("dashboard.actions.admin", default: "🎛 Administrar"), admin_circus_path(circus), class: "btn btn-sm btn-outline-primary" %>
+      <%= link_to t("dashboard.actions.edit", default: "✏️ Editar"), edit_circus_path(circus), class: "btn btn-sm btn-outline-secondary" %>
+    </div>
   </div>
+
+  <!-- Localidad activa -->
+  <% if defined?(show_actions) && show_actions && (locality = circus.localities.active.last) %>
+    <div class="card-footer bg-light">
+      <div class="text-center text-muted small mb-2">
+        <%= t("dashboard.active_locality", default: "Localidad activa:") %> <strong><%= locality.title %></strong>
+      </div>
+      <div class="d-flex flex-wrap gap-2 justify-content-center">
+        <%= link_to t("dashboard.actions.add_income", default: "💰 Ingreso"), new_transaction_path(type: "income", locality_id: locality.id), class: "btn btn-sm btn-outline-success" %>
+        <%= link_to t("dashboard.actions.add_expense", default: "💸 Egreso"), new_transaction_path(type: "expense", locality_id: locality.id), class: "btn btn-sm btn-outline-danger" %>
+        <%= link_to t("dashboard.actions.full_summary", default: "📊 Resumen de Ingresos y Gastos"), overview_transactions_locality_path(locality), class: "btn btn-sm btn-info" %>
+      </div>
+    </div>
+  <% end %>
+</div>

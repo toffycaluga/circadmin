@@ -28,7 +28,8 @@
             <h6 class="text-muted">Recibo adjunto:</h6>
             <%= image_tag url_for(@transaction.receipt),
                 class: "img-fluid rounded shadow-sm mb-2",
-                style: "max-height: 400px;" %>
+                style: "max-height: 400px;",
+          loading: "lazy" %>
           </div>
         <% end %>
       </div>

@@ -19,7 +19,9 @@
 
       <% if @user_profile.profile_picture.attached? %>
         <p><strong><%= t("activerecord.attributes.user_profile.profile_picture") %>:</strong></p>
-        <%= image_tag @user_profile.profile_picture.variant(resize_to_limit: [300, 300]), class: "img-fluid rounded" %>
+        <%= image_tag @user_profile.profile_picture.variant(resize_to_limit: [300, 300]), class: "img-fluid rounded" ,
+      loading: "lazy"
+%>
       <% end %>
     </div>
 

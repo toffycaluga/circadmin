@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   # Circuses y administración
   resources :circuses do
     member do
+      patch :toggle_status
       get :admin
       get :accept_invitation, to: "circuses#accept_invitation"
     end

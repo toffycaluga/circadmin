@@ -79,7 +79,8 @@
 
       <% if transaction.receipt.attached? %>
         <p class="mt-2"><%= t("transactions.form.current_receipt") %></p>
-        <%= image_tag transaction.receipt.variant(resize_to_limit: [400, 400]), class: "img-thumbnail" %>
+        <%= image_tag transaction.receipt.variant(resize_to_limit: [400, 400]), class: "img-thumbnail" ,
+          loading: "lazy"%>
       <% end %>
     </div>
   <% end %>

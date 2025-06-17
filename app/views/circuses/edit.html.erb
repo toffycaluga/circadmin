@@ -1,12 +1,18 @@
-<% content_for :title, "Editing circu" %>
+<% content_for :title, t("circus.edit_title", default: "Editar Circo") %>
 
-<h1>Editing circus</h1>
+<div class="container my-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-light">
+      <h2 class="mb-0"><%= t("circus.edit_heading", default: "✏️ Editar información del circo") %></h2>
+    </div>
 
-<%= render "form", circus: @circus %>
+    <div class="card-body">
+      <%= render "form", circus: @circus %>
+    </div>
 
-<br>
-
-<div>
-  <%= link_to "Show this circus", @circus %> |
-  <%= link_to "Back to circus", circus_path %>
+    <div class="card-footer d-flex justify-content-between">
+      <%#= link_to t("circus.links.show", default: "👁 Ver este circo"), @circus, class: "btn btn-outline-info btn-sm" %>
+      <%= link_to t("circus.links.back", default: "🔙 Volver al listado"), circuses_path, class: "btn btn-outline-secondary btn-sm" %>
+    </div>
+  </div>
 </div>

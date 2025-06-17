@@ -10,10 +10,29 @@ class CircusesController < ApplicationController
     end
   end
 
+  # app/controllers/circuses_controller.rb
+  def toggle_status
+    @circus = Circus.find(params[:id])
+    authorize! :update, @circus  # si usas Cancancan
+
+    @circus.update(active: !@circus.active)
+
+    flash[:notice] = t("circus.status.changed", default: "Estado del circo actualizado.")
+    redirect_to admin_circus_path(@circus)
+  end
+
   def index
-    @circuses = current_user.circuses
     @owned_circuses = current_user.owned_circuses
-    @associated_circuses = current_user.associated_circuses
+
+    @associated_circuses = current_user
+      .associated_circuses
+      .joins(:circus_users)
+      .where(circus_users: { user_id: current_user.id, active: true })
+      .where.not(circus_users: { accepted_at: nil })
+      .where.not(id: @owned_circuses.map(&:id))
+      .distinct
+
+    @circuses = @owned_circuses + @associated_circuses
   end
 
   def show

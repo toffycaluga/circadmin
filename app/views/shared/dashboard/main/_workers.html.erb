@@ -60,7 +60,8 @@ end %>
                         alt: "Foto de perfil",
                         width: 60,
                         height: 60,
-                        style: "object-fit: cover; aspect-ratio: 1/1;"
+                        style: "object-fit: cover; aspect-ratio: 1/1;",
+          loading: "lazy"
                       ) %>
                         <h5 class="mt-2">
                           <%= cu.user.user_profile&.full_name.presence || content_tag(:span, "Nombre no disponible", class: "text-muted") %>

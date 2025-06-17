@@ -2,7 +2,8 @@
   
   <td>
     <div class="d-inline-block align-middle">
-      <%= image_tag cu.user.user_profile&.profile_picture&.variant(resize_to_fill: [40, 40]), class: "img-radius wid-40 align-top m-r-15" if cu.user.user_profile&.profile_picture.attached? %>
+      <%= image_tag cu.user.user_profile&.profile_picture&.variant(resize_to_fill: [40, 40]), class: "img-radius wid-40 align-top m-r-15",
+          loading: "lazy" if cu.user.user_profile&.profile_picture.attached? %>
       <div class="d-inline-block">
         <h6 class="text-muted m-b-0 m-t-15"><%= cu.user.email %></h6>
       </div>

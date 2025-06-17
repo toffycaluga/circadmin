@@ -1,0 +1,33 @@
+<% if current_user.circus_users.exists?(circus_id: circus.id, role: "owner") %>
+  <div class="dropdown mt-3 mt-md-0">
+    <button class="btn btn-outline-secondary btn-sm dropdown-toggle d-flex align-items-center gap-1" type="button" id="circusAdminDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi-gear"></i> <%= t("circus.actions.title", default: "Opciones") %>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end shadow-sm animate__animated animate__fadeIn" aria-labelledby="circusAdminDropdown">
+      <li>
+        <h6 class="dropdown-header text-muted">
+          <%= t("circus.actions.manage", default: "Gestión") %>
+        </h6>
+      </li>
+
+      <li>
+        <%= button_to(
+              circus.active ? "🚫 #{t("circus.deactivate", default: "Desactivar")}" : "✅ #{t("circus.activate", default: "Activar")}",
+              toggle_status_circus_path(circus),
+              method: :patch,
+              form: { class: "d-inline" },
+              class: "dropdown-item",
+              data: { turbo: false, confirm: t("circus.status.confirm_change", default: "¿Estás seguro de cambiar el estado del circo?") }
+            ) %>
+      </li>
+
+      <li><hr class="dropdown-divider"></li>
+
+      <li>
+        <%= link_to edit_circus_path(circus), class: "dropdown-item" do %>
+          ✏️ <%= t("circus.actions.edit", default: "Editar circo") %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+<% end %>
