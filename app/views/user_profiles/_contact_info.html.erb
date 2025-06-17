@@ -1,0 +1,32 @@
+<div class="card shadow-sm border-0">
+  <div class="card-body">
+    <h5 class="card-title mb-3">
+      <i class="feather icon-mail text-primary me-2"></i>
+      <%= t("profile.sections.contact_info", default: "Información de contacto") %>
+    </h5>
+
+    <ul class="list-unstyled lh-lg mb-0">
+      <li>
+        <i class="feather icon-phone text-muted me-2"></i>
+        <strong><%= t("profile.labels.phone") %>:</strong>
+        <%= user.user_profile.phone.presence || content_tag(:span, t("profile.labels.no_data"), class: "text-muted") %>
+      </li>
+
+      <li>
+        <i class="feather icon-globe text-muted me-2"></i>
+        <strong><%= t("profile.labels.web") %>:</strong>
+        <% if user.user_profile.web.present? %>
+          <%= link_to user.user_profile.web, user.user_profile.web, target: "_blank", rel: "noopener", class: "text-decoration-none" %>
+        <% else %>
+          <span class="text-muted"><%= t("profile.labels.no_data") %></span>
+        <% end %>
+      </li>
+
+      <li>
+        <i class="feather icon-mail text-muted me-2"></i>
+        <strong><%= t("profile.labels.email") %>:</strong>
+        <%= mail_to user.email, nil, class: "text-decoration-none" %>
+      </li>
+    </ul>
+  </div>
+</div>

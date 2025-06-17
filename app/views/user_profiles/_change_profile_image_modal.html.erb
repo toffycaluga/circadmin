@@ -1,0 +1,14 @@
+<!-- Modal cambio de imagen -->
+<div class="modal fade" id="changeProfileImageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cambiar foto de perfil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <%= render 'profile_picture_form', user_profile: current_user.user_profile %>
+      </div>
+    </div>
+  </div>
+</div>

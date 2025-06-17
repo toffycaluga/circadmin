@@ -1,0 +1,20 @@
+<div class="card shadow-sm">
+  <div class="card-body d-flex align-items-center">
+    <div class="me-4 position-relative">
+      <%= image_tag(
+        user.user_profile&.profile_picture&.attached? ?
+          url_for(user.user_profile.profile_picture) :
+          asset_path("avatar.jpg"),
+        class: "rounded-circle border shadow ",
+        width: 150,
+        height: 150,
+        style: "object-fit: cover; cursor: pointer;aspect-radio: 1/ 1;",
+        data: { bs_toggle: "modal", bs_target: "#profileImageOptionsModal" }
+      ) %>
+    </div>
+    <div>
+      <h4 class="mb-1"><%= user.user_profile.full_name.presence || t("profile.full_name.placeholder") %></h4>
+      <p class="text-muted mb-0"><%= user.email %></p>
+    </div>
+  </div>
+</div>

@@ -1,20 +1,29 @@
 <% content_for :title, t("user_profiles.edit.title") %>
-<div class="col-xl-6 col-md-12">
-    <div class="card table-card">
-        <div class="card-header">
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
 
-      <!-- 🟦 Formulario: Datos personales -->
-      <div class="card mb-4 shadow">
-        <div class="card-header bg-warning text-dark">
-          <h5 class="mb-0"><%= t("user_profiles.edit.heading") %></h5>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-xl-4 col-md-10">
+      <!-- 🖼 Formulario parcial para la foto de perfil -->
+      <%= render "profile_picture_form", user_profile: @user_profile %>
+
+    </div>
+    <div class="col-xl-8 col-lg-10">
+
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-gradient bg-warning text-dark d-flex align-items-center justify-content-between">
+          <h4 class="mb-0">
+            <i class="fas fa-user-edit me-2"></i>
+            <%= t("user_profiles.edit.heading", default: "Editar Perfil") %>
+          </h4>
+          <span class="badge bg-light text-dark"><%= current_user.email %></span>
         </div>
-        <div class="card-body">
+
+        <div class="card-body p-4">
           <%= form_with(model: @user_profile, local: true) do |form| %>
+
             <% if @user_profile.errors.any? %>
               <div class="alert alert-danger">
+                <h6 class="mb-2"><i class="fas fa-exclamation-circle me-1"></i><%= t("errors.messages.form_invalid", default: "Corrige los errores para continuar") %></h6>
                 <ul class="mb-0">
                   <% @user_profile.errors.full_messages.each do |msg| %>
                     <li><%= msg %></li>
@@ -24,33 +33,29 @@
             <% end %>
 
             <div class="mb-3">
-              <%= form.label :full_name, class: "form-label" %>
-              <%= form.text_field :full_name, class: "form-control" %>
+              <%= form.label :full_name, t("user_profiles.form.full_name", default: "Nombre completo"), class: "form-label" %>
+              <%= form.text_field :full_name, class: "form-control", placeholder: t("user_profiles.placeholders.full_name", default: "Ej: Toffy Caluga") %>
             </div>
 
             <div class="mb-3">
-              <%= form.label :address, class: "form-label" %>
-              <%= form.text_field :address, class: "form-control" %>
+              <%= form.label :address, t("user_profiles.form.address", default: "Dirección"), class: "form-label" %>
+              <%= form.text_field :address, class: "form-control", placeholder: t("user_profiles.placeholders.address", default: "Ej: Calle Ficticia 123") %>
             </div>
 
             <div class="mb-3">
-              <%= form.label :country, class: "form-label" %>
-              <%= form.text_field :country, class: "form-control" %>
+              <%= form.label :country, t("user_profiles.form.country", default: "País"), class: "form-label" %>
+              <%= form.text_field :country, class: "form-control", placeholder: t("user_profiles.placeholders.country", default: "Ej: España") %>
             </div>
 
-            <div class="d-grid gap-2">
-              <%= form.submit t("user_profiles.actions.save"), class: "btn btn-primary" %>
+            <div class="d-grid mt-4">
+              <%= form.submit t("user_profiles.actions.save", default: "Guardar cambios"), class: "btn btn-primary btn-lg" %>
             </div>
           <% end %>
         </div>
       </div>
 
-      <!-- 🟩 Partial: Formulario de imagen de perfil -->
-      <%= render "profile_picture_form", user_profile: @user_profile %>
 
     </div>
+    
   </div>
-</div>
-</div>
-</div>
 </div>

@@ -1,0 +1,60 @@
+<div class="card shadow-sm border-0">
+  <div class="card-header bg-light">
+    <h5 class="mb-0">
+      <i class="feather icon-edit me-2"></i>
+      <%= t("profile.sections.edit_profile") %>
+    </h5>
+    <small class="text-muted"><%= t("profile.sections.edit_profile_subtext") %></small>
+  </div>
+
+  <div class="card-body">
+    <%= form_with(model: @user_profile, url: user_profile_path(@user_profile), method: :patch, local: true, class: "needs-validation") do |f| %>
+      
+      <% if @user_profile.errors.any? %>
+        <div class="alert alert-danger">
+          <h5 class="alert-heading">
+            <%= pluralize(@user_profile.errors.count, "error") %> <%= t("profile.labels.error_block") %>
+          </h5>
+          <ul class="mb-0">
+            <% @user_profile.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <%= f.label :full_name, t("profile.labels.full_name"), class: "form-label" %>
+          <%= f.text_field :full_name, class: "form-control" %>
+        </div>
+        <div class="col-md-6 mb-3">
+          <%= f.label :phone, t("profile.labels.phone"), class: "form-label" %>
+          <%= f.telephone_field :phone, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <%= f.label :web, t("profile.labels.web"), class: "form-label" %>
+          <%= f.url_field :web, class: "form-control" %>
+        </div>
+        <div class="col-md-6 mb-3">
+          <%= f.label :country, t("profile.labels.country"), class: "form-label" %>
+          <%= select_tag "user_profile[country]",
+                options_for_select(country_options_with_flags, selected: @user_profile.country),
+                class: "form-control", id: "country-select" %>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :address, t("profile.labels.address"), class: "form-label" %>
+        <%= f.text_field :address, class: "form-control" %>
+      </div>
+
+      <div class="text-end">
+        <%= f.submit t("profile.labels.save"), class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

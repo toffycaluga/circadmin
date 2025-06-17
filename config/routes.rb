@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   resources :user_profiles, only: [ :new, :create, :edit, :update ] do
     member do
       patch :profile_picture
-      patch :update_picture
+      patch :update_profile_picture
     end
   end
   # config/routes.rb

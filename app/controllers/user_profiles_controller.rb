@@ -1,58 +1,55 @@
 class UserProfilesController < ApplicationController
   layout "dashboard"
-  before_action :set_user_profile, only: %i[show edit update destroy update_picture]
+  before_action :authenticate_user!
+  before_action :set_user_profile, only: [ :edit, :update, :update_profile_picture, :destroy ]
 
-  # GET /user_profiles
-  def index
-    @user_profiles = UserProfile.all
-  end
-
-  # GET /user_profiles/1
-  def show
-  end
-
-  # GET /user_profiles/new
-  def new
-    @user_profile = UserProfile.new
-  end
-
-  # GET /user_profiles/1/edit
-  def edit
-  end
+  # Vista personalizada del perfil actual (dashboard -> "Perfil")
   def profile
     @user_profile = current_user.user_profile
   end
 
-  # POST /user_profiles
+  # Solo si se necesita listado administrativo de perfiles
+  def index
+    # ⚠️ Idealmente protegido por un rol admin
+    @user_profiles = UserProfile.all
+  end
+
+  def new
+    # Normalmente innecesario, ya que el perfil se crea con el user
+    @user_profile = UserProfile.new
+  end
+
+  def edit
+    # @user_profile ya está seteado
+  end
+
   def create
     @user_profile = current_user.build_user_profile(user_profile_params)
 
     if @user_profile.save
-      redirect_to dashboard_index_path, notice: t("user_profiles.notices.created")
+      redirect_to profile_path, notice: t("user_profiles.notices.created")
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /user_profiles/1
   def update
     if @user_profile.update(user_profile_params)
-      redirect_to dashboard_index_path, notice: t("user_profiles.notices.updated")
+      redirect_to profile_path, notice: t("user_profiles.notices.updated")
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  # PATCH /user_profiles/1/profile_picture
-  def update_picture
+  def update_profile_picture
     if @user_profile.update(profile_picture_params)
-      redirect_to edit_user_profile_path(@user_profile), notice: t("user_profiles.edit.picture_updated")
+      flash[:notice] = t("user_profiles.notices.picture_updated")
     else
-      redirect_to edit_user_profile_path(@user_profile), alert: t("user_profiles.edit.picture_failed")
+      flash[:alert] = t("user_profiles.alerts.picture_failed")
     end
+    redirect_to profile_path # ❗ corrección: era profile_user_profiles_path (no existe)
   end
 
-  # DELETE /user_profiles/1
   def destroy
     @user_profile.destroy!
     redirect_to user_profiles_path, status: :see_other, notice: t("user_profiles.notices.destroyed")
@@ -61,11 +58,17 @@ class UserProfilesController < ApplicationController
   private
 
   def set_user_profile
-    @user_profile = UserProfile.find(params.require(:id))
+    # Si viene por URL (edit, update, etc.) verificamos que sea el del current_user
+    @user_profile = UserProfile.find(params[:id])
+    unless @user_profile.user_id == current_user.id
+      redirect_to root_path, alert: t("user_profiles.alerts.unauthorized")
+    end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: t("user_profiles.alerts.not_found")
   end
 
   def user_profile_params
-    params.require(:user_profile).permit(:full_name, :address, :country)
+    params.require(:user_profile).permit(:full_name, :address, :country, :phone, :web)
   end
 
   def profile_picture_params
