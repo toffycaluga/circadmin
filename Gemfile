@@ -102,3 +102,8 @@ gem 'devise_invitable'
 
 gem "groupdate"
 gem "chartkick"
+
+gem 'prawn'
+gem 'prawn-table'
+gem 'axlsx_rails'
+

@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   get "home/index"
   get "errors/not_found"
 
+  # get :export_pdf, on: :collection
+
+
   # Cambio de idioma
   post "set_language", to: "application#set_language"
 
@@ -95,6 +98,8 @@ Rails.application.routes.draw do
   # get "transactions/overview", to: "transactions#overview", as: :overview_transactions
   resources :transactions do
     collection do
+      get :export_pdf
+      get :export_excel
       get :new_income
       get :new_expense
     end

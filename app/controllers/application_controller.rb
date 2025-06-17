@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  allow_browser versions: :modern
+  # allow_browser versions: :modern, if: -> { Rails.env.production? }
 
   before_action :set_locale
   before_action :redirect_if_profile_incomplete, unless: :active_storage_request?

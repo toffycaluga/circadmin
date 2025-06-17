@@ -98,6 +98,16 @@ es:
   invitations:
     title: "Invitaciones"
   localities:
+    name: "Localidad"
+    actions:
+      edit: "Editar evento"
+      close: "Cerrar evento"
+      reopen: "Reabrir evento"
+    confirmations:
+      close: "¿Estás seguro de cerrar este evento?"
+      reopen: "¿Quieres reabrir este evento?"
+    status:
+      closed: "Evento cerrado"
     form:
       form_errors: "Impidieron guardar la localidad"
       title: "Nombre de la localidad"
@@ -118,6 +128,7 @@ es:
       updated: "La localidad fue actualizada con éxito."
       destroyed: "La localidad fue eliminada."
   circus:
+    title: "Circo"
     admin:
       title: "Administración del Circo"
   date:
@@ -153,13 +164,29 @@ es:
     - "Octubre"
     - "Noviembre"
     - "Diciembre"
-
   time:
     formats:
       default: "%d/%m/%Y %H:%M"
       short: "%d %b"
       long: "%d de %B de %Y a las %H:%M"
   transactions:
+    export:
+      title: "Resumen"
+      title_pdf: "Resumen de Transacciones"
+      range: "Rango"
+      generated_by: "Documento generado por CircAdmin"
+      headers:
+        date: "Fecha"
+        title: "Título"
+        amount: "Monto"
+        category: "Categoría"
+    fields:
+      date: "Fecha"
+      title: "Título"
+      amount: "Monto"
+      category: "Categoría"
+      description: "Descripción"
+      user: "Registrado por"
     details:
       back_to_summary: "volver al resumen"
     graph:

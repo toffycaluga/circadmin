@@ -1,9 +1,10 @@
 <div class="container mt-4">
-  <%= render "localities/shared/header", locality: @locality %>
+  <%= render "localities/shared/header", locality: @locality ,
+  incomes: @incomes,
+  expenses: @expenses
+  %>
   <hr>
-  <%= link_to t("insights.title"), insights_locality_path(@locality), class: "btn btn-outline-primary" %>
-
-  <%= link_to "Resumen de Ingresos y Gastos", overview_transactions_locality_path(@locality), class: "btn btn-outline-info" %>
+ 
 
   <%= render "localities/shared/summary_cards", 
            incomes: @incomes, 
@@ -23,44 +24,44 @@
     categories: @last_day_summary[:by_category],
     target_date: @last_day_summary[:target_date],
     period: :day %>
-<% end %>
+  <% end %>
 
-<%# resumen ultima semana %>
-<% if @weekly_summary %>
-  <%= render "transactions/shared/summary_card",
-    title: t("summary_card.last_weekly"),
-    locality: @locality,
-    amount: @weekly_summary[:total],
-    change_percent: @weekly_summary[:change_percent],
-    categories: @weekly_summary[:by_category],
-    range: @weekly_summary[:range],
-    period: :week %>
-<% end %>
+  <%# resumen ultima semana %>
+  <% if @weekly_summary %>
+    <%= render "transactions/shared/summary_card",
+      title: t("summary_card.last_weekly"),
+      locality: @locality,
+      amount: @weekly_summary[:total],
+      change_percent: @weekly_summary[:change_percent],
+      categories: @weekly_summary[:by_category],
+      range: @weekly_summary[:range],
+      period: :week %>
+  <% end %>
 
-<%# resumen mensual %>
+  <%# resumen mensual %>
 
-<% if @monthly_summary %>
-  <%= render "transactions/shared/summary_card",
-    title: t("summary_card.last_monthly"),
-    locality: @locality,
-    amount: @monthly_summary[:total],
-    change_percent: @monthly_summary[:change_percent],
-    categories: @monthly_summary[:by_category],
-    range: @monthly_summary[:range],
-    period: :month %>
-<% end %>
+  <% if @monthly_summary %>
+    <%= render "transactions/shared/summary_card",
+      title: t("summary_card.last_monthly"),
+      locality: @locality,
+      amount: @monthly_summary[:total],
+      change_percent: @monthly_summary[:change_percent],
+      categories: @monthly_summary[:by_category],
+      range: @monthly_summary[:range],
+      period: :month %>
+  <% end %>
 
 
-<%# resumen total %>
-<% if @overall_summary %>
-  <%= render "transactions/shared/summary_card",
-    title: t("summary_card.overall"),
-    locality: @locality,
-    amount: @overall_summary[:total],
-    change_percent: 0,
-    categories: @overall_summary[:by_category],
-    range: @overall_summary[:range],
-    period: :all %>
+  <%# resumen total %>
+  <% if @overall_summary %>
+    <%= render "transactions/shared/summary_card",
+      title: t("summary_card.overall"),
+      locality: @locality,
+      amount: @overall_summary[:total],
+      change_percent: 0,
+      categories: @overall_summary[:by_category],
+      range: @overall_summary[:range],
+      period: :all %>
   <% end %>
 
 </div>
