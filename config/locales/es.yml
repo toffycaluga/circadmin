@@ -61,7 +61,22 @@ es:
   profile:
     title: "Perfil"
   dashboard:
-    title: "Dashboard"
+    active_locality: "Localidad activa:"
+    title: "Panel Principal"
+    welcome: "Bienvenido a CircAdmin 🎪"
+    intro: "Administra tus circos de forma clara y ordenada."
+    my_circuses: "Mis circos"
+    associated_circuses: "Circus asociados"
+    no_owned_circuses: "Aún no eres dueño de ningún circo."
+    no_associated_circuses: "No estás asociado a ningún circo."
+    not_member: "No perteneces a este circo"
+    profile_picture_alt: "Foto de perfil"
+    actions:
+      admin: "🎛 Administrar"
+      edit: "✏️ Editar"
+      add_income: "💰 Ingreso"
+      add_expense: "💸 Egreso"
+      summary: "📊 Resumen"
   circuses:
     page_title: "Mis Circos"
   footer:
@@ -131,6 +146,22 @@ es:
     title: "Circo"
     admin:
       title: "Administración del Circo"
+      heading: "Administración de: %{name}"
+      subtitle: "Gestiona tu circo con alegría y precisión 🎭"
+    info:
+      title: "Información del Circo"
+      status: "Estado:"
+      country: "Ubicación:"
+      currency: "Moneda:"
+      unknown: "No especificada"
+      last_updated: "Última actualización:"
+    status:
+      active: "Activo"
+      inactive: "Inactivo"
+      tooltip: "Estado operativo del circo"
+    actions:
+      edit: "Editar circo"
+      back: "Volver al Dashboard"
   date:
     formats:
       default: "%d/%m/%Y"

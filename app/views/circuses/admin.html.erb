@@ -1,19 +1,57 @@
-<h2>Administración de: <%= @circus.name %></h2>
-<div class="mb-3">
-  <p><strong>Estado:</strong> <%= @circus.active ? "Activo" : "Inactivo" %></p>
-  <p><strong>Ubicación:</strong> <%= @circus.country %>
-    <p><strong>Moneda:</strong> <%= @circus.currency %></p>
-  </div>
-  <div class="row">
-      <%=  render 'shared/dashboard/main/new_locality'  %>
+<% content_for :page_title, t("circus.admin.title", default: "Administración del Circo") %>
 
-      <%= render 'shared/dashboard/main/workers'%>
-    
-    
+<div class="card shadow mb-4">
+  <div class="card-header bg-light text-white d-flex flex-wrap justify-content-between align-items-center">
+    <div>
+      <h2 class="mb-0">
+        🎪 <%= t("circus.admin.heading", name: @circus.name, default: "Administración de: %{name}") %>
+      </h2>
+      <small class="text-black-50 fst-italic">
+        <%= t("circus.admin.subtitle", default: "Gestiona tu circo con alegría y precisión 🎭") %>
+      </small>
+    </div>
+    <span class="badge <%= @circus.active ? 'bg-success' : 'bg-danger' %>" data-bs-toggle="tooltip" title="<%= t("circus.status.tooltip", default: "Estado operativo del circo") %>">
+      <%= @circus.active ? t("circus.status.active", default: "Activo") : t("circus.status.inactive", default: "Inactivo") %>
+    </span>
   </div>
 
-  <% if current_user.circus_users.exists?(circus_id: @circus.id, role: "owner") %>
-    <%= link_to "Editar circo", edit_circus_path(@circus), class: "btn btn-primary" %>
-    <%#= link_to "Invitar nuevo usuario", new_user_invitation_path, class: "btn btn-primary" %>
-  <% end %>
-  <%= link_to "Volver al Dashboard", root_path, class: "btn btn-secondary" %>
+  <div class="card-body">
+  <p>
+    <strong><i class="fas fa-globe-americas me-1"></i> <%= t("circus.info.country", default: "Ubicación:") %></strong>
+    <%= @circus.country.presence || t("circus.info.unknown", default: "No especificada") %>
+  </p>
+  <p>
+    <strong><i class="fas fa-coins me-1"></i> <%= t("circus.info.currency", default: "Moneda:") %></strong>
+    <%= @circus.currency.presence || t("circus.info.unknown", default: "No especificada") %>
+  </p>
+
+  <p class="text-muted small mt-3">
+    <i class="fas fa-clock me-1"></i>
+    <%= t("circus.info.last_updated", default: "Última actualización:") %>
+    <%= l(@circus.updated_at, format: :long) %>
+  </p>
+
+  <div class="d-flex justify-content-end flex-wrap gap-2 mt-4">
+    <% if current_user.circus_users.exists?(circus_id: @circus.id, role: "owner") %>
+      <%= link_to edit_circus_path(@circus), class: "btn btn-outline-primary" do %>
+        ✏️ <%= t("circus.actions.edit", default: "Editar circo") %>
+      <% end %>
+    <% end %>
+
+    <%= link_to root_path, class: "btn btn-outline-secondary" do %>
+      🔙 <%= t("circus.actions.back", default: "Volver al Dashboard") %>
+    <% end %>
+  </div>
+</div>
+
+</div>
+</div>
+
+<%# <hr class="my-4"> %>
+
+<div class="row">
+  <%= render "shared/dashboard/main/new_locality" %>
+  <%= render "shared/dashboard/main/workers" %>
+</div>
+
+

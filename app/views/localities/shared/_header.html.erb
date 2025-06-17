@@ -24,7 +24,8 @@
         </div>
       <% end %>
       <div class="col mb-3 d-flex gap-2 col-md-4 col-sm-12">
-        <%= link_to "Resumen de Ingresos y Gastos", overview_transactions_locality_path(locality), class: "btn btn-info w-100" %>
+        <%= link_to t("dashboard.actions.full_summary", default: "📊 Resumen de Ingresos y Gastos"), overview_transactions_locality_path(locality), class: "btn btn-info w-100" %>
+
       </div>
       <% if can?(:manage, locality) %>
         <%= render "localities/shared/status_controls", locality: locality %>
