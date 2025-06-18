@@ -1,4 +1,8 @@
 es:
+  navigation:
+    dashboard: "Inicio"
+    my_circuses: "Mis circos"
+    my_documents: "Mis documentos"
   datetime:
     distance_in_words:
       about_x_hours: "aproximadamente %{count} horas"

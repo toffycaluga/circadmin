@@ -1,14 +1,27 @@
+<ul class="nav flex-column">
 
-<li class="nav-item pcoded-hasmenu">
-    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
-    <ul class="pcoded-submenu">
-        <li>
-        <%= link_to "Mis circos", circuses_path %>
+  <!-- Dashboard -->
+  <li class="nav-item">
+    <%= link_to root_path, class: "nav-link d-flex align-items-center" do %>
+      <span class="pcoded-micon"><i class="feather icon-home me-2"></i></span>
+      <span class="pcoded-mtext"><%= t("navigation.dashboard", default: "Dashboard") %></span>
+    <% end %>
+  </li>
 
-        </li>
-        <li><a href="dashboard-sale.html">Sales</a></li>
-        <li><a href="dashboard-crm.html">CRM</a></li>
-        <li><a href="dashboard-analytics.html">Analytics</a></li>
-        <li><a href="dashboard-project.html">Project</a></li>
-    </ul>
-</li>
+  <!-- Mis circos -->
+  <li class="nav-item">
+    <%= link_to circuses_path, class: "nav-link d-flex align-items-center" do %>
+      <span class="pcoded-micon"><i class="feather icon-zap me-2"></i></span>
+      <span class="pcoded-mtext"><%= t("navigation.my_circuses", default: "Mis circos") %></span>
+    <% end %>
+  </li>
+
+  <!-- Mis documentos -->
+  <li class="nav-item">
+    <%#= link_to documents_path, class: "nav-link d-flex align-items-center" do %>
+      <span class="pcoded-micon"><i class="feather icon-folder me-2"></i></span>
+      <span class="pcoded-mtext"><%= t("navigation.my_documents", default: "Mis documentos") %></span>
+    <%# end %>
+  </li>
+
+</ul>

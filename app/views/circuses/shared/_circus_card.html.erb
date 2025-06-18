@@ -10,30 +10,30 @@
           style: "object-fit: contain; aspect-ratio: 1/1; background: #fff;",
           loading: "lazy"
         ) %>
-
     <!-- Información del circo -->
     <div class="flex-grow-1">
       <h5 class="mb-1"><%= circus.name %></h5>
-
       <% user_role = current_user.circus_users.find_by(circus_id: circus.id)&.role %>
       <small class="<%= user_role ? 'text-muted' : 'text-danger' %>">
         <%= user_role ? t("roles.#{user_role}", default: user_role.capitalize) : t("dashboard.not_member", default: "No perteneces a este circo") %>
       </small>
-
       <div class="mt-1">
         <span class="badge <%= circus.active ? 'bg-success' : 'bg-secondary' %>">
           <%= circus.active ? t("circus.status.active", default: "Activo") : t("circus.status.inactive", default: "Inactivo") %>
         </span>
       </div>
     </div>
-
     <!-- Acciones principales -->
     <div class="ms-auto d-flex gap-2 flex-wrap justify-content-end">
-      <%= link_to t("dashboard.actions.admin", default: "🎛 Administrar"), admin_circus_path(circus), class: "btn btn-sm btn-outline-primary" %>
-      <%= link_to t("dashboard.actions.edit", default: "✏️ Editar"), edit_circus_path(circus), class: "btn btn-sm btn-outline-secondary" %>
+      <%= link_to admin_circus_path(circus), class: "btn btn-sm btn-outline-primary d-flex align-items-center" do %>
+        <i class="feather icon-sliders me-1"></i>
+        <span><%= t("circus.actions.admin", default: "Administrar") %></span>
+      <% end %>
+      <%= link_to t("dashboard.actions.edit", default: "✏️ Editar"),
+              edit_circus_path(circus),
+              class: "btn btn-sm btn-outline-secondary d-flex align-items-center" %>
     </div>
   </div>
-
   <!-- Localidad activa -->
   <% if defined?(show_actions) && show_actions && (locality = circus.localities.active.last) %>
     <div class="card-footer bg-light">
