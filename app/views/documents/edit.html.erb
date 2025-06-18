@@ -1,0 +1,12 @@
+<!-- app/views/documents/edit.html.erb -->
+<% content_for :page_title, t("documents.edit.title") %>
+
+<div class="card shadow-sm">
+  <div class="card-header d-flex align-items-center gap-2">
+    <h4 class="mb-0">✏️ <%= t("documents.edit.heading") %></h4>
+  </div>
+
+  <div class="card-body">
+    <%= render "form", document: @document %>
+  </div>
+</div>

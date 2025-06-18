@@ -108,3 +108,4 @@ gem 'prawn-table'
 gem 'axlsx_rails'
 
 gem 'pagy'
+gem 'acts-as-taggable-on'

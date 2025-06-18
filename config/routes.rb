@@ -44,6 +44,13 @@ Rails.application.routes.draw do
     end
   end
 
+  # config/routes.rb
+  resources :documents, only: [ :index, :new, :create, :edit, :update, :destroy ] do
+    collection do
+      get "circus/:circus_id", to: "documents#by_circus", as: :by_circus
+    end
+  end
+
 
   # Circuses y administración
   resources :circuses do

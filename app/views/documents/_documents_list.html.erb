@@ -1,0 +1,55 @@
+<% if documents.any? %>
+  <table class="table table-hover align-middle">
+    <thead class="table-light">
+      <tr>
+        <th><%= t("documents.by_circus.table.title", circus: @circus.name) %></th>
+        <th><%= t("documents.by_circus.table.description") %></th>
+        <th><%= t("documents.by_circus.table.type") %></th>
+        <th><%= t("documents.by_circus.table.tags") %></th>
+        <th><%= t("documents.by_circus.table.file") %></th>
+        <th><%= t("documents.by_circus.table.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% documents.each do |doc| %>
+        <tr>
+          <td><%= doc.title %></td>
+          <td><%= truncate(doc.description, length: 100) %></td>
+          <td><%= t("documents.types.#{doc.document_type}", default: doc.document_type.humanize) %></td>
+          <td>
+            <% doc.tag_list.each do |tag| %>
+              <span class="badge bg-info-subtle text-dark border rounded-pill px-2 py-1 d-inline-flex align-items-center me-1"><%= tag %></span>
+            <% end %>
+          </td>
+          <td>
+            <% if doc.file.attached? %>
+              <%= link_to t("documents.by_circus.download", default: "📥 Descargar"), rails_blob_path(doc.file, disposition: "attachment"), class: "btn btn-sm btn-outline-secondary" %>
+            <% else %>
+              <span class="text-muted"><%= t("documents.by_circus.no_file", default: "Sin archivo") %></span>
+            <% end %>
+          </td>
+          <td>
+            <% if can?(:update, doc) %>
+              <%= link_to edit_document_path(doc), class: "btn btn-sm btn-outline-primary", title: t("documents.by_circus.edit") do %>
+                ✏️ <%= t("documents.by_circus.edit_short", default: "Editar") %>
+              <% end %>
+            <% end %>
+            <% if can?(:destroy, doc) %>
+              <%= link_to document_path(doc),
+                          method: :delete,
+                          data: { confirm: t("documents.by_circus.confirm_delete") },
+                          class: "btn btn-sm btn-outline-danger",
+                          title: t("documents.by_circus.delete") do %>
+                🗑 <%= t("documents.by_circus.delete_short", default: "Eliminar") %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alert alert-info text-center">
+    <%= t("documents.by_circus.empty", default: "No hay documentos disponibles.") %>
+  </div>
+<% end %>

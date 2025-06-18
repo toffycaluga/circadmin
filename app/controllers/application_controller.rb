@@ -8,7 +8,16 @@ class ApplicationController < ActionController::Base
   before_action :ensure_circus_context!
 
   helper_method :current_circus
-
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.html do
+        redirect_to main_app.root_path, alert: t("errors.unauthorized", default: "No estás autorizado para realizar esta acción.")
+      end
+      format.json do
+        render json: { error: t("errors.unauthorized", default: "No estás autorizado.") }, status: :forbidden
+      end
+    end
+  end
   def set_locale
     I18n.locale = session[:locale] ||
       extract_locale_from_accept_language_header ||

@@ -1,4 +1,77 @@
 es:
+  documents:
+    filters:
+      search: "Buscar"
+      type: "Tipo de documento"
+      all_types: "Todos los tipos"
+    by_circus:
+      title: "Documentos del Circo"
+      search_placeholder: "Buscar por título o etiqueta..."
+      all_types: "Todos los tipos"
+      no_results: "No se encontraron documentos."
+      edit: "Editar documento"
+      delete: "Eliminar documento"
+      confirm_delete: "¿Estás seguro de eliminar este documento?"
+      edit_short: "Editar"
+      delete_short: "Eliminar"
+      title: "Documentos de %{circus}"
+      heading: "Documentación del circo %{circus}"
+      subheading: "Archivos asociados a este circo"
+      new_document: "📄 Subir nuevo documento"
+      table:
+        file: "Archivo"
+        title: "Título"
+        type: "Tipo"
+        tags: "Etiquetas"
+        description: "Descripcion"
+        uploader: "Subido por"
+        actions: "Acciones"
+      download: "Descargar archivo"
+      download_short: "Descargar"
+    new:
+      title: "Nuevo documento"
+      heading: "Subir un nuevo documento"
+    edit:
+      title: "Editar documento"
+      heading: "Modificar documento existente"
+    types:
+      general: "📄 General"
+      contract: "📝 Contrato"
+      permit: "🔏 Permiso"
+      insurance: "🛡️ Seguro"
+      certificate: "📜 Certificado"
+      technical_sheet: "📑 Ficha Técnica"
+      health: "💉 Salud"
+      artist_passport: "🎟️ Pasaporte Artístico"
+      other: "📦 Otro"
+    index:
+      title: "Mis Documentos por Circo"
+      view_docs_for: "📁 Ver documentos de %{name}"
+      heading: "Documentos del Circo"
+      new: "➕ Nuevo documento"
+      table:
+        title: "Título"
+        type: "Tipo"
+        uploader: "Subido por"
+        actions: "Acciones"
+      actions:
+        download: "Descargar"
+        edit: "Editar"
+        delete: "Eliminar"
+        confirm: "¿Estás seguro de eliminar este documento?"
+    form:
+      title: "Título"
+      title_placeholder: "Ej. Contrato municipal"
+      description: "Descripción"
+      document_type: "Tipo de documento"
+      tags: "Etiquetas"
+      tags_placeholder: "Separadas por coma"
+      file: "Archivo adjunto"
+      submit: "Guardar documento"
+    notices:
+      updated: "Documento actualizado correctamente 📄✅"
+      created: "Documento creado correctamente 📎🎉"
+      deleted: "Documento eliminado 🗑️"
   navigation:
     dashboard: "Inicio"
     my_circuses: "Mis circos"
@@ -419,3 +492,6 @@ es:
       title: "%{count} errores impidieron guardar el circo:"
     actions:
       save: "💾 Guardar"
+  errors:
+  unauthorized: "No estás autorizado para realizar esta acción."
+

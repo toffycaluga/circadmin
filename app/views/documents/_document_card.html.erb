@@ -1,0 +1,35 @@
+<div class="card shadow-sm mb-3">
+  <div class="card-body">
+    <h5 class="card-title"><%= doc.title %></h5>
+    <p class="card-text"><%= doc.description %></p>
+
+    <% if doc.tag_list.any? %>
+      <div class="mb-2">
+        <% doc.tag_list.each do |tag| %>
+          <span class="badge bg-info-subtle text-dark border rounded-pill me-1"><%= tag %></span>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="d-flex gap-2 flex-wrap">
+      <% if doc.file.attached? %>
+        <%= link_to doc.file.filename, rails_blob_path(doc.file, disposition: "attachment"), class: "btn btn-sm btn-outline-secondary" %>
+      <% end %>
+
+      <% if can?(:update, doc) %>
+        <%= link_to edit_document_path(doc), class: "btn btn-sm btn-outline-primary" do %>
+          ✏️ <%= t("documents.by_circus.edit_short", default: "Editar") %>
+        <% end %>
+      <% end %>
+
+      <% if can?(:destroy, doc) %>
+        <%= link_to document_path(doc),
+                    method: :delete,
+                    data: { confirm: t("documents.by_circus.confirm_delete") },
+                    class: "btn btn-sm btn-outline-danger" do %>
+          🗑 <%= t("documents.by_circus.delete_short", default: "Eliminar") %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
