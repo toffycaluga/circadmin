@@ -88,14 +88,16 @@ Rails.application.routes.draw do
   end
 
 
-  resources :notifications, only: [ :index ] do
+  resources :notifications do
     member do
       patch :mark_as_read
     end
+
     collection do
       patch :mark_all_as_read
     end
   end
+
   # get "transactions/overview", to: "transactions#overview", as: :overview_transactions
   resources :transactions do
     collection do

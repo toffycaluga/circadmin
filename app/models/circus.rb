@@ -7,7 +7,7 @@
 #  description :text
 #  country     :string
 #  currency    :string
-#  active      :boolean
+#  active      :boolean          default("true")
 #  user_id     :integer          not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

@@ -18,6 +18,7 @@ class LocalitiesController < ApplicationController
     @locality = Locality.find(params[:id])
     @incomes  = @locality.transactions.where(transaction_type: "income")
     @expenses = @locality.transactions.where(transaction_type: "expense")
+     @unread_notifications_count = current_user.notifications.unread.count
 
     @last_day_summary  = TransactionSummaryService.new(@locality, :day).call
     @weekly_summary    = TransactionSummaryService.new(@locality, :week).call

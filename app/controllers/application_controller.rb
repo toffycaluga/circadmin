@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
+
   # allow_browser versions: :modern, if: -> { Rails.env.production? }
 
   before_action :set_locale

@@ -107,3 +107,4 @@ gem 'prawn'
 gem 'prawn-table'
 gem 'axlsx_rails'
 
+gem 'pagy'

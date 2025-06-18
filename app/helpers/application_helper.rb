@@ -1,4 +1,6 @@
 module ApplicationHelper
+    include Pagy::Frontend
+
     def load_template_scripts(type = :plugins)
       path = case type
       when :plugins then "assets/js/plugins"
