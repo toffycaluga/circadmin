@@ -19,6 +19,7 @@
 #  invited_by_id          :integer
 #  invitations_count      :integer          default("0")
 #  inviting_circus_id     :integer
+#  superadmin             :boolean          default("false"), not null
 #
 # Indexes
 #

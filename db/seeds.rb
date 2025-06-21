@@ -7,30 +7,19 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-puts "Borrando datos antiguos..."
-CircusUser.destroy_all
-Circus.destroy_all
-User.destroy_all
+# db/seeds.rb
 
-puts "Creando usuario dueño..."
-owner = User.create!(
-  email: "admin@circadmin.com",
-  password: "password123",
-  password_confirmation: "password123"
-)
+admin_email    = ENV.fetch("ADMIN_EMAIL")
+admin_password = ENV.fetch("ADMIN_PASSWORD")
 
-# puts "Creando circo..."
-# circus = Circus.create!(
-#   name: "Circo Fantástico",
-#   country: "Chile",
-#   currency: "CLP",
-#   active: true
-# )
-
-# puts "Asociando dueño con el circo..."
-# CircusUser.create!(
-#   user: owner,
-#   circus: circus
-# )
-
-puts "Seed finalizado correctamente! ✅"
+admin = User.find_or_initialize_by(email: admin_email)
+if admin.new_record?
+  admin.password              = admin_password
+  admin.password_confirmation = admin_password
+  admin.superadmin            = true
+  admin.confirmed_at = Time.current if admin.respond_to?(:confirmed_at)
+  admin.save!
+  puts "✅ Superadmin creado: #{admin.email}"
+else
+  puts "ℹ️ Superadmin ya existe: #{admin.email}"
+end
