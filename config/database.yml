@@ -80,9 +80,11 @@ test:
 #
 production:
   <<: *default
-  # Rails usará DATABASE_URL con todas las credenciales que Heroku provee
+  # Heroku inyecta DATABASE_URL con todas las credenciales
   url: <%= ENV['DATABASE_URL'] %>
-  # Ajusta el pool según tus threads en Puma/Heroku
   pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
-  # Si quieres un timeout distinto al default (5s), puedes añadir:
-  # checkout_timeout: <%= ENV.fetch("DB_CHECKOUT_TIMEOUT", 5) %>
+
+  # Necesario para gems como solid_cable / Action Cable
+  cable:
+    <<: *default
+    url: <%= ENV['DATABASE_URL'] %>
