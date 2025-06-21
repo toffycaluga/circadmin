@@ -84,7 +84,7 @@ group :development, :test do
   gem "selenium-webdriver"
   gem "webdrivers"
   gem "factory_bot_rails"
-  gem 'annotate'
+  gem "annotate"
 end
 
 gem "pagy"
@@ -93,19 +93,19 @@ gem "sassc-rails"
 gem "image_processing", "~> 1.2"
 gem "mini_magick"
 
-gem 'countries'
-gem 'money'
-gem 'money-rails' # opcional si quieres integrarlo con ActiveRecord
+gem "countries"
+gem "money"
+gem "money-rails" # opcional si quieres integrarlo con ActiveRecord
 
 # Gemfile
-gem 'devise_invitable'
+gem "devise_invitable"
 
 gem "groupdate"
 gem "chartkick"
 
-gem 'prawn'
-gem 'prawn-table'
-gem 'axlsx_rails'
+gem "prawn"
+gem "prawn-table"
+gem "axlsx_rails"
 
-gem 'pagy'
-gem 'acts-as-taggable-on'
+gem "pagy"
+gem "acts-as-taggable-on"

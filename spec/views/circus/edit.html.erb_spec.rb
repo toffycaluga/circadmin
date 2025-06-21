@@ -20,7 +20,6 @@ RSpec.describe "circus/edit", type: :view do
     render
 
     assert_select "form[action=?][method=?]", circu_path(circu), "post" do
-
       assert_select "input[name=?]", "circu[name]"
 
       assert_select "textarea[name=?]", "circu[description]"

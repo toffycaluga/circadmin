@@ -19,7 +19,6 @@ RSpec.describe "invitations/edit", type: :view do
     render
 
     assert_select "form[action=?][method=?]", invitation_path(invitation), "post" do
-
       assert_select "input[name=?]", "invitation[user_id]"
 
       assert_select "input[name=?]", "invitation[circus_id]"
