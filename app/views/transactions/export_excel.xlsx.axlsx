@@ -34,19 +34,19 @@ wb.add_worksheet(name: t("transactions.export.title_excel", default: "Resumen"))
   footer_style = styles.add_style sz: 9, i: true, alignment: { horizontal: :center }, fg_color: "777777"
 
   # Título principal
-  sheet.add_row [t("transactions.export.title_excel", default: "Resumen de Transacciones")], style: title_style
+  sheet.add_row [ t("transactions.export.title_excel", default: "Resumen de Transacciones") ], style: title_style
   sheet.merge_cells("A1:F1")
   sheet.add_row []
 
   # Datos informativos
-  sheet.add_row [t("localities.name", default: "Localidad"), @locality.title], style: [label_style, info_style]
-  sheet.add_row [t("circus.title", default: "Circo"), @locality.circus.name], style: [label_style, info_style]
-  sheet.add_row [t("transactions.type.#{@type}", default: "Tipo"), t("transactions.type.#{@type}", default: @type.titleize)], style: [label_style, info_style]
+  sheet.add_row [ t("localities.name", default: "Localidad"), @locality.title ], style: [ label_style, info_style ]
+  sheet.add_row [ t("circus.title", default: "Circo"), @locality.circus.name ], style: [ label_style, info_style ]
+  sheet.add_row [ t("transactions.type.#{@type}", default: "Tipo"), t("transactions.type.#{@type}", default: @type.titleize) ], style: [ label_style, info_style ]
 
   if @transactions.any?
     min = @transactions.minimum(:date)&.strftime("%d/%m/%Y")
     max = @transactions.maximum(:date)&.strftime("%d/%m/%Y")
-    sheet.add_row [t("transactions.export.range", default: "Rango"), "#{min} - #{max}"], style: [label_style, info_style]
+    sheet.add_row [ t("transactions.export.range", default: "Rango"), "#{min} - #{max}" ], style: [ label_style, info_style ]
   end
 
   sheet.add_row [] # espacio antes de la tabla
@@ -70,7 +70,7 @@ wb.add_worksheet(name: t("transactions.export.title_excel", default: "Resumen"))
       t("transactions.categories.#{tx.category}", default: tx.category.titleize),
       tx.description.to_s.truncate(100),
       tx.user.user_profile&.full_name || tx.user.email
-    ], style: [cell_style, cell_style, currency_style, cell_style, cell_style, cell_style]
+    ], style: [ cell_style, cell_style, currency_style, cell_style, cell_style, cell_style ]
   end
 
   # Total final
@@ -78,7 +78,7 @@ wb.add_worksheet(name: t("transactions.export.title_excel", default: "Resumen"))
   sheet.add_row []
   sheet.add_row [
     t("transactions.export.total", default: "Total"), "", total
-  ], style: [total_style, nil, currency_style]
+  ], style: [ total_style, nil, currency_style ]
 
   # Footer generado por
   sheet.add_row []

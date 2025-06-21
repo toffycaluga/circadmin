@@ -20,7 +20,6 @@ RSpec.describe "localities/edit", type: :view do
     render
 
     assert_select "form[action=?][method=?]", locality_path(locality), "post" do
-
       assert_select "input[name=?]", "locality[title]"
 
       assert_select "input[name=?]", "locality[location]"
