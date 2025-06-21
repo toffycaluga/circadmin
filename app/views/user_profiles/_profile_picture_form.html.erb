@@ -1,0 +1,53 @@
+<div class="card shadow-sm">
+  <div class="card-header bg-light d-flex align-items-center">
+    <i class="fas fa-image me-2 text-primary"></i>
+    <h5 class="mb-0"><%= t("user_profiles.edit.profile_picture_section", default: "Foto de perfil") %></h5>
+  </div>
+
+  <div class="card-body text-center">
+
+    <div class="mb-3">
+      <%= image_tag(
+            user_profile.profile_picture.attached? ?
+              url_for(user_profile.profile_picture) :
+              asset_path("avatar.jpg"),
+            id: "profile-preview",
+            class: "rounded-circle shadow-sm border",
+            width: 150,
+            height: 150,
+            style: "object-fit: cover; aspect-ratio: 1 / 1;",
+                  loading: "lazy"
+          ) %>
+    </div>
+
+    <%= form_with model: user_profile, url: update_profile_picture_user_profile_path(user_profile), method: :patch, local: true, html: { multipart: true } do |form| %>
+      <div class="mb-3">
+        <%= form.label :profile_picture, t("user_profiles.edit.select_picture", default: "Selecciona una imagen"), class: "form-label" %>
+        <%= form.file_field :profile_picture, class: "form-control", accept: "image/*", id: "profile_picture_input" %>
+      </div>
+
+      <div class="d-grid">
+        <%= form.submit t("user_profiles.edit.upload_picture", default: "Subir imagen"), class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- Previsualización instantánea -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("profile_picture_input");
+    const preview = document.getElementById("profile-preview");
+
+    input.addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (file && file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  });
+</script>

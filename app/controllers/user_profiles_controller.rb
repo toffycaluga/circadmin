@@ -1,70 +1,77 @@
 class UserProfilesController < ApplicationController
-  before_action :set_user_profile, only: %i[ show edit update destroy ]
+  layout "dashboard"
+  before_action :authenticate_user!
+  before_action :set_user_profile, only: [ :edit, :update, :update_profile_picture, :destroy ]
 
-  # GET /user_profiles or /user_profiles.json
+  # Vista personalizada del perfil actual (dashboard -> "Perfil")
+  def profile
+    @user_profile = current_user.user_profile
+  end
+
+  # Solo si se necesita listado administrativo de perfiles
   def index
+    # ⚠️ Idealmente protegido por un rol admin
     @user_profiles = UserProfile.all
   end
 
-  # GET /user_profiles/1 or /user_profiles/1.json
-  def show
-  end
-
-  # GET /user_profiles/new
   def new
+    # Normalmente innecesario, ya que el perfil se crea con el user
     @user_profile = UserProfile.new
   end
 
-  # GET /user_profiles/1/edit
   def edit
+    # @user_profile ya está seteado
   end
 
-  # POST /user_profiles or /user_profiles.json
   def create
-    @user_profile = UserProfile.new(user_profile_params)
+    @user_profile = current_user.build_user_profile(user_profile_params)
 
-    respond_to do |format|
-      if @user_profile.save
-        format.html { redirect_to @user_profile, notice: "User profile was successfully created." }
-        format.json { render :show, status: :created, location: @user_profile }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user_profile.errors, status: :unprocessable_entity }
-      end
+    if @user_profile.save
+      redirect_to profile_path, notice: t("user_profiles.notices.created")
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /user_profiles/1 or /user_profiles/1.json
   def update
-    respond_to do |format|
-      if @user_profile.update(user_profile_params)
-        format.html { redirect_to @user_profile, notice: "User profile was successfully updated." }
-        format.json { render :show, status: :ok, location: @user_profile }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user_profile.errors, status: :unprocessable_entity }
-      end
+    if @user_profile.update(user_profile_params)
+      redirect_to profile_path, notice: t("user_profiles.notices.updated")
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /user_profiles/1 or /user_profiles/1.json
+  def update_profile_picture
+    if @user_profile.update(profile_picture_params)
+      flash[:notice] = t("user_profiles.notices.picture_updated")
+    else
+      flash[:alert] = t("user_profiles.alerts.picture_failed")
+    end
+    redirect_to profile_path # ❗ corrección: era profile_user_profiles_path (no existe)
+  end
+
   def destroy
     @user_profile.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to user_profiles_path, status: :see_other, notice: "User profile was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to user_profiles_path, status: :see_other, notice: t("user_profiles.notices.destroyed")
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user_profile
-      @user_profile = UserProfile.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_profile_params
-      params.expect(user_profile: [ :user_id, :nombre_completo, :direccion, :pais, :tipo_moneda ])
+  def set_user_profile
+    # Si viene por URL (edit, update, etc.) verificamos que sea el del current_user
+    @user_profile = UserProfile.find(params[:id])
+    unless @user_profile.user_id == current_user.id
+      redirect_to root_path, alert: t("user_profiles.alerts.unauthorized")
     end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: t("user_profiles.alerts.not_found")
+  end
+
+  def user_profile_params
+    params.require(:user_profile).permit(:full_name, :address, :country, :phone, :web)
+  end
+
+  def profile_picture_params
+    params.require(:user_profile).permit(:profile_picture)
+  end
 end

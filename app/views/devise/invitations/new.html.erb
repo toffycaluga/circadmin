@@ -1,0 +1,13 @@
+<%= form_for(User.new, as: :user, url: user_invitation_path, method: :post) do |f| %>
+  <%= f.label :email %>
+  <%= f.email_field :email, class: "form-control" %>
+
+  <%= label_tag 'user[role]', "Role" %>
+  <%= select_tag 'user[role]', options_for_select(
+        CircusUser::ROLES
+          .reject { |r| r == "owner" }
+          .map { |r| [role_label(r), r] }
+      ), class: "form-control" %>
+
+  <%= f.submit "Send Invitation", class: "btn btn-primary" %>
+<% end %>

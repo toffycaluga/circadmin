@@ -1,0 +1,26 @@
+<% content_for :page_title, t("transactions.new.title", default: "Nueva Transacción") %>
+
+<% content_for :breadcrumb do %>
+  <li class="breadcrumb-item"><%= link_to t("dashboard.title"), dashboard_index_path %></li>
+   <%# <li class="breadcrumb-item"><%= link_to t("circus.admin.title"), admin_circus_path(@circus)</li>  %>
+  <%# <li class="breadcrumb-item"><%= link_to @locality.city, locality_admin_path(@locality) </li> %>
+  <%# <li class="breadcrumb-item active"><%= t("transactions.new.title", default: "Nueva Transacción") </li> %> 
+<% end %>
+
+<div class="col-12 col-lg-8 mx-auto mb-4">
+  <div class="card shadow-sm">
+    <div class="card-header d-flex align-items-center gap-2">
+      <i class="fas fa-coins text-success"></i>
+      <h5 class="mb-0"><%= t("transactions.new.title", default: "Nueva Transacción") %></h5>
+    </div>
+
+    <div class="card-body">
+      <%= render "form", transaction: @transaction %>
+    </div>
+
+    <div class="card-footer text-end">
+      <%= link_to t("transactions.actions.back", default: "← Volver a la plaza"), admin_locality_path(@locality), class: "btn btn-outline-secondary" %>
+
+    </div>
+  </div>
+</div>

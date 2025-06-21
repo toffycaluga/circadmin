@@ -1,0 +1,48 @@
+<% content_for :page_title, t("profile.title") %>
+
+<% content_for :breadcrumb do %>
+  <li class="breadcrumb-item"><%= link_to t("dashboard.title"), dashboard_index_path %></li>
+  <li class="breadcrumb-item active"><%= t("profile.title") %></li>
+<% end %>
+
+<%= render 'header', user: current_user %>
+
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-xl-10">
+
+      <!-- Card contenedor de tabs -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-light d-flex align-items-center">
+          <i class="fas fa-user-circle text-primary me-2"></i>
+          <h5 class="mb-0"><%= t("user_profiles.edit.title", default: "Perfil del usuario") %></h5>
+        </div>
+
+        <div class="card-body px-4 pt-4">
+          <!-- Navegación entre secciones -->
+          <%= render 'tabs' %>
+
+          <hr class="mb-4">
+
+          <!-- Contenido de cada sección -->
+          <div class="tab-content" id="profileTabsContent">
+
+            <div class="tab-pane fade show active" id="personal-info" role="tabpanel">
+              <%= render 'personal_info', user: current_user %>
+            </div>
+
+            <div class="tab-pane fade" id="contact-info" role="tabpanel">
+              <%= render 'contact_info', user: current_user %>
+            </div>
+
+            <div class="tab-pane fade" id="edit-info" role="tabpanel">
+              <%= render 'form_edit', user: current_user %>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

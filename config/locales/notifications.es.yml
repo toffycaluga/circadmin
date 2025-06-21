@@ -1,0 +1,32 @@
+es:
+  notifications:
+    invitation:
+      new:
+        title: "Nueva invitación"
+        body: "Has sido invitado al circo %{circus} como %{role}."
+      accepted:
+        title: "Invitación aceptada"
+        body: "%{user_email} ha aceptado tu invitación al circo %{circus}."
+      rejected:
+        title: "Invitación rechazada"
+        body: "%{user_email} ha rechazado tu invitación al circo %{circus}."
+      resent:
+        title: "Invitación reenviada"
+        body: "%{sender_email} te ha reenviado la invitación al circo %{circus}."
+    user:
+      added:
+        title: "Usuario añadido"
+        body: "%{user_email} ha sido añadido al circo %{circus} como %{role}."
+      removed:
+        title: "Usuario eliminado"
+        body: "%{user_email} ha sido eliminado del circo %{circus}."
+    flash:
+      invitation:
+        no_active_circus: "No hay un circo activo en la sesión."
+        email_blank: "El correo no puede estar vacío."
+        email_invalid: "El correo no tiene un formato válido."
+        already_active: "Este usuario ya está activo en este circo."
+        invite_success: "Invitación enviada correctamente a %{email}."
+        invite_error: "Hubo un error al enviar la invitación: %{errors}."
+        resent_success: "Correo de invitación reenviado correctamente."
+        resent_error: "No se pudo reenviar la invitación."

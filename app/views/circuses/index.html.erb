@@ -1,0 +1,55 @@
+<% content_for :page_title do %>
+  <%= t("circuses.page_title") %>
+<% end %>
+
+<% content_for :breadcrumb do %>
+  <li class="breadcrumb-item active"><%= t("circuses.page_title") %></li>
+<% end %>
+
+<div class="col-sm-12 mb-4">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h1 class="h3 mb-0"><%= t("circuses.page_title", default: "Mis circos 🎪") %></h1>
+      <p class="text-muted"><%= t("circuses.description", default: "Administra tus circos creados o asociados.") %></p>
+    </div>
+  </div>
+</div>
+
+<% if @owned_circuses.any? %>
+  <h2 class="h4 mb-3"><%= t("circuses.owned", default: "Mis circos") %></h2>
+  <div class="row mb-4">
+    <% @owned_circuses.each do |circus| %>
+      <div class="col-md-6 col-xl-4 mb-3">
+        <%= render partial: "circuses/shared/circus_card", locals: { circus: circus, show_actions: true } %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @associated_circuses.any? %>
+  <h2 class="h4 mb-3"><%= t("circuses.associated", default: "Circus asociados") %></h2>
+  <div class="row mb-4">
+    <% @associated_circuses.each do |circus| %>
+      <div class="col-md-6 col-xl-4 mb-3">
+        <%= render partial: "circuses/shared/circus_card", locals: { circus: circus, show_actions: false } %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @owned_circuses.empty? && @associated_circuses.empty? %>
+  <div class="alert alert-info text-center mt-4">
+    <%= t("circuses.empty_state", default: "Aún no estás asociado a ningún circo.") %>
+  </div>
+<% end %>
+
+<div class="col-xl-5 col-md-6 mx-auto align-self-center mt-4">
+  <div class="d-flex justify-content-center text-center flex-column align-items-center w-100">
+    <p class="fw-bold fs-4"><%= t("circuses.add_new", default: "Agregar nuevo circo") %></p>
+    <div class="card d-flex rounded-circle" style="width: 80px;">
+      <%= link_to new_circus_path, class: "btn btn-outline-primary p-3 fs-4 rounded-circle" do %>
+        <i class="feather icon-plus"></i>
+      <% end %>
+    </div>
+  </div>
+</div>

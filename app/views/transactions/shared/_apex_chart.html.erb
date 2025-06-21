@@ -1,0 +1,48 @@
+<div class="card mb-4">
+  <div class="card-header">
+    <h5><%= t("transactions.graph.title", default: "Resumen financiero del terreno") %></h5>
+  </div>
+  <div class="card-body" style="position: relative;">
+    <div id="transactions-chart" style="min-height: 300px;"></div>
+  </div>
+</div>
+
+<% income_data = @locality.transactions.incomes.send(group_method_for(group_type), :date).sum(:amount) %>
+<% expense_data = @locality.transactions.expenses.send(group_method_for(group_type), :date).sum(:amount) %>
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", () => {
+    const chart = new ApexCharts(document.querySelector("#transactions-chart"), {
+      chart: {
+        type: "line",
+        height: 300
+      },
+      title: {
+        text: "<%= j t("transactions.graph.subtitle", default: "Ingresos vs Egresos") %>",
+        align: "left"
+      },
+      series: [
+        {
+          name: "<%= j t("transactions.type.income", default: "Ingresos") %>",
+          data: <%= raw(income_data.map { |k,v| { x: k.to_date.strftime("%Y-%m-%d"), y: v } }.to_json) %>
+        },
+        {
+          name: "<%= j t("transactions.type.expense", default: "Egresos") %>",
+          data: <%= raw(expense_data.map { |k,v| { x: k.to_date.strftime("%Y-%m-%d"), y: v } }.to_json) %>
+        }
+      ],
+      xaxis: {
+        type: "datetime"
+      },
+      stroke: {
+        width: 3
+      },
+      colors: ["#28a745", "#dc3545"],
+      legend: {
+        position: "bottom"
+      }
+    });
+
+    chart.render();
+  });
+</script>

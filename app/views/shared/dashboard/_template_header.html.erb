@@ -1,0 +1,50 @@
+<header class="navbar navbar-expand-lg navbar-light bg-primary shadow-sm px-3">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+    <!-- Logo y nombre -->
+    <a href="/" class="navbar-brand d-flex align-items-center">
+      <%= image_tag 'icono_w.png',
+          class: "logo me-2",
+          loading: "lazy",
+          alt: "CircAdmin Logo" %>
+      <span class="h5 text-white mb-0">CircAdmin</span>
+    </a>
+    <!-- Botón hamburguesa -->
+    <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCircAdmin" aria-controls="navbarCircAdmin" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="feather icon-menu"></i>
+    </button>
+    <!-- Contenido colapsable -->
+    <div class="collapse navbar-collapse" id="navbarCircAdmin">
+      <!-- Izquierda (buscador si lo deseas) -->
+      <ul class="navbar-nav me-auto">
+        <!-- Aquí podrías agregar un buscador u otras opciones -->
+      </ul>
+      <!-- Derecha (notificaciones + selector idioma) -->
+      <ul class="navbar-nav d-flex flex-row align-items-center gap-3 mb-0">
+        
+          <%= render 'shared/dashboard/template_nav_menu/notificacion' %>
+        </li>
+        <li class="nav-item">
+          <%= render 'shared/language_selector' %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+<style>
+  .logo {
+    width: 32px;
+    height: auto;
+  }
+
+  @media (max-width: 767.98px) {
+    .navbar .navbar-collapse {
+      margin-top: 0.5rem;
+    }
+
+    .navbar-nav.flex-row {
+      flex-direction: column !important;
+      gap: 0.5rem !important;
+      align-items: flex-start !important;
+    }
+  }
+</style>

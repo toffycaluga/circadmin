@@ -1,0 +1,42 @@
+<% content_for :page_title, t("dashboard.title", default: "Panel Principal") %>
+
+<% content_for :breadcrumb do %>
+  <li class="breadcrumb-item active"><%= t("dashboard.title", default: "Panel Principal") %></li>
+<% end %>
+
+<div class="col-sm-12 mb-4">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h1 class="h3 mb-0"><%= t("dashboard.welcome", default: "Bienvenido a CircAdmin 🎪") %></h1>
+      <p class="text-muted"><%= t("dashboard.intro", default: "Administra tus circos de forma clara y ordenada.") %></p>
+    </div>
+  </div>
+</div>
+
+<% if @owned_circuses.any? %>
+  <h2 class="h4"><%= t("dashboard.my_circuses", default: "Mis circos") %></h2>
+  <div class="row mb-4">
+    <% @owned_circuses.each do |circus| %>
+      <div class="col-md-6 col-xl-4 mb-3">
+        <%= render partial: "circuses/shared/circus_card", locals: { circus: circus, show_actions: true } %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @associated_circuses.any? %>
+  <h2 class="h4"><%= t("dashboard.associated_circuses", default: "Circus asociados") %></h2>
+  <div class="row mb-4">
+    <% @associated_circuses.each do |circus| %>
+      <div class="col-md-6 col-xl-4 mb-3">
+        <%= render partial: "circuses/shared/circus_card", locals: { circus: circus, show_actions: false } %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @owned_circuses.empty? && @associated_circuses.empty? %>
+  <div class="alert alert-info text-center mt-4">
+    <%= t("dashboard.no_circuses", default: "Aún no estás asociado a ningún circo.") %>
+  </div>
+<% end %>

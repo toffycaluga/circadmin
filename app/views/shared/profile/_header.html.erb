@@ -1,0 +1,114 @@
+<!-- profile header start -->
+<div class="user-profile user-card mb-4">
+  <div class="card-header border-0 p-0 pb-0">
+    <div class="cover-img-block position-relative">
+      <div class="overlay"></div>
+      <div class="change-cover">
+        <div class="dropdown">
+          <a class="drp-icon dropdown-toggle" data-toggle="dropdown" aria-label="<%= t('profile.change_cover') %>">
+            <i class="feather icon-camera"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#uploadModal">
+              <i class="feather icon-upload-cloud mr-2"></i><%= t('profile.upload_new_cover') %>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body py-0">
+    <div class="user-about-block m-0">
+      <div class="row">
+        <!-- Imagen de perfil -->
+        <div class="col-md-4 text-center mt-n5">
+          <div class="change-profile text-center">
+            <div class="dropdown w-auto d-inline-block">
+              <a class="dropdown-toggle" data-toggle="dropdown" aria-label="<%= t('profile.change_picture') %>">
+                <div class="profile-dp position-relative">
+                  <%= image_tag(
+                        current_user.user_profile.profile_picture.attached? ?
+                          url_for(current_user.user_profile.profile_picture) :
+                          asset_path("avatar.jpg"),
+                        class: "img-radius img-fluid rounded-circle",
+                        alt: t('profile.picture_alt'),
+                        width: 150,
+                        height: 150,
+                        style: "object-fit: cover; aspect-ratio: 1/1;",
+          loading: "lazy"
+                      ) %>
+                  <div class="overlay">
+                    <span><%= t('profile.change') %></span>
+                  </div>
+                </div>
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#"><i class="feather icon-upload-cloud mr-2"></i><%= t('profile.upload_new_picture') %></a>
+              </div>
+            </div>
+          </div>
+          <h5 class="mb-1"><%= current_user.user_profile.full_name %></h5>
+          <p class="mb-2 text-muted"><%= t("profile.title", default: "Artista Circense") %></p>
+        </div>
+
+        <!-- Datos del usuario -->
+        <div class="col-md-8 mt-md-4">
+          <div class="row">
+            <div class="col-md-6">
+              <% if current_user.user_profile&.web.present? %>
+                <p class="mb-1 text-muted d-flex align-items-center">
+                  <i class="feather icon-globe mr-2 f-18"></i>
+                  <%= current_user.user_profile.web %>
+                </p>
+              <% end %>
+
+              <p class="mb-1 text-muted d-flex align-items-center">
+                <i class="feather icon-mail mr-2 f-18"></i>
+                <%= current_user.email %>
+              </p>
+
+              <% if current_user.user_profile&.phone.present? %>
+                <p class="mb-1 text-muted d-flex align-items-center">
+                  <i class="feather icon-phone mr-2 f-18"></i>
+                  <%= current_user.user_profile.phone %>
+                </p>
+              <% end %>
+            </div>
+
+            <div class="col-md-6">
+              <% if current_user.user_profile&.address.present? %>
+                <div class="media">
+                  <i class="feather icon-map-pin mr-2 mt-1 f-18"></i>
+                  <div class="media-body">
+                    <p class="mb-0 text-muted"><%= current_user.user_profile.address %></p>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Tabs -->
+          <ul class="nav nav-tabs profile-tabs nav-fill mt-3" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link text-reset active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-selected="true">
+                <i class="feather icon-home mr-2"></i><%= t('profile.tabs.home') %>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-reset" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-selected="false">
+                <i class="feather icon-user mr-2"></i><%= t('profile.tabs.profile') %>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-reset" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-selected="false">
+                <i class="feather icon-users mr-2"></i><%= t('profile.tabs.team') %>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- profile header end -->

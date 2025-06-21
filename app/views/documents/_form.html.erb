@@ -1,0 +1,130 @@
+<%= form_with model: @document, local: true, html: { multipart: true, class: "card p-4 border-start border-4 border-primary bg-light-subtle shadow-sm", id: "document-form" } do |f| %>
+  <div class="mb-4">
+    <h4 class="text-primary fw-bold">
+      <i class="fas fa-file-upload me-2"></i>
+      <%= t("documents.form.heading", default: "Subir nuevo documento") %>
+    </h4>
+    <p class="text-muted small">Sube archivos importantes relacionados con tu circo 📁</p>
+    <hr>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :title, t("documents.form.title"), class: "form-label fw-semibold text-dark" %>
+    <%= f.text_field :title, class: "form-control border-primary-subtle bg-white", placeholder: t("documents.form.title_placeholder") %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :description, t("documents.form.description"), class: "form-label fw-semibold text-dark" %>
+    <%= f.text_area :description, class: "form-control border-secondary-subtle bg-white", rows: 3 %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :document_type, t("documents.form.document_type"), class: "form-label fw-semibold text-dark" %>
+    <%= f.select :document_type,
+                 Document::DOCUMENT_TYPES.map { |t| [t("documents.types.#{t}"), t] },
+                 {}, class: "form-select border-info-subtle bg-white" %>
+  </div>
+
+  <% if defined?(ActsAsTaggableOn) %>
+    <div class="mb-3" data-controller="tags">
+      <%= f.label :tag_list, t("documents.form.tags"), class: "form-label fw-semibold text-dark" %>
+      <input type="text"
+            data-tags-target="input"
+            data-action="keydown->tags#addTag"
+            class= "form-control border-warning-subtle bg-white"
+            placeholder="<%= t("documents.form.tags_placeholder") %> (Enter o coma)">
+      <div data-tags-target="container" class="mt-2 d-flex flex-wrap gap-2">
+        <% @document.tag_list.each do |tag| %>
+          <span class="badge bg-primary-subtle text-primary border rounded-pill px-2 py-1 d-flex align-items-center me-1">
+            <span class="me-1"><%= tag %></span>
+            <button type="button" class="btn-close btn-sm ms-1" aria-label="Eliminar" data-action="click->tags#removeTag" data-tag="<%= tag %>"></button>
+          </span>
+        <% end %>
+      </div>
+      <%= f.hidden_field :tag_list, value: @document.tag_list.join(","), data: { tags_target: "hidden" } %>
+    </div>
+  <% end %>
+
+
+  <% if @document.file.attached? %>
+    <div class="mb-4">
+      <label class="form-label text-muted small"><%= t("documents.form.current_file", default: "Documento actual") %>:</label>
+      <div class="border p-3 rounded bg-white text-center">
+        <% if @document.file.content_type.start_with?("image/") %>
+          <%= image_tag url_for(@document.file), class: "img-fluid rounded shadow-sm", style: "max-height: 250px;" %>
+        <% elsif @document.file.content_type == "application/pdf" %>
+          <iframe src="<%= url_for(@document.file) %>" width="100%" height="300" class="border"></iframe>
+        <% else %>
+          <%= link_to "📎 Descargar documento actual", url_for(@document.file), target: "_blank", class: "btn btn-outline-primary" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :file, t("documents.form.file"), class: "form-label fw-semibold text-dark" %>
+    <%= f.file_field :file, class: "form-control bg-white", id: "file-input", accept: ".pdf,image/*" %>
+  </div>
+
+  <div id="file-preview" class="mb-4 d-none">
+    <label class="form-label text-muted small"><%= t("documents.form.preview", default: "Vista previa del documento") %></label>
+    <div id="preview-container" class="border p-3 rounded bg-white text-center"></div>
+  </div>
+
+  <% if current_user.circuses.many? %>
+    <div class="mb-3">
+      <%= f.label :circus_id, t("documents.form.select_circus"), class: "form-label fw-semibold text-dark" %>
+      <%= f.select :circus_id,
+                   current_user.circuses.map { |c| [c.name, c.id] },
+                   { prompt: t("documents.form.choose_circus") },
+                   class: "form-select border-success-subtle bg-white" %>
+    </div>
+  <% else %>
+    <%= f.hidden_field :circus_id, value: current_user.circuses.first.id %>
+  <% end %>
+
+  <hr class="my-4">
+  <div class="text-end">
+    <%= f.submit t("documents.form.submit"), class: "btn btn-primary px-4", id: "submit-btn" %>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const input = document.getElementById("file-input");
+      const preview = document.getElementById("file-preview");
+      const container = document.getElementById("preview-container");
+      const form = document.getElementById("document-form");
+      const submitBtn = document.getElementById("submit-btn");
+
+      input?.addEventListener("change", () => {
+        container.innerHTML = "";
+        const file = input.files[0];
+        if (!file) return;
+
+        preview.classList.remove("d-none");
+
+        if (file.type.startsWith("image/")) {
+          const img = document.createElement("img");
+          img.src = URL.createObjectURL(file);
+          img.className = "img-fluid rounded shadow-sm";
+          img.style.maxHeight = "250px";
+          container.appendChild(img);
+        } else if (file.type === "application/pdf") {
+          const iframe = document.createElement("iframe");
+          iframe.src = URL.createObjectURL(file);
+          iframe.width = "100%";
+          iframe.height = "300";
+          iframe.className = "border";
+          container.appendChild(iframe);
+        } else {
+          container.textContent = "Vista previa no disponible para este tipo de archivo.";
+        }
+      });
+
+      form?.addEventListener("submit", () => {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Subiendo...`;
+      });
+    });
+  </script>
+<% end %>

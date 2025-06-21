@@ -1,11 +1,497 @@
 es:
+  documents:
+    filters:
+      search: "Buscar"
+      type: "Tipo de documento"
+      all_types: "Todos los tipos"
+    by_circus:
+      title: "Documentos del Circo"
+      search_placeholder: "Buscar por título o etiqueta..."
+      all_types: "Todos los tipos"
+      no_results: "No se encontraron documentos."
+      edit: "Editar documento"
+      delete: "Eliminar documento"
+      confirm_delete: "¿Estás seguro de eliminar este documento?"
+      edit_short: "Editar"
+      delete_short: "Eliminar"
+      title: "Documentos de %{circus}"
+      heading: "Documentación del circo %{circus}"
+      subheading: "Archivos asociados a este circo"
+      new_document: "📄 Subir nuevo documento"
+      table:
+        file: "Archivo"
+        title: "Título"
+        type: "Tipo"
+        tags: "Etiquetas"
+        description: "Descripcion"
+        uploader: "Subido por"
+        actions: "Acciones"
+      download: "Descargar archivo"
+      download_short: "Descargar"
+    new:
+      title: "Nuevo documento"
+      heading: "Subir un nuevo documento"
+    edit:
+      title: "Editar documento"
+      heading: "Modificar documento existente"
+    types:
+      general: "📄 General"
+      contract: "📝 Contrato"
+      permit: "🔏 Permiso"
+      insurance: "🛡️ Seguro"
+      certificate: "📜 Certificado"
+      technical_sheet: "📑 Ficha Técnica"
+      health: "💉 Salud"
+      artist_passport: "🎟️ Pasaporte Artístico"
+      other: "📦 Otro"
+    index:
+      title: "Mis Documentos por Circo"
+      view_docs_for: "📁 Ver documentos de %{name}"
+      heading: "Documentos del Circo"
+      new: "➕ Nuevo documento"
+      table:
+        title: "Título"
+        type: "Tipo"
+        uploader: "Subido por"
+        actions: "Acciones"
+      actions:
+        download: "Descargar"
+        edit: "Editar"
+        delete: "Eliminar"
+        confirm: "¿Estás seguro de eliminar este documento?"
+    form:
+      title: "Título"
+      title_placeholder: "Ej. Contrato municipal"
+      description: "Descripción"
+      document_type: "Tipo de documento"
+      tags: "Etiquetas"
+      tags_placeholder: "Separadas por coma"
+      file: "Archivo adjunto"
+      submit: "Guardar documento"
+    notices:
+      updated: "Documento actualizado correctamente 📄✅"
+      created: "Documento creado correctamente 📎🎉"
+      deleted: "Documento eliminado 🗑️"
+  navigation:
+    dashboard: "Inicio"
+    my_circuses: "Mis circos"
+    my_documents: "Mis documentos"
+  datetime:
+    distance_in_words:
+      about_x_hours: "aproximadamente %{count} horas"
+      about_x_months: "aproximadamente %{count} meses"
+      about_x_years: "aproximadamente %{count} años"
+      almost_x_years: "casi %{count} años"
+      half_a_minute: "medio minuto"
+      less_than_x_minutes: "menos de %{count} minutos"
+      less_than_x_seconds: "menos de %{count} segundos"
+      over_x_years: "más de %{count} años"
+      x_days: "%{count} días"
+      x_minutes: "%{count} minutos"
+      x_months: "%{count} meses"
+      x_seconds: "%{count} segundos"
+      x_years: "%{count} años"
+      x_hours: "%{count} horas"
   hello: "Hola mundo"
   home:
     welcome: "Bienvenido a CircAdmin 🎪"
     greeting: "Hola, %{email} 👋"
+    subtitle: "Administra tu circo de forma inteligente y simple"
   devise:
     login: "Iniciar sesión"
     logout: "Cerrar sesión"
     register: "Registrarse"
     edit: "Editar"
+    forgot: "¿Olvidaste tu contraseña?"
+    confirmation: "¿No recibí las instrucciones de confirmación?"
+    unlock: "¿No recibí las instrucciones de desbloqueo?"
+  alerts:
+    complete_profile: "Por favor completa tu perfil antes de continuar."
+  user_profiles:
+    new:
+      title: "Nuevo perfil de usuario"
+      heading: "Crear tu perfil"
+    show:
+      title: "Perfil"
+      header: "Perfil: %{name}"
+    edit:
+      title: "Editar perfil de usuario"
+      heading: "Editar tu perfil"
+      show: "Ver este perfil de usuario"
+      profile_picture_section: "Foto de perfil"
+      upload_picture: "Subir nueva foto"
+      picture_updated: "La foto de perfil fue actualizada con éxito."
+      picture_failed: "No se pudo actualizar la foto de perfil."
+      no_picture: "Aún no tienes una foto de perfil"
+    actions:
+      save: "Guardar perfil"
+      back: "← Volver "
+      back_to_list: "← Volver a los perfiles"
+      edit: "Editar"
+      destroy: "Eliminar"
+      confirm_destroy: "¿Estás seguro de que deseas eliminar este perfil?"
+    notices:
+      created: "El perfil fue creado exitosamente."
+      updated: "El perfil fue actualizado exitosamente."
+      destroyed: "El perfil fue eliminado."
+      picture_updated: "La foto de perfil se actualizó correctamente 🎉"
+    form:
+      full_name: "Nombre completo"
+      address: "Dirección"
+      country: "País"
+    placeholders:
+      full_name: "Ej: Toffy Caluga"
+      address: "Ej: Calle Ficticia 123"
+      country: "Ej: España"
+    alerts:
+      picture_failed: "No se pudo actualizar la foto de perfil. Intenta nuevamente."
+  activerecord:
+    attributes:
+      user_profile:
+        full_name: "Nombre completo"
+        address: "Dirección"
+        country: "País"
+        profile_picture: "Foto de perfil"
+        circus:
+          user: "Dueño"
+    models:
+      circus: "Circo"
+    errors:
+      models:
+        circus:
+          attributes:
+            user:
+              required: "debe estar presente"
+  profile:
+    full_name:
+      placeholder: "Nombre sin definir"
+    title: "Perfil"
+    change_cover: "Cambiar imagen de portada"
+    upload_new_cover: "Subir nueva portada"
+    picture_alt: "Foto de perfil"
+    change_picture: "Cambiar imagen de perfil"
+    change: "Cambiar"
+    upload_new_picture: "Subir nueva foto"
+    title: "Artista Circense"
+    tabs:
+      home: "Inicio"
+      profile: "Perfil"
+      team: "Trabajadores"
+    labels:
+      no_data: "No especificado"
+      full_name: "Nombre completo"
+      gender: "Género"
+      birth_date: "Fecha de nacimiento"
+      marital_status: "Estado civil"
+      occupation: "Ocupación"
+      mobile: "Teléfono"
+      location: "Ubicación"
+      skills: "Habilidades"
+      jobs: "Trabajos"
+      edit: "Editar"
+      placeholder_comment: "Escribe un comentario..."
+      phone: "Teléfono"
+      web: "Sitio web"
+      email: "Correo electrónico"
+      address: "Dirección"
+      country: "País"
+      save: "Guardar cambios"
+    sections:
+      edit_profile: "Editar información personal"
+      edit_profile_subtext: "Actualiza tus datos de contacto y ubicación"
+      personal_info: "Información personal"
+      personal_info_subtext: "Datos que te identifican como usuario"
+  dashboard:
+    active_locality: "Localidad activa:"
+    title: "Panel Principal"
+    welcome: "Bienvenido a CircAdmin 🎪"
+    intro: "Administra tus circos de forma clara y ordenada."
+    my_circuses: "Mis circos"
+    associated_circuses: "Circus asociados"
+    no_owned_circuses: "Aún no eres dueño de ningún circo."
+    no_associated_circuses: "No estás asociado a ningún circo."
+    not_member: "No perteneces a este circo"
+    profile_picture_alt: "Foto de perfil"
+    actions:
+      admin: "🎛 Administrar"
+      edit: "✏️ Editar"
+      add_income: "💰 Ingreso"
+      add_expense: "💸 Egreso"
+      summary: "📊 Resumen"
+  circuses:
+    page_title: "Mis Circos"
+  footer:
+    copyright: "Todos los derechos reservados"
+    dev: "Desarrollado por"
+  roles:
+    admin: "Administrador"
+    accountant: "Contador"
+    representative: "Representante"
+    owner: "Dueño"
+  workers:
+    title: "Trabajadores"
+    user: "Usuario"
+    role: "Cargo"
+    mail: "Correo"
+    action: "Acciones"
+    add: "Añadir trabajador"
+    edit: "Editar trabajador"
+    back: "Volver a trabajadores"
+  users:
+    invite:
+      email_placeholder: "Correo electrónico del usuario"
+      role_label: "Rol"
+      submit: "Invitar"
+      mail: "Correo"
+  cu:
+    save: "Guardar"
+    delete: "Eliminar trabajador"
+    confirm: "¿Seguro que quieres desactivar este usuario?"
+  cu_notice:
+    deactivate: "Trabajador eliminado con éxito."
+    destroy: "Usuario desactivado del circo."
+    update: "Rol actualizado correctamente."
+  invitations:
+    title: "Invitaciones"
+  localities:
+    name: "Localidad"
+    actions:
+      edit: "Editar evento"
+      close: "Cerrar evento"
+      reopen: "Reabrir evento"
+    confirmations:
+      close: "¿Estás seguro de cerrar este evento?"
+      reopen: "¿Quieres reabrir este evento?"
+    status:
+      closed: "Evento cerrado"
+    form:
+      form_errors: "Impidieron guardar la localidad"
+      title: "Nombre de la localidad"
+      title_placeholder: "Ej. Plaza de armas, Feria de verano"
+      location: "Dirección"
+      location_placeholder: "Ej. Calle Falsa 123, Sector norte"
+      city: "Ciudad"
+      city_placeholder: "Ej. Valparaíso"
+      start_date: "Fecha de inicio"
+      end_date: "Fecha de término (opcional)"
+      active: "Localidad activa"
+      active_hint: "Activa esta casilla si ya están trabajando en esta localidad. Si solo está en preparación (publicidad, permisos, etc.), no la marques aún, pero puedes registrar gastos desde ya."
+      notes: "Observaciones"
+      notes_placeholder: "Ej. Dueño del terreno: Juan Pérez, terreno privado"
+      submit: "Guardar"
+    notices:
+      created: "La localidad fue creada con éxito."
+      updated: "La localidad fue actualizada con éxito."
+      destroyed: "La localidad fue eliminada."
+  circus:
+    activate: "Activar"
+    deactivate: "Desactivar"
+    status:
+      confirm_change: "¿Estás seguro de cambiar el estado del circo?"
+      changed: "Estado del circo actualizado."
+    form:
+      name: "Nombre del circo"
+      description: "Descripción"
+      country: "País"
+      currency: "Moneda"
+      logo: "Logo del circo"
+    edit_title: "Editar Circo"
+    edit_heading: "✏️ Editar información del circo"
+    links:
+      show: "👁 Ver este circo"
+      back: "🔙 Volver al listado"
+    title: "Circo"
+    admin:
+      title: "Administración del Circo"
+      heading: "Administración de: %{name}"
+      subtitle: "Gestiona tu circo con alegría y precisión 🎭"
+    info:
+      title: "Información del Circo"
+      status: "Estado:"
+      country: "Ubicación:"
+      currency: "Moneda:"
+      unknown: "No especificada"
+      last_updated: "Última actualización:"
+    status:
+      active: "Activo"
+      inactive: "Inactivo"
+      tooltip: "Estado operativo del circo"
+      confirm_change: "¿Estás seguro de cambiar el estado del circo?"
+    actions:
+      edit: "Editar circo"
+      back: "Volver al Dashboard"
+      title: "Opciones"
+      edit: "Editar circo"
+      activate: "Activar"
+      deactivate: "Desactivar"
+      manage: "Gestión"
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d %b"
+      long: "%d de %B de %Y"
+    abbr_month_names:
+      - ~
+      - "ene"
+      - "feb"
+      - "mar"
+      - "abr"
+      - "may"
+      - "jun"
+      - "jul"
+      - "ago"
+      - "sep"
+      - "oct"
+      - "nov"
+      - "dic"
+    month_names:
+    - ~
+    - "Enero"
+    - "Febrero"
+    - "Marzo"
+    - "Abril"
+    - "Mayo"
+    - "Junio"
+    - "Julio"
+    - "Agosto"
+    - "Septiembre"
+    - "Octubre"
+    - "Noviembre"
+    - "Diciembre"
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M"
+      short: "%d %b"
+      long: "%d de %B de %Y a las %H:%M"
+  transactions:
+    export:
+      title: "Resumen"
+      title_pdf: "Resumen de Transacciones"
+      range: "Rango"
+      generated_by: "Documento generado por CircAdmin"
+      headers:
+        date: "Fecha"
+        title: "Título"
+        amount: "Monto"
+        category: "Categoría"
+    fields:
+      date: "Fecha"
+      title: "Título"
+      amount: "Monto"
+      category: "Categoría"
+      description: "Descripción"
+      user: "Registrado por"
+    details:
+      back_to_summary: "volver al resumen"
+    graph:
+      title: "Resumen financiero del terreno"
+      subtitle_daily: "Ingresos vs Egresos por día"
+      subtitle_weekly: "Ingresos vs Egresos por semana"
+      subtitle_monthly: "Ingresos vs Egresos por mes"
+      subtitle_total: "Ingresos vs Egresos totales"
+    filters:
+      group_by: "Agrupar por"
+      type: "Tipo de transacción"
+      order_by: "Ordenar por"
+      submit: "Filtrar"
+      see_more: "Ver más"
+    group:
+      day: "Día"
+      week: "Semana"
+      month: "Mes"
+      total: "Total"
+    type:
+      income: "Ingresos"
+      expense: "Egresos"
+    order:
+      date: "Fecha"
+      category: "Categoría"
+    sections:
+      expenses_title: "💸 Gastos"
+      incomes_title: "💰 Ingresos"
+    actions:
+      add_expense: "➕ Agregar gasto"
+      see_more_expenses: "Ver más gastos"
+      add_income: "➕ Agregar ingreso"
+      see_more_incomes: "Ver más ingresos"
+    empty:
+      expenses: "No hay gastos registrados."
+      incomes: "No hay ingresos registrados."
+    categories:
+      ticket_sales: "Boletería"
+      boleteria: "Boletería"
+      events: "Evento"
+      candy: "Dulcería"
+      dulceria: "Dulcería"
+      souvenirs: "Souvenires"
+      souvenires: "Souvenires"
+      others: "Otros"
+      otros: "Otros"
+      payroll: "Planilla"
+      rent: "Alquiler"
+      transport: "Transporte"
+      food: "Alimentación"
+      permits: "Permisos"
+    summary:
+      breakdown: "Desglose por categoría"
+      view_details: "Ver detalles"
+    form:
+      errors_title: "%{count} error(es) impidieron guardar la transacción:"
+      title: "Título"
+      amount: "Monto"
+      category: "Categoría"
+      description: "Descripción"
+      date: "Fecha"
+      receipt: "Comprobante (solo para gastos)"
+      current_receipt: "Comprobante actual:"
+      submit: "Guardar"
+      prompts:
+        category: "Selecciona una categoría"
+      placeholders:
+        title:
+          income: "Ventas de entradas vermouth"
+          expense: "Ej: Compra de materiales"
+        amount: "Ej: 15000"
+        description:
+          income: "Ej: Ingreso por función extra"
+          expense: "Ej: Detalles del gasto realizado"
+      hints:
+        title:
+          income: "Describe el origen del ingreso."
+          expense: "Describe el motivo del gasto."
+        amount: "Ingresa el monto en la moneda del circo."
+        category: "Ayuda a clasificar mejor la transacción."
+        description:
+          income: "Puedes incluir el tipo de ingreso."
+          expense: "Puedes especificar detalles útiles para la contabilidad."
+        date: "¿Cuándo ocurrió esta transacción?"
+        receipt: "Opcional, puedes subir una boleta o factura."
+  summary_card:
+    last_day: "Resumen del último día"
+    weekly: "Resumen semanal"
+    last_weekly: "Resumem última semana"
+    monthly: "Resumen mensual"
+    last_month: "Resumen úlimo mes"
+    overall: "Total acumulado"
+    view_details: "Ver detalles"
+  insights:
+    title: "Análisis detallado"
+    filters:
+      title: "Filtros de búsqueda"
+      start_date: "Desde"
+      end_date: "Hasta"
+      category: "Categoría"
+      apply: "Aplicar filtros"
+      all_categories: "Todas las categorías"
+    summary:
+      title: "Resumen por categoría"
+    transactions:
+      title: "Transacciones detalladas"
+  form:
+    errors:
+      title: "%{count} errores impidieron guardar el circo:"
+    actions:
+      save: "💾 Guardar"
+  errors:
+  unauthorized: "No estás autorizado para realizar esta acción."
 

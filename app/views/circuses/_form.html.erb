@@ -1,0 +1,101 @@
+<%= form_with(model: @circus, local: true, html: { multipart: true }, class: "needs-validation") do |form| %>
+  <% if @circus.errors.any? %>
+    <div class="alert alert-danger rounded shadow-sm">
+      <h4 class="fw-bold">
+        <%= t("form.errors.title", count: @circus.errors.count, default: "🎭 %{count} errores impidieron guardar el circo:") %>
+      </h4>
+      <ul>
+        <% @circus.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- Nombre -->
+  <div class="mb-3">
+    <%= form.label :name, "🎪 Nombre del Circo", class: "form-label fw-bold" %>
+    <%= form.text_field :name, class: "form-control border-primary border-2 shadow-sm", required: true, placeholder: "Ej: Circo Fantasía Mágica" %>
+  </div>
+
+  <!-- Descripción -->
+  <div class="mb-3">
+    <%= form.label :description, "📝 Descripción", class: "form-label fw-bold" %>
+    <%= form.text_area :description, class: "form-control shadow-sm", rows: 4, placeholder: "Breve historia o lema del circo..." %>
+  </div>
+
+  <!-- País -->
+  <div class="mb-3">
+    <%= form.label :country, "🌍 País", class: "form-label fw-bold" %>
+    <%= select_tag "circus[country]",
+          options_for_select(country_options_with_flags, selected: @circus.country),
+          class: "form-select border-2 border-info", id: "country-select" %>
+  </div>
+
+  <!-- Moneda -->
+  <div class="mb-3">
+    <%= form.label :currency, "💱 Moneda", class: "form-label fw-bold" %>
+    <%= select_tag "circus[currency]",
+          options_for_select(currency_options_data, selected: @circus.currency),
+          id: "currency-select", class: "form-select border-2 border-warning" %>
+  </div>
+
+  <!-- Logo con vista previa -->
+  <div class="mb-3">
+    <%= form.label :logo, "📸 Logo del Circo", class: "form-label fw-bold" %>
+    
+    <div class="mb-2">
+      <% if @circus.logo.attached? %>
+        <%= image_tag url_for(@circus.logo), id: "logo-preview", class: "img-thumbnail", width: 120, height: 120, style: "object-fit: contain; aspect-ratio: 1/1;" ,
+          loading: "lazy"%>
+      <% else %>
+        <img id="logo-preview" src="<%= asset_path('default_circus_logo.jpg') %>" class="img-thumbnail" width="120" height="120" style="object-fit: contain; aspect-ratio: 1/1;" alt="Vista previa del logo">
+      <% end %>
+    </div>
+
+    <%= form.file_field :logo, class: "form-control", accept: "image/*", onchange: "previewLogo(event)" %>
+  </div>
+
+  <!-- Submit -->
+  <div class="mt-4 text-end">
+    <%= form.submit "💾 Guardar Circo", class: "btn btn-success px-4 fw-bold" %>
+  </div>
+<% end %>
+
+<script>
+  function previewLogo(event) {
+    const input = event.target;
+    const preview = document.getElementById("logo-preview");
+
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => preview.src = e.target.result;
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const countrySelect = document.getElementById("country-select");
+    const currencySelect = document.getElementById("currency-select");
+
+    if (countrySelect && currencySelect) {
+      countrySelect.addEventListener("change", function () {
+        const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+        const desiredCurrency = selectedOption.getAttribute("data-currency-code");
+
+        if (!desiredCurrency) return;
+
+        for (let i = 0; i < currencySelect.options.length; i++) {
+          const option = currencySelect.options[i];
+          if (option.value === desiredCurrency) {
+            const newOption = option.cloneNode(true);
+            newOption.selected = true;
+            currencySelect.removeChild(option);
+            currencySelect.insertBefore(newOption, currencySelect.firstChild);
+            break;
+          }
+        }
+      });
+    }
+  });
+</script>

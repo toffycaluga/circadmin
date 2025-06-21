@@ -1,0 +1,31 @@
+<div class="card shadow-sm border-0 p-0">
+  <div class="card-header bg-light text-white d-flex justify-content-between align-items-center">
+    <h3 class="mb-0 fw-bold ">
+      📂 <%= t("documents.by_circus.title", circus: @circus.name) %>
+    </h3>
+  </div>
+  <div class="card-body bg-light-subtle">
+    <%= form_with url: by_circus_documents_path(@circus), method: :get, data: { controller: "document-filter" }, local: true do %>
+      <div class="row g-3 align-items-end">
+        <div class="col-md-5 col-lg-4">
+          <%= text_field_tag :query, params[:query], placeholder: "🔍 Buscar por título o etiquetas...", class: "form-control border-primary-subtle shadow-sm" %>
+        </div>
+        <div class="col-md-4 col-lg-3">
+          <%= select_tag :type,
+              options_for_select([["📁 Todos los tipos", ""]] + Document::DOCUMENT_TYPES.map { |t| [t("documents.types.#{t}"), t] }, params[:type]),
+              class: "form-select border-info-subtle shadow-sm" %>
+        </div>
+        <div class="col-md-2">
+          <%= submit_tag "Buscar", class: "btn btn-primary w-100 shadow-sm" %>
+        </div>
+        <div class="col-md-1">
+          <% if params[:query].present? || params[:type].present? %>
+            <%= link_to "✖", by_circus_documents_path(@circus),
+                class: "btn btn-outline-secondary w-100 shadow-sm",
+                title: "Limpiar filtros" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

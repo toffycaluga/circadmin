@@ -19,7 +19,6 @@ RSpec.describe "user_profiles/edit", type: :view do
     render
 
     assert_select "form[action=?][method=?]", user_profile_path(user_profile), "post" do
-
       assert_select "input[name=?]", "user_profile[user_id]"
 
       assert_select "input[name=?]", "user_profile[nombre_completo]"

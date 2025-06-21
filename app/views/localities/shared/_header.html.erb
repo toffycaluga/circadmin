@@ -1,0 +1,35 @@
+<div class="card p-3 mb-4">
+  <h2 class="mb-3">🎪 Administración del evento: <%= locality.title.presence || "Sin nombre" %></h2>
+  <div class="row">
+    <div class="col-md-8">
+      <p class="mb-1"><strong>Ciudad:</strong> <%= locality.city %></p>
+      <p class="mb-1"><strong>Fechas:</strong>
+        <%= l(locality.start_date) %>
+        <% if locality.end_date.present? %>
+          – <%= l(locality.end_date) %>
+        <% else %>
+          – en curso
+        <% end %>
+      </p>
+    </div>
+    <div class="col-12 d-flex align-items-start justify-content-center mt-3 mt-md-0 row  p-3">
+      <% if can?(:manage, locality) %>
+        <div class="mb-3 d-flex gap-2 justify-content-center col-md-4 col-sm-12">
+          <%# botones de transaction  %>
+          
+          <%# boton egresos %>
+          <%= link_to t("transactions.actions.add_expense"), new_transaction_path(transaction_type: "expense", locality_id: locality.id), class: "btn btn-danger " %>
+          <%#  boton ingresos %>
+          <%= link_to t("transactions.actions.add_income"), new_transaction_path(transaction_type: "income", locality_id: locality.id), class: "btn btn-success " %>
+        </div>
+      <% end %>
+      <div class="col mb-3 d-flex gap-2 col-md-4 col-sm-12">
+        <%= link_to t("dashboard.actions.full_summary", default: "📊 Resumen de Ingresos y Gastos"), overview_transactions_locality_path(locality), class: "btn btn-info w-100" %>
+
+      </div>
+      <% if can?(:manage, locality) %>
+        <%= render "localities/shared/status_controls", locality: locality %>
+      <% end %>
+    </div>
+  </div>
+</div>

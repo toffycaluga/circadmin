@@ -1,0 +1,43 @@
+<div class="card col-md-5">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h4 class="card-title mb-0"><%= t("transactions.sections.incomes_title") %></h4>
+
+      <% if can?(:manage, locality) %>
+        <%= link_to t("transactions.actions.add_income"), new_transaction_path(transaction_type: "income", locality_id: locality.id), class: "btn btn-success btn-sm" %>
+      <% end %>
+    </div>
+
+    <% latest_incomes = incomes.sort_by(&:date).reverse.first(3) %>
+
+    <% if latest_incomes.any? %>
+      <ul class="list-group mb-2">
+        <% latest_incomes.each do |income| %>
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div>
+              <strong class="d-block"><%= income.title %></strong>
+              <small class="text-muted">
+                <%= l(income.date, format: :short) %> – <%= t("transactions.categories.#{income.category}") %>
+              </small>
+            </div>
+            <span class="fw-semibold">
+              <%= currency_symbol(circus.currency) %> <%= number_with_precision(income.amount,
+                precision: income.amount.to_f == income.amount.to_i ? 0 : 2,
+                delimiter: ".", # separador de miles
+                separator: ","  # separador decimal
+              ) %>
+            </span>
+          </li>
+        <% end %>
+      </ul>
+
+      <% if incomes.size > 3 %>
+        <div class="text-end">
+          <%= link_to t("transactions.actions.see_more_incomes"), admin_locality_path(locality, anchor: "incomes"), class: "btn btn-sm btn-outline-primary" %>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-muted fst-italic"><%= t("transactions.empty.incomes") %></p>
+    <% end %>
+  </div>
+</div>

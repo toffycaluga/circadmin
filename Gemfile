@@ -63,27 +63,49 @@ group :test do
 end
 
 # Autenticación
-gem 'devise'
+gem "devise"
 
 # Autorización
-gem 'cancancan'
+gem "cancancan"
 
 # Variables de entorno
-gem 'figaro'
+gem "figaro"
 
 # Anotación de modelos
-gem 'annotate'
+gem "annotate"
 
-# aws 
-gem 'aws-sdk-s3'
+# aws
+gem "aws-sdk-s3"
 
 # Testing
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'webdrivers'
-  gem 'factory_bot_rails'
+  gem "rspec-rails"
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "webdrivers"
+  gem "factory_bot_rails"
+  gem "annotate"
 end
 
 gem "pagy"
+gem "devise-i18n-views", "~> 0.3.7"
+gem "sassc-rails"
+gem "image_processing", "~> 1.2"
+gem "mini_magick"
+
+gem "countries"
+gem "money"
+gem "money-rails" # opcional si quieres integrarlo con ActiveRecord
+
+# Gemfile
+gem "devise_invitable"
+
+gem "groupdate"
+gem "chartkick"
+
+gem "prawn"
+gem "prawn-table"
+gem "axlsx_rails"
+
+gem "pagy"
+gem "acts-as-taggable-on"

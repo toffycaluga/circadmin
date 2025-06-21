@@ -1,0 +1,92 @@
+<% is_income = transaction.transaction_type == "income" %>
+
+<%= form_with(model: transaction, local: true, html: { multipart: true }) do |form| %>
+  <% if transaction.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= t('transactions.form.errors_title', count: transaction.errors.count) %></h4>
+      <ul>
+        <% transaction.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :transaction_type, value: transaction.transaction_type || params[:transaction_type] %>
+  <%= form.hidden_field :locality_id, value: transaction.locality_id || params[:locality_id] %>
+
+
+  <!-- Título -->
+  <div class="form-group">
+    <%= form.label :title, t("transactions.form.title") %>
+    <%= form.text_field :title,
+      class: "form-control",
+      placeholder: t("transactions.form.placeholders.title.#{transaction.transaction_type}") %>
+    <small class="form-text text-muted">
+      <%= t("transactions.form.hints.title.#{transaction.transaction_type}") %>
+    </small>
+  </div>
+
+  <!-- Monto -->
+  <div class="form-group">
+    <%= form.label :amount, t("transactions.form.amount") %>
+    <%= form.number_field :amount, step: 0.01, class: "form-control", placeholder: t("transactions.form.placeholders.amount") %>
+    <small class="form-text text-muted">
+      <%= t("transactions.form.hints.amount") %>
+    </small>
+  </div>
+
+  <!-- Categoría -->
+  <div class="form-group">
+    <%= form.label :category, t("transactions.form.category") %>
+    <%= form.select :category,
+  (is_income ? Transaction::INCOME_CATEGORIES : Transaction::EXPENSE_CATEGORIES).map { |c| [t("transactions.categories.#{c}"), c] },
+  { prompt: t("transactions.form.prompts.category") },
+  class: "form-control" %>
+    <small class="form-text text-muted">
+      <%= t("transactions.form.hints.category") %>
+    </small>
+  </div>
+
+  <!-- Descripción -->
+  <div class="form-group">
+    <%= form.label :description, t("transactions.form.description") %>
+    <%= form.text_area :description,
+      class: "form-control",
+      placeholder: t("transactions.form.placeholders.description.#{transaction.transaction_type}") %>
+    <small class="form-text text-muted">
+      <%= t("transactions.form.hints.description.#{transaction.transaction_type}") %>
+    </small>
+  </div>
+
+  <!-- Fecha -->
+  <div class="form-group">
+    <%= form.label :date, t("transactions.form.date") %>
+    <%= form.date_field :date, class: "form-control" %>
+    <small class="form-text text-muted">
+      <%= t("transactions.form.hints.date") %>
+    </small>
+  </div>
+
+  <!-- Comprobante (solo para egresos) -->
+  <% if !is_income %>
+    <div class="form-group">
+      <%= form.label :receipt, t("transactions.form.receipt") %>
+      <%= form.file_field :receipt, class: "form-control" %>
+      <small class="form-text text-muted">
+        <%= t("transactions.form.hints.receipt") %>
+      </small>
+
+      <% if transaction.receipt.attached? %>
+        <p class="mt-2"><%= t("transactions.form.current_receipt") %></p>
+        <%= image_tag transaction.receipt.variant(resize_to_limit: [400, 400]), class: "img-thumbnail" ,
+          loading: "lazy"%>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- Botón guardar -->
+  <div class="form-group mt-3">
+    <%= form.submit t("transactions.form.submit"), class: "btn btn-primary" %>
+  </div>
+<% end %>

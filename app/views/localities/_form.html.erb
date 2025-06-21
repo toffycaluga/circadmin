@@ -1,0 +1,69 @@
+<%= form_with(model: locality, local: true, html: { class: "needs-validation" }) do |form| %>
+  <% if locality.errors.any? %>
+    <div class="alert alert-danger">
+      <h5><%= pluralize(locality.errors.count, "error") %> <%= t("localities.form.form_errors") %></h5>
+      <ul>
+        <% locality.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :title, t("localities.form.title") %>
+    <%= form.text_field :title, class: "form-control", required: true, placeholder: t("localities.form.title_placeholder") %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :location, t("localities.form.location") %>
+    <%= form.text_field :location, class: "form-control", placeholder: t("localities.form.location_placeholder") %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :city, t("localities.form.city") %>
+    <%= form.text_field :city, class: "form-control", required: true, placeholder: t("localities.form.city_placeholder") %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <%= form.label :start_date, t("localities.form.start_date") %>
+      <%= form.date_field :start_date, class: "form-control", required: true %>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <%= form.label :end_date, t("localities.form.end_date") %>
+      <%= form.date_field :end_date, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-check form-switch mb-3 ">
+    <%= form.label :active, t("localities.form.active"), class: "form-check-label", for: "locality_active" %>
+    <%= form.check_box :active, class: "form-check-input ml-3 primary" , id: "locality_active" %>
+    <div class="form-text text-muted">
+      <%= t("localities.form.active_hint") %>
+    </div>
+  </div>
+
+
+  <%= form.hidden_field :circus_id %>
+
+  <div class="mt-4">
+    <%= form.submit t("localities.form.submit"), class: "btn btn-primary w-100" %>
+  </div>
+<% end %>
+
+
+<style>
+  .form-check-input {
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    border: 1px solid #555;
+  }
+
+  .form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+
+
+</style>

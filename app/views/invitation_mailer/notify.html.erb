@@ -1,0 +1,12 @@
+<!-- app/views/invitation_mailer/notify.html.erb -->
+<p>
+  Hola <%= @invitation.user.user_profile&.full_name.presence || @invitation.user.email %>,
+</p>
+
+<p>
+  Has sido invitado a unirte al circo "<%= @invitation.circus.name %>" como <%= @circus_user&.role || 'miembro' %>.
+</p>
+
+<p>
+  Por favor, accede a tu panel para aceptar la invitación.
+</p>

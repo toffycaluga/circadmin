@@ -1,0 +1,45 @@
+<% content_for :page_title, @transaction.title %>
+<div class="container my-4">
+  <div class="card shadow-sm mx-auto" style="max-width: 900px;">
+    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">
+        <%= @transaction.transaction_type == "income" ? "💰 Ingreso" : "💸 Egreso" %>
+        — <%= @transaction.title %>
+      </h5>
+      <%= link_to "Volver", request.referer || transactions_path, class: "btn btn-sm btn-outline-secondary" %>
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        <!-- Datos -->
+        <div class="col-md-7 col-12 mb-3">
+          <p><strong>Registrado por:</strong> <%= @transaction.user.user_profile&.full_name || @transaction.user.email %></p>
+          <p><strong>Monto:</strong> <%= number_to_currency(@transaction.amount, unit: currency_symbol(@transaction.locality.circus.currency)) %></p>
+          <p><strong>Fecha:</strong> <%= l(@transaction.date, format: :long) %></p>
+          <p><strong>Categoría:</strong> <%= t("transactions.categories.#{@transaction.category}", default: @transaction.category.titleize) %></p>
+          <% if @transaction.description.present? %>
+            <p><strong>Descripción:</strong> <%= @transaction.description %></p>
+          <% end %>
+        </div>
+
+        <!-- Imagen del recibo -->
+        <% if @transaction.transaction_type == "expense" && @transaction.receipt.attached? %>
+          <div class="col-md-5 col-12 text-center">
+            <h6 class="text-muted">Recibo adjunto:</h6>
+            <%= image_tag url_for(@transaction.receipt),
+                class: "img-fluid rounded shadow-sm mb-2",
+                style: "max-height: 400px;",
+          loading: "lazy" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <% if current_user == @transaction.user %>
+      <div class="card-footer bg-light text-end">
+        <%= link_to "✏️ Editar", edit_transaction_path(@transaction), class: "btn btn-outline-primary btn-sm" %>
+        <%= link_to "🗑️ Eliminar", transaction_path(@transaction), method: :delete, data: { confirm: "¿Estás seguro?" }, class: "btn btn-outline-danger btn-sm" %>
+      </div>
+    <% end %>
+  </div>
+</div>

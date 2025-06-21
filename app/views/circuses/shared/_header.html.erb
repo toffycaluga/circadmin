@@ -1,0 +1,27 @@
+<div class="card-header bg-light d-flex flex-wrap justify-content-between align-items-center">
+  <div class="d-flex align-items-center gap-3">
+    <%= image_tag(
+          circus.logo.attached? ? url_for(circus.logo) : asset_path("logo_placeholder.png"),
+          class: "rounded-circle border shadow-sm",
+          alt: circus.name,
+          width: 64,
+          height: 64,
+          style: "object-fit: cover;",
+          loading: "lazy"
+        ) %>
+    <div>
+      <h2 class="mb-0 d-flex align-items-center gap-2">
+        🎪 <%= t("circus.admin.heading", name: circus.name, default: "Administración de: %{name}") %>
+      </h2>
+      <small class="text-muted fst-italic">
+        <%= t("circus.admin.subtitle", default: "Gestiona tu circo con alegría y precisión 🎭") %>
+      </small>
+    </div>
+  </div>
+  <span class="badge <%= circus.active ? 'bg-success' : 'bg-danger' %> mt-3 mt-md-0"
+      data-bs-toggle="tooltip"
+      title="<%= t("circus.status.tooltip", default: "Estado operativo del circo") %>">
+    <%= circus.active ? t("circus.status.active", default: "Activo") : t("circus.status.inactive", default: "Inactivo") %>
+  </span>
+  <%= render "circuses/shared/admin_dropdown", circus: circus %>
+</div>
