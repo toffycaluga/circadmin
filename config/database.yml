@@ -96,3 +96,26 @@ production:
     <<: *primary_production
     database: circadmin_production_cable
     migrations_paths: db/cable_migrate
+# config/database.yml
+
+# PostgreSQL. Versions 9.3 and up are supported.
+# Configure using the pg gem in your Gemfile: gem "pg"
+# In production, Heroku inyecta la URL de conexión en DATABASE_URL.
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool:     <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: circadmin_development
+
+test:
+  <<: *default
+  database: circadmin_test
+
+production:
+  <<: *default
+  # Heroku Postgres añade DATABASE_URL automáticamente
+  url: <%= ENV["DATABASE_URL"] %>
