@@ -79,20 +79,10 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  primary: &primary_production
-    <<: *default
-    database: circadmin_production
-    username: circadmin
-    password: <%= ENV["CIRCADMIN_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: circadmin_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: circadmin_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: circadmin_production_cable
-    migrations_paths: db/cable_migrate
+  <<: *default
+  # Rails usará DATABASE_URL con todas las credenciales que Heroku provee
+  url: <%= ENV['DATABASE_URL'] %>
+  # Ajusta el pool según tus threads en Puma/Heroku
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  # Si quieres un timeout distinto al default (5s), puedes añadir:
+  # checkout_timeout: <%= ENV.fetch("DB_CHECKOUT_TIMEOUT", 5) %>
