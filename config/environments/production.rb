@@ -67,7 +67,7 @@ Rails.application.configure do
     port:                 ENV.fetch("MAILTRAP_SMTP_PORT"),
     user_name:            ENV.fetch("MAILTRAP_USERNAME"),
     password:             ENV.fetch("MAILTRAP_PASSWORD"),
-    authentication:       :cram_md5,
+    authentication:       :login,
     enable_starttls_auto: true
   }
 
