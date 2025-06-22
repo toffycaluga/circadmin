@@ -74,13 +74,14 @@ Rails.application.configure do
 
  # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
  config.action_mailer.smtp_settings = {
-    address:              ENV["MAILTRAP_SMTP_HOST"],
-    port:                 ENV["MAILTRAP_SMTP_PORT"],
-    user_name:            ENV["MAILTRAP_USERNAME"],
-    password:             ENV["MAILTRAP_PASSWORD"],
-    authentication:       :login,
-    enable_starttls_auto: true
-  }
+  address:              ENV["MAILGUN_SMTP_SERVER"],
+  port:                 ENV["MAILGUN_SMTP_PORT"],
+  domain:               ENV["MAILGUN_DOMAIN"],
+  user_name:            ENV["MAILGUN_SMTP_LOGIN"],
+  password:             ENV["MAILGUN_SMTP_PASSWORD"],
+  authentication:       :plain,
+  enable_starttls_auto: true
+}
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -94,8 +95,8 @@ Rails.application.configure do
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   config.hosts = [
-    "circadmin.cirxoft.com"     # Allow requests from example.com
-    # /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
+    "circadmin.cirxoft.com"    # Allow requests from example.com
+    # /.*\.circadmin.cirxoft\.com/ # Allow requests from subdomains like `www.example.com`
   ]
   #
   # Skip DNS rebinding protection for the default health check endpoint.
