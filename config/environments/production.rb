@@ -18,6 +18,17 @@ Rails.application.configure do
   # Cache assets for far-future expiry since they are all digest stamped.
   config.public_file_server.headers = { "cache-control" => "public, max-age=#{1.year.to_i}" }
 
+  # Opciones por defecto para la generación de URLs en controllers/views
+  config.action_controller.default_url_options = {
+    host: "circadmin.cirxoft.com",
+    protocol: "https"
+  }
+
+  # Opciones por defecto para mailers (Devise usa esto para envíos de confirmación, recuperación, etc.)
+  config.action_mailer.default_url_options = {
+    host: "circadmin.cirxoft.com",
+    protocol: "https"
+  }
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
 
@@ -82,10 +93,10 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  # config.hosts = [
-  #   "example.com",     # Allow requests from example.com
-  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
-  # ]
+  config.hosts = [
+    "circadmin.cirxoft.com"     # Allow requests from example.com
+    # /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
+  ]
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
