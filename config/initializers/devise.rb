@@ -26,10 +26,10 @@ Devise.setup do |config|
   # with default "from" parameter.
   # Para que Devise genere enlaces apuntando a tu dominio
   config.mailer_sender = "no-reply@circadmin.cirxoft.com"
-  config.mailer.default_url_options = {
-    host: "circadmin.cirxoft.com",
-    protocol: "https"
-  }
+  # config.mailer.default_url_options = {
+  #   host: "circadmin.cirxoft.com",
+  #   protocol: "https"
+  # }
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
