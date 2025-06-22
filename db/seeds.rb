@@ -17,7 +17,7 @@ if admin.new_record?
   admin.password              = admin_password
   admin.password_confirmation = admin_password
   admin.superadmin            = true
-  admin.confirmed_at = Time.current if admin.respond_to?(:confirmed_at)
+  # admin.confirmed_at = Time.current if admin.respond_to?(:confirmed_at)
   admin.save!
   puts "✅ Superadmin creado: #{admin.email}"
 else
