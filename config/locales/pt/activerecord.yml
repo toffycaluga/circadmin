@@ -1,0 +1,18 @@
+pt:
+  activerecord:
+    attributes:
+      user_profile:
+        full_name: "Nome completo"
+        address: "Endereço"
+        country: "País"
+        profile_picture: "Foto de perfil"
+        circus:
+          user: "Proprietário"
+    models:
+      circus: "Circo"
+    errors:
+      models:
+        circus:
+          attributes:
+            user:
+              required: "deve estar presente"

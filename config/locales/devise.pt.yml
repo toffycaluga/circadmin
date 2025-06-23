@@ -1,0 +1,66 @@
+pt:
+  devise:
+    confirmations:
+      confirmed: "Sua conta foi confirmada."
+      confirmed_and_signed_in: "Sua conta foi confirmada. Você foi autenticado com sucesso."
+      send_instructions: "Você receberá um e-mail em alguns minutos com instruções sobre como redefinir sua senha."
+      send_paranoid_instructions: "Se o seu e-mail existir em nosso banco de dados, você receberá um e-mail em alguns minutos com instruções sobre como redefinir sua senha."
+    failure:
+      already_authenticated: "Você já está autenticado."
+      inactive: "Sua conta ainda não foi ativada."
+      invalid: "E-mail ou senha inválidos."
+      invalid_token: "Token de autenticação inválido."
+      locked: "Sua conta foi bloqueada."
+      not_found_in_database: "E-mail ou senha inválidos."
+      timeout: "Sua sessão expirou, por favor faça login novamente para continuar."
+      unauthenticated: "Você precisa fazer login ou se registrar para continuar."
+      unconfirmed: "Você precisa confirmar sua conta para continuar."
+      last_attempt: "Você tem mais uma tentativa antes que sua conta seja bloqueada."
+    mailer:
+      confirmation_instructions:
+        subject: "Instruções de confirmação"
+      reset_password_instructions:
+        subject: "Instruções para redefinir sua senha"
+      unlock_instructions:
+        subject: "Instruções de desbloqueio"
+    omniauth_callbacks:
+      failure: "Não foi possível autorizar via %{kind} por causa de \"%{reason}\"."
+      success: "Autenticado com sucesso via %{kind}."
+    passwords:
+      no_token: "Você não pode acessar esta página sem um link para redefinir a senha. Certifique-se de que a URL está completa se você veio por um link de redefinição."
+      send_instructions: "Você receberá um e-mail com instruções sobre como redefinir sua senha em alguns minutos."
+      send_paranoid_instructions: "Se seu e-mail estiver cadastrado, você receberá um link para redefinir a senha em alguns minutos."
+      updated: "Sua senha foi alterada com sucesso. Você foi autenticado."
+      updated_not_active: "Sua senha foi alterada com sucesso."
+    registrations:
+      destroyed: "Adeus! Sua conta foi cancelada. Esperamos vê-lo novamente em breve."
+      signed_up: "Bem-vindo! Você foi autenticado com sucesso."
+      signed_up_but_inactive: "Você se registrou com sucesso, mas não pôde fazer login porque sua conta ainda não foi ativada."
+      signed_up_but_locked: "Você se registrou com sucesso, mas não pôde fazer login porque sua conta está bloqueada."
+      signed_up_but_unconfirmed: "Um e-mail com um link de confirmação foi enviado para você. Por favor, acesse o link para ativar sua conta."
+      update_needs_confirmation: "Sua conta foi atualizada com sucesso, mas precisamos confirmar seu novo endereço de e-mail. Verifique seu e-mail e siga o link para concluir a confirmação."
+      updated: "Sua conta foi atualizada com sucesso."
+    sessions:
+      signed_in: "Você fez login com sucesso."
+      signed_out: "Você saiu com sucesso."
+    unlocks:
+      send_instructions: "Você receberá um e-mail em alguns minutos com instruções para desbloquear sua conta."
+      send_paranoid_instructions: "Se sua conta existir, você receberá um e-mail em alguns minutos com instruções para desbloqueá-la."
+      unlocked: "Sua conta foi desbloqueada. Por favor, faça login para continuar."
+  errors:
+    messages:
+      already_confirmed: "já foi confirmada, por favor tente fazer login."
+      confirmation_period_expired: "precisa ser confirmada dentro de %{period}, por favor solicite novamente."
+      expired: "expirou, por favor solicite novamente."
+      not_found: "não foi encontrada."
+      not_locked: "não estava bloqueada."
+      not_saved:
+        one: "1 erro impediu que este(a) %{resource} fosse salvo(a):"
+        other: "%{count} erros impediram que este(a) %{resource} fosse salvo(a):"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            reset_password_token:
+              invalid: "O link para redefinir a senha é inválido ou expirou."

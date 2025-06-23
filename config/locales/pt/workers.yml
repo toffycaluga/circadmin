@@ -1,0 +1,10 @@
+pt:
+  workers:
+    title: "Trabalhadores"
+    user: "Usuário"
+    role: "Função"
+    mail: "E-mail"
+    action: "Ações"
+    add: "Adicionar Trabalhador"
+    edit: "Editar Trabalhador"
+    back: "Voltar aos Trabalhadores"

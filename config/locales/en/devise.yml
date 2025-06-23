@@ -7,3 +7,33 @@ en:
     forgot: "Forgot your password?"
     confirmation: "Didn't receive confirmation instructions?"
     unlock: "Didn't receive unlock instructions?"
+    sessions:
+      new:
+        title: "Log In"
+        submit: "Sign In"
+        remember_me: "Remember me"
+        forgot_password: "Forgot your password?"
+    registrations:
+      new:
+        title: "Sign Up"
+        submit: "Create account"
+        have_account: "Already have an account?"
+      edit:
+        title: "Edit Account"
+        submit: "Update"
+        cancel: "Cancel my account"
+    passwords:
+      new:
+        title: "Forgot your password?"
+        submit: "Send instructions"
+      edit:
+        title: "Reset password"
+        submit: "Change my password"
+    confirmations:
+      new:
+        title: "Resend confirmation"
+        submit: "Send instructions"
+    unlocks:
+      new:
+        title: "Resend unlock"
+        submit: "Send instructions"

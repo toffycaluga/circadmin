@@ -1,0 +1,6 @@
+pt:
+  circuses:
+    page_title: "Meus Circos"
+    new:
+      title: "Novo Circo"
+      heading: "Criar Novo Circo"
