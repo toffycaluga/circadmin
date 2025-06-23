@@ -1,4 +1,8 @@
 es:
+  layouts:
+    application:
+      title: "CircAdmin"
+      back_home: "Volver al inicio"
   helpers:
     links:
       back: "Volver a circos"
