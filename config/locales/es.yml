@@ -75,6 +75,8 @@ es:
       updated: "Documento actualizado correctamente 📄✅"
       created: "Documento creado correctamente 📎🎉"
       deleted: "Documento eliminado 🗑️"
+    actions:
+      new: "📄 Subir documento"
   navigation:
     dashboard: "Inicio"
     my_circuses: "Mis circos"
