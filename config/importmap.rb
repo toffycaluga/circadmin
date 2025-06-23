@@ -9,3 +9,7 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 pin_all_from "app/javascript/controllers/plugins", under: "plugins"
 pin_all_from "app/javascript/controllers/pages", under: "pages"
 pin_all_from "app/javascript", under: "javascript"
+# config/importmap.rb
+pin_all_from "app/javascript/controllers", under: "controllers"
+pin_all_from "app/javascript/plugins",     under: "plugins"
+pin_all_from "app/javascript/pages",       under: "pages"

@@ -55,7 +55,7 @@ Rails.application.configure do
   config.cache_store = :solid_cache_store
 
   # Reemplaza el backend de colas de Active Job por uno duradero.
-  config.active_job.queue_adapter = :solid_queue
+  config.active_job.queue_adapter = :inline
   config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # Ignorar direcciones de correo inválidas y no generar errores de entrega.
