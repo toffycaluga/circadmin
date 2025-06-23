@@ -4,9 +4,6 @@
       📂 <%= t("documents.by_circus.title", circus: @circus.name) %>
     </h3>
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1 class="h3">
-        <%= t("documents.by_circus.title", circus: @circus.name) %>
-      </h1>
       <%= link_to t("documents.actions.new", default: "📄 Subir documento"),
               new_document_path(circus_id: @circus.id),
               class: "btn btn-primary" %>
