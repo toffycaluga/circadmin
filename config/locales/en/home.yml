@@ -1,0 +1,5 @@
+en:
+  home:
+    welcome: "Welcome to CircAdmin 🎪"
+    greeting: "Hello, %{email} 👋"
+    subtitle: "Manage your circus intelligently and simply"

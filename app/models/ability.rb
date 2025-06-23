@@ -5,6 +5,11 @@ class Ability
     # Evita errores si el usuario no está logueado
     return unless user
 
+    if user.superadmin?
+      can :manage, :all
+    end
+
+
     # === 🎪 CIRCOS ===
 
     # Puede ver cualquier circo donde esté asociado

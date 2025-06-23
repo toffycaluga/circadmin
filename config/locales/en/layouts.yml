@@ -1,0 +1,5 @@
+en:
+  layouts:
+    application:
+      title: "CircAdmin"
+      back_home: "Back to Home"

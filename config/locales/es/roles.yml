@@ -1,0 +1,6 @@
+es:
+  roles:
+    admin: "Administrador"
+    accountant: "Contador"
+    representative: "Representante"
+    owner: "Dueño"

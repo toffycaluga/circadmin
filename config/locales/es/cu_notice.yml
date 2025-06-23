@@ -1,0 +1,5 @@
+es:
+  cu_notice:
+    deactivate: "Trabajador eliminado con éxito."
+    destroy: "Usuario desactivado del circo."
+    update: "Rol actualizado correctamente."

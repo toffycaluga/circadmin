@@ -105,7 +105,7 @@ gem "chartkick"
 
 gem "prawn"
 gem "prawn-table"
-gem "axlsx_rails"
+gem "caxlsx_rails"
 
 gem "pagy"
 gem "acts-as-taggable-on"

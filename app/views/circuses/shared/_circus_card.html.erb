@@ -41,8 +41,8 @@
         <%= t("dashboard.active_locality", default: "Localidad activa:") %> <strong><%= locality.title %></strong>
       </div>
       <div class="d-flex flex-wrap gap-2 justify-content-center">
-        <%= link_to t("dashboard.actions.add_income", default: "💰 Ingreso"), new_transaction_path(type: "income", locality_id: locality.id), class: "btn btn-sm btn-outline-success" %>
-        <%= link_to t("dashboard.actions.add_expense", default: "💸 Egreso"), new_transaction_path(type: "expense", locality_id: locality.id), class: "btn btn-sm btn-outline-danger" %>
+        <%= link_to t("dashboard.actions.add_income", default: "💰 Ingreso"), new_transaction_path(transaction_type: "income", locality_id: locality.id), class: "btn btn-sm btn-outline-success" %>
+        <%= link_to t("dashboard.actions.add_expense", default: "💸 Egreso"), new_transaction_path(transaction_type: "expense", locality_id: locality.id), class: "btn btn-sm btn-outline-danger" %>
         <%= link_to t("dashboard.actions.full_summary", default: "📊 Resumen de Ingresos y Gastos"), overview_transactions_locality_path(locality), class: "btn btn-sm btn-info" %>
       </div>
     </div>

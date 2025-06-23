@@ -1,0 +1,31 @@
+en:
+  localities:
+    name: "Locality"
+    actions:
+      edit: "Edit event"
+      close: "Close event"
+      reopen: "Reopen event"
+    confirmations:
+      close: "Are you sure you want to close this event?"
+      reopen: "Do you want to reopen this event?"
+    status:
+      closed: "Event closed"
+    form:
+      form_errors: "Unable to save locality"
+      title: "Locality name"
+      title_placeholder: "E.g., Plaza de Armas, Summer Fair"
+      location: "Address"
+      location_placeholder: "E.g., Fake Street 123, North Side"
+      city: "City"
+      city_placeholder: "E.g., Valparaíso"
+      start_date: "Start date"
+      end_date: "End date (optional)"
+      active: "Active locality"
+      active_hint: "Check this if the locality is already active. If it's only in preparation (advertising, permits, etc.), don’t check it yet, but you can record expenses now."
+      notes: "Notes"
+      notes_placeholder: "E.g., Landowner: Juan Pérez, private land"
+      submit: "Save"
+    notices:
+      created: "Locality was successfully created."
+      updated: "Locality was successfully updated."
+      destroyed: "Locality was successfully deleted."

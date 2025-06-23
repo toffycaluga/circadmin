@@ -1,0 +1,17 @@
+en:
+  datetime:
+    distance_in_words:
+      about_x_hours: "about %{count} hours"
+      about_x_months: "about %{count} months"
+      about_x_years: "about %{count} years"
+      almost_x_years: "almost %{count} years"
+      half_a_minute: "half a minute"
+      less_than_x_minutes: "less than %{count} minutes"
+      less_than_x_seconds: "less than %{count} seconds"
+      over_x_years: "over %{count} years"
+      x_days: "%{count} days"
+      x_minutes: "%{count} minutes"
+      x_months: "%{count} months"
+      x_seconds: "%{count} seconds"
+      x_years: "%{count} years"
+      x_hours: "%{count} hours"

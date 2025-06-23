@@ -1,0 +1,14 @@
+en:
+  insights:
+    title: "Detailed Analysis"
+    filters:
+      title: "Search Filters"
+      start_date: "From"
+      end_date: "To"
+      category: "Category"
+      apply: "Apply Filters"
+      all_categories: "All Categories"
+    summary:
+      title: "Category Summary"
+    transactions:
+      title: "Detailed Transactions"

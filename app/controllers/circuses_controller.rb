@@ -53,7 +53,7 @@ class CircusesController < ApplicationController
   end
 
   def new
-    @circus = current_user.circuses.build
+    @circus = Circus.new(user: current_user)
   end
 
   def edit

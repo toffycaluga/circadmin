@@ -1,0 +1,5 @@
+en:
+  cu_notice:
+    deactivate: "Worker successfully removed."
+    destroy: "User removed from the circus."
+    update: "Role updated successfully."

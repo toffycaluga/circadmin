@@ -1,0 +1,10 @@
+en:
+  workers:
+    title: "Workers"
+    user: "User"
+    role: "Role"
+    mail: "Email"
+    action: "Actions"
+    add: "Add Worker"
+    edit: "Edit Worker"
+    back: "Back to Workers"

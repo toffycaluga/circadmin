@@ -1,0 +1,18 @@
+en:
+  dashboard:
+    active_locality: "Active locality:"
+    title: "Dashboard"
+    welcome: "Welcome to CircAdmin 🎪"
+    intro: "Manage your circuses in a clear and organized way."
+    my_circuses: "My circuses"
+    associated_circuses: "Associated circuses"
+    no_owned_circuses: "You don't own any circuses yet."
+    no_associated_circuses: "You are not associated with any circuses."
+    not_member: "You are not a member of this circus"
+    profile_picture_alt: "Profile picture"
+    actions:
+      admin: "🎛 Manage"
+      edit: "✏️ Edit"
+      add_income: "💰 Add income"
+      add_expense: "💸 Add expense"
+      summary: "📊 Summary"
