@@ -45,53 +45,7 @@ $(document).ready(function() {
                         '<a href="#!" class="" data-value="background-img-4"><span></span><span></span></a>' +
                         '<a href="#!" class="" data-value="background-img-5"><span></span><span></span></a>' +
                         '<a href="#!" class="" data-value="background-img-6"><span></span><span></span></a>' +
-                    '</div>' +
-                    '<div class="form-group mb-2">' +
-                        '<div class="switch switch-primary d-inline m-r-10">' +
-                            '<input type="checkbox" id="theme-rtl">' +
-                            '<label for="theme-rtl" class="cr"></label>' +
-                        '</div>' +
-                        '<label>RTL</label>' +
-                    '</div>' +
-                    '<div class="form-group mb-2">' +
-                        '<div class="switch switch-primary d-inline m-r-10">' +
-                            '<input type="checkbox" id="menu-fixed" checked>' +
-                            '<label for="menu-fixed" class="cr"></label>' +
-                        '</div>' +
-                        '<label>Sidebar Fixed</label>' +
-                    '</div>' +
-                    '<div class="form-group mb-2">' +
-                        '<div class="switch switch-primary d-inline m-r-10">' +
-                            '<input type="checkbox" id="header-fixed" checked>' +
-                            '<label for="header-fixed" class="cr"></label>' +
-                        '</div>' +
-                        '<label>Header Fixed</label>' +
-                    '</div>' +
-                    '<div class="form-group mb-2">' +
-                        '<div class="switch switch-primary d-inline m-r-10">' +
-                            '<input type="checkbox" id="box-layouts">' +
-                            '<label for="box-layouts" class="cr"></label>' +
-                        '</div>' +
-                        '<label>Box Layouts</label>' +
-                    '</div>' +
-                    '<div class="form-group mb-2">' +
-                        '<div class="switch switch-primary d-inline m-r-10">' +
-                            '<input type="checkbox" id="breadcumb-layouts">' +
-                            '<label for="breadcumb-layouts" class="cr"></label>' +
-                        '</div>' +
-                        '<label>Breadcumb sticky</label>' +
-                    '</div>' +
-                '</div>' +
-                '<a href="https://themeforest.net/user/phoenixcoded" class="btn btn-success btn-block m-r-15 m-t-10 m-b-10">Profile</a>' +
-                '<a href="http://ableproadmin.com/doc-7.0/" target="_blank" class="btn btn-primary btn-block m-r-15 m-t-5 m-b-10 ">Online Documentation</a>' +
-                '<div class="text-center">' +
-                    '<span class="text-center f-18 m-t-15 m-b-15 d-block">Thank you for sharing !</span>' +
-                    '<a href="https://www.facebook.com/Phoenixcoded/" target="_blank" class="btn text-white bg-facebook btn-icon m-b-20">' +
-                        '<i class="feather icon-facebook"></i>' +
-                    '</a>' +
-                    '<a href="https://twitter.com/phoenixcoded" target="_blank" class="btn text-white bg-twitter btn-icon m-l-20 m-b-20">' +
-                        '<i class="feather icon-twitter"></i>' +
-                    '</a>' +
+                    '</div>'  +
                 '</div>' +
             '</div>' +
         '</div>');
