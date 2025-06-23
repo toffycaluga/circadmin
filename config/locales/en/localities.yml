@@ -1,0 +1,31 @@
+es:
+  localities:
+    name: "Localidad"
+    actions:
+      edit: "Editar evento"
+      close: "Cerrar evento"
+      reopen: "Reabrir evento"
+    confirmations:
+      close: "¿Estás seguro de cerrar este evento?"
+      reopen: "¿Quieres reabrir este evento?"
+    status:
+      closed: "Evento cerrado"
+    form:
+      form_errors: "Impidieron guardar la localidad"
+      title: "Nombre de la localidad"
+      title_placeholder: "Ej. Plaza de armas, Feria de verano"
+      location: "Dirección"
+      location_placeholder: "Ej. Calle Falsa 123, Sector norte"
+      city: "Ciudad"
+      city_placeholder: "Ej. Valparaíso"
+      start_date: "Fecha de inicio"
+      end_date: "Fecha de término (opcional)"
+      active: "Localidad activa"
+      active_hint: "Activa esta casilla si ya están trabajando en esta localidad. Si solo está en preparación (publicidad, permisos, etc.), no la marques aún, pero puedes registrar gastos desde ya."
+      notes: "Observaciones"
+      notes_placeholder: "Ej. Dueño del terreno: Juan Pérez, terreno privado"
+      submit: "Guardar"
+    notices:
+      created: "La localidad fue creada con éxito."
+      updated: "La localidad fue actualizada con éxito."
+      destroyed: "La localidad fue eliminada."

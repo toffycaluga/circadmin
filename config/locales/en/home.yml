@@ -1,0 +1,5 @@
+es:
+  home:
+    welcome: "Bienvenido a CircAdmin 🎪"
+    greeting: "Hola, %{email} 👋"
+    subtitle: "Administra tu circo de forma inteligente y simple"

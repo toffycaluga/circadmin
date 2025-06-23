@@ -1,0 +1,108 @@
+es:
+  transactions:
+    export:
+      title: "Resumen"
+      title_pdf: "Resumen de Transacciones"
+      range: "Rango"
+      generated_by: "Documento generado por CircAdmin"
+      headers:
+        date: "Fecha"
+        title: "Título"
+        amount: "Monto"
+        category: "Categoría"
+    fields:
+      date: "Fecha"
+      title: "Título"
+      amount: "Monto"
+      category: "Categoría"
+      description: "Descripción"
+      user: "Registrado por"
+    details:
+      back_to_summary: "volver al resumen"
+    graph:
+      title: "Resumen financiero del terreno"
+      subtitle_daily: "Ingresos vs Egresos por día"
+      subtitle_weekly: "Ingresos vs Egresos por semana"
+      subtitle_monthly: "Ingresos vs Egresos por mes"
+      subtitle_total: "Ingresos vs Egresos totales"
+    filters:
+      group_by: "Agrupar por"
+      type: "Tipo de transacción"
+      order_by: "Ordenar por"
+      submit: "Filtrar"
+      see_more: "Ver más"
+    group:
+      day: "Día"
+      week: "Semana"
+      month: "Mes"
+      total: "Total"
+    type:
+      income: "Ingresos"
+      expense: "Egresos"
+    order:
+      date: "Fecha"
+      category: "Categoría"
+    sections:
+      expenses_title: "💸 Gastos"
+      incomes_title: "💰 Ingresos"
+    actions:
+      add_expense: "➕ Agregar gasto"
+      see_more_expenses: "Ver más gastos"
+      add_income: "➕ Agregar ingreso"
+      see_more_incomes: "Ver más ingresos"
+    empty:
+      expenses: "No hay gastos registrados."
+      incomes: "No hay ingresos registrados."
+    categories:
+      ticket_sales: "Boletería"
+      boleteria: "Boletería"
+      events: "Evento"
+      candy: "Dulcería"
+      dulceria: "Dulcería"
+      souvenirs: "Souvenires"
+      souvenires: "Souvenires"
+      others: "Otros"
+      otros: "Otros"
+      payroll: "Planilla"
+      rent: "Alquiler"
+      transport: "Transporte"
+      food: "Alimentación"
+      permits: "Permisos"
+    summary:
+      breakdown: "Desglose por categoría"
+      view_details: "Ver detalles"
+    form:
+      errors_title: "%{count} error(es) impidieron guardar la transacción:"
+      title: "Título"
+      amount: "Monto"
+      category: "Categoría"
+      description: "Descripción"
+      date: "Fecha"
+      receipt: "Comprobante (solo para gastos)"
+      current_receipt: "Comprobante actual:"
+      submit: "Guardar"
+      prompts:
+        category: "Selecciona una categoría"
+      placeholders:
+        title:
+          income: "Ventas de entradas vermouth"
+          expense: "Ej: Compra de materiales"
+        amount: "Ej: 15000"
+        description:
+          income: "Ej: Ingreso por función extra"
+          expense: "Ej: Detalles del gasto realizado"
+      hints:
+        title:
+          income: "Describe el origen del ingreso."
+          expense: "Describe el motivo del gasto."
+        amount: "Ingresa el monto en la moneda del circo."
+        category: "Ayuda a clasificar mejor la transacción."
+        description:
+          income: "Puedes incluir el tipo de ingreso."
+          expense: "Puedes especificar detalles útiles para la contabilidad."
+        date: "¿Cuándo ocurrió esta transacción?"
+        receipt: "Opcional, puedes subir una boleta o factura."
+    new:
+      title: "Nueva Transacción"           # fallback genérico
+      income_title: "Nuevo Ingreso"        # cuando transaction_type == "income"
+      expense_title: "Nuevo Egreso"        # cuando transaction_type == "expense"
