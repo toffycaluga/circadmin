@@ -37,3 +37,7 @@ en:
       new:
         title: "Resend unlock"
         submit: "Send instructions"
+    confirmations:
+      new:
+        title: "Resend confirmation instructions"
+        submit: "Resend confirmation instructions"

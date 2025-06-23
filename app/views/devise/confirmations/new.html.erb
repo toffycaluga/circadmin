@@ -2,7 +2,7 @@
   <div class="card shadow rounded p-4 w-100" style="max-width: 400px;">
     <div class="card-body">
       <h2 class="text-center mb-4">
-        <%= t('.resend_confirmation_instructions', default: 'Resend confirmation instructions') %>
+        <%= t("devise.confirmations.new.title") %>
       </h2>
 
       <%= render "devise/shared/error_messages", resource: resource %>
@@ -14,7 +14,7 @@
         </div>
 
         <div class="d-grid">
-          <%= f.submit t('.resend_confirmation_instructions', default: 'Resend confirmation instructions'), class: "btn btn-primary" %>
+          <%= f.submit t("devise.confirmations.new.submit"), class: "btn btn-primary" %>
         </div>
       <% end %>
 

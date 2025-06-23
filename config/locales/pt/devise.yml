@@ -37,3 +37,7 @@ pt:
       new:
         title: "Reenviar desbloqueio"
         submit: "Enviar instruções"
+    confirmations:
+      new:
+        title: "Reenviar instruções de confirmação"
+        submit: "Reenviar instruções de confirmação"
