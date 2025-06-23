@@ -1,0 +1,108 @@
+pt:
+  transactions:
+    export:
+      title: "Resumo"
+      title_pdf: "Resumo de Transações"
+      range: "Período"
+      generated_by: "Documento gerado por CircAdmin"
+      headers:
+        date: "Data"
+        title: "Título"
+        amount: "Valor"
+        category: "Categoria"
+    fields:
+      date: "Data"
+      title: "Título"
+      amount: "Valor"
+      category: "Categoria"
+      description: "Descrição"
+      user: "Registrado por"
+    details:
+      back_to_summary: "voltar ao resumo"
+    graph:
+      title: "Visão financeira da localidade"
+      subtitle_daily: "Receitas vs Despesas por dia"
+      subtitle_weekly: "Receitas vs Despesas por semana"
+      subtitle_monthly: "Receitas vs Despesas por mês"
+      subtitle_total: "Receita Total vs Despesas"
+    filters:
+      group_by: "Agrupar por"
+      type: "Tipo de transação"
+      order_by: "Ordenar por"
+      submit: "Filtrar"
+      see_more: "Ver mais"
+    group:
+      day: "Dia"
+      week: "Semana"
+      month: "Mês"
+      total: "Total"
+    type:
+      income: "Receita"
+      expense: "Despesa"
+    order:
+      date: "Data"
+      category: "Categoria"
+    sections:
+      expenses_title: "💸 Despesas"
+      incomes_title: "💰 Receitas"
+    actions:
+      add_expense: "➕ Adicionar despesa"
+      see_more_expenses: "Ver mais despesas"
+      add_income: "➕ Adicionar receita"
+      see_more_incomes: "Ver mais receitas"
+    empty:
+      expenses: "Nenhuma despesa registrada."
+      incomes: "Nenhuma receita registrada."
+    categories:
+      ticket_sales: "Venda de Ingressos"
+      boleteria: "Venda de Ingressos"
+      events: "Evento"
+      candy: "Lanchonete"
+      dulceria: "Lanchonete"
+      souvenirs: "Souvenires"
+      souvenires: "Souvenires"
+      others: "Outros"
+      otros: "Outros"
+      payroll: "Folha de pagamento"
+      rent: "Aluguel"
+      transport: "Transporte"
+      food: "Alimentação"
+      permits: "Licenças"
+    summary:
+      breakdown: "Detalhamento por categoria"
+      view_details: "Ver detalhes"
+    form:
+      errors_title: "%{count} erro(s) impediram que esta transação fosse salva:"
+      title: "Título"
+      amount: "Valor"
+      category: "Categoria"
+      description: "Descrição"
+      date: "Data"
+      receipt: "Comprovante (apenas para despesas)"
+      current_receipt: "Comprovante atual:"
+      submit: "Salvar"
+      prompts:
+        category: "Selecione uma categoria"
+      placeholders:
+        title:
+          income: "Venda de ingressos do espetáculo"
+          expense: "Ex.: Compra de materiais"
+        amount: "Ex.: 15000"
+        description:
+          income: "Ex.: Receita de apresentação extra"
+          expense: "Ex.: Detalhes da despesa"
+      hints:
+        title:
+          income: "Descreva a origem da receita."
+          expense: "Descreva o motivo da despesa."
+        amount: "Digite o valor na moeda do circo."
+        category: "Ajuda a classificar melhor a transação."
+        description:
+          income: "Você pode incluir o tipo de receita."
+          expense: "Você pode especificar detalhes contábeis úteis."
+        date: "Quando ocorreu esta transação?"
+        receipt: "Opcional, envie um comprovante ou nota fiscal."
+    new:
+      title: "Nova Transação"
+      income_title: "Nova Receita"
+      expense_title: "Nova Despesa"

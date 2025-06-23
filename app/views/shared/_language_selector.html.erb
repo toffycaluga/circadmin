@@ -4,12 +4,13 @@
       <%= select_tag :locale,
           options_for_select(
             [
-              ['Español', :es],
-              ['English', :en]
+              ['🇪🇸 Español', :es],
+              ['🇺🇸 English', :en],
+              ['🇧🇷 Português', :pt]
             ],
             I18n.locale
           ),
-          class: "form-select",
+          class: "form-select form-select-sm w-auto",
           onchange: 'this.form.submit();' %>
     </div>
   <% end %>

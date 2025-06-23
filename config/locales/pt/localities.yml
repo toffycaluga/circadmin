@@ -1,0 +1,31 @@
+pt:
+  localities:
+    name: "Localidade"
+    actions:
+      edit: "Editar evento"
+      close: "Encerrar evento"
+      reopen: "Reabrir evento"
+    confirmations:
+      close: "Tem certeza de que deseja encerrar este evento?"
+      reopen: "Deseja reabrir este evento?"
+    status:
+      closed: "Evento encerrado"
+    form:
+      form_errors: "Não foi possível salvar a localidade"
+      title: "Nome da localidade"
+      title_placeholder: "Ex.: Praça Central, Feira de Verão"
+      location: "Endereço"
+      location_placeholder: "Ex.: Rua Falsa 123, Lado Norte"
+      city: "Cidade"
+      city_placeholder: "Ex.: Valparaíso"
+      start_date: "Data de início"
+      end_date: "Data de término (opcional)"
+      active: "Localidade ativa"
+      active_hint: "Marque isto se a localidade já estiver ativa. Se estiver apenas em preparação (divulgação, permissões, etc.), não marque ainda, mas já é possível registrar despesas."
+      notes: "Observações"
+      notes_placeholder: "Ex.: Dono do terreno: João da Silva, terreno particular"
+      submit: "Salvar"
+    notices:
+      created: "Localidade criada com sucesso."
+      updated: "Localidade atualizada com sucesso."
+      destroyed: "Localidade excluída com sucesso."

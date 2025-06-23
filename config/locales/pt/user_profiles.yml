@@ -1,0 +1,39 @@
+pt:
+  user_profiles:
+    new:
+      title: "Novo Perfil de Usuário"
+      heading: "Crie Seu Perfil"
+    show:
+      title: "Perfil"
+      header: "Perfil: %{name}"
+    edit:
+      title: "Editar Perfil de Usuário"
+      heading: "Editar Seu Perfil"
+      show: "Ver Este Perfil de Usuário"
+      profile_picture_section: "Foto de Perfil"
+      upload_picture: "Enviar Nova Foto"
+      picture_updated: "Foto de perfil atualizada com sucesso."
+      picture_failed: "Não foi possível atualizar a foto de perfil."
+      no_picture: "Você ainda não tem uma foto de perfil"
+    actions:
+      save: "Salvar Perfil"
+      back: "← Voltar"
+      back_to_list: "← Voltar aos Perfis"
+      edit: "Editar"
+      destroy: "Excluir"
+      confirm_destroy: "Tem certeza de que deseja excluir este perfil?"
+    notices:
+      created: "Perfil criado com sucesso."
+      updated: "Perfil atualizado com sucesso."
+      destroyed: "Perfil excluído."
+      picture_updated: "Foto de perfil atualizada com sucesso 🎉"
+    form:
+      full_name: "Nome Completo"
+      address: "Endereço"
+      country: "País"
+    placeholders:
+      full_name: "Ex.: juan perez"
+      address: "Ex.: Rua Fictícia 123"
+      country: "Ex.: Espanha"
+    alerts:
+      picture_failed: "Não foi possível atualizar a foto de perfil. Por favor, tente novamente."

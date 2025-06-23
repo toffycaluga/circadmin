@@ -1,0 +1,43 @@
+pt:
+  devise:
+    login: "Entrar"
+    logout: "Sair"
+    register: "Registrar"
+    edit: "Editar"
+    forgot: "Esqueceu sua senha?"
+    confirmation: "Não recebeu as instruções de confirmação?"
+    unlock: "Não recebeu as instruções de desbloqueio?"
+    sessions:
+      new:
+        title: "Entrar"
+        submit: "Iniciar sessão"
+        remember_me: "Lembrar-me"
+        forgot_password: "Esqueceu sua senha?"
+    registrations:
+      new:
+        title: "Registrar"
+        submit: "Criar conta"
+        have_account: "Já tem uma conta?"
+      edit:
+        title: "Editar conta"
+        submit: "Atualizar"
+        cancel: "Cancelar minha conta"
+    passwords:
+      new:
+        title: "Esqueceu sua senha?"
+        submit: "Enviar instruções"
+      edit:
+        title: "Redefinir senha"
+        submit: "Alterar minha senha"
+    confirmations:
+      new:
+        title: "Reenviar confirmação"
+        submit: "Enviar instruções"
+    unlocks:
+      new:
+        title: "Reenviar desbloqueio"
+        submit: "Enviar instruções"
+    confirmations:
+      new:
+        title: "Reenviar instruções de confirmação"
+        submit: "Reenviar instruções de confirmação"
