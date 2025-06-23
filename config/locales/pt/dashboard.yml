@@ -1,0 +1,18 @@
+pt:
+  dashboard:
+    active_locality: "Localidade ativa:"
+    title: "Painel de Controle"
+    welcome: "Bem-vindo ao CircAdmin 🎪"
+    intro: "Gerencie seus circos de forma clara e organizada."
+    my_circuses: "Meus circos"
+    associated_circuses: "Circos associados"
+    no_owned_circuses: "Você ainda não possui nenhum circo."
+    no_associated_circuses: "Você não está associado a nenhum circo."
+    not_member: "Você não é membro deste circo"
+    profile_picture_alt: "Foto de perfil"
+    actions:
+      admin: "🎛 Gerenciar"
+      edit: "✏️ Editar"
+      add_income: "💰 Adicionar receita"
+      add_expense: "💸 Adicionar despesa"
+      summary: "📊 Resumo"
