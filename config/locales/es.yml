@@ -472,6 +472,10 @@ es:
           expense: "Puedes especificar detalles útiles para la contabilidad."
         date: "¿Cuándo ocurrió esta transacción?"
         receipt: "Opcional, puedes subir una boleta o factura."
+    new:
+      title: "Nueva Transacción"           # fallback genérico
+      income_title: "Nuevo Ingreso"        # cuando transaction_type == "income"
+      expense_title: "Nuevo Egreso"        # cuando transaction_type == "expense"
   summary_card:
     last_day: "Resumen del último día"
     weekly: "Resumen semanal"
