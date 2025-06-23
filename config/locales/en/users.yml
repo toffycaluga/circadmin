@@ -1,0 +1,7 @@
+en:
+  users:
+    invite:
+      email_placeholder: "User’s email address"
+      role_label: "Role"
+      submit: "Invite"
+      mail: "Email"
