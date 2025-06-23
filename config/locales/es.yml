@@ -1,4 +1,7 @@
 es:
+  helpers:
+    links:
+      back: "Volver a circos"
   documents:
     filters:
       search: "Buscar"
@@ -220,6 +223,9 @@ es:
       summary: "📊 Resumen"
   circuses:
     page_title: "Mis Circos"
+    new:
+      title: "Nuevo circo"
+      heading: "Crear nuevo circo"
   footer:
     copyright: "Todos los derechos reservados"
     dev: "Desarrollado por"
