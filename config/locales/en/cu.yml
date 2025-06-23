@@ -1,5 +1,5 @@
-es:
+en:
   cu:
-    save: "Guardar"
-    delete: "Eliminar trabajador"
-    confirm: "¿Seguro que quieres desactivar este usuario?"
+    save: "Save"
+    delete: "Remove worker"
+    confirm: "Are you sure you want to deactivate this user?"

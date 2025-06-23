@@ -1,5 +1,5 @@
-es:
+en:
   navigation:
-    dashboard: "Inicio"
-    my_circuses: "Mis circos"
-    my_documents: "Mis documentos"
+    dashboard: "Dashboard"
+    my_circuses: "My Circuses"
+    my_documents: "My Documents"

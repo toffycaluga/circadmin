@@ -1,14 +1,14 @@
-es:
+en:
   insights:
-    title: "Análisis detallado"
+    title: "Detailed Analysis"
     filters:
-      title: "Filtros de búsqueda"
-      start_date: "Desde"
-      end_date: "Hasta"
-      category: "Categoría"
-      apply: "Aplicar filtros"
-      all_categories: "Todas las categorías"
+      title: "Search Filters"
+      start_date: "From"
+      end_date: "To"
+      category: "Category"
+      apply: "Apply Filters"
+      all_categories: "All Categories"
     summary:
-      title: "Resumen por categoría"
+      title: "Category Summary"
     transactions:
-      title: "Transacciones detalladas"
+      title: "Detailed Transactions"

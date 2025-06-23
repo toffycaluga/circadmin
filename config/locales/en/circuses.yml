@@ -1,6 +1,6 @@
-es:
+en:
   circuses:
-    page_title: "Mis Circos"
+    page_title: "My Circuses"
     new:
-      title: "Nuevo circo"
-      heading: "Crear nuevo circo"
+      title: "New Circus"
+      heading: "Create New Circus"

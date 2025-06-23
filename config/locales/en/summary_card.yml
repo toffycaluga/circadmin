@@ -1,9 +1,9 @@
-es:
+en:
   summary_card:
-    last_day: "Resumen del último día"
-    weekly: "Resumen semanal"
-    last_weekly: "Resumem última semana"
-    monthly: "Resumen mensual"
-    last_month: "Resumen úlimo mes"
-    overall: "Total acumulado"
-    view_details: "Ver detalles"
+    last_day: "Last Day Summary"
+    weekly: "Weekly Summary"
+    last_weekly: "Last Week Summary"
+    monthly: "Monthly Summary"
+    last_month: "Last Month Summary"
+    overall: "Overall Total"
+    view_details: "View Details"

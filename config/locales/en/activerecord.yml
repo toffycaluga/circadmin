@@ -1,18 +1,18 @@
-es:
+en:
   activerecord:
     attributes:
       user_profile:
-        full_name: "Nombre completo"
-        address: "Dirección"
-        country: "País"
-        profile_picture: "Foto de perfil"
+        full_name: "Full name"
+        address: "Address"
+        country: "Country"
+        profile_picture: "Profile picture"
         circus:
-          user: "Dueño"
+          user: "Owner"
     models:
-      circus: "Circo"
+      circus: "Circus"
     errors:
       models:
         circus:
           attributes:
             user:
-              required: "debe estar presente"
+              required: "must be present"

@@ -1,9 +1,9 @@
-es:
+en:
   devise:
-    login: "Iniciar sesión"
-    logout: "Cerrar sesión"
-    register: "Registrarse"
-    edit: "Editar"
-    forgot: "¿Olvidaste tu contraseña?"
-    confirmation: "¿No recibí las instrucciones de confirmación?"
-    unlock: "¿No recibí las instrucciones de desbloqueo?"
+    login: "Log in"
+    logout: "Log out"
+    register: "Register"
+    edit: "Edit"
+    forgot: "Forgot your password?"
+    confirmation: "Didn't receive confirmation instructions?"
+    unlock: "Didn't receive unlock instructions?"
