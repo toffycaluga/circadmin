@@ -3,7 +3,7 @@ import "@hotwired/turbo-rails"
 import "controllers"
 
 // Bundle de terceros (puedes usar vendor-all si lo tienes)
-import "plugins/vendor-all.min"
+import "js/vendor-all.min"
 
 // —o— archivo a archivo:
 // import "plugins/bootstrap.min"
