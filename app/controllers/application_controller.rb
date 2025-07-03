@@ -6,6 +6,16 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :redirect_if_profile_incomplete, unless: :active_storage_request?
   before_action :ensure_circus_context!
+  # in ApplicationController
+  before_action :track_history
+
+  def track_history
+    return unless request.get? && !request.xhr?
+    session[:history] ||= []
+    session[:history].unshift(request.fullpath)
+    session[:history] = session[:history].uniq.take(10)
+  end
+
 
   helper_method :current_circus
   rescue_from CanCan::AccessDenied do |exception|

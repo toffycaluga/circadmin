@@ -1,37 +1,38 @@
 <!-- Ítem de notificaciones en la barra de navegación -->
-<li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle position-relative text-white" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <i class="feather icon-bell"></i>
-    <% if @unread_notifications_count.to_i > 0 %>
-      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-        <%= @unread_notifications_count %>
-      </span>
-    <% end %>
-  </a>
-  <div class="dropdown-menu dropdown-menu-end notification shadow" aria-labelledby="notificationDropdown" style="max-height: 400px; overflow-y: auto; width: 350px;">
-    <!-- Cabecera del menú -->
-    <div class="noti-head d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
-      <h6 class="mb-0 fw-bold">Notificaciones</h6>
-      <%= button_to t("notifications.mark_all_as_read", default: "Marcar todas como leídas"),
+<ul class="notif">
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle position-relative text-white" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="feather icon-bell"></i>
+      <% if @unread_notifications_count.to_i > 0 %>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          <%= @unread_notifications_count %>
+        </span>
+      <% end %>
+    </a>
+    <div class="dropdown-menu dropdown-menu-end notification shadow" aria-labelledby="notificationDropdown" style="max-height: 400px; overflow-y: auto; width: 350px;">
+      <!-- Cabecera del menú -->
+      <div class="noti-head d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+        <h6 class="mb-0 fw-bold">Notificaciones</h6>
+        <%= button_to t("notifications.mark_all_as_read", default: "Marcar todas como leídas"),
                     mark_all_as_read_notifications_path,
                     method: :patch,
                     data: { turbo: false },
                     form: { class: "d-inline" },
                     class: "btn btn-link btn-sm text-muted p-0 text-decoration-none" %>
-    </div>
-    <!-- Cuerpo con notificaciones -->
-    <ul class="noti-body list-unstyled px-2 my-2">
-      <% unread = current_user.unread_notifications.order(created_at: :desc).limit(5) %>
-      <% read = current_user.notifications.where(read: true).order(created_at: :desc).limit(5) %>
-      <% if unread.any? %>
-        <li class="n-title mt-2">
-          <p class="text-muted small mb-1">NUEVAS</p>
-        </li>
-        <% unread.each do |n| %>
-          <li class="notification mb-2 rounded shadow-sm border bg-white">
-            <%= link_to notification_path(n),
+      </div>
+      <!-- Cuerpo con notificaciones -->
+      <ul class="noti-body list-unstyled px-2 my-2">
+        <% unread = current_user.unread_notifications.order(created_at: :desc).limit(5) %>
+        <% read = current_user.notifications.where(read: true).order(created_at: :desc).limit(5) %>
+        <% if unread.any? %>
+          <li class="n-title mt-2">
+            <p class="text-muted small mb-1">NUEVAS</p>
+          </li>
+          <% unread.each do |n| %>
+            <li class="notification mb-2 rounded shadow-sm border bg-white">
+              <%= link_to notification_path(n),
                 class: "d-flex align-items-start p-2 w-100 text-decoration-none text-dark" do %>
-              <%= image_tag(
+                <%= image_tag(
             n.user&.user_profile&.profile_picture&.attached? ? url_for(n.user.user_profile.profile_picture) : asset_path("avatar.jpg"),
             class: "rounded-circle me-2",
             alt: "Foto de perfil",
@@ -40,25 +41,25 @@
             style: "object-fit: cover; aspect-ratio: 1/1;",
             loading: "lazy"
           ) %>
-              <div>
-                <strong class="d-block"><%= n.title %></strong>
-                <small class="text-muted d-block mb-1">
-                  <i class="feather icon-clock me-1"></i><%= time_ago_in_words(n.created_at) %> atrás
-                </small>
-                <p class="mb-0 small text-muted"><%= truncate(n.body, length: 60) %></p>
-              </div>
-            <% end %>
-          </li>
+                <div>
+                  <strong class="d-block"><%= n.title %></strong>
+                  <small class="text-muted d-block mb-1">
+                    <i class="feather icon-clock me-1"></i><%= time_ago_in_words(n.created_at) %> atrás
+                  </small>
+                  <p class="mb-0 small text-muted"><%= truncate(n.body, length: 60) %></p>
+                </div>
+              <% end %>
+            </li>
+          <% end %>
         <% end %>
-      <% end %>
-      <% if read.any? %>
-        <li class="n-title mt-3">
-          <p class="text-muted small mb-1">ANTERIORES</p>
-        </li>
-        <% read.each do |n| %>
-          <li class="notification mb-2 rounded shadow-sm border bg-light">
-            <%= link_to notification_path(n), class: "text-reset text-decoration-none d-flex align-items-start p-2",data: { turbo: false } do %>
-              <%= image_tag(
+        <% if read.any? %>
+          <li class="n-title mt-3">
+            <p class="text-muted small mb-1">ANTERIORES</p>
+          </li>
+          <% read.each do |n| %>
+            <li class="notification mb-2 rounded shadow-sm border bg-light">
+              <%= link_to notification_path(n), class: "text-reset text-decoration-none d-flex align-items-start p-2",data: { turbo: false } do %>
+                <%= image_tag(
                     n.user&.user_profile&.profile_picture&.attached? ? url_for(n.user.user_profile.profile_picture) : asset_path("avatar.jpg"),
                     class: "rounded-circle me-2",
                     alt: "Foto de perfil",
@@ -67,26 +68,33 @@
                     style: "object-fit: cover; aspect-ratio: 1/1;",
                     loading: "lazy"
                   ) %>
-              <div>
-                <strong class="d-block"><%= n.title %></strong>
-                <small class="text-muted d-block mb-1">
-                  <i class="feather icon-clock me-1"></i><%= time_ago_in_words(n.created_at) %> atrás
-                </small>
-                <p class="mb-0 small text-muted"><%= truncate(n.body, length: 60) %></p>
-              </div>
-            <% end %>
+                <div>
+                  <strong class="d-block"><%= n.title %></strong>
+                  <small class="text-muted d-block mb-1">
+                    <i class="feather icon-clock me-1"></i><%= time_ago_in_words(n.created_at) %> atrás
+                  </small>
+                  <p class="mb-0 small text-muted"><%= truncate(n.body, length: 60) %></p>
+                </div>
+              <% end %>
+            </li>
+          <% end %>
+        <% end %>
+        <% if unread.empty? && read.empty? %>
+          <li class="text-center text-muted py-3">
+            <%= t("notifications.none", default: "No hay notificaciones.") %>
           </li>
         <% end %>
-      <% end %>
-      <% if unread.empty? && read.empty? %>
-        <li class="text-center text-muted py-3">
-          <%= t("notifications.none", default: "No hay notificaciones.") %>
-        </li>
-      <% end %>
-    </ul>
-    <!-- Pie del menú -->
-    <div class="noti-footer text-center border-top py-2">
-      <%= link_to t("notifications.view_all", default: "Ver todas"), notifications_path, class: "small text-muted" %>
+      </ul>
+      <!-- Pie del menú -->
+      <div class="noti-footer text-center border-top py-2">
+        <%= link_to t("notifications.view_all", default: "Ver todas"), notifications_path, class: "small text-muted" %>
+      </div>
     </div>
-  </div>
-</li>
+  </li>
+</ul>
+
+<style>
+  .notif{
+    list-style:none;
+  }
+</style>

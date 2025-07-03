@@ -1,10 +1,8 @@
 <% content_for :page_title, t("circus.admin.title", default: "Administración del Circo") %>
 <div class="card shadow mb-4">
-  <<%= render "circuses/shared/header", circus: @circus %>
-
-
+  <%= render "circuses/shared/header", circus: @circus %>
   <div class="card-body">
-    <div class="">
+    <div>
       <p>
         <strong><i class="fas fa-globe-americas me-1"></i> <%= t("circus.info.country", default: "Ubicación:") %></strong>
         <%= @circus.country.presence || t("circus.info.unknown", default: "No especificada") %>
@@ -20,20 +18,16 @@
       </p>
     </div>
     <div class="d-flex justify-content-end flex-wrap gap-2 mt-4">
-      <%# if current_user.circus_users.exists?(circus_id: @circus.id, role: "owner") %>
-      <%#= link_to edit_circus_path(@circus), class: "btn btn-outline-primary" do %>
-        <%#= t("circus.actions.edit", default: "Editar circo") %>
-        <%# end %>
-        <%# end %>
-        <%= link_to root_path, class: "btn btn-outline-secondary" do %>
-          🔙 <%= t("circus.actions.back", default: "Volver al Dashboard") %>
-        <% end %>
-      </div>
+      <%= link_to root_path, class: "btn btn-outline-secondary" do %>
+        🔙 <%= t("circus.actions.back", default: "Volver al Dashboard") %>
+      <% end %>
     </div>
   </div>
 </div>
-<%# <hr class="my-4"> %>
+<hr class="my-4">
 <div class="row">
   <%= render "shared/dashboard/main/new_locality" %>
+  <%= render "circuses/shared/payrolls_section", payrolls: @payrolls %>
   <%= render "shared/dashboard/main/workers" %>
 </div>
+<hr class="my-4">

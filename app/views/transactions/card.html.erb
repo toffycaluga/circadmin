@@ -8,7 +8,6 @@
       </h5>
       <%= link_to "Volver", request.referer || transactions_path, class: "btn btn-sm btn-outline-secondary" %>
     </div>
-
     <div class="card-body">
       <div class="row">
         <!-- Datos -->
@@ -21,24 +20,40 @@
             <p><strong>Descripción:</strong> <%= @transaction.description %></p>
           <% end %>
         </div>
-
-        <!-- Imagen del recibo -->
+        <!-- app/views/transactions/_receipt.html.erb -->
         <% if @transaction.transaction_type == "expense" && @transaction.receipt.attached? %>
           <div class="col-md-5 col-12 text-center">
             <h6 class="text-muted">Recibo adjunto:</h6>
-            <%= image_tag url_for(@transaction.receipt),
-                class: "img-fluid rounded shadow-sm mb-2",
-                style: "max-height: 400px;",
-          loading: "lazy" %>
+            <% blob = @transaction.receipt.blob %>
+            <% if blob.image? %>
+              <!-- Si es imagen la mostramos -->
+              <%= image_tag url_for(@transaction.receipt),
+            class: "img-fluid rounded shadow-sm mb-2",
+            style: "max-height: 400px;",
+            loading: "lazy" %>
+            <% elsif blob.content_type == "application/pdf" %>
+              <!-- Si es PDF lo embebemos, con fallback a enlace -->
+              <object data="<%= url_for(@transaction.receipt) %>"
+              type="application/pdf"
+              width="100%"
+              height="400">
+                <p>Tu navegador no soporta PDF embebido.  
+                  <%= link_to "Descargar el PDF", rails_blob_path(@transaction.receipt, disposition: "attachment") %>.</p>
+              </object>
+            <% else %>
+              <!-- Para otros tipos ofrecemos un enlace de descarga -->
+              <%= link_to blob.filename.to_s,
+                  rails_blob_path(@transaction.receipt, disposition: "attachment"),
+                  class: "btn btn-outline-primary" %>
+            <% end %>
           </div>
         <% end %>
       </div>
     </div>
-
     <% if current_user == @transaction.user %>
       <div class="card-footer bg-light text-end">
         <%= link_to "✏️ Editar", edit_transaction_path(@transaction), class: "btn btn-outline-primary btn-sm" %>
-        <%= link_to "🗑️ Eliminar", transaction_path(@transaction), method: :delete, data: { confirm: "¿Estás seguro?" }, class: "btn btn-outline-danger btn-sm" %>
+        <%= button_to "🗑️ Eliminar", transaction_path(@transaction), method: :delete, data: { confirm: "¿Estás seguro?" }, class: "btn btn-outline-danger btn-sm" %>
       </div>
     <% end %>
   </div>

@@ -31,6 +31,12 @@ Rails.application.routes.draw do
       patch :update_profile_picture
     end
   end
+
+  # config/routes.rb
+
+
+
+
   # config/routes.rb
   resources :localities do
     member do
@@ -51,9 +57,20 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :payrolls, only: [ :show ] do
+    resources :payroll_items, only: [ :create, :edit, :update, :destroy ]
+    patch :mark_as_paid,      on: :member
+    post  :register_expense,  on: :member
+    member do
+      get  :confirm_expense   # para abrir el modal
+      post :register_expense  # para crear la transacción
+    end
+  end
+
 
   # Circuses y administración
   resources :circuses do
+     resources :payrolls, only: [ :new, :create ]
     member do
       patch :toggle_status
       get :admin

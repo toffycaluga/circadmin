@@ -1,0 +1,22 @@
+<% payroll.payroll_items.order(:created_at).each do |item| %>
+  <tr id="<%= dom_id(item) %>">
+    <td><%= item.name %></td>
+    <td><%= item.role %></td>
+    <td class="text-end">
+      <%= number_to_currency(item.amount, unit: currency_symbol(payroll.circus.currency), delimiter: '.', separator: ',', precision: item.amount.to_f.modulo(1).zero? ? 0 : 2) %>
+    </td>
+    <td><%= item.notes %></td>
+    <td class="text-end">
+      <div class="d-flex justify-content-around">
+        <%= link_to "✏️", edit_payroll_payroll_item_path(payroll, item), data: { turbo_frame: "payroll_item_modal" }, class: "btn btn-sm btn-outline-secondary" %>
+        <%= button_to payroll_payroll_item_path(payroll, item), method: :delete, data: { turbo_confirm: "¿Eliminar ítem?" }, class: "btn btn-sm btn-outline-danger" do %>❌<% end %>
+      </div>
+    </td>
+  </tr>
+<% end %>
+
+<tr id="<%= payroll_item.persisted? ? dom_id(payroll_item) : "new_payroll_item" %>">
+  <td colspan="5">
+    <%= render partial: 'payroll_items/form_inline', locals: { payroll: payroll, payroll_item: payroll_item } %>
+  </td>
+</tr>

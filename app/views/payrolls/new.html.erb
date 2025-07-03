@@ -1,0 +1,10 @@
+<% content_for :title, t("payrolls.new.title", default: "Nueva planilla") %>
+
+<div class="card shadow">
+  <div class="card-header bg-dark text-white">
+    <h4><%= t("payrolls.new.heading", default: "Crear nueva planilla") %></h4>
+  </div>
+  <div class="card-body">
+    <%= render "form", payroll: @payroll %>
+  </div>
+</div>

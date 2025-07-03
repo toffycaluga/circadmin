@@ -1,0 +1,26 @@
+es:
+  payrolls:
+    section:
+      title: "🧾 Planillas registradas"
+      count: "%{count} planilla(s)"
+      view: "📋 Ver planilla"
+      none: "No hay planillas registradas aún."
+      create: "📝 Crear nueva planilla"
+    status:
+      paid: "Pagada"
+      unpaid: "Pendiente"
+    actions:
+      back: "🔙 Volver al circo"
+      register_expense: "💸 Registrar como gasto"
+    confirm:
+      register: "¿Registrar esta planilla como gasto?"
+    status:
+      already_registered: "Gasto ya registrado"
+    total: "Total planilla:"
+    card:
+      header: "🧾 Nómina de %{period}"
+      total_hidden: "Total %{amount}"
+      view: "Ver nómina"
+      view_aria: "Ver detalle de la nómina"
+      none: "No hay nómina registrada aún."
+      create: "📝 Crear nómina"

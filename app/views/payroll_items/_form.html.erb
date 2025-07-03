@@ -1,0 +1,28 @@
+<%# app/views/payroll_items/_form.html.erb %>
+<tr id="<%= payroll_item.persisted? ? dom_id(payroll_item) : "new_payroll_item" %>">
+  <td><%= form_with model: [payroll, payroll_item],
+                    local: false,
+                    data: { turbo_frame: "payroll-form" } do |f| %>
+    <div class="input-group">
+      <%= f.text_field :name,
+                       placeholder: t("payroll_items.form.name", default: "Nombre"),
+                       class: "form-control" %>
+      <%= f.text_field :role,
+                       placeholder: t("payroll_items.form.role", default: "Cargo"),
+                       class: "form-control" %>
+      <%= f.number_field :amount,
+                         placeholder: t("payroll_items.form.amount", default: "Monto"),
+                         class: "form-control",
+                         step: 0.01 %>
+      <%= f.text_field :notes,
+                       placeholder: t("payroll_items.form.notes", default: "Notas"),
+                       class: "form-control" %>
+      <%= f.submit(
+            payroll_item.persisted? ?
+              t("payroll_items.form.update", default: "Actualizar") :
+              t("payroll_items.form.add", default: "Agregar"),
+            class: "btn btn-success"
+          ) %>
+    </div>
+  <% end %>
+</tr>

@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "modal" do %>
+  <%= render partial: "payroll_items/modal",
+             locals: { payroll: @payroll, payroll_item: @payroll_item } %>
+<% end %>
