@@ -5,13 +5,22 @@ class PayrollsController < ApplicationController
   layout "dashboard"
 
   # ✅ Muestra la vista para agregar ítems a la planilla existente
-  def show
-    # Ámbito de la planilla
-    @payroll_items = @payroll.payroll_items.order(:created_at)
-    # Para el form inline al pie de la tabla
-    @payroll_item  = @payroll.payroll_items.new
-  end
 
+  def show
+    @payroll_items = @payroll.payroll_items.order(:created_at)
+    @payroll_item  = @payroll.payroll_items.new
+
+    respond_to do |format|
+      format.html  # render show.html.erb
+      format.pdf do
+        pdf = PayrollPdf.new(@payroll)
+        send_data pdf.render,
+                  filename:    "planilla_#{@payroll.id}.pdf",
+                  type:        "application/pdf",
+                  disposition: "inline"
+      end
+    end
+  end
   # ✅ Crea una planilla para el circo actual (solo si no existe ya una)
   def create
     existing = @circus.payrolls.first

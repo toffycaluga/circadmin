@@ -2,6 +2,9 @@
   <h1 class="mb-4">
     <%= t('payrolls.show.title', default: '🧾 Detalle de Nómina') %>
   </h1>
+  <%= link_to "Exportar a PDF", payroll_path(@payroll, format: :pdf),
+            class: "btn btn-outline-secondary mb-3", target: "_blank" %>
+
 </div>
 <div class="card mb-4">
   <div class="card-body p-0">
