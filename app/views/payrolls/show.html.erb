@@ -2,9 +2,16 @@
   <h1 class="mb-4">
     <%= t('payrolls.show.title', default: '🧾 Detalle de Nómina') %>
   </h1>
-  <%= link_to "Exportar a PDF", payroll_path(@payroll, format: :pdf),
-            class: "btn btn-outline-secondary mb-3", target: "_blank" %>
-
+  <div class="d-flex justify-content-end mb-3">
+    <%= link_to "Registrar gasto",
+              confirm_expense_payroll_path(@payroll),
+              data: { turbo_frame: "modal_frame" },
+              class: "btn btn-warning me-2" %>
+    <%= link_to "Exportar a PDF",
+              payroll_path(@payroll, format: :pdf),
+              class: "btn btn-outline-secondary",
+              target: "_blank" %>
+  </div>
 </div>
 <div class="card mb-4">
   <div class="card-body p-0">
@@ -18,13 +25,11 @@
           <th></th>
         </tr>
       </thead>
-
       <!-- Aquí: el único tbody donde inyectaremos las filas -->
       <tbody id="payroll-items">
         <%= render partial: 'payrolls/rows',
                    locals: { payroll: @payroll, payroll_item: @payroll_item } %>
       </tbody>
-
       <tfoot>
         <tr>
           <td colspan="2"></td>
@@ -37,11 +42,13 @@
     </table>
   </div>
 </div>
-
 <%= turbo_frame_tag "payroll_item_modal",
                     data: { 
                       controller: "modal",
                       action:"click->modal#close"
                     } do %>
   <!-- modal inyectado aquí -->
+<% end %>
+<%= turbo_frame_tag "modal_frame", data: { controller: "modal" } do %>
+  <!-- aquí se inyecta el partial _confirm_expense.html.erb -->
 <% end %>

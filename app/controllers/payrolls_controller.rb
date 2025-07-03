@@ -1,17 +1,17 @@
+# app/controllers/payrolls_controller.rb
 class PayrollsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_circus, only: [ :new, :create ]
-  before_action :set_payroll, only: [ :show, :mark_as_paid, :register_expense ]
+  before_action :set_payroll, only: [ :show, :confirm_expense, :register_expense, :mark_as_paid ]
   layout "dashboard"
 
-  # ✅ Muestra la vista para agregar ítems a la planilla existente
-
+  # GET /payrolls/:id
   def show
     @payroll_items = @payroll.payroll_items.order(:created_at)
     @payroll_item  = @payroll.payroll_items.new
 
     respond_to do |format|
-      format.html  # render show.html.erb
+      format.html
       format.pdf do
         pdf = PayrollPdf.new(@payroll)
         send_data pdf.render,
@@ -21,66 +21,93 @@ class PayrollsController < ApplicationController
       end
     end
   end
-  # ✅ Crea una planilla para el circo actual (solo si no existe ya una)
-  def create
-    existing = @circus.payrolls.first
 
-    if existing
-      redirect_to payroll_path(existing), alert: "Ya existe una planilla para este circo"
+  # POST /circuses/:circus_id/payrolls
+  def create
+    if @circus.payrolls.exists?
+      redirect_to payroll_path(@circus.payrolls.first),
+                  alert: "Ya existe una planilla para este circo"
     else
       @payroll = @circus.payrolls.create!(title: "Planilla", date: Date.today)
-      redirect_to payroll_path(@payroll), notice: "Planilla creada. Ahora puedes agregar ítems."
+      redirect_to payroll_path(@payroll),
+                  notice: "Planilla creada. Ahora puedes agregar ítems."
     end
   end
 
-  # 🧾 Vista para eventualmente soportar más lógica previa al crear (opcional en este flujo)
+  # GET /payrolls/new
   def new
-    @payroll = Payroll.new(
-      circus_id: @circus.id,
-      date: Date.today
-    )
+    @payroll = Payroll.new(circus: @circus, date: Date.today)
   end
 
-  # 💸 Registra el gasto asociado a la planilla como transacción (cuando se marca como realizada)
-  def register_expense
-    transaction = Transaction.create!(
+  # GET /payrolls/:id/confirm_expense
+  def confirm_expense
+    # Cargamos las localidades activas del circo sin asumir la asociación
+    @localities = Locality.where(circus_id: @payroll.circus_id, active: true)
+
+    render turbo_stream: turbo_stream.update(
+      "modal_frame",
+      partial:  "payrolls/confirm_expense",
+      locals:   { payroll: @payroll, localities: @localities }
+    )
+  end
+# POST /payrolls/:id/register_expense
+def register_expense
+  @payroll     = Payroll.find(params[:id])
+  expense_date = params[:date].presence || Date.today
+  locality     = Locality.where(circus_id: @payroll.circus_id, active: true)
+                         .find(params[:locality_id])
+
+  begin
+    tx = Transaction.create!(
       title:            @payroll.title,
       amount:           @payroll.total_amount,
       transaction_type: "expense",
       category:         "payroll",
-      date:             Date.today,
+      date:             expense_date,
       circus:           @payroll.circus,
       user:             current_user,
-      locality:         current_user.current_locality
+      locality:         locality,
+      payroll:          @payroll
     )
-    redirect_to transaction_path(transaction),
-      notice: t("payrolls.notice.registered_as_expense", default: "✅ Gasto registrado exitosamente")
+    tx.receipt.attach(
+      io:           StringIO.new(PayrollPdf.new(@payroll).render),
+      filename:     "nomina_#{@payroll.circus.name}_#{expense_date}.pdf",
+      content_type: "application/pdf"
+    )
+    flash[:notice] = "Gasto registrado correctamente."
+  rescue => e
+    flash[:alert] = "No se pudo registrar el gasto: #{e.message}"
   end
 
+  respond_to do |format|
+    # 🚀 turbo_stream envía un 303 See Other para forzar full-page visit
+    format.turbo_stream { head :see_other, location: admin_circus_path(@payroll.circus) }
+    # Fallback HTML (para navegadores sin Turbo)
+    format.html          { redirect_to admin_circus_path(@payroll.circus) }
+  end
+end
 
-  # ☑️ Marca una planilla como pagada (si estás usando este campo)
+
+  # POST /payrolls/:id/mark_as_paid
   def mark_as_paid
-    @payroll.update(paid: true)
-    redirect_to payroll_path(@payroll), notice: t("payrolls.status.marked_paid", default: "Planilla marcada como pagada")
+    @payroll.update!(paid: true)
+    redirect_to payroll_path(@payroll),
+                notice: "Planilla marcada como pagada"
   end
 
   private
 
-  # 🔐 Asegura que el circo pertenezca al usuario actual
   def set_circus
-    @circus = current_user.circuses.find(
-      params[:circus_id] || params.dig(:payroll, :circus_id)
+    @circus = current_user.circuses.find(params[:circus_id] || params.dig(:payroll, :circus_id))
+  end
+
+  def set_payroll
+    @payroll = Payroll.find_by!(
+      id:         params[:id],
+      circus_id:  current_user.circus_ids
     )
   end
 
-  # 🔐 Carga solo planillas del usuario actual (evita acceso cruzado por ID)
-  def set_payroll
-    @payroll = Payroll.find_by!(
-      id: params[:id],
-      circus_id: current_user.circus_ids
-    )
-  end
-  # 📦 Permite los parámetros esperados si se usa `form_with`
   def payroll_params
     params.require(:payroll).permit(:title, :date, :circus_id)
   end
