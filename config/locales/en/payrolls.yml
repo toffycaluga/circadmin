@@ -1,0 +1,11 @@
+es:
+  payrolls:
+    section:
+      title: "🧾 Planillas registradas"
+      count: "%{count} planilla(s)"
+      view: "📋 Ver planilla"
+      none: "No hay planillas registradas aún."
+      create: "📝 Crear nueva planilla"
+    status:
+      paid: "Pagada"
+      unpaid: "Pendiente"

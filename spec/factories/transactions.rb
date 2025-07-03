@@ -14,11 +14,13 @@
 #  updated_at       :datetime         not null
 #  category         :string
 #  locality_id      :integer          not null
+#  payroll_id       :integer
 #
 # Indexes
 #
 #  index_transactions_on_circus_id    (circus_id)
 #  index_transactions_on_locality_id  (locality_id)
+#  index_transactions_on_payroll_id   (payroll_id)
 #  index_transactions_on_user_id      (user_id)
 #
 

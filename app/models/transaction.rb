@@ -14,11 +14,13 @@
 #  updated_at       :datetime         not null
 #  category         :string
 #  locality_id      :integer          not null
+#  payroll_id       :integer
 #
 # Indexes
 #
 #  index_transactions_on_circus_id    (circus_id)
 #  index_transactions_on_locality_id  (locality_id)
+#  index_transactions_on_payroll_id   (payroll_id)
 #  index_transactions_on_user_id      (user_id)
 #
 
@@ -28,6 +30,8 @@ class Transaction < ApplicationRecord
   belongs_to :locality
 
   has_one_attached :receipt
+  belongs_to :payroll, optional: true        # ahora sí existe la FK payroll_id
+  validates  :title, :amount, :transaction_type, :date, presence: true
 
   scope :incomes, -> { where(transaction_type: "income") }
   scope :expenses, -> { where(transaction_type: "expense") }

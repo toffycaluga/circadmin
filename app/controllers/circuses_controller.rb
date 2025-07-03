@@ -63,6 +63,9 @@ class CircusesController < ApplicationController
     @circus = Circus.find(params[:id])
     session[:circus_id] = @circus.id
     authorize! :admin, @circus
+    @payrolls = @circus.payrolls.includes(:payroll_transaction).order(date: :desc)
+
+
 
     current_cu = current_user.circus_users.find_by(circus: @circus)
 
