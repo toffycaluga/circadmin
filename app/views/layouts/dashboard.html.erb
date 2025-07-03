@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Circadmin" %></title>
+    <title><%= content_for(:title) || "CircAdmin" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -10,38 +13,32 @@
 
     <%= yield :head %>
 
-    <%# PWA manifest (opcional) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Estilos %>
-    <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css", rel: "stylesheet", crossorigin: "anonymous" %>
+    <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css", crossorigin: "anonymous" %>
     <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
-
   </head>
 
-  <body >
-    <%# Loader y navegación %>
+  <body>
     <%= render 'shared/dashboard/pre_loader' %>
-    <%= render 'shared/dashboard/navigation_menu' %>
-    <%= render 'shared/dashboard/template_header' %>
 
-    <main class="pcoded-main-container">
-      <div class="pcoded-content">
-        <%= render "shared/dashboard/main/page_header" %>
-        <div class="row">
-          <%= render 'shared/alert' %>
-          <%= yield %>
+    <!-- ********* AQUÍ ENVOLVEMOS HEADER + NAV EN EL MISMO CONTROLLER ********* -->
+    <div data-controller="navigation">
+      <%= render 'shared/dashboard/navigation_menu' %>
+      <%= render 'shared/dashboard/template_header' %>
+
+      <main class="pcoded-main-container">
+        <div class="pcoded-content">
+          <%= render "shared/dashboard/main/page_header" %>
+          <div class="row">
+            <%= render 'shared/alert' %>
+            <%= yield %>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
+    <!-- ******************************************************************* -->
 
     <%= render 'shared/footer' %>
-        <%# Carga de módulos ES via Importmap %>
     <%= javascript_importmap_tags %>
-
   </body>
 </html>
