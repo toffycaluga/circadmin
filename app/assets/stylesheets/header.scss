@@ -1,0 +1,29 @@
+/* app/assets/stylesheets/header.scss */
+
+/* tamaño del logo */
+.logo {
+  width: 32px;
+  height: auto;
+}
+
+/* override del float/posicionamiento del toggle dentro del header de PCoded */
+.pcoded-header .mobile-menu,
+.pcoded-header .navbar-toggler {
+  float: left !important;
+  position: relative !important;
+  margin-right: 1rem;
+}
+
+/* en móvil, fuerza espacio entre botones y marca */
+@media (max-width: 991.98px) {
+  .d-flex.d-lg-none {
+    justify-content: space-between !important;
+  }
+  .b-brand {
+    z-index: 1;
+  }
+  .mobile-menu,
+  .dropdown {
+    z-index: 2;
+  }
+}

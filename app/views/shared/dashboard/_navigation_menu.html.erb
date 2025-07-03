@@ -1,14 +1,34 @@
-<!-- [ navigation menu ] start -->
-
-<nav class="pcoded-navbar menu-light ">
-	<div class="navbar-wrapper  ">
-		<div class="navbar-content scroll-div ">			
-			<%= render 'shared/dashboard/template_nav_menu/header'%>
-			<%= render 'shared/dashboard/template_nav_menu/inner_nav' %>
-		
-		</div>
-	</div>
+<nav class="pcoded-navbar menu-light collapsed">
+  <div class="sidenav-inner">
+    <div class="navbar-wrapper">
+      <div class="navbar-content scroll-div">
+        <%= render 'shared/dashboard/template_nav_menu/header' %>
+        <%= render 'shared/dashboard/template_nav_menu/inner_nav' %>
+      </div>
+    </div>
+  </div>
 </nav>
-	<!-- [ navigation menu ] end -->
 
 
+<style>
+	/* por ejemplo en app/assets/stylesheets/side_nav.scss */
+	.pcoded-navbar {
+	width: 240px;
+	transition: transform .3s ease;
+	transform: translateX(230px);
+	}
+
+	/* cuando tenga .collapsed lo empuja fuera */
+	.pcoded-navbar.collapsed {
+	transform: translateX(-260px);
+	}
+
+	/* siempre visible en desktop */
+	@media (min-width: 992px) {
+	.pcoded-navbar {
+		transform: translateX(0) !important;
+	}
+	}
+
+
+</style>

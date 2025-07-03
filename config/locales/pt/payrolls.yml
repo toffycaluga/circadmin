@@ -1,0 +1,11 @@
+pt:
+  payrolls:
+    section:
+      title: "🧾 Folhas de pagamento registradas"
+      count: "%{count} folha(s)"
+      view: "📋 Ver folha"
+      none: "Ainda não há folhas registradas."
+      create: "📝 Criar nova folha"
+    status:
+      paid: "Paga"
+      unpaid: "Pendente"

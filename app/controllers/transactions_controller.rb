@@ -167,10 +167,16 @@ class TransactionsController < ApplicationController
     end
   end
 
+  # in TransactionsController
   def destroy
     @transaction.destroy!
-    redirect_to transactions_path, status: :see_other, notice: "Transacción eliminada correctamente."
+    flash[:notice] = "Transacción eliminada correctamente."
+
+    # Tomo la tercera entry: [0]=destroy URL, [1]=show URL, [2]=la página anterior real
+    previous = session[:history][1] || transactions_path
+    redirect_to previous, status: :see_other
   end
+
 
   def card
     @transaction = Transaction.find(params[:id])

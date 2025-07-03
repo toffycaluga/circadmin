@@ -1,0 +1,10 @@
+.has-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple {
+  position: absolute;
+  transform: scale(0);
+  pointer-events: none;
+}
