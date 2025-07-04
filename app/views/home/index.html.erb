@@ -1,15 +1,37 @@
 
 
+<%= render "home/hero",
+    title:              t("hero.title", default: "Bienvenido a CircAdmin"),
+    subtitle:           t("hero.subtitle", default: "Administra tu circo sin límites con nuestra plataforma todo en uno.")
+%>
+
+<%= render "home/features"%>
 
 
-<div class="d-flex flex-column justify-content-center align-items-center bg-light text-center">
-  <h1 class="display-4 mb-4"><%= t("home.welcome") %></h1>
-  <p class="lead mb-4"><%= t("home.subtitle")%></p>
-  <% if user_signed_in? %>
-  <p><%= t("home.greeting", email: current_user.email) %></p>
-  <%= button_to t("devise.logout"), destroy_user_session_path, class: "btn btn-primary btn-lg", method: :delete %>
-<% else %>
-  <%= link_to t("devise.login"), new_user_session_path, class: "btn btn-primary btn-lg" %> 
-  <%= link_to t("devise.register"), new_user_registration_path %>
-<% end %>
-</div>
+<%= render "home/pricing",
+    title: "Unlimited for all",
+    subtitle: "Administra tu circo sin límites: finanzas, boletos, usuarios y más",
+    price: 100,
+    frequency: "month",
+    features_title: "Qué incluye",
+    features: [
+      "Gestión de transacciones diarias",
+      "Informes semanales y mensuales",
+      "Control de usuarios y roles",
+      "Exportación a PDF/Excel",
+      "Múltiples circos en una sola cuenta"
+    ],
+    cta_text: "Pre order now"
+    
+%>
+
+      <%= render "home/stats", stats: @stats %>
+
+<%= render "home/cta",
+    title:     t("cta.title", default: "¿Aún no estás convencido?"),
+    cta_text:  t("cta.button", default: "Contáctanos"),
+    cta_email: "info@cirxoft.com"
+%>
+
+
+<%# cta_path: new_subscription_path %>

@@ -1,0 +1,20 @@
+<!-- app/views/shared/_stats.html.erb -->
+<section class="stats section">
+  <div class="container">
+    <div class="stats-inner section-inner has-bottom-divider">
+      <div class="stats-wrap">
+        <% stats.each do |stat| %>
+          <div class="stat text-center">
+            <div class="stat-inner">
+              <div class="stat-icon" style="font-size: 2rem;">
+                <%= stat[:emoji] %>
+              </div>
+              <h4 class="stat-title mt-24"><%= stat[:value] %>+</h4>
+              <p class="text-sm mb-0"><%= stat[:label] %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
