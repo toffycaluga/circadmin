@@ -1,0 +1,27 @@
+<section class="features section">
+  <div class="container">
+    <div class="features-inner section-inner has-bottom-divider">
+      <div class="features-wrap">
+        <% features = [
+          { emoji: "💰", title: "Gestión Financiera en Tiempo Real", description: "Visualiza ingresos y egresos al instante, por localidad o fecha, con filtros avanzados." },
+          { emoji: "📊", title: "Informes Personalizados",             description: "Genera reportes semanales, mensuales o anuales en PDF/Excel." },
+          { emoji: "🔒", title: "Multiusuario y Roles",               description: "Crea usuarios con permisos granulares según su rol." },
+          { emoji: "📅", title: "Planificación de Eventos",           description: "Programa funciones y asigna artistas y plazas fácilmente." },
+          { emoji: "🧾", title: "Exportación y Archivado",            description: "Descarga historiales completos y guárdalos en la nube." },
+          { emoji: "🔔", title: "Notificaciones y Alertas",           description: "Recibe avisos automáticos sobre ventas y facturas." }
+        ] %>
+        <% features.each do |f| %>
+          <div class="feature text-center ">
+            <div class="feature-inner">
+              <div class="feature-icon" style="font-size:2rem;">
+                <%= f[:emoji] %>
+              </div>
+              <h4 class="feature-title mt-24"><%= f[:title] %></h4>
+              <p class="text-sm mb-0"><%= f[:description] %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,14 @@
+<section class="cta section">
+  <div class="container">
+    <div class="cta-inner section-inner">
+      <h3 class="section-title mt-0"><%= title %></h3>
+      <div class="cta-cta">
+        <% if defined?(cta_email) && cta_email.present? %>
+          <%= mail_to cta_email, cta_text, class: "button button-primary button-wide-mobile" %>
+        <% else %>
+          <%= link_to cta_text, cta_path, class: "button button-primary button-wide-mobile" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

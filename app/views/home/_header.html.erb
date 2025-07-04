@@ -1,0 +1,27 @@
+<header class="site-header">
+  <div class="container">
+    <div class="site-header-inner">
+      <div class="brand header-brand">
+        <h1 class="m-0">
+          <%= link_to root_path do %>
+            <%= image_tag logo_path, alt: alt_text, class: "header-logo-image" %>
+          <% end %>
+        </h1>
+      </div>
+      <%# <nav class="header-links"> %>
+        <%# <ul class="list-reset"> %>
+          <%# <li>= link_to "Inicio", root_path</li> %>
+     
+          <%# <li>= link_to "Precios", pricing_path</li> %>
+          <%# <li>= link_to "Contacto", contact_path</li> %>
+        <%# </ul> %>
+      <%# </nav> %>
+    </div>
+  </div>
+</header>
+<style>
+  .header-logo-image {
+    height: 2.5rem;   // unos 40px si tu font-size base es 16px
+    width: auto;
+  }
+</style>
