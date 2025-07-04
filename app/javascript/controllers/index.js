@@ -50,3 +50,7 @@ import TodoController from "./todo_controller"
 application.register("todo", TodoController)
 
 
+import AnimationController from "./animation_controller"
+application.register("animation", AnimationController)
+
+
