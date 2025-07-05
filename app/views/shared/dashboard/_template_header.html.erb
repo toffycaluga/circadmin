@@ -31,13 +31,25 @@
              aria-expanded="false">
             <i class="feather icon-more-vertical"></i>
           </a>
-          <ul class="dropdown-menu dropdown-menu-end"
+          <ul class="dropdown-menu dropdown-menu-end language-selector d-flex justify-content-center"
               aria-labelledby="mobileLangDropdown">
             <%= render 'shared/language_selector' %>
           </ul>
         </div>
       </div>
     </div>
+    
+<style>
+   @media (max-width: 575.98px) {
+    /* aquí van estilos para la mayoría de smartphones */
+     .language-selector {
+      transform: translateX(-250px) !important;
+      backgroung: rgba(0,0,0,0.5) !important!;
+
+    }
+  }
+</style>
+
 
     <!-- ===== DESKTOP HEADER ===== -->
     <div class="d-none d-lg-flex align-items-center justify-content-between w-100 px-3">
