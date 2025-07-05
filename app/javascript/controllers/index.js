@@ -54,3 +54,7 @@ import AnimationController from "./animation_controller"
 application.register("animation", AnimationController)
 
 
+import MenuController from "./menu_controller"
+application.register("menu", MenuController)
+
+

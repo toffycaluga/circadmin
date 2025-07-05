@@ -1,6 +1,6 @@
 <!-- Ítem de notificaciones en la barra de navegación -->
 <ul class="notif">
-  <li class="nav-item dropdown">
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle position-relative text-white" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
       <i class="feather icon-bell"></i>
       <% if @unread_notifications_count.to_i > 0 %>
@@ -9,7 +9,7 @@
         </span>
       <% end %>
     </a>
-    <div class="dropdown-menu dropdown-menu-end notification shadow" aria-labelledby="notificationDropdown" style="max-height: 400px; overflow-y: auto; width: 350px;">
+    <div class="dropdown-menu dropdown-menu-end notification shadow notification-box" aria-labelledby="notificationDropdown" style="max-height: 400px; overflow-y: auto; width: 350px;">
       <!-- Cabecera del menú -->
       <div class="noti-head d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
         <h6 class="mb-0 fw-bold">Notificaciones</h6>
@@ -96,5 +96,11 @@
 <style>
   .notif{
     list-style:none;
+  }
+   @media (max-width: 575.98px) {
+    /* aquí van estilos para la mayoría de smartphones */
+     .notification-box {
+      transform: translateX(-250px) !important;
+    }
   }
 </style>
