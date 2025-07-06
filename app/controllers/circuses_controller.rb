@@ -3,6 +3,8 @@ class CircusesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_circus, only: %i[ show edit update destroy admin ]
   before_action :check_user_is_active_in_circus, only: [ :show, :admin ]
+  before_action :ensure_billing_up_to_date, only: [:new, :create]
+
 
   def check_user_is_active_in_circus
     unless current_user.circus_users.find_by(circus_id: params[:id])&.active?
@@ -126,4 +128,13 @@ class CircusesController < ApplicationController
   def circus_params
     params.require(:circus).permit(:name, :description, :country, :currency, :active, :logo)
   end
+
+  def ensure_billing_up_to_date
+    sub = current_user.stripe_subscription_id && Stripe::Subscription.retrieve(current_user.stripe_subscription_id)
+    paid_qty = sub&.items&.data&.first&.quantity.to_i
+    if current_user.circus_count + 1 > paid_qty
+      redirect_to new_subscription_path, alert: 'Debes actualizar tu suscripción antes de crear otro circo.'
+    end
+  end
+
 end
