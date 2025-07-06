@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
   # config/routes.rb
 
+  post "/webhooks/stripe", to: "stripe_webhooks#create"
 
 
 
