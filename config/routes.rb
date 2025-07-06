@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
   post "/webhooks/stripe", to: "stripe_webhooks#create"
 
+  resources :subscriptions, only: [ :new, :create ]
 
 
   # config/routes.rb
