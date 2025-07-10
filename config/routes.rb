@@ -35,6 +35,10 @@ Rails.application.routes.draw do
   # config/routes.rb
 
   post "/webhooks/stripe", to: "stripe_webhooks#create"
+  # config/routes.rb
+  get "circuses/check_limit", to: "circuses#check_limit"
+  get "/subscriptions/check_availability", to: "subscriptions#check_availability"
+
 
   resources :subscriptions, only: [ :new, :create ]
 

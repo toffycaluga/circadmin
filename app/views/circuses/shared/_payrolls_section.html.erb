@@ -27,9 +27,13 @@
 
         <div>
           <%= link_to t('payrolls.card.view', default: 'Ver nómina'),
-                      payroll_path(payroll),
-                      class: 'btn btn-outline-light',
-                      aria: { label: t('payrolls.card.view_aria', default: 'Ver detalle de la nómina') } %>
+            payroll_path(payroll),
+            class: 'btn btn-outline-light',
+            aria: { label: t('payrolls.card.view_aria', default: 'Ver detalle de la nómina') },
+            data: {
+              action: 'click->subscription-check#check'
+            } %>
+
         </div>
       </div>
     </div>

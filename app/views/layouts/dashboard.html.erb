@@ -22,7 +22,7 @@
     <%= render 'shared/dashboard/pre_loader' %>
 
     <!-- ********* AQUÍ ENVOLVEMOS HEADER + NAV EN EL MISMO CONTROLLER ********* -->
-    <div data-controller="navigation">
+    <div data-controller="navigation subscription-check">
       <%= render 'shared/dashboard/navigation_menu' %>
       <%= render 'shared/dashboard/template_header' %>
 
@@ -32,6 +32,9 @@
           <div class="row">
             <%= render 'shared/alert' %>
             <%= yield %>
+            <%= render 'subscriptions/billing_modal' %>
+            <%= render "shared/subscription_modal" %>
+
           </div>
         </div>
       </main>

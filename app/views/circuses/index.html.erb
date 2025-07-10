@@ -47,7 +47,7 @@
   <div class="d-flex justify-content-center text-center flex-column align-items-center w-100">
     <p class="fw-bold fs-4"><%= t("circuses.add_new", default: "Agregar nuevo circo") %></p>
     <div class="card d-flex rounded-circle" style="width: 80px;">
-      <%= link_to new_circus_path, class: "btn btn-outline-primary p-3 fs-4 rounded-circle" do %>
+      <%= link_to new_circus_path,data: { action: "billing#check" }, class: "btn btn-outline-primary p-3 fs-4 rounded-circle"  do %>
         <i class="feather icon-plus"></i>
       <% end %>
     </div>

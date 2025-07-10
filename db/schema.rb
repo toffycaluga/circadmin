@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_25_164414) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_06_160743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -220,6 +220,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_25_164414) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
+    t.string "stripe_customer_id"
+    t.string "stripe_subscription_id"
+    t.boolean "had_trial", default: false, null: false
+    t.integer "circuses_count", default: 0, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

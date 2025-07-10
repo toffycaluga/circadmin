@@ -8,13 +8,23 @@
     <td><%= item.notes %></td>
     <td class="text-end">
       <div class="d-flex justify-content-around">
-        <%= link_to "✏️", edit_payroll_payroll_item_path(payroll, item), data: { turbo_frame: "payroll_item_modal" }, class: "btn btn-sm btn-outline-secondary" %>
+        <%= button_to edit_payroll_payroll_item_path(payroll, item),
+              method: :get,
+              form: {
+                data: {
+                  turbo_frame: "payroll_item_modal",
+                  action: "click->modal#open"
+                },
+                class: "d-inline"  # para que el form no ocupe todo el ancho
+              },
+              class: "btn btn-sm btn-outline-secondary" do %>
+          ✏️
+        <% end %>
         <%= button_to payroll_payroll_item_path(payroll, item), method: :delete, data: { turbo_confirm: "¿Eliminar ítem?" }, class: "btn btn-sm btn-outline-danger" do %>❌<% end %>
       </div>
     </td>
   </tr>
 <% end %>
-
 <tr id="<%= payroll_item.persisted? ? dom_id(payroll_item) : "new_payroll_item" %>">
   <td colspan="5">
     <%= render partial: 'payroll_items/form_inline', locals: { payroll: payroll, payroll_item: payroll_item } %>

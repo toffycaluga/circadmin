@@ -4,6 +4,12 @@
 
 import { application } from "./application"
 
+import AnimationController from "./animation_controller"
+application.register("animation", AnimationController)
+
+import BillingController from "./billing_controller"
+application.register("billing", BillingController)
+
 import BootstrapController from "./bootstrap_controller"
 application.register("bootstrap", BootstrapController)
 
@@ -25,6 +31,9 @@ application.register("fullscreen", FullscreenController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import MenuController from "./menu_controller"
+application.register("menu", MenuController)
+
 import MobileController from "./mobile_controller"
 application.register("mobile", MobileController)
 
@@ -43,18 +52,11 @@ application.register("search", SearchController)
 import SideNavController from "./side_nav_controller"
 application.register("side-nav", SideNavController)
 
+import SubscriptionCheckController from "./subscription_check_controller"
+application.register("subscription-check", SubscriptionCheckController)
+
 import TagsController from "./tags_controller"
 application.register("tags", TagsController)
 
 import TodoController from "./todo_controller"
 application.register("todo", TodoController)
-
-
-import AnimationController from "./animation_controller"
-application.register("animation", AnimationController)
-
-
-import MenuController from "./menu_controller"
-application.register("menu", MenuController)
-
-

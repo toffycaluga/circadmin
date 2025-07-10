@@ -24,6 +24,10 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
+#  stripe_customer_id     :string
+#  stripe_subscription_id :string
+#  had_trial              :boolean          default("false"), not null
+#  circuses_count         :integer          default("0"), not null
 #
 # Indexes
 #
@@ -73,6 +77,11 @@ class User < ApplicationRecord
   # Circenses donde estoy asociado con un rol
   def associated_circuses
     circuses # from has_many :circuses, through: :circus_users
+  end
+
+  # Método reutilizable, testeable y fácil de mockear
+  def circus_count
+    circuses_count
   end
 
   private

@@ -18,9 +18,15 @@
           <%# botones de transaction  %>
           
           <%# boton egresos %>
-          <%= link_to t("transactions.actions.add_expense"), new_transaction_path(transaction_type: "expense", locality_id: locality.id), class: "btn btn-danger " %>
+          <%= link_to t("transactions.actions.add_expense"), new_transaction_path(transaction_type: "expense", locality_id: locality.id), class: "btn btn-danger ",
+          data: {
+                    action:     "click->subscription-check#check"
+            } %>
           <%#  boton ingresos %>
-          <%= link_to t("transactions.actions.add_income"), new_transaction_path(transaction_type: "income", locality_id: locality.id), class: "btn btn-success " %>
+          <%= link_to t("transactions.actions.add_income"), new_transaction_path(transaction_type: "income", locality_id: locality.id), class: "btn btn-success ",
+          data: {
+                    action:     "click->subscription-check#check"
+            } %>
         </div>
       <% end %>
       <div class="col mb-3 d-flex gap-2 col-md-4 col-sm-12">

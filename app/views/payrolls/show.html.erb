@@ -3,10 +3,18 @@
     <%= t('payrolls.show.title', default: '🧾 Detalle de Nómina') %>
   </h1>
   <div class="d-flex justify-content-end mb-3">
-    <%= link_to "Registrar gasto",
-              confirm_expense_payroll_path(@payroll),
-              data: { turbo_frame: "modal_frame" },
-              class: "btn btn-warning me-2" %>
+    <%= button_to confirm_expense_payroll_path(@payroll),
+              method: :get,
+              form: {
+                data: {
+                  turbo_frame: "modal_frame",
+                  action: "click->modal#open"
+                },
+                class: "d-inline"  # evita que el form ocupe todo el ancho
+              },
+              class: "btn btn-warning me-2" do %>
+      Registrar gasto
+    <% end %>
     <%= link_to "Exportar a PDF",
               payroll_path(@payroll, format: :pdf),
               class: "btn btn-outline-secondary",

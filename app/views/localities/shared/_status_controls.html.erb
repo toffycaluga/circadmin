@@ -4,7 +4,9 @@
   <% if locality.active? %>
     <%= button_to "🚫 #{t('localities.actions.close')}", deactivate_locality_path(locality), method: :patch, class: "btn btn-outline-danger", data: { confirm: t('localities.confirmations.close') } %>
   <% else %>
-    <%= button_to "✅ #{t('localities.actions.reopen')}", reactivate_locality_path(locality), method: :patch, class: "btn btn-outline-success", data: { confirm: t('localities.confirmations.reopen') } %>
+    <%= button_to "✅ #{t('localities.actions.reopen')}", reactivate_locality_path(locality), method: :patch, class: "btn btn-outline-success", data: { confirm: t('localities.confirmations.reopen'),
+     action:     "click->subscription-check#check" } %>
     <span class="badge badge-danger align-self-center"><%= t('localities.status.closed') %></span>
   <% end %>
 </div>
+
