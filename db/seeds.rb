@@ -23,3 +23,8 @@ if admin.new_record?
 else
   puts "ℹ️ Superadmin ya existe: #{admin.email}"
 end
+# db/seeds.rb
+
+# otros seeds…
+load Rails.root.join('db/seeds/plans.rb')
+# podrías luego hacer load Rails.root.join('db/seeds/otros_datos.rb')

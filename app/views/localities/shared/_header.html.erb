@@ -18,15 +18,23 @@
           <%# botones de transaction  %>
           
           <%# boton egresos %>
-          <%= link_to t("transactions.actions.add_expense"), new_transaction_path(transaction_type: "expense", locality_id: locality.id), class: "btn btn-danger ",
-          data: {
-                    action:     "click->subscription-check#check"
-            } %>
+          <%= link_to t("transactions.actions.add_expense"),
+            new_transaction_path(transaction_type: "expense", locality_id: locality.id),
+            class: "btn btn-danger",
+            data: { action: "subscription-check#check" } %>
+
+
           <%#  boton ingresos %>
-          <%= link_to t("transactions.actions.add_income"), new_transaction_path(transaction_type: "income", locality_id: locality.id), class: "btn btn-success ",
-          data: {
-                    action:     "click->subscription-check#check"
+          <%= link_to t("transactions.actions.add_income"),
+            new_transaction_path(transaction_type: "income", locality_id: locality.id),
+            class: "btn btn-success ",
+            data: {
+              controller:                        "subscription-check",
+              action:                            "click->subscription-check#check",
+              "subscription-check-circus-id-value": locality.circus_id # o @circus.id si lo tienes
             } %>
+
+          
         </div>
       <% end %>
       <div class="col mb-3 d-flex gap-2 col-md-4 col-sm-12">

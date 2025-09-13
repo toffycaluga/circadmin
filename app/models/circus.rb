@@ -2,15 +2,17 @@
 #
 # Table name: circuses
 #
-#  id          :integer          not null, primary key
-#  name        :string
-#  description :text
-#  country     :string
-#  currency    :string
-#  active      :boolean          default("true")
-#  user_id     :integer          not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id                 :integer          not null, primary key
+#  name               :string
+#  description        :text
+#  country            :string
+#  currency           :string
+#  active             :boolean          default("true")
+#  user_id            :integer          not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  stripe_customer_id :string
+#  had_trial          :boolean          default("false"), not null
 #
 # Indexes
 #
@@ -26,6 +28,8 @@ class Circus < ApplicationRecord
   has_many :localities, dependent: :destroy
   has_many :documents, dependent: :destroy
   has_many :payrolls
+  has_many :payment_methods, dependent: :destroy
+  has_many :subscriptions,     dependent: :destroy
 
 
   after_initialize :set_defaults, if: :new_record?

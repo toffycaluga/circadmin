@@ -1,0 +1,14 @@
+en:
+  plans:
+    basic:
+      name: "Basic"
+      features: "Accounting, document storage"
+    ticketing:
+      name: "Ticketing"
+      features: "Point-of-Sale for tickets"
+    concessions:
+      name: "Concessions"
+      features: "Point-of-Sale for snacks & drinks"
+    all_in_one:
+      name: "All-in-One"
+      features: "Accounting, documents, ticketing & concessions"

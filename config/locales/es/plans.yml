@@ -1,0 +1,14 @@
+es:
+  plans:
+    basic:
+      name: "Básico"
+      features: "Contabilidad básica, banco de documentos"
+    ticketing:
+      name: "Boletería"
+      features: "POS para venta de entradas"
+    concessions:
+      name: "Dulcería/Cafetería"
+      features: "POS para dulcería y cafetería"
+    all_in_one:
+      name: "All-in-One"
+      features: "Contabilidad, documentos, boletería y dulcería"

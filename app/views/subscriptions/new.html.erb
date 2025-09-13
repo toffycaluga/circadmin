@@ -1,26 +1,57 @@
-<h2>Suscríbete – US$100/mes por circo</h2>
-<form id="payment-form" action="<%= subscriptions_path %>" method="post">
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-  <div id="card-element"></div>
-  <button id="submit">Confirmar pago</button>
-</form>
-<script src="https://js.stripe.com/v3/"></script>
-<script>
-  const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
-  const elements = stripe.elements();
-  const card = elements.create('card');
-  card.mount('#card-element');
-  document.querySelector('#payment-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const {paymentMethod, error} = await stripe.createPaymentMethod('card', card);
-    if (error) { alert(error.message); }
-    else {
-      const hiddenInput = document.createElement('input');
-      hiddenInput.setAttribute('type', 'hidden');
-      hiddenInput.setAttribute('name', 'payment_method_id');
-      hiddenInput.setAttribute('value', paymentMethod.id);
-      e.target.appendChild(hiddenInput);
-      e.target.submit();
-    }
-  });
-</script>
+<%# Formulario de selección de plan y pago %>
+<%= form_with url: circus_subscription_path(@circus),
+              local: true,
+              id: "subscription-form",
+              data: {
+                controller:                   "subscription",
+                action:                       "submit->subscription#submit",
+                subscription_publishable_key: ENV["STRIPE_PUBLISHABLE_KEY"]
+              } do |f| %>
+  <h1 class="mb-4"><%= t('subscriptions.new.title') %></h1>
+  <%
+    basic = @plans.find { |p| p.key == 'basic' }
+    price = number_to_currency(basic.price_cents / 100.0, precision: 0)
+    days  = basic.trial_days
+  %>
+  <p class="lead mb-5">
+    <%= t('subscriptions.new.subtitle', days: days, price: price) %>
+  </p>
+
+  <div class="row mb-4"
+       data-subscription-target="plansContainer"
+       data-action="change->subscription#selectPlan">
+    <% @plans.each do |plan| %>
+      <div class="col-md-4 mb-4">
+        <%= render 'plan_card', plan: plan %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="payment-container"
+       class="card p-4 mt-4 d-none"
+       data-subscription-target="paymentContainer">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0">
+        <%= t('subscriptions.new.payment_for') %>
+        <span data-subscription-target="selectedName" class="fw-bold"></span>
+      </h5>
+      <button type="button"
+              class="btn-close"
+              aria-label="<%= t('subscriptions.new.close') %>"
+              data-action="subscription#closePayment"></button>
+    </div>
+
+    <div data-subscription-target="cardElement" class="form-control mb-3"></div>
+    <div data-subscription-target="errors" role="alert" class="text-danger mb-3"></div>
+
+    <%= f.hidden_field :plan_id,            data: { subscription_target: "planInput" } %>
+    <%= f.hidden_field :payment_method_id,  data: { subscription_target: "paymentInput" } %>
+
+    <button data-subscription-target="submitButton"
+            type="submit"
+            class="btn btn-primary w-100"
+            disabled>
+      <%= t('subscriptions.new.pay_now') %>
+    </button>
+  </div>
+<% end %>

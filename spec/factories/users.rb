@@ -24,7 +24,6 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
-#  stripe_customer_id     :string
 #  stripe_subscription_id :string
 #  had_trial              :boolean          default("false"), not null
 #  circuses_count         :integer          default("0"), not null

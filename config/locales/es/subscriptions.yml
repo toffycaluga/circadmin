@@ -1,0 +1,21 @@
+# config/locales/es.yml
+es:
+  subscriptions:
+    create:
+      error: "Error al crear la suscripción: %{error}"
+    pause:
+      success: "Suscripción pausada correctamente."
+      error: "Error al pausar la suscripción: %{error}"
+    resume:
+      success: "Suscripción reanudada correctamente."
+      error: "Error al reanudar la suscripción: %{error}"
+    check_availability:
+      subscription_needed:
+        title: "Suscripción necesaria"
+        body: "Debes elegir o actualizar tu plan antes de continuar."
+      limit_reached:
+        title: "Límite alcanzado"
+        body: "Ya tienes %{current} de %{allowed} elementos permitidos. Actualiza tu plan."
+      invalid_subscription:
+        title: "Suscripción inválida"
+        body: "No encontramos tu suscripción. Por favor elige un plan."

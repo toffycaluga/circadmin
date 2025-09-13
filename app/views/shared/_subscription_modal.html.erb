@@ -1,43 +1,26 @@
 <!-- app/views/shared/_subscription_modal.html.erb -->
-<div 
-  id="subscriptionModal" 
-  class="modal fade" 
-  tabindex="-1" 
+<div
+  id="subscriptionModal"
+  class="modal fade"
+  tabindex="-1"
   aria-hidden="true"
   data-subscription-check-target="modal"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 
-          class="modal-title" 
-          data-subscription-check-target="title"
-        ></h5>
-        <button 
-          type="button" 
-          class="btn-close" 
-          data-bs-dismiss="modal"
-        ></button>
+        <h5 class="modal-title" data-subscription-check-target="title"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      <div 
-        class="modal-body" 
-        data-subscription-check-target="body"
-      ></div>
+      <div class="modal-body" data-subscription-check-target="body"></div>
       <div class="modal-footer">
-        <a 
-          href="#" 
-          class="btn btn-primary" 
-          data-subscription-check-target="actionButton"
-        >
+        <a href="#" class="btn btn-primary" data-subscription-check-target="actionButton">
           Ir a suscripción
         </a>
-        <button 
-          type="button" 
-          class="btn btn-secondary" 
-          data-bs-dismiss="modal"
-        >
-          Cancelar
-        </button>
+
+        <%# <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> %>
+          <%# Cancelar %>
+        <%# </button> %>
       </div>
     </div>
   </div>

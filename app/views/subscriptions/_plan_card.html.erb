@@ -1,0 +1,36 @@
+<%# app/views/subscriptions/_plan_card.html.erb %>
+<label
+  class="card plan-card h-100 cursor-pointer"
+  data-plan-id="<%= plan.id %>"
+  data-plan-name="<%= t("plans.#{plan.key}.name") %>"
+  data-action="click->subscription#selectPlan"
+>
+  <div class="card-body d-flex flex-column">
+    <div class="form-check mb-3">
+      <%= radio_button_tag :plan_id, plan.id, false,
+            class: 'form-check-input', id: "plan_#{plan.key}" %>
+      <%= label_tag "plan_#{plan.key}", t("plans.#{plan.key}.name"),
+            class: 'form-check-label h5 mb-0' %>
+    </div>
+
+    <h3 class="card-title mb-2">
+      <%= number_to_currency(plan.price_cents / 100.0, precision: 0) %>
+      <small class="text-muted">/ <%= t('subscriptions.new.month') %></small>
+    </h3>
+
+    <% if plan.trial_days.positive? %>
+      <span class="badge bg-success mb-3">
+        <%= t('subscriptions.new.trial_days', count: plan.trial_days) %>
+      </span>
+    <% end %>
+
+    <ul class="list-unstyled mt-auto">
+      <% t("plans.#{plan.key}.features").split(',').each do |feat| %>
+        <li class="mb-2">
+          <i class="bi bi-check-circle-fill text-success me-2"></i>
+          <%= feat.strip %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</label>

@@ -15,7 +15,12 @@ pin "@popperjs/core", to: "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/di
 pin "perfect-scrollbar", to: "https://cdn.jsdelivr.net/npm/perfect-scrollbar@1.5.5/dist/perfect-scrollbar.esm.js"
 pin "scrollreveal", to: "https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.es.js"
 pin "animejs",    to: "https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.es.js"
+# config/importmap.rb
+pin "@stripe/stripe-js", to: "https://ga.jspm.io/npm:@stripe/stripe-js@1.48.0/dist/stripe.esm.js"
 
+
+# Si usas tealight en animation_controller:
+pin "tealight", to: "https://cdn.jsdelivr.net/npm/tealight@0.3.6/dist/tealight.esm.js"
 # agrega justo debajo de tu pin de Stimulus
 
 

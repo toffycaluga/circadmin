@@ -1,0 +1,21 @@
+# config/locales/pt.yml
+pt:
+  subscriptions:
+    create:
+      error: "Erro ao criar a assinatura: %{error}"
+    pause:
+      success: "Assinatura pausada com sucesso."
+      error: "Erro ao pausar a assinatura: %{error}"
+    resume:
+      success: "Assinatura retomada com sucesso."
+      error: "Erro ao retomar a assinatura: %{error}"
+    check_availability:
+      subscription_needed:
+        title: "Assinatura necessária"
+        body: "Você precisa selecionar ou atualizar seu plano antes de continuar."
+      limit_reached:
+        title: "Limite atingido"
+        body: "Você tem %{current} de %{allowed} itens permitidos. Atualize seu plano."
+      invalid_subscription:
+        title: "Assinatura inválida"
+        body: "Não encontramos sua assinatura. Por favor, selecione um plano."
