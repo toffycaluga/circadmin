@@ -1,0 +1,7 @@
+<div class="container py-4">
+  <h1>¡Suscripción exitosa! 🎪</h1>
+  <% if @session_id.present? %>
+    <p>Checkout Session ID: <code><%= @session_id %></code></p>
+  <% end %>
+  <p><%= link_to "Ir al portal de facturación", billing_portal_path, class: "btn btn-primary" %></p>
+</div>

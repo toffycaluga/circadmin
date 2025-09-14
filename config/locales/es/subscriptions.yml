@@ -1,8 +1,17 @@
 # config/locales/es.yml
 es:
   subscriptions:
+    new:
+      title: "Elige tu plan"
+      month: "mes"
+      trial_days: "%{count} días de prueba"
+      payment_for: "Pago para"
+      close: "Cerrar"
+      pay_now: "Continuar"
+      choose_plan: "Selecciona un plan"
+      choose_plan_help: "Puedes cambiar o cancelar cuando quieras."
     create:
-      error: "Error al crear la suscripción: %{error}"
+      error: "No pudimos procesar tu pago: %{error}"
     pause:
       success: "Suscripción pausada correctamente."
       error: "Error al pausar la suscripción: %{error}"
@@ -19,3 +28,4 @@ es:
       invalid_subscription:
         title: "Suscripción inválida"
         body: "No encontramos tu suscripción. Por favor elige un plan."
+ 

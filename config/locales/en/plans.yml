@@ -2,13 +2,13 @@ en:
   plans:
     basic:
       name: "Basic"
-      features: "Accounting, document storage"
+      features: "Daily transaction management, Weekly and monthly reports, User and role management, Export to PDF/Excel"
     ticketing:
       name: "Ticketing"
-      features: "Point-of-Sale for tickets"
+      features: "Online ticket sales, Access control, Box office reports"
     concessions:
       name: "Concessions"
-      features: "Point-of-Sale for snacks & drinks"
+      features: "Kiosk inventory, POS sales, Consumption reports"
     all_in_one:
       name: "All-in-One"
-      features: "Accounting, documents, ticketing & concessions"
+      features: "Everything in Basic, Ticketing, and Concessions"

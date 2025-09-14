@@ -2,13 +2,13 @@ es:
   plans:
     basic:
       name: "Básico"
-      features: "Contabilidad básica, banco de documentos"
+      features: "Gestión de transacciones diarias, Informes semanales y mensuales, Gestión de usuarios y roles, Exportación a PDF/Excel"
     ticketing:
-      name: "Boletería"
-      features: "POS para venta de entradas"
+      name: "Venta de Entradas"
+      features: "Venta de entradas en línea, Control de acceso, Informes de taquilla"
     concessions:
-      name: "Dulcería/Cafetería"
-      features: "POS para dulcería y cafetería"
+      name: "Concesiones"
+      features: "Inventario de quioscos, Ventas en Punto de Venta (POS), Informes de consumo"
     all_in_one:
-      name: "All-in-One"
-      features: "Contabilidad, documentos, boletería y dulcería"
+      name: "Todo en uno"
+      features: "Todo lo de Básico, Venta de Entradas y Concesiones"

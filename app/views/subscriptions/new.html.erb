@@ -1,25 +1,16 @@
-<%# Formulario de selección de plan y pago %>
-<%= form_with url: circus_subscription_path(@circus),
-              local: true,
-              id: "subscription-form",
-              data: {
-                controller:                   "subscription",
-                action:                       "submit->subscription#submit",
-                subscription_publishable_key: ENV["STRIPE_PUBLISHABLE_KEY"]
-              } do |f| %>
+<%# app/views/subscriptions/new.html.erb %>
+<%= form_with url: billing_checkout_path, method: :post, local: true, id: "subscription-form",
+              data: { turbo:false,controller: "subscription", action: "submit->subscription#validate" } do |f| %>
+
   <h1 class="mb-4"><%= t('subscriptions.new.title') %></h1>
-  <%
-    basic = @plans.find { |p| p.key == 'basic' }
-    price = number_to_currency(basic.price_cents / 100.0, precision: 0)
-    days  = basic.trial_days
-  %>
+  <% basic = @plans.find { |p| p.key == 'basic' } %>
+  <% price = number_to_currency(basic.price_cents / 100.0, precision: 0) %>
+  <% days  = basic.trial_days %>
   <p class="lead mb-5">
     <%= t('subscriptions.new.subtitle', days: days, price: price) %>
   </p>
 
-  <div class="row mb-4"
-       data-subscription-target="plansContainer"
-       data-action="change->subscription#selectPlan">
+  <div class="row mb-4" data-subscription-target="plansContainer">
     <% @plans.each do |plan| %>
       <div class="col-md-4 mb-4">
         <%= render 'plan_card', plan: plan %>
@@ -27,31 +18,12 @@
     <% end %>
   </div>
 
-  <div id="payment-container"
-       class="card p-4 mt-4 d-none"
-       data-subscription-target="paymentContainer">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h5 class="mb-0">
-        <%= t('subscriptions.new.payment_for') %>
-        <span data-subscription-target="selectedName" class="fw-bold"></span>
-      </h5>
-      <button type="button"
-              class="btn-close"
-              aria-label="<%= t('subscriptions.new.close') %>"
-              data-action="subscription#closePayment"></button>
-    </div>
+  <%= hidden_field_tag :plan, nil, id: "selected_plan", data: { subscription_target: "planInput" } %>
 
-    <div data-subscription-target="cardElement" class="form-control mb-3"></div>
-    <div data-subscription-target="errors" role="alert" class="text-danger mb-3"></div>
-
-    <%= f.hidden_field :plan_id,            data: { subscription_target: "planInput" } %>
-    <%= f.hidden_field :payment_method_id,  data: { subscription_target: "paymentInput" } %>
-
-    <button data-subscription-target="submitButton"
-            type="submit"
-            class="btn btn-primary w-100"
-            disabled>
-      <%= t('subscriptions.new.pay_now') %>
+  <div class="d-flex gap-2">
+    <%= link_to t('subscriptions.new.cancel'), root_path, class: "btn btn-outline-secondary" %>
+    <button type="submit" class="btn btn-primary" data-subscription-target="submitButton" disabled>
+      <%= t('subscriptions.new.continue_to_checkout') %>
     </button>
   </div>
 <% end %>

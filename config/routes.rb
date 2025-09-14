@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get "billing/create_checkout_session"
+  get "billing/success"
+  get "billing/cancel"
+  get "billing/portal"
   # Métodos de pago (Payment Methods) - idealmente POST/DELETE, pero mantengo tus GET por ahora
   get "payment_methods/index"
   get "payment_methods/new"
@@ -34,6 +38,9 @@ Rails.application.routes.draw do
 
   # Webhook de Stripe
   post "/webhooks/stripe", to: "stripe_webhooks#create"
+  # config/routes.rb
+  post "/stripe/webhooks", to: "stripe_webhooks#receive"
+
 
   # Localidades (evita duplicar este resources: ya estaba más abajo)
   resources :localities do
@@ -144,6 +151,17 @@ Rails.application.routes.draw do
   unauthenticated do
     root to: "devise/sessions#new", as: :unauthenticated_root
   end
+
+  # Checkout (suscripciones)
+  post "billing/checkout", to: "billing#create_checkout_session"
+  get  "billing/success",  to: "billing#success"
+  get  "billing/cancel",   to: "billing#cancel"
+
+  # Portal del cliente (autogestión de plan)
+  get  "billing/portal",   to: "billing#portal"
+
+  # Webhook (eventos Stripe -> tu app)
+  post "/webhooks/stripe", to: "webhooks/stripe#receive"
 
   # ⛔️ Elimina la top-level que rompía todo:
   # get 'subscriptions/check_availability', to: 'subscriptions#check_availability', defaults: { format: :json }

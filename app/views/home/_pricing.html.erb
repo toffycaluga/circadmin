@@ -20,7 +20,8 @@
                 <%= features_title %>
               </div>
               <ul class="pricing-table-features list-reset text-xs">
-                <% features.each do |feat| %>
+                <% plan_features(plan).each do |feat| %>
+
                   <li><span><%= feat %></span></li>
                 <% end %>
               </ul>
