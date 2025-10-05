@@ -1,8 +1,12 @@
 <%# app/views/subscriptions/new.html.erb %>
-<%= form_with url: billing_checkout_path, method: :post, local: true, id: "subscription-form",
-              data: { turbo:false,controller: "subscription", action: "submit->subscription#validate" } do |f| %>
+<%= form_with url: billing_checkout_path(circus_id: @circus.id),
+              method: :post,
+              local: true,
+              id: "subscription-form",
+              data: { turbo: false, controller: "subscription", action: "submit->subscription#validate" } do |f| %>
 
   <h1 class="mb-4"><%= t('subscriptions.new.title') %></h1>
+
   <% basic = @plans.find { |p| p.key == 'basic' } %>
   <% price = number_to_currency(basic.price_cents / 100.0, precision: 0) %>
   <% days  = basic.trial_days %>

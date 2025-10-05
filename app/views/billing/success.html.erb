@@ -1,7 +1,26 @@
-<div class="container py-4">
-  <h1>¡Suscripción exitosa! 🎪</h1>
-  <% if @session_id.present? %>
-    <p>Checkout Session ID: <code><%= @session_id %></code></p>
-  <% end %>
-  <p><%= link_to "Ir al portal de facturación", billing_portal_path, class: "btn btn-primary" %></p>
+<%# app/views/billing/success.html.erb %>
+<div class="container py-5 text-center">
+  <div class="card shadow-lg border-0 p-4 mx-auto" style="max-width: 600px;">
+    <div class="mb-3">
+      <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+    </div>
+
+    <h1 class="mb-3">¡Suscripción exitosa! 🎪</h1>
+    <p class="lead text-muted">
+      Gracias por suscribirte a <strong>CircAdmin</strong>.  
+      Ahora tienes acceso a todas las funcionalidades de tu plan.
+    </p>
+
+    <% if Rails.env.development? && @session_id.present? %>
+      <p class="small text-muted">
+        Checkout Session ID: <code><%= @session_id %></code>
+      </p>
+    <% end %>
+
+
+    <div class="d-grid gap-3 mt-4">
+      <%= link_to "Ir al portal de facturación", billing_portal_path, class: "btn btn-primary btn-lg" %>
+      <%= link_to "Volver al dashboard", dashboard_index_path, class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
 </div>

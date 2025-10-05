@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_20_145025) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_16_145442) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -66,6 +66,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_20_145025) do
     t.datetime "updated_at", null: false
     t.string "stripe_customer_id"
     t.boolean "had_trial", default: false, null: false
+    t.index ["stripe_customer_id"], name: "index_circuses_on_stripe_customer_id"
     t.index ["user_id"], name: "index_circuses_on_user_id"
   end
 
@@ -166,16 +167,44 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_20_145025) do
     t.index ["stripe_price_id"], name: "index_plans_on_stripe_price_id"
   end
 
+  create_table "subscription_items", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "subscription_id", null: false
+    t.string "stripe_subscription_item_id"
+    t.string "stripe_product_id"
+    t.string "price_id"
+    t.string "service_key", default: "core", null: false
+    t.integer "quantity", default: 1, null: false
+    t.boolean "active", default: true, null: false
+    t.integer "unit_amount"
+    t.string "currency"
+    t.string "interval"
+    t.integer "interval_count"
+    t.index ["service_key"], name: "index_subscription_items_on_service_key"
+    t.index ["stripe_subscription_item_id"], name: "index_subscription_items_on_stripe_subscription_item_id", unique: true
+    t.index ["subscription_id", "service_key"], name: "idx_one_active_item_per_service", unique: true, where: "(active = true)"
+    t.index ["subscription_id"], name: "index_subscription_items_on_subscription_id"
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.bigint "circus_id", null: false
     t.string "stripe_subscription_id", null: false
     t.string "status", null: false
     t.datetime "current_period_start", null: false
     t.datetime "current_period_end", null: false
-    t.string "price_id", null: false
+    t.string "price_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "checkout_session_id"
+    t.string "stripe_customer_id"
+    t.boolean "active", default: false, null: false
+    t.boolean "cancel_at_period_end", default: false, null: false
+    t.index ["checkout_session_id"], name: "index_subscriptions_on_checkout_session_id", unique: true
     t.index ["circus_id"], name: "index_subscriptions_on_circus_id"
+    t.index ["circus_id"], name: "index_subscriptions_one_active_per_circus", unique: true, where: "(active = true)"
+    t.index ["price_id"], name: "index_subscriptions_on_price_id"
+    t.index ["stripe_subscription_id"], name: "index_subscriptions_on_stripe_subscription_id", unique: true
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -288,6 +317,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_20_145025) do
   add_foreign_key "payment_methods", "circuses"
   add_foreign_key "payroll_items", "payrolls"
   add_foreign_key "payrolls", "circuses"
+  add_foreign_key "subscription_items", "subscriptions"
   add_foreign_key "subscriptions", "circuses"
   add_foreign_key "taggings", "tags"
   add_foreign_key "transactions", "circuses"

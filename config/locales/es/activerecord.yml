@@ -1,6 +1,8 @@
 es:
   activerecord:
     attributes:
+      subscription:
+        status: "Estado"
       user_profile:
         full_name: "Nombre completo"
         address: "Dirección"
@@ -10,9 +12,18 @@ es:
           user: "Dueño"
     models:
       circus: "Circo"
+      subscription: "Suscripción"
     errors:
+      messages:
+        inclusion: "no está incluido en la lista"
       models:
         circus:
           attributes:
             user:
               required: "debe estar presente"
+es:
+  activerecord:
+    models:
+
+    attributes:
+  errors:

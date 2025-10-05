@@ -16,7 +16,8 @@
 #
 # Indexes
 #
-#  index_circuses_on_user_id  (user_id)
+#  index_circuses_on_stripe_customer_id  (stripe_customer_id)
+#  index_circuses_on_user_id             (user_id)
 #
 
 class Circus < ApplicationRecord

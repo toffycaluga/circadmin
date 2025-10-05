@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get "billing/create_checkout_session"
-  get "billing/success"
-  get "billing/cancel"
-  get "billing/portal"
   # Métodos de pago (Payment Methods) - idealmente POST/DELETE, pero mantengo tus GET por ahora
   get "payment_methods/index"
   get "payment_methods/new"
@@ -36,10 +32,10 @@ Rails.application.routes.draw do
     end
   end
 
-  # Webhook de Stripe
-  post "/webhooks/stripe", to: "stripe_webhooks#create"
-  # config/routes.rb
-  post "/stripe/webhooks", to: "stripe_webhooks#receive"
+  # # Webhook de Stripe
+  # post "/webhooks/stripe", to: "stripe_webhooks#create"
+  # # config/routes.rb
+  # post "/stripe/webhooks", to: "stripe_webhooks#receive"
 
 
   # Localidades (evita duplicar este resources: ya estaba más abajo)
@@ -152,6 +148,7 @@ Rails.application.routes.draw do
     root to: "devise/sessions#new", as: :unauthenticated_root
   end
 
+  # == REEMPLAZA LAS RUTAS DE BILLING + WEBHOOK POR ESTE BLOQUE ==
   # Checkout (suscripciones)
   post "billing/checkout", to: "billing#create_checkout_session"
   get  "billing/success",  to: "billing#success"
@@ -160,8 +157,9 @@ Rails.application.routes.draw do
   # Portal del cliente (autogestión de plan)
   get  "billing/portal",   to: "billing#portal"
 
-  # Webhook (eventos Stripe -> tu app)
+  # Webhook (Stripe -> tu app)
   post "/webhooks/stripe", to: "webhooks/stripe#receive"
+  # == FIN DEL BLOQUE ==
 
   # ⛔️ Elimina la top-level que rompía todo:
   # get 'subscriptions/check_availability', to: 'subscriptions#check_availability', defaults: { format: :json }

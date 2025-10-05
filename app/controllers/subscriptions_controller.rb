@@ -5,100 +5,26 @@ class SubscriptionsController < ApplicationController
   before_action :set_current_subscription, only: [ :show, :pause, :resume, :check_availability ]
   layout "dashboard"
 
-  # 1) Formulario de selección de plan
+  # 1) Vista para elegir plan/servicios (UI)
   def new
-    @plans = Plan.active.order(:price_cents)
+    @plans = Plan.active.order(:price_cents) rescue []
   end
 
-  # 2) Crear/actualizar suscripción en Stripe y en nuestra BD (SCA/3DS ready)
+  # 2) (Legado) Si tu flujo usa Stripe Checkout en BillingController,
+  #    no crees aquí la suscripción para evitar estados inconsistentes.
   def create
-    Subscription.transaction do
-      plan = Plan.active.find(subscription_params[:plan_id])
-
-      # 2.1 Customer (crear/recuperar) + metadata útil
-      customer =
-        if @circus.stripe_customer_id.present?
-          Stripe::Customer.retrieve(@circus.stripe_customer_id)
-        else
-          c = Stripe::Customer.create(
-            email: current_user.email,
-            metadata: { circus_id: @circus.id, user_id: current_user.id }
-          )
-          @circus.update!(stripe_customer_id: c.id)
-          c
-        end
-
-      # 2.2 Método de pago por defecto
-      Stripe::PaymentMethod.attach(subscription_params[:payment_method_id], { customer: customer.id })
-      Stripe::Customer.update(
-        customer.id,
-        invoice_settings: { default_payment_method: subscription_params[:payment_method_id] }
-      )
-
-      # 2.3 Trial solo 1ª vez
-      trial_days = @circus.had_trial ? 0 : plan.trial_days.to_i
-
-      # 2.4 Crear suscripción en Stripe
-      #     - con trial => allow_incomplete (no cobra de inmediato)
-      #     - sin trial => default_incomplete (requiere confirmar PaymentIntent)
-      payment_behavior = trial_days.positive? ? "allow_incomplete" : "default_incomplete"
-
-      stripe_sub = Stripe::Subscription.create(
-        {
-          customer: customer.id,
-          items:    [ { price: plan.stripe_price_id, quantity: 1 } ],
-          trial_period_days: trial_days,
-          payment_behavior:  payment_behavior,
-          expand: [ "latest_invoice.payment_intent" ],
-          metadata: { circus_id: @circus.id, plan_key: plan.key }
-        },
-        { idempotency_key: "sub-create:circus=#{@circus.id}:plan=#{plan.id}" }
-      )
-
-      # 2.5 Persistir/actualizar en BD
-      sub = @circus.subscriptions.find_or_initialize_by(stripe_subscription_id: stripe_sub.id)
-      sub.update!(
-        plan_key:             plan.key,
-        status:               stripe_sub.status,
-        current_period_start: Time.at(stripe_sub.current_period_start),
-        current_period_end:   Time.at(stripe_sub.current_period_end),
-        price_id:             plan.stripe_price_id
-      )
-
-      # 2.6 Marcar trial como usado
-      @circus.update!(had_trial: true) if trial_days.positive?
-
-      # 2.7 Si NO hay trial, confirmar SCA/3DS en el front con client_secret
-      if trial_days.zero?
-        pi = stripe_sub.latest_invoice&.payment_intent
-        if pi
-          case pi.status
-          when "requires_confirmation", "requires_action"
-            return render json: {
-              success:       true,
-              client_secret: pi.client_secret,
-              redirect_url:  circus_subscription_path(@circus)
-            }, status: :ok
-          when "requires_payment_method"
-            msg = pi.last_payment_error&.message || I18n.t("subscriptions.create.error", error: "Método de pago rechazado")
-            return render json: { error: msg }, status: :unprocessable_entity
-          end
-        end
-      end
-
-      # Trial o ya quedó pagada: redirigimos
-      render json: { success: true, redirect_url: circus_subscription_path(@circus) }, status: :ok
-    end
-  rescue Stripe::StripeError => e
-    render json: { error: I18n.t("subscriptions.create.error", error: e.message) }, status: :unprocessable_entity
+    render json: {
+      error: "Este endpoint ya no crea suscripciones. Usa el checkout (BillingController) para completar la compra."
+    }, status: :unprocessable_entity
   end
 
-  # 3) Estado
+  # 3) Estado de la suscripción actual
   def show
-    @subscription ||= @circus.subscriptions.order(:current_period_end).last
+    # Si no hay activa, mostramos la última como fallback para no romper la vista
+    @subscription ||= @circus.subscriptions.order(current_period_end: :desc).first
   end
 
-  # 4) Pausar suscripción
+  # 4) Pausar suscripción en Stripe
   def pause
     return redirect_to(circus_subscription_path(@circus), alert: I18n.t("subscriptions.not_found")) unless @subscription
 
@@ -106,57 +32,112 @@ class SubscriptionsController < ApplicationController
       @subscription.stripe_subscription_id,
       pause_collection: { behavior: "void" }
     )
-    @subscription.update!(status: stripe_sub.status)
+    @subscription.update!(status: stripe_sub.status, active: active_like_status?(stripe_sub.status))
 
     redirect_to circus_subscription_path(@circus), notice: I18n.t("subscriptions.pause.success")
   rescue Stripe::StripeError => e
     redirect_to circus_subscription_path(@circus), alert: I18n.t("subscriptions.pause.error", error: e.message)
   end
 
-  # 5) Reanudar suscripción
+  # 5) Reanudar suscripción en Stripe
   def resume
     return redirect_to(circus_subscription_path(@circus), alert: I18n.t("subscriptions.not_found")) unless @subscription
 
     stripe_sub = Stripe::Subscription.update(
       @subscription.stripe_subscription_id,
-      pause_collection: nil # quita la pausa (más seguro que "")
+      pause_collection: nil
     )
-    @subscription.update!(status: stripe_sub.status)
+    @subscription.update!(status: stripe_sub.status, active: active_like_status?(stripe_sub.status))
 
     redirect_to circus_subscription_path(@circus), notice: I18n.t("subscriptions.resume.success")
   rescue Stripe::StripeError => e
     redirect_to circus_subscription_path(@circus), alert: I18n.t("subscriptions.resume.error", error: e.message)
   end
 
-  # 6) Chequear límites (SIEMPRE devuelve JSON)
+  # 6) Chequear disponibilidad (SIEMPRE JSON).
+  #    Devuelve allowed=true cuando:
+  #      - Hay suscripción activa
+  #      - (si se pasa ?service=) existe un item activo con ese service_key
+  #      - (opcional) respeta límites si puedes mapear el plan a partir del price_id
   def check_availability
-    unless @subscription&.stripe_subscription_id.present?
+    # 1) Debe existir una suscripción activa
+    # después: chequea el booleano crudo O estado considerado activo
+    unless @subscription && (@subscription.read_attribute(:active) || active_like_status?(@subscription.status))
+
+      Rails.logger.info("[check_availability] circus=#{@circus.id} => NO ACTIVE SUBSCRIPTION")
       return render json: {
         allowed: false,
-        title:   I18n.t("subscriptions.check_availability.subscription_needed.title"),
-        body:    I18n.t("subscriptions.check_availability.subscription_needed.body"),
+        title:   I18n.t("subscriptions.check_availability.subscription_needed.title", default: "Necesitas una suscripción activa"),
+        body:    I18n.t("subscriptions.check_availability.subscription_needed.body",  default: "Activa un plan para continuar."),
         action:  new_circus_subscription_path(@circus)
       }, status: :ok
     end
 
-    # Límite desde tu Plan local (no dependas de quantity en Stripe)
-    plan = Plan.find_by(key: @subscription.plan_key)
-    allowed_qty = plan&.allowed_circuses.to_i
-
-    # Métrica local a controlar (reemplaza 'some_count_method' por lo real)
-    current_qty = @circus.respond_to?(:some_count_method) ? @circus.some_count_method : 0
-
-    if current_qty < allowed_qty
-      render json: { allowed: true }, status: :ok
-    else
-      render json: {
-        allowed: false,
-        title:   I18n.t("subscriptions.check_availability.limit_reached.title"),
-        body:    I18n.t("subscriptions.check_availability.limit_reached.body",
-                        current: current_qty, allowed: allowed_qty),
-        action:  new_circus_subscription_path(@circus)
-      }, status: :ok
+    # 2) Validar servicio requerido (opcional)
+    required_service = params[:service].presence
+    if required_service
+      has_service = @subscription.subscription_items
+                                 .where(active: true, service_key: required_service)
+                                 .exists?
+      Rails.logger.info("[check_availability] circus=#{@circus.id} sub=#{@subscription.id} service=#{required_service} has_service=#{has_service}")
+      unless has_service
+        return render json: {
+          allowed: false,
+          title:   I18n.t("subscriptions.check_availability.service_needed.title",
+                          default: "Necesitas el módulo #{required_service}"),
+          body:    I18n.t("subscriptions.check_availability.service_needed.body",
+                          default: "Tu suscripción actual no incluye el servicio requerido."),
+          action:  new_circus_subscription_path(@circus)
+        }, status: :ok
+      end
     end
+
+    # 3) (Opcional) Límite por plan
+    begin
+      plan = nil
+
+      # Preferimos resolver por el item 'core' activo
+      core_item = @subscription.subscription_items.where(active: true, service_key: "core").first
+
+      # Resolver Plan por price_id
+      if defined?(Plan) && Plan.respond_to?(:find_by)
+        if core_item&.price_id.present?
+          plan = Plan.find_by(stripe_price_id: core_item.price_id)
+        end
+
+        # Fallbacks de compatibilidad por si existen esas columnas en tu modelo
+        if plan.nil? && @subscription.respond_to?(:price_id) && @subscription.price_id.present?
+          plan = Plan.find_by(stripe_price_id: @subscription.price_id)
+        end
+        if plan.nil? && @subscription.respond_to?(:plan_key) && @subscription.plan_key.present?
+          plan = Plan.find_by(key: @subscription.plan_key)
+        end
+      end
+
+      if plan&.respond_to?(:allowed_circuses) && plan.allowed_circuses.present?
+        current_qty = @circus.respond_to?(:some_count_method) ? @circus.some_count_method : 0
+        allowed     = current_qty < plan.allowed_circuses.to_i
+        Rails.logger.info("[check_availability] circus=#{@circus.id} limit allowed=#{allowed} current=#{current_qty} limit=#{plan.allowed_circuses}")
+        unless allowed
+          return render json: {
+            allowed: false,
+            title:   I18n.t("subscriptions.check_availability.limit_reached.title", default: "Has alcanzado el límite de tu plan"),
+            body:    I18n.t("subscriptions.check_availability.limit_reached.body",
+                            default: "Actualmente tienes %{current} de %{allowed} permitidos.", current: current_qty, allowed: plan.allowed_circuses.to_i),
+            action:  new_circus_subscription_path(@circus)
+          }, status: :ok
+        end
+      else
+        Rails.logger.info("[check_availability] circus=#{@circus.id} no plan/limit resolved -> allowed=true")
+      end
+    rescue => e
+      Rails.logger.error("[check_availability] limit-check error: #{e.class}: #{e.message}")
+      # En caso de error al calcular límites, no bloqueamos al usuario.
+    end
+
+    # 4) Todo ok
+    render json: { allowed: true }, status: :ok
+
   rescue => e
     Rails.logger.error("[check_availability] #{e.class}: #{e.message}")
     render json: {
@@ -169,12 +150,46 @@ class SubscriptionsController < ApplicationController
 
   private
 
+  # Usa circos del usuario para evitar acceso a otros circos
   def set_circus
-    @circus = Circus.find(params[:circus_id])
+    @circus = current_user.circuses.find(params[:circus_id] || params[:id])
   end
 
+  # Toma la suscripción ACTIVA más nueva; si no hay activa, intenta auto-sanar
   def set_current_subscription
-    @subscription = @circus.subscriptions.order(:current_period_end).last
+    # 1) Intento normal: buscar por active: true
+    @subscription = @circus.subscriptions
+                           .where(active: true)
+                           .order(current_period_end: :desc)
+                           .first
+    Rails.logger.debug("[set_current_subscription] try-active-first => #{@subscription&.id || 'nil'}")
+    return if @subscription.present?
+
+    # 2) Auto-fix: si no hay 'active', promueve la última con estado válido
+    fallback = @circus.subscriptions
+                      .where(status: %w[active trialing])
+                      .order(current_period_end: :desc)
+                      .first
+    Rails.logger.debug("[set_current_subscription] fallback-status => #{fallback&.id || 'nil'}")
+
+    if fallback.present?
+      Subscription.where(circus_id: @circus.id, active: true)
+                  .where.not(id: fallback.id)
+                  .update_all(active: false)
+      fallback.update_column(:active, true) # fuerza el flag
+      @subscription = fallback
+      Rails.logger.warn("[set_current_subscription] Auto-fixed active flag: circus=#{@circus.id} sub=#{fallback.id}")
+    end
+  end
+
+  # Estados que consideramos "activos"
+  def active_like_status?(status)
+    %w[active trialing].include?(status.to_s)
+  end
+
+  # Estados que consideramos "pausados"
+  def pause_like_status?(status)
+    %w[paused].include?(status.to_s)
   end
 
   def subscription_params
