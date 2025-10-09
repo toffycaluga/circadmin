@@ -41,3 +41,11 @@ es:
       new:
         title: "Reenviar instrucciones de confirmación"
         submit: "Reenviar instrucciones de confirmación"
+    mailer:
+      email_changed:
+        greeting: "Hola %{email}!"
+        pending_change_html: "Te contactamos para informarte que tu correo está siendo cambiado a <strong>%{new_email}</strong>."
+        changed_html: "Te contactamos para informarte que tu correo ha sido cambiado a <strong>%{new_email}</strong>."
+      password_change:
+        greeting: "Hola %{email}!"
+        message: "Te contactamos para informarte que tu contraseña ha sido cambiada."

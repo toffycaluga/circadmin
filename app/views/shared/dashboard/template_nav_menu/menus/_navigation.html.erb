@@ -1,5 +1,4 @@
 <ul class="nav flex-column">
-
   <!-- Dashboard -->
   <li class="nav-item">
     <%= link_to root_path, class: "nav-link d-flex align-items-center" do %>
@@ -20,7 +19,7 @@
   <li class="nav-item">
     <%= link_to documents_path, class: "nav-link d-flex align-items-center" do %>
       <span class="pcoded-micon"><i class="feather icon-folder me-2"></i></span>
-      <span class="pcoded-mtext"><%= t("navigation.my_documents") %></span>
+      <span class="pcoded-mtext"><%= t("navigation.my_documents", default: "Mis documentos") %></span>
     <% end %>
   </li>
 
@@ -29,10 +28,8 @@
     <li class="nav-item ms-4">
       <%= link_to by_circus_documents_path(circus.id), class: "nav-link small" do %>
         <i class="feather icon-circle me-2 text-muted"></i>
-        <%=  truncate(circus.name, length: 20)%>
+        <%= truncate(circus.name, length: 20) %>
       <% end %>
     </li>
   <% end %>
-
-
 </ul>

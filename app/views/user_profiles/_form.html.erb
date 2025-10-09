@@ -1,7 +1,7 @@
 <%= form_with(model: user_profile, local: true, html: { class: "needs-validation" }) do |form| %>
   <% if user_profile.errors.any? %>
     <div class="alert alert-danger">
-      <h4 class="alert-heading"><%= pluralize(user_profile.errors.count, "error") %> prohibited this profile from being saved:</h4>
+      <h4 class="alert-heading"><%= t("user_profiles.errors.header", count: user_profile.errors.count) %></h4>
       <ul>
         <% user_profile.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -11,17 +11,17 @@
   <% end %>
 
   <div class="mb-3">
-    <%= form.label :full_name, class: "form-label" %>
+    <%= form.label :full_name, t("user_profiles.labels.full_name"), class: "form-label" %>
     <%= form.text_field :full_name, class: "form-control", required: true %>
   </div>
 
   <div class="mb-3">
-    <%= form.label :address, class: "form-label" %>
+    <%= form.label :address, t("user_profiles.labels.address"), class: "form-label" %>
     <%= form.text_field :address, class: "form-control" %>
   </div>
 
   <div class="mb-3">
-    <%= form.label :country, class: "form-label" %>
+    <%= form.label :country, t("user_profiles.labels.country"), class: "form-label" %>
     <%= form.text_field :country, class: "form-control" %>
   </div>
 

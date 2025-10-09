@@ -2,41 +2,82 @@
   <div class="row mb-4">
     <div class="col-md-3">
       <%= select_tag :group,
-          options_for_select([["Día", "daily"], ["Semana", "weekly"], ["Mes", "monthly"], ["Total", "total"]], @group_type),
-          class: "form-control" %>
+        options_for_select(
+          [
+            [t("transactions.filters.group.daily"),   "daily"],
+            [t("transactions.filters.group.weekly"),  "weekly"],
+            [t("transactions.filters.group.monthly"), "monthly"],
+            [t("transactions.filters.group.total"),   "total"]
+          ],
+          @group_type
+        ),
+        class: "form-select" %>
     </div>
+
     <div class="col-md-3">
       <%= select_tag :type,
-          options_for_select([["Ingresos", "income"], ["Egresos", "expense"]], @type),
-          class: "form-control" %>
+        options_for_select(
+          [
+            [t("transactions.filters.type.income"),  "income"],
+            [t("transactions.filters.type.expense"), "expense"]
+          ],
+          @type
+        ),
+        class: "form-select" %>
     </div>
+
     <div class="col-md-3">
       <%= select_tag :order,
-          options_for_select([["Fecha", "date"], ["Categoría", "category"]], @order),
-          class: "form-control" %>
+        options_for_select(
+          [
+            [t("transactions.fields.date"),     "date"],
+            [t("transactions.fields.category"), "category"]
+          ],
+          @order
+        ),
+        class: "form-select" %>
     </div>
+
     <div class="col-md-3">
-      <%= submit_tag "Filtrar", class: "btn btn-primary w-100" %>
+      <%= submit_tag t("transactions.filters.apply"), class: "btn btn-primary w-100" %>
     </div>
   </div>
 <% end %>
+
 <div class="row">
   <% @summaries.each do |label, amount| %>
     <div class="col-md-4">
       <div class="card mb-3 shadow-sm">
         <div class="card-body">
           <h6 class="text-muted">
-            <%= label.respond_to?(:strftime) ? l(label.to_date, format: :long) : label %>
+            <%=
+              if label.respond_to?(:strftime)
+                l(label.to_date, format: :long)
+              elsif label.to_s.downcase == "total"
+                t("transactions.filters.group.total")
+              else
+                label
+              end
+            %>
           </h6>
-          <h4><%= number_to_currency(amount, unit: currency_symbol(current_user)) %></h4>
-         <%= link_to t("transactions.filters.see_more", default: "Ver más"),
-            summary_details_transactions_locality_path(@locality,
+
+          <h4>
+            <%= number_to_currency(
+                  amount,
+                  unit:      currency_symbol(@locality.circus.currency),
+                  delimiter: ".",
+                  separator: ","
+                ) %>
+          </h4>
+
+          <%= link_to t("transactions.filters.see_more"),
+              summary_details_transactions_locality_path(
+                @locality,
                 group: @group_type,
-                type: @type,
-                date: label.to_s),
-            class: "btn btn-sm btn-outline-primary mt-2" %>
-
-
+                type:  @type,
+                date:  label.to_s
+              ),
+              class: "btn btn-sm btn-outline-primary mt-2" %>
         </div>
       </div>
     </div>

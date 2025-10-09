@@ -1,0 +1,6 @@
+es:
+  form:
+    errors:
+      heading:
+        one: "1 error"
+        other: "%{count} errores"

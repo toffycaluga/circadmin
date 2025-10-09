@@ -1,15 +1,21 @@
 <div class="notification">
   <div class="media">
-    <img class="img-radius" src="assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
+    <img class="img-radius" src="assets/images/user/avatar-1.jpg" alt="<%= t('notifications.alt_user_image', default: 'Imagen de usuario') %>">
     <div class="media-body">
-      <p><strong>John Doe</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>5 min</span></p>
-      <p>New ticket Added</p>
+      <p>
+        <strong><%= t('notifications.sample_user', default: 'John Doe') %></strong>
+        <span class="n-time text-muted">
+          <i class="icon feather icon-clock m-r-10"></i>
+          <%= t('notifications.time_ago', time: '5 min', default: '%{time}') %>
+        </span>
+      </p>
+      <p><%= t('notifications.new_ticket', default: 'Nuevo ticket agregado') %></p>
     </div>
   </div>
 </div>
 
 <style>
-  .notification{
-    list-style:none;
+  .notification {
+    list-style: none;
   }
 </style>

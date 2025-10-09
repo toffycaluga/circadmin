@@ -19,7 +19,7 @@
 #
 
 class CircusUser < ApplicationRecord
-  belongs_to :user
+    belongs_to :user,   counter_cache: :circuses_count
   belongs_to :circus
 
   ROLES = %w[admin accountant representative owner]

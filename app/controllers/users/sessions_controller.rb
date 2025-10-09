@@ -6,18 +6,17 @@ class Users::SessionsController < Devise::SessionsController
   # GET /resource/sign_in
   def new
     if current_user
-      redirect_to dashboard_index_path, notice: "Ya tienes una sesión activa."
+      redirect_to dashboard_index_path, notice: t("users.sessions.already_signed_in")
     else
       super
     end
   end
-   protected
 
-  def after_sign_in_path_for(resource)
+  protected
+
+  def after_sign_in_path_for(_resource)
     dashboard_index_path
   end
-
-
 
   # POST /resource/sign_in
   # def create
@@ -28,8 +27,6 @@ class Users::SessionsController < Devise::SessionsController
   # def destroy
   #   super
   # end
-
-  # protected
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params

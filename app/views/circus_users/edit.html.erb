@@ -1,17 +1,24 @@
-<h3>Editar rol de <%= @circus_user.user.email %> en el circo</h3>
+<!-- app/views/circus_users/edit.html.erb -->
+<h3>
+  <%= t("circus_users.edit.title", email: @circus_user.user.email) %>
+</h3>
 
 <%= form_with(model: @circus_user, local: true) do |f| %>
   <div class="form-group">
-    <%= f.label :role, "Rol" %>
+    <%= f.label :role, t("circus_users.fields.role") %>
     <%= f.select :role,
-        CircusUser::ROLES.reject { |r| r == "owner" }.map { |r| [role_label(r), r] },
-        {}, class: "form-control" %>
+          CircusUser::ROLES.reject { |r| r == "owner" }.map { |r| [role_label(r), r] },
+          {},
+          class: "form-control" %>
   </div>
 
-  <%= f.submit "Actualizar", class: "btn btn-primary" %>
+  <%= f.submit t("circus_users.actions.update"), class: "btn btn-primary mt-2" %>
 <% end %>
 
-<%= button_to "Desactivar usuario", desactivate_circus_user_path(cu),
+<hr class="my-3">
+
+<%= button_to t("circus_users.actions.deactivate"),
+      deactivate_circus_user_path(@circus_user),
       method: :patch,
-      data: { confirm: "¿Seguro que quieres desactivar este usuario?" },
+      data: { turbo_confirm: t("circus_users.confirmations.deactivate") },
       class: "btn btn-warning" %>

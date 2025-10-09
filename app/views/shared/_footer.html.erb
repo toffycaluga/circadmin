@@ -1,3 +1,8 @@
-<footer class="bg-dark text-white text-center py-3 mt-auto ">
-  <p class="mb-0">© <%= t('footer.copyright')%> <%= Time.current.year %> CircAdmin.</p><p> <%= t("footer.dev")%> <strong>Cirxoft</strong>.</p>
+<footer class="bg-dark text-white text-center py-3 mt-auto">
+  <p class="mb-0">
+    © <%= t("footer.copyright") %> <%= Time.current.year %> CircAdmin.
+  </p>
+  <p>
+    <p><%= t("footer.dev_html", company: "Cirxoft").html_safe %></p>
+  </p>
 </footer>

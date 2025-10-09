@@ -1,6 +1,7 @@
 en:
   insights:
     title: "Detailed Analysis"
+    range: "Date Range"
     filters:
       title: "Search Filters"
       start_date: "From"
@@ -9,6 +10,15 @@ en:
       apply: "Apply Filters"
       all_categories: "All Categories"
     summary:
-      title: "Category Summary"
+      title: "Summary by Category"
+      no_data: "No summary available for this period."
     transactions:
       title: "Detailed Transactions"
+      no_data: "No transactions for this period."
+    detail:
+      title: "Summary Details"
+      range: "Range"
+      total: "Total"
+      transactions_title: "Recorded Transactions"
+      no_transactions: "No transactions recorded for this period."
+      back: "Back"

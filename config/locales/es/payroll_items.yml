@@ -14,3 +14,10 @@ es:
       notes: "Notas"
       add: "Agregar"
       update: "Actualizar"
+    modal:
+      title: "Editar ítem"
+    actions:
+      edit: "Editar ítem"
+      delete: "Eliminar ítem"
+    confirmations:
+      delete: "¿Eliminar ítem?"

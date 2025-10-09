@@ -11,19 +11,19 @@ class LocalitiesController < ApplicationController
   # GET /localities/1
   def show
     @locality = Locality.find(params[:id])
-    @incomes = @locality.transactions.incomes.order(date: :desc)
+    @incomes  = @locality.transactions.incomes.order(date: :desc)
     @expenses = @locality.transactions.expenses.order(date: :desc)
   end
+
   def admin
     @locality = Locality.find(params[:id])
     @incomes  = @locality.transactions.where(transaction_type: "income")
     @expenses = @locality.transactions.where(transaction_type: "expense")
-     @unread_notifications_count = current_user.notifications.unread.count
+    @unread_notifications_count = current_user.notifications.unread.count
 
-    @last_day_summary  = TransactionSummaryService.new(@locality, :day).call
-    @weekly_summary    = TransactionSummaryService.new(@locality, :week).call
+    @last_day_summary = TransactionSummaryService.new(@locality, :day).call
+    @weekly_summary   = TransactionSummaryService.new(@locality, :week).call
 
-    # Mostrar resumen mensual solo si hay transacciones en más de un mes
     months_with_income = @incomes.pluck(:date).map(&:beginning_of_month).uniq
     @monthly_summary = if months_with_income.size > 1
       TransactionSummaryService.new(@locality, :month).call
@@ -31,17 +31,17 @@ class LocalitiesController < ApplicationController
       nil
     end
 
-    @overall_summary   = TransactionSummaryService.new(@locality, :all).call
+    @overall_summary = TransactionSummaryService.new(@locality, :all).call
   end
 
   def insights
     @locality = Locality.find(params[:id])
 
     @start_date = params[:start_date]&.to_date || 1.month.ago.to_date
-    @end_date = params[:end_date]&.to_date || Date.today
+    @end_date   = params[:end_date]&.to_date   || Date.today
 
     transactions = @locality.transactions
-      .where(date: @start_date..@end_date, transaction_type: "income")
+                            .where(date: @start_date..@end_date, transaction_type: "income")
 
     @summary_by_category = transactions
       .group("LOWER(TRIM(category))")
@@ -52,20 +52,18 @@ class LocalitiesController < ApplicationController
     @transactions = transactions.order(date: :desc)
   end
 
-
-
-
   # para desactivar una localidad
   def deactivate
     @locality = Locality.find(params[:id])
     @locality.update(active: false)
-    redirect_to admin_locality_path(@locality), notice: "El evento ha sido marcado como cerrado."
+    redirect_to admin_locality_path(@locality), notice: t("localities.notices.deactivated")
   end
-  # para ativar una plaza o evento
+
+  # para activar una plaza o evento
   def reactivate
     @locality = Locality.find(params[:id])
     @locality.update(active: true)
-    redirect_to admin_locality_path(@locality), notice: "El evento ha sido reactivado."
+    redirect_to admin_locality_path(@locality), notice: t("localities.notices.reactivated")
   end
 
   def transaction_summary_for(locality, period = :day)
@@ -103,6 +101,7 @@ class LocalitiesController < ApplicationController
       range: range
     }
   end
+
   # controlador de resumenes
   def summary
     @locality = Locality.find(params[:id])
@@ -111,14 +110,13 @@ class LocalitiesController < ApplicationController
     @summary = summary_service.call
 
     if @summary.nil?
-      redirect_to admin_locality_path(@locality), alert: "No hay datos para mostrar."
+      redirect_to admin_locality_path(@locality), alert: t("localities.alerts.no_data")
     else
       @transactions = @locality.transactions
                                 .where(date: @summary[:range], transaction_type: "income")
                                 .order(date: :desc)
     end
   end
-
 
   # GET /localities/new
   def new
@@ -165,7 +163,7 @@ class LocalitiesController < ApplicationController
 
   # DELETE /localities/1
   def destroy
-    @circus = @locality.circus # ← aseguramos que no sea nil
+    @circus = @locality.circus
     @locality.destroy!
 
     respond_to do |format|
@@ -176,7 +174,6 @@ class LocalitiesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
 
   private
 

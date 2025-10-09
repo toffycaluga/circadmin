@@ -2,38 +2,50 @@
   <h1 class="mb-4">
     <%= t('payrolls.show.title', default: '🧾 Detalle de Nómina') %>
   </h1>
+
   <div class="d-flex justify-content-end mb-3">
-    <%= link_to "Registrar gasto",
-              confirm_expense_payroll_path(@payroll),
-              data: { turbo_frame: "modal_frame" },
-              class: "btn btn-warning me-2" %>
-    <%= link_to "Exportar a PDF",
+    <%= button_to confirm_expense_payroll_path(@payroll),
+              method: :get,
+              form: {
+                data: {
+                  turbo_frame: "modal_frame",
+                  action: "click->modal#open"
+                },
+                class: "d-inline"
+              },
+              class: "btn btn-warning me-2" do %>
+      <%= t('payrolls.show.actions.register_expense', default: 'Registrar gasto') %>
+    <% end %>
+
+    <%= link_to t('payrolls.show.actions.export_pdf', default: 'Exportar a PDF'),
               payroll_path(@payroll, format: :pdf),
               class: "btn btn-outline-secondary",
               target: "_blank" %>
   </div>
 </div>
+
 <div class="card mb-4">
   <div class="card-body p-0">
     <table class="table table-hover mb-0">
       <thead class="table-light">
         <tr>
-          <th>Nombre</th>
-          <th>Cargo</th>
-          <th class="text-end">Monto</th>
-          <th>Notas</th>
+          <th><%= t('payrolls.show.table_headers.name', default: 'Nombre') %></th>
+          <th><%= t('payrolls.show.table_headers.role', default: 'Cargo') %></th>
+          <th class="text-end"><%= t('payrolls.show.table_headers.amount', default: 'Monto') %></th>
+          <th><%= t('payrolls.show.table_headers.notes', default: 'Notas') %></th>
           <th></th>
         </tr>
       </thead>
-      <!-- Aquí: el único tbody donde inyectaremos las filas -->
+
       <tbody id="payroll-items">
         <%= render partial: 'payrolls/rows',
                    locals: { payroll: @payroll, payroll_item: @payroll_item } %>
       </tbody>
+
       <tfoot>
         <tr>
           <td colspan="2"></td>
-          <th class="text-end">Total nómina:</th>
+          <th class="text-end"><%= t('payrolls.show.table_footer.total_label', default: 'Total nómina:') %></th>
           <td colspan="2" id="payroll-total">
             <%= render partial: 'payrolls/total', locals: { payroll: @payroll } %>
           </td>
@@ -42,13 +54,12 @@
     </table>
   </div>
 </div>
+
 <%= turbo_frame_tag "payroll_item_modal",
-                    data: { 
-                      controller: "modal",
-                      action:"click->modal#close"
-                    } do %>
+                    data: { controller: "modal", action: "click->modal#close" } do %>
   <!-- modal inyectado aquí -->
 <% end %>
+
 <%= turbo_frame_tag "modal_frame", data: { controller: "modal" } do %>
   <!-- aquí se inyecta el partial _confirm_expense.html.erb -->
 <% end %>

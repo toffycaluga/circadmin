@@ -1,6 +1,22 @@
+<!-- app/views/localities/shared/_summary.html.erb -->
 <div class="mt-4">
-  <h5>📊 Resumen</h5>
-  <p>Total ingresos: € <%= number_with_precision(incomes.sum(:amount), precision: 2) %></p>
-  <p>Total gastos: € <%= number_with_precision(expenses.sum(:amount), precision: 2) %></p>
-  <p><strong>Balance:</strong> € <%= number_with_precision(incomes.sum(:amount) - expenses.sum(:amount), precision: 2) %></p>
+  <h5><%= t("localities.summary.title") %></h5>
+
+  <p>
+    <%= t("localities.summary.total_incomes") %>:
+    <%= currency_symbol(locality.circus.currency) %>
+    <%= number_with_precision(incomes.sum(:amount), precision: 2) %>
+  </p>
+
+  <p>
+    <%= t("localities.summary.total_expenses") %>:
+    <%= currency_symbol(locality.circus.currency) %>
+    <%= number_with_precision(expenses.sum(:amount), precision: 2) %>
+  </p>
+
+  <p>
+    <strong><%= t("localities.summary.balance") %>:</strong>
+    <%= currency_symbol(locality.circus.currency) %>
+    <%= number_with_precision(incomes.sum(:amount) - expenses.sum(:amount), precision: 2) %>
+  </p>
 </div>

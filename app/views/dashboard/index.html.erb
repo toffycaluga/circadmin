@@ -18,7 +18,8 @@
   <div class="row mb-4">
     <% @owned_circuses.each do |circus| %>
       <div class="col-md-6 col-xl-4 mb-3">
-        <%= render partial: "circuses/shared/circus_card", locals: { circus: circus, show_actions: true } %>
+       <%= render partial: "circuses/shared/circus_card", locals: { circus: circus, show_actions: true } %>
+
       </div>
     <% end %>
   </div>

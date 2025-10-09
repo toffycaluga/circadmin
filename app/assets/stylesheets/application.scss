@@ -10,3 +10,10 @@
  */
 
 @import 'style.css';
+
+
+/* app/assets/stylesheets/application.css (o .scss) */
+.plan-card.selected {
+  outline: 2px solid var(--bs-success);
+  box-shadow: 0 0 0 .25rem rgba(25,135,84,.25);
+}

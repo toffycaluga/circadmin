@@ -1,0 +1,21 @@
+pt:
+  pdfs:
+    payroll:
+      header_title: "Folha de Pagamento"
+      header_full: "%{app_name} — %{title}"
+      detail_title: "Detalhes da Folha de Pagamento"
+      labels:
+        circus: "Circo"
+        payroll_date: "Data da folha"
+      table:
+        name: "Nome"
+        role: "Cargo"
+        amount: "Valor"
+        notes: "Observações"
+        total: "Total"
+      footer:
+        page_x_of_y: "Página <page> de <total>"
+        generated_by: "Documento gerado por %{app_name}"
+    common:
+      branding: "CircAdmin"
+      page_x_of_y: "<page> / <total>"

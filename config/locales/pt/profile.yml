@@ -1,7 +1,7 @@
 pt:
   profile:
     full_name:
-      placeholder: "Nome não definido"
+      placeholder: "Nome de usuário não definido"
     title: "Perfil"
     change_cover: "Alterar imagem de capa"
     upload_new_cover: "Enviar nova capa"
@@ -9,11 +9,14 @@ pt:
     change_picture: "Alterar foto de perfil"
     change: "Alterar"
     upload_new_picture: "Enviar nova foto"
-    title: "Artista de Circo"
+    title: "Artista Circense"
     tabs:
       home: "Início"
       profile: "Perfil"
-      team: "Trabalhadores"
+      team: "Equipe"
+      personal_info: "Informações Pessoais"
+      contact_info: "Informações de Contato"
+      edit: "Editar Perfil"
     labels:
       no_data: "Não especificado"
       full_name: "Nome completo"
@@ -36,5 +39,16 @@ pt:
     sections:
       edit_profile: "Editar informações pessoais"
       edit_profile_subtext: "Atualize seus dados de contato e localização"
-      personal_info: "Informações pessoais"
-      personal_info_subtext: "Dados que identificam você como usuário"
+      personal_info: "Informações Pessoais"
+      personal_info_subtext: "Dados que o identificam como usuário"
+      contact_info: "Informações de Contato"
+    errors:
+      header:
+        one: "1 erro impede o salvamento do perfil"
+        other: "%{count} erros impedem o salvamento do perfil"
+    image_options:
+      title: "Foto de perfil"
+      view: "Ver em tamanho grande"
+      change: "Alterar foto"
+    image_viewer:
+      title: "Visualização completa da imagem"

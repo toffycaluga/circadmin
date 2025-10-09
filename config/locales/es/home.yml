@@ -1,5 +1,27 @@
 es:
   home:
     welcome: "Bienvenido a CircAdmin 🎪"
-    greeting: "Hola, %{email} 👋"
+    greeting_label: "Hola!"
     subtitle: "Administra tu circo de forma inteligente y simple"
+    stats:
+      users_registered: "Usuarios registrados"
+      active_circuses: "Circos activos"
+    features:
+      finance:
+        title: "Gestión Financiera en Tiempo Real"
+        description: "Visualiza ingresos y egresos al instante, por localidad o fecha, con filtros avanzados."
+      reports:
+        title: "Informes Personalizados"
+        description: "Genera reportes semanales, mensuales o anuales en PDF o Excel."
+      roles:
+        title: "Multiusuario y Roles"
+        description: "Crea usuarios con permisos granulares según su rol."
+      events:
+        title: "Planificación de Eventos"
+        description: "Programa funciones y asigna artistas y plazas fácilmente."
+      exports:
+        title: "Exportación y Archivado"
+        description: "Descarga historiales completos y guárdalos en la nube."
+      notifications:
+        title: "Notificaciones y Alertas"
+        description: "Recibe avisos automáticos sobre ventas y facturas."

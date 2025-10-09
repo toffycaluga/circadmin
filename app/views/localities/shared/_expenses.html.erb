@@ -1,10 +1,13 @@
+<!-- app/views/transactions/shared/_expenses_card.html.erb -->
 <div class="card col-md-5">
   <div class="card-body">
     <div class="d-flex justify-content-between align-items-center mb-2">
       <h4 class="card-title mb-0"><%= t("transactions.sections.expenses_title") %></h4>
 
       <% if can?(:manage, locality) %>
-        <%= link_to t("transactions.actions.add_expense"), new_transaction_path(transaction_type: "expense", locality_id: locality.id), class: "btn btn-danger btn-sm" %>
+        <%= link_to t("transactions.actions.add_expense"),
+            new_transaction_path(transaction_type: "expense", locality_id: locality.id),
+            class: "btn btn-danger btn-sm" %>
       <% end %>
     </div>
 
@@ -17,15 +20,19 @@
             <div>
               <strong class="d-block"><%= expense.title %></strong>
               <small class="text-muted">
-                <%= l(expense.date, format: :short) %> – <%= t("transactions.categories.#{expense.category}") %>
+                <%= l(expense.date, format: :short) %> –
+                <%= t("transactions.categories.#{expense.category}", default: expense.category.to_s.humanize) %>
               </small>
             </div>
+
             <span class="fw-semibold">
-              <%= currency_symbol(locality.circus.currency) %> <%= number_with_precision(expense.amount,
-                precision: expense.amount.to_f == expense.amount.to_i ? 0 : 2,
-                delimiter: ".",  # separador de miles
-                separator: ","   # separador decimal
-              ) %>
+              <%= currency_symbol(locality.circus.currency) %>
+              <%= number_with_precision(
+                    expense.amount,
+                    precision: expense.amount.to_f == expense.amount.to_i ? 0 : 2,
+                    delimiter: ".",
+                    separator: ","
+                  ) %>
             </span>
           </li>
         <% end %>
@@ -33,7 +40,9 @@
 
       <% if expenses.size > 3 %>
         <div class="text-end">
-          <%= link_to t("transactions.actions.see_more_expenses"), admin_locality_path(locality, anchor: "expenses"), class: "btn btn-sm btn-outline-danger" %>
+          <%= link_to t("transactions.actions.see_more_expenses"),
+              admin_locality_path(locality, anchor: "expenses"),
+              class: "btn btn-sm btn-outline-danger" %>
         </div>
       <% end %>
     <% else %>

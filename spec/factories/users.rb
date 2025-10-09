@@ -24,6 +24,9 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
+#  stripe_subscription_id :string
+#  had_trial              :boolean          default("false"), not null
+#  circuses_count         :integer          default("0"), not null
 #
 # Indexes
 #
@@ -37,5 +40,11 @@
 
 FactoryBot.define do
   factory :user do
+    email { Faker::Internet.email }
+    password { "Password!123" }
+
+    trait :confirmed do
+      confirmed_at { Time.current }
+    end
   end
 end

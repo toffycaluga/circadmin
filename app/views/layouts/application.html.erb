@@ -47,14 +47,17 @@
   </head>
   <body data-controller="animations" class="is-boxed has-animations no-js">
     <%# < style="color: gray;">Locale actual: <%= I18n.locale % %>
-    <div class="body-wrap">
-      
-      <%= render "home/header",
-          logo_path: asset_path("icon.svg"),
-          alt_text: "CircAdmin"
-      %>
-      <main >
+      <div style="display:flex;justify-content:space-between;align-item:center;">
+        
+        <%= render "home/header",
+            logo_path: asset_path("icon.svg"),
+            alt_text: "CircAdmin",
+            title: "CircAdmin"
+        %>
         <%= render 'shared/language_selector' %>
+      </div>
+    <div class="body-wrap">
+      <main >
         <%=render 'shared/alert'%>
         <%= yield %>
       </main>

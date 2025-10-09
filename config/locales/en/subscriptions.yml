@@ -1,0 +1,56 @@
+en:
+  subscriptions:
+    new:
+      title: "Choose your plan"
+      month: "month"
+      subtitle: "Start with %{days} free days. Then %{price} per month."
+      trial_days:
+        one: "1-day trial"
+        other: "%{count}-day trial"
+      payment_for: "Payment for"
+      close: "Close"
+      pay_now: "Continue"
+      cancel: "Cancel"
+      continue_to_checkout: "Continue to payment"
+      choose_plan: "Select a plan"
+      choose_plan_help: "You can change or cancel anytime."
+      select_plan_first: "Select a plan to continue."
+    create:
+      error: "We couldn’t process your payment: %{error}"
+    pause:
+      success: "Subscription successfully paused."
+      error: "Error while pausing subscription: %{error}"
+    resume:
+      success: "Subscription successfully resumed."
+      error: "Error while resuming subscription: %{error}"
+    check_availability:
+      subscription_needed:
+        title: "Subscription Required"
+        body: "You must choose or update your plan before continuing."
+      limit_reached:
+        title: "Limit Reached"
+        body: "You already have %{current} out of %{allowed} allowed items. Upgrade your plan."
+      service_needed:
+        title: "Required Module(s) Missing"
+        body: "Your current subscription doesn’t include all required services."
+      error:
+        title: "Oops, something went wrong"
+        body: "We couldn’t verify your subscription. Please try again."
+      invalid_subscription:
+        title: "Invalid Subscription"
+        body: "We couldn’t find your subscription. Please choose a plan."
+    modal:
+      required:
+        title: "Subscription Required"
+        body: "You must choose or update your plan to access this section."
+      limit_reached:
+        title: "Limit Reached"
+        body: "You’ve reached your allowed limit of circuses (%{current}/%{allowed}). Upgrade your plan to continue."
+      invalid:
+        title: "Invalid Subscription"
+        body: "We couldn’t find your subscription. Please select a valid plan."
+    api:
+      create_deprecated: "This endpoint no longer creates subscriptions. Use the checkout (BillingController) to complete the purchase."
+    check:
+      fallback_title: "Oops, something went wrong"
+      fallback_body: "We couldn’t verify your subscription. Please try again."

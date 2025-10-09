@@ -11,25 +11,39 @@
             <i class="bi bi-file-earmark-text-fill me-1"></i>
             <%= t('payrolls.card.header', default: '🧾 Nómina de %{period}', period: l(payroll.date, format: '%B %Y')) %>
           </h6>
+
+          <%# Si total_amount es decimal exacto muestra 0 decimales, si no, 2 %>
+          <% precision = payroll.total_amount.to_f.modulo(1).zero? ? 0 : 2 %>
           <h2 class="text-white mb-0" role="text">
             <%= number_to_currency(
                   payroll.total_amount,
-                  unit:        currency_symbol(payroll.circus.currency),
-                  precision:   payroll.total_amount.to_f.modulo(1).zero? ? 0 : 2,
+                  unit:        currency_symbol(@circus.currency), # usamos @circus si lo tienes cargado
+                  precision:   precision,
                   delimiter:   '.',
                   separator:   ','
                 ) %>
           </h2>
+
           <p class="visually-hidden">
-            <%= t('payrolls.card.total_hidden', default: 'Total %{amount}', amount: number_to_currency(payroll.total_amount, unit: currency_symbol(payroll.circus.currency))) %>
+            <%= t('payrolls.card.total_hidden',
+                  default: 'Total %{amount}',
+                  amount: number_to_currency(payroll.total_amount, unit: currency_symbol(@circus.currency))) %>
           </p>
         </div>
 
         <div>
           <%= link_to t('payrolls.card.view', default: 'Ver nómina'),
-                      payroll_path(payroll),
-                      class: 'btn btn-outline-light',
-                      aria: { label: t('payrolls.card.view_aria', default: 'Ver detalle de la nómina') } %>
+              payroll_path(payroll),
+              class: 'btn btn-outline-light',
+              data: {
+                controller: "subscription-check",
+                action:     "click->subscription-check#check",
+                "subscription-check-required-service-value": "core",
+                # opción 1: usa siempre el id del circo cargado en el controller
+                "subscription-check-circus-id-value": @circus.id
+                # opción 2 (alternativa): si prefieres desde la payroll:
+                # "subscription-check-circus-id-value": payroll.circus_id
+              } %>
         </div>
       </div>
     </div>

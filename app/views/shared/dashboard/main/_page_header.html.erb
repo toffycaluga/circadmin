@@ -3,7 +3,9 @@
     <div class="row align-items-center">
       <div class="col-md-12">
         <div class="page-header-title">
-          <h5><%= content_for?(:page_title) ? yield(:page_title) : "Dashboard" %></h5>
+          <h5>
+            <%= content_for?(:page_title) ? yield(:page_title) : t("dashboard.header.title", default: "Dashboard") %>
+          </h5>
         </div>
         <ul class="breadcrumb">
           <li class="breadcrumb-item">
@@ -14,7 +16,7 @@
           <% if content_for?(:breadcrumb) %>
             <%= yield :breadcrumb %>
           <% else %>
-            <li class="breadcrumb-item">Dashboard</li>
+            <li class="breadcrumb-item"><%= t("dashboard.header.breadcrumb", default: "Dashboard") %></li>
           <% end %>
         </ul>
       </div>

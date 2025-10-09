@@ -10,7 +10,7 @@
           CircusUser::ROLES
             .reject { |r| r == "owner" }
             .map { |r| [role_label(r), r] },
-          { prompt: "Seleccionar rol" },
+          { prompt: t("users.invite.select_role_prompt") },
           class: "form-control form-control-sm", required: true, style: "min-width: 150px;" %>
     </div>
   </td>

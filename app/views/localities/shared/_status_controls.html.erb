@@ -1,10 +1,27 @@
+<!-- app/views/localities/shared/_status_controls.html.erb -->
 <div class="mb-3 d-flex gap-2 col-sm-12 col-md-4 justify-content-between">
-  <%= link_to "✏️ #{t('localities.actions.edit')}", edit_locality_path(locality), class: "btn btn-outline-secondary" %>
+  <%= link_to "✏️ #{t('localities.actions.edit')}",
+      edit_locality_path(locality),
+      class: "btn btn-outline-secondary" %>
 
   <% if locality.active? %>
-    <%= button_to "🚫 #{t('localities.actions.close')}", deactivate_locality_path(locality), method: :patch, class: "btn btn-outline-danger", data: { confirm: t('localities.confirmations.close') } %>
+    <%= button_to "🚫 #{t('localities.actions.close')}",
+        deactivate_locality_path(locality),
+        method: :patch,
+        class: "btn btn-outline-danger",
+        data: { confirm: t('localities.confirmations.close') } %>
   <% else %>
-    <%= button_to "✅ #{t('localities.actions.reopen')}", reactivate_locality_path(locality), method: :patch, class: "btn btn-outline-success", data: { confirm: t('localities.confirmations.reopen') } %>
-    <span class="badge badge-danger align-self-center"><%= t('localities.status.closed') %></span>
+    <%= button_to "✅ #{t('localities.actions.reopen')}",
+        reactivate_locality_path(locality),
+        method: :patch,
+        class: "btn btn-outline-success",
+        data: {
+          confirm: t('localities.confirmations.reopen'),
+          action: "click->subscription-check#check"
+        } %>
+
+    <span class="badge bg-danger align-self-center">
+      <%= t('localities.status.closed') %>
+    </span>
   <% end %>
 </div>

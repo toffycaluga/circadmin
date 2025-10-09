@@ -1,0 +1,11 @@
+pt:
+  errors:
+    unauthorized: "Você não está autorizado a realizar esta ação."
+    unauthorized_short: "Você não está autorizado."
+    not_found: "Não encontrado"
+    not_found:
+      title: "Página não encontrada (404)"
+      message: "Desculpe, mas a página que você procura não existe."
+      back_home: "Voltar ao início"
+    messages:
+      form_invalid: "Corrija os erros para continuar"

@@ -1,0 +1,15 @@
+pt:
+  billing:
+    success:
+      title: "Assinatura bem-sucedida! 🎪"
+      thanks_html: "Obrigado por assinar o <strong>%{app_name}</strong>."
+      access: "Agora você tem acesso a todos os recursos do seu plano."
+      session_id: "ID da sessão de checkout"
+      portal: "Ir para o portal de faturamento"
+      back_to_dashboard: "Voltar ao painel"
+    invalid_session: "A sessão de pagamento é inválida ou expirou."
+    portal_not_configured: "O portal do cliente Stripe (modo de teste) ainda não está configurado."
+    cancelled:
+      title: "Pagamento cancelado"
+      message: "Você pode tentar novamente quando quiser."
+      back_to_dashboard: "Voltar ao painel"

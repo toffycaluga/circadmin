@@ -1,0 +1,56 @@
+pt:
+  subscriptions:
+    new:
+      title: "Escolha seu plano"
+      month: "mês"
+      subtitle: "Comece com %{days} dias grátis. Depois %{price} por mês."
+      trial_days:
+        one: "1 dia de teste"
+        other: "%{count} dias de teste"
+      payment_for: "Pagamento para"
+      close: "Fechar"
+      pay_now: "Continuar"
+      cancel: "Cancelar"
+      continue_to_checkout: "Continuar para o pagamento"
+      choose_plan: "Selecione um plano"
+      choose_plan_help: "Você pode alterar ou cancelar a qualquer momento."
+      select_plan_first: "Selecione um plano para continuar."
+    create:
+      error: "Não foi possível processar seu pagamento: %{error}"
+    pause:
+      success: "Assinatura pausada com sucesso."
+      error: "Erro ao pausar a assinatura: %{error}"
+    resume:
+      success: "Assinatura retomada com sucesso."
+      error: "Erro ao retomar a assinatura: %{error}"
+    check_availability:
+      subscription_needed:
+        title: "Assinatura Necessária"
+        body: "Você deve escolher ou atualizar seu plano antes de continuar."
+      limit_reached:
+        title: "Limite Atingido"
+        body: "Você já possui %{current} de %{allowed} itens permitidos. Atualize seu plano."
+      service_needed:
+        title: "Módulo(s) Necessário(s) Ausente(s)"
+        body: "Sua assinatura atual não inclui todos os serviços necessários."
+      error:
+        title: "Ops, ocorreu um problema"
+        body: "Não foi possível verificar sua assinatura. Tente novamente."
+      invalid_subscription:
+        title: "Assinatura Inválida"
+        body: "Não encontramos sua assinatura. Por favor, escolha um plano."
+    modal:
+      required:
+        title: "Assinatura Necessária"
+        body: "Você deve escolher ou atualizar seu plano para acessar esta seção."
+      limit_reached:
+        title: "Limite Atingido"
+        body: "Você atingiu o limite permitido de circos (%{current}/%{allowed}). Atualize seu plano para continuar."
+      invalid:
+        title: "Assinatura Inválida"
+        body: "Não encontramos sua assinatura. Por favor, selecione um plano válido."
+    api:
+      create_deprecated: "Este endpoint não cria mais assinaturas. Use o checkout (BillingController) para concluir a compra."
+    check:
+      fallback_title: "Ops, ocorreu um problema"
+      fallback_body: "Não foi possível verificar sua assinatura. Tente novamente."

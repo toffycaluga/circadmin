@@ -1,4 +1,6 @@
 <!-- app/views/errors/not_found.html.erb -->
-<h1>Página no encontrada (404)</h1>
-<p>Lo sentimos, pero la página que buscas no existe.</p>
-<%= link_to "Volver al inicio", root_path, class: "btn btn-primary" %>
+<div class="container py-5 text-center">
+  <h1 class="mb-3"><%= t("errors.not_found.title") %></h1>
+  <p class="text-muted mb-4"><%= t("errors.not_found.message") %></p>
+  <%= link_to t("errors.not_found.back_home"), root_path, class: "btn btn-primary" %>
+</div>

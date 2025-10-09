@@ -1,0 +1,14 @@
+es:
+  shared:
+    close: "Cerrar"
+    cancel: "Cancelar"
+    actions:
+      close: "Cerrar"
+      add: "Agregar"
+      update: "Actualizar"
+      back: "Volver"
+      edit: "Editar"
+      delete: "Eliminar"
+      confirm_delete: "¿Seguro que deseas eliminar este registro?"
+    actions: "Acciones"
+    view_more: "Ver más"

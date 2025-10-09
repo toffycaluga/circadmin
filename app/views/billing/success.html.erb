@@ -1,0 +1,24 @@
+<%# app/views/billing/success.html.erb %>
+<div class="container py-5 text-center">
+  <div class="card shadow-lg border-0 p-4 mx-auto" style="max-width: 600px;">
+    <div class="mb-3">
+      <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+    </div>
+
+    <h1 class="mb-3"><%= t("billing.success.title") %></h1>
+    <p class="lead text-muted">
+      <%= t("billing.success.thanks_html", app_name: t("app.name", default: "CircAdmin")) %>
+      <br>
+      <%= t("billing.success.access") %>
+    </p>
+
+    <% if Rails.env.development? && @session_id.present? %>
+      <p class="small text-muted">
+        <%= t("billing.success.session_id") %>:
+        <code><%= @session_id %></code>
+      </p>
+    <% end %>
+
+    <div class="d-grid gap-3 mt-4">
+      <%= link_to t("billing.success.portal"), billing_portal_path, class: "btn btn-primary btn-lg" %>
+      <%= link_to t("billing.success.back_to_dashboard"), dashboard_index

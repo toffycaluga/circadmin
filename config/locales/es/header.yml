@@ -1,0 +1,9 @@
+es:
+  header:
+    brand: "CircAdmin"
+    logo_alt: "Logo de CircAdmin"
+    mobile_menu_toggle: "Abrir/cerrar menú"
+    lang_menu_toggle: "Seleccionar idioma"
+    user_menu_toggle: "Abrir menú de usuario"
+    logout: "Cerrar sesión"
+    profile: "Perfil"

@@ -7,9 +7,6 @@
           <h4 class="m-b-5 text-white">
             <%= currency_symbol(locality.circus.currency) %> <%= number_with_delimiter(amount, delimiter: ".", separator: ",") %>
           </h4>
-          <%# <h6 class="text-white"> %>
-          <%#= change_percent.positive? ? "+" : "" %><%#= number_with_precision(change_percent, precision: 2) %>
-          <%# </h6> %>
         </div>
       </div>
       <div id="summary-chart-line"></div>
@@ -19,8 +16,8 @@
         </div>
       </div>
     </div>
+
     <div class="card-footer">
-      <%# Mostrar fecha o rango según disponibilidad %>
       <div class="col text-right">
         <% if defined?(target_date) && target_date.present? %>
           <small class="text-muted"><%= l(target_date, format: :long) %></small>
@@ -28,15 +25,19 @@
           <small class="text-muted"><%= l(range.first.to_date, format: :long) %> — <%= l(range.last.to_date, format: :long) %></small>
         <% end %>
       </div>
+
       <h4>
         <%= currency_symbol(locality.circus.currency) %> <%= number_with_delimiter(amount, delimiter: ".", separator: ",") %>
       </h4>
+
       <p class="text-muted"><%= t("transactions.summary.breakdown") %></p>
+
       <div class="d-flex flex-wrap gap-3">
         <% (categories || {}).each do |label, value| %>
+          <% key = "transactions.categories.#{label}" %>
           <div class="text-center">
             <p class="text-muted m-0">
-              <%= t("transactions.categories.#{label}", default: label.titleize) %>
+              <%= I18n.exists?(key) ? t(key) : label.to_s.titleize %>
             </p>
             <h6 class="mb-0">
               <%= currency_symbol(locality.circus.currency) %> <%= number_with_delimiter(value, delimiter: ".", separator: ",") %>
@@ -44,6 +45,7 @@
           </div>
         <% end %>
       </div>
+
       <div class="text-right mt-2">
         <% period_param =
             if local_assigns[:target_date].present?
@@ -54,11 +56,10 @@
               'custom'
             end
         %>
-          <%= link_to t("transactions.summary.view_details"),
-          summary_locality_path(locality, period: period),
-          class: "btn btn-sm btn-light" %>
+        <%= link_to t("transactions.summary.view_details"),
+                    summary_locality_path(locality, period: period_param),
+                    class: "btn btn-sm btn-light" %>
       </div>
     </div>
-    <%# fin footer %>
   </div>
 </div>

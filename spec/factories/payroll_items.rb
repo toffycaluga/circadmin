@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  payroll_id :integer          not null
 #  name       :string
-#  role       :string
+#  job_role   :string
 #  amount     :decimal(, )
 #  notes      :text
 #  created_at :datetime         not null
