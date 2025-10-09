@@ -4,6 +4,5 @@ class AddPayrollToTransactions < ActiveRecord::Migration[8.0]
                     foreign_key: true,
                     index: true,
                     null: true     # <–– permitir NULL para las transacciones antiguas
-
   end
 end

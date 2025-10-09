@@ -168,9 +168,9 @@ Rails.application.routes.draw do
     root to: "devise/sessions#new", as: :unauthenticated_root
   end
 
-# =========================
-# Billing + Webhook Stripe
-# =========================
+  # =========================
+  # Billing + Webhook Stripe
+  # =========================
   post "billing/checkout", to: "billing#create_checkout_session", as: :billing_checkout
   get  "billing/success",  to: "billing#success",                as: :billing_success
   get  "billing/cancel",   to: "billing#cancel",                 as: :billing_cancel

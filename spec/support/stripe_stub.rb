@@ -23,7 +23,7 @@ RSpec.configure do |config|
       current_period_start: Time.now.to_i,
       current_period_end:   (Time.now + 30.days).to_i,
       latest_invoice: OpenStruct.new(id: "in_123", status: "paid"),
-      items: OpenStruct.new(data: [item])
+      items: OpenStruct.new(data: [ item ])
     )
 
     allow(Stripe::Subscription).to receive(:retrieve).and_return(sub)
