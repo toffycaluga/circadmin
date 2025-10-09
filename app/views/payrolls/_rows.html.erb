@@ -3,7 +3,13 @@
     <td><%= item.name %></td>
     <td><%= item.role %></td>
     <td class="text-end">
-      <%= number_to_currency(item.amount, unit: currency_symbol(payroll.circus.currency), delimiter: '.', separator: ',', precision: item.amount.to_f.modulo(1).zero? ? 0 : 2) %>
+      <%= number_to_currency(
+            item.amount,
+            unit:      currency_symbol(payroll.circus.currency),
+            delimiter: '.',
+            separator: ',',
+            precision: item.amount.to_f.modulo(1).zero? ? 0 : 2
+          ) %>
     </td>
     <td><%= item.notes %></td>
     <td class="text-end">
@@ -15,18 +21,30 @@
                   turbo_frame: "payroll_item_modal",
                   action: "click->modal#open"
                 },
-                class: "d-inline"  # para que el form no ocupe todo el ancho
+                class: "d-inline"
               },
-              class: "btn btn-sm btn-outline-secondary" do %>
+              class: "btn btn-sm btn-outline-secondary",
+              title: t("payroll_items.actions.edit"),
+              aria: { label: t("payroll_items.actions.edit") } do %>
           ✏️
         <% end %>
-        <%= button_to payroll_payroll_item_path(payroll, item), method: :delete, data: { turbo_confirm: "¿Eliminar ítem?" }, class: "btn btn-sm btn-outline-danger" do %>❌<% end %>
+
+        <%= button_to payroll_payroll_item_path(payroll, item),
+              method: :delete,
+              data: { turbo_confirm: t("payroll_items.confirmations.delete") },
+              class: "btn btn-sm btn-outline-danger",
+              title: t("payroll_items.actions.delete"),
+              aria: { label: t("payroll_items.actions.delete") } do %>
+          ❌
+        <% end %>
       </div>
     </td>
   </tr>
 <% end %>
-<tr id="<%= payroll_item.persisted? ? dom_id(payroll_item) : "new_payroll_item" %>">
+
+<tr id="<%= payroll_item.persisted? ? dom_id(payroll_item) : 'new_payroll_item' %>">
   <td colspan="5">
-    <%= render partial: 'payroll_items/form_inline', locals: { payroll: payroll, payroll_item: payroll_item } %>
+    <%= render partial: "payroll_items/form_inline",
+               locals: { payroll: payroll, payroll_item: payroll_item } %>
   </td>
 </tr>

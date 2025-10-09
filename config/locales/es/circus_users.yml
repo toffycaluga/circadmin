@@ -1,0 +1,18 @@
+es:
+  circus_users:
+    edit:
+      title: "Editar rol de %{email} en el circo"
+    fields:
+      role: "Rol"
+    actions:
+      update: "Actualizar"
+      deactivate: "Desactivar usuario"
+    confirmations:
+      deactivate: "¿Seguro que quieres desactivar este usuario?"
+    row:
+      profile_picture_alt: "Foto de perfil"
+      actions:
+        save: "Guardar"
+        deactivate: "Eliminar"
+      confirmations:
+        deactivate: "¿Estás seguro de que deseas eliminar este usuario?"

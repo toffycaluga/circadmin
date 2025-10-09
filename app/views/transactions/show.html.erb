@@ -1,19 +1,19 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @transaction %>
+
 <p>
-  <strong>Comprobante:</strong>
+  <strong><%= t("transactions.show.receipt") %>:</strong>
   <% if @transaction.receipt.attached? %>
-    <%= link_to "Ver comprobante", url_for(@transaction.receipt), target: "_blank" %>
+    <%= link_to t("transactions.show.view_receipt"), url_for(@transaction.receipt), target: "_blank" %>
   <% else %>
-    No adjuntado
+    <%= t("transactions.show.no_receipt") %>
   <% end %>
 </p>
 
-
 <div>
-  <%= link_to "Edit this transaction", edit_transaction_path(@transaction) %> |
-  <%= link_to "Back to transactions", transactions_path %>
+  <%= link_to t("transactions.show.edit_link"), edit_transaction_path(@transaction) %> |
+  <%= link_to t("transactions.show.back_link"), transactions_path %>
 
-  <%= button_to "Destroy this transaction", @transaction, method: :delete %>
+  <%= button_to t("transactions.show.destroy_link"), @transaction, method: :delete, data: { confirm: t("transactions.show.confirm_destroy") } %>
 </div>

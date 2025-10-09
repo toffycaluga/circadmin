@@ -1,4 +1,9 @@
+<!-- app/views/billing/cancelled.html.erb -->
 <div class="container py-4">
-  <h1>Pago cancelado</h1>
-  <p>Puedes intentar nuevamente cuando quieras.</p>
+  <h1><%= t("billing.cancelled.title") %></h1>
+  <p><%= t("billing.cancelled.message") %></p>
+
+  <div class="mt-3">
+    <%= link_to t("billing.cancelled.back_to_dashboard"), dashboard_index_path, class: "btn btn-secondary" %>
+  </div>
 </div>

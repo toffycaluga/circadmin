@@ -72,3 +72,9 @@ es:
         success: "Perfil eliminado correctamente."
       unauthorized: "No tienes permiso para acceder a este perfil."
       not_found: "Perfil no encontrado."
+    close: "Cerrar"
+    success:
+      updated: "Los cambios se guardaron correctamente."
+      created: "El registro se creó con éxito."
+    errors:
+      generic: "Ocurrió un error. Por favor, inténtalo nuevamente."

@@ -4,12 +4,13 @@
     <button class="navbar-toggler me-2" type="button"
             data-bs-toggle="collapse" data-bs-target="#mainNavbar"
             aria-controls="mainNavbar" aria-expanded="false"
-            aria-label="Toggle main menu">
+            aria-label="<%= t('navbar.toggle_menu', default: 'Abrir menú principal') %>">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <a href="#!" class="navbar-brand d-flex align-items-center">
       <%= image_tag 'icono_w.png', class: "logo me-2", loading: "lazy" %>
-      <h3 class="mb-0">CircAdmin</h3>
+      <h3 class="mb-0"><%= t('navbar.brand', default: 'CircAdmin') %></h3>
     </a>
 
     <!-- 2) Tres puntos (utilidades) -->
@@ -27,7 +28,10 @@
           </li>
           <li><hr class="dropdown-divider"></li>
           <li class="px-3">
-            <%= link_to 'Salir', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
+            <%= link_to t('navbar.logout', default: 'Salir'),
+                        destroy_user_session_path,
+                        method: :delete,
+                        class: 'dropdown-item' %>
           </li>
         </ul>
       </div>
@@ -47,7 +51,10 @@
           <%= render 'shared/language_selector' %>
         </li>
         <li class="nav-item">
-          <%= link_to 'Salir', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+          <%= link_to t('navbar.logout', default: 'Salir'),
+                      destroy_user_session_path,
+                      method: :delete,
+                      class: 'nav-link' %>
         </li>
       </ul>
     </div>

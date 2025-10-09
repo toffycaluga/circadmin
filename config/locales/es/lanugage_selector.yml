@@ -1,0 +1,7 @@
+es:
+  language_selector:
+    aria_label: "Selector de idioma"
+    languages:
+      es: "Español"
+      en: "Inglés"
+      pt: "Portugués"

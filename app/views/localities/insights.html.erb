@@ -1,55 +1,63 @@
-<% content_for :page_title, t("insights.title", default: "Resumen e Insights") %>
+<% content_for :page_title, t("insights.title") %>
 
 <div class="col-12 col-lg-10 mx-auto mt-4 mb-5">
   <div class="card shadow-sm">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-      <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i><%= t("insights.title", default: "Resumen e Insights") %></h5>
+      <h5 class="mb-0">
+        <i class="fas fa-chart-line me-2"></i><%= t("insights.title") %>
+      </h5>
     </div>
 
     <div class="card-body">
       <h6 class="text-muted mb-3">
-        <%= t("insights.range", default: "Rango de fechas") %>:
+        <%= t("insights.range") %>:
         <strong><%= l(@start_date) %></strong> — <strong><%= l(@end_date) %></strong>
       </h6>
 
       <% if @summary_by_category.present? %>
-        <h5 class="mb-3"><%= t("insights.summary.title", default: "Resumen por categoría") %></h5>
+        <h5 class="mb-3"><%= t("insights.summary.title") %></h5>
         <ul class="list-group list-group-flush mb-4">
           <% @summary_by_category.each do |category, amount| %>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-              <%= t("transactions.categories.#{category}", default: category.titleize) %>
-              <strong><%= currency_symbol(@locality.circus.currency) %> <%= number_with_delimiter(amount, delimiter: ".", separator: ",") %></strong>
+              <%= t("transactions.categories.#{category}", default: category.to_s.titleize) %>
+              <strong>
+                <%= currency_symbol(@locality.circus.currency) %>
+                <%= number_with_delimiter(amount, delimiter: ".", separator: ",") %>
+              </strong>
             </li>
           <% end %>
         </ul>
       <% else %>
         <div class="alert alert-info">
-          <%= t("insights.summary.no_data", default: "No hay resumen disponible para este período.") %>
+          <%= t("insights.summary.no_data") %>
         </div>
       <% end %>
 
       <hr>
 
-      <h5><%= t("insights.transactions.title", default: "Transacciones individuales") %></h5>
+      <h5><%= t("insights.transactions.title") %></h5>
 
       <% if @transactions.present? %>
         <div class="table-responsive">
           <table class="table table-striped table-bordered">
             <thead>
               <tr>
-                <th><%= t("transactions.date", default: "Fecha") %></th>
-                <th><%= t("transactions.category", default: "Categoría") %></th>
-                <th><%= t("transactions.title", default: "Descripción") %></th>
-                <th><%= t("transactions.amount", default: "Monto") %></th>
+                <th><%= t("transactions.fields.date") %></th>
+                <th><%= t("transactions.fields.category") %></th>
+                <th><%= t("transactions.fields.title") %></th>
+                <th><%= t("transactions.fields.amount") %></th>
               </tr>
             </thead>
             <tbody>
               <% @transactions.each do |tx| %>
                 <tr>
                   <td><%= l(tx.date.to_date) %></td>
-                  <td><%= t("transactions.categories.#{tx.category}", default: tx.category.titleize) %></td>
+                  <td><%= t("transactions.categories.#{tx.category}", default: tx.category.to_s.titleize) %></td>
                   <td><%= tx.title %></td>
-                  <td><%= currency_symbol(@locality.circus.currency) %> <%= number_with_delimiter(tx.amount, delimiter: ".", separator: ",") %></td>
+                  <td>
+                    <%= currency_symbol(@locality.circus.currency) %>
+                    <%= number_with_delimiter(tx.amount, delimiter: ".", separator: ",") %>
+                  </td>
                 </tr>
               <% end %>
             </tbody>
@@ -57,7 +65,7 @@
         </div>
       <% else %>
         <div class="alert alert-warning">
-          <%= t("insights.transactions.no_data", default: "No hay transacciones para este período.") %>
+          <%= t("insights.transactions.no_data") %>
         </div>
       <% end %>
     </div>

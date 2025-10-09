@@ -6,29 +6,30 @@
       <!-- Botón hamburguesa -->
       <a class="mobile-menu text-white"
          href="#"
-         data-action="click->navigation#toggle">
+         data-action="click->navigation#toggle"
+         aria-label="<%= t('header.mobile_menu_toggle', default: 'Abrir/cerrar menú') %>">
         <span></span>
       </a>
 
       <!-- Brand -->
-      <%= link_to root_path, class: 'b-brand d-flex align-items-center' do %>
+      <%= link_to root_path, class: 'b-brand d-flex align-items-center', 'aria-label': t('header.brand', default: 'CircAdmin') do %>
         <%= image_tag 'icono_w.png',
                       class: 'logo me-2',
                       loading: 'lazy',
-                      alt: t('header.logo_alt', default: 'CircAdmin Logo') %>
-        <span class="logo-text text-white h5 mb-0">CircAdmin</span>
+                      alt: t('header.logo_alt', default: 'Logo de CircAdmin') %>
+        <span class="logo-text text-white h5 mb-0"><%= t('header.brand', default: 'CircAdmin') %></span>
       <% end %>
 
       <!-- Notificaciones + selector idioma móvil -->
       <div class="d-flex align-items-center gap-3">
-        
         <%= render 'shared/dashboard/template_nav_menu/notificacion' %>
         <div class="dropdown">
           <a class="nav-link dropdown-toggle p-0 text-white"
              href="#"
              id="mobileLangDropdown"
              data-bs-toggle="dropdown"
-             aria-expanded="false">
+             aria-expanded="false"
+             aria-label="<%= t('header.lang_menu_toggle', default: 'Seleccionar idioma') %>">
             <i class="feather icon-more-vertical"></i>
           </a>
           <ul class="dropdown-menu dropdown-menu-end language-selector d-flex justify-content-center"
@@ -38,28 +39,16 @@
         </div>
       </div>
     </div>
-    
-<style>
-   @media (max-width: 575.98px) {
-    /* aquí van estilos para la mayoría de smartphones */
-     .language-selector {
-      transform: translateX(-250px) !important;
-      backgroung: rgba(0,0,0,0.5) !important!;
-
-    }
-  }
-</style>
-
 
     <!-- ===== DESKTOP HEADER ===== -->
     <div class="d-none d-lg-flex align-items-center justify-content-between w-100 px-3">
       <!-- Brand -->
-      <%= link_to root_path, class: 'b-brand d-flex align-items-center' do %>
+      <%= link_to root_path, class: 'b-brand d-flex align-items-center', 'aria-label': t('header.brand', default: 'CircAdmin') do %>
         <%= image_tag 'icono_w.png',
                       class: 'logo me-2',
                       loading: 'lazy',
-                      alt: t('header.logo_alt', default: 'CircAdmin Logo') %>
-        <span class="logo-text text-white h5 mb-0">CircAdmin</span>
+                      alt: t('header.logo_alt', default: 'Logo de CircAdmin') %>
+        <span class="logo-text text-white h5 mb-0"><%= t('header.brand', default: 'CircAdmin') %></span>
       <% end %>
 
       <!-- Menú derecho -->
@@ -77,7 +66,8 @@
              id="userDropdown"
              role="button"
              data-bs-toggle="dropdown"
-             aria-expanded="false">
+             aria-expanded="false"
+             aria-label="<%= t('header.user_menu_toggle', default: 'Abrir menú de usuario') %>">
             <i class="feather icon-user"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-end profile-notification"
@@ -124,25 +114,25 @@
 </header>
 
 <style>
-  .logo {
-    width: 32px;
-    height: auto;
-  }
+  .logo { width: 32px; height: auto; }
+
   .pcoded-header .mobile-menu {
     float: left !important;
     position: relative !important;
     margin-right: 1rem;
   }
+
   @media (max-width: 991.98px) {
-    .d-flex.d-lg-none {
-      justify-content: space-between !important;
-    }
-    .b-brand {
-      z-index: 1;
-    }
-    .mobile-menu,
-    .dropdown {
-      z-index: 2;
+    .d-flex.d-lg-none { justify-content: space-between !important; }
+    .b-brand { z-index: 1; }
+    .mobile-menu, .dropdown { z-index: 2; }
+  }
+
+  /* Fix responsive language selector + typos */
+  @media (max-width: 575.98px) {
+    .language-selector {
+      transform: translateX(-250px) !important;
+      background: rgba(0,0,0,0.5) !important; /* <- corregido: 'background' y sin doble ! */
     }
   }
 </style>

@@ -1,12 +1,15 @@
-<p style="color: green"><%= notice %></p>
+<!-- app/views/circuses/show.html.erb -->
+<p class="text-success"><%= notice %></p>
 
 <%= render @circus %>
 
-<div>
-  <%= link_to "Edit this circus", edit_circus_path(@circus) %> |
-  <%= link_to "Back to circuses", circus_path %>
+<div class="mt-3">
+  <%= link_to t("circuses.show.edit"), edit_circus_path(@circus), class: "btn btn-primary" %>
+  <%= link_to t("circuses.show.back"), circuses_path, class: "btn btn-secondary" %>
 
-  <%= button_to "Destroy this circus", @circus, method: :delete %>
+  <%= button_to t("circuses.show.destroy"),
+      @circus,
+      method: :delete,
+      data: { turbo_confirm: t("circuses.show.confirm_destroy") },
+      class: "btn btn-danger" %>
 </div>
-
-

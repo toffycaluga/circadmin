@@ -8,8 +8,9 @@
   <h1 class="mb-4"><%= t('subscriptions.new.title') %></h1>
 
   <% basic = @plans.find { |p| p.key == 'basic' } %>
-  <% price = number_to_currency(basic.price_cents / 100.0, precision: 0) %>
-  <% days  = basic.trial_days %>
+  <% price = basic ? number_to_currency(basic.price_cents / 100.0, precision: 0) : "-" %>
+  <% days  = basic&.trial_days || 0 %>
+
   <p class="lead mb-5">
     <%= t('subscriptions.new.subtitle', days: days, price: price) %>
   </p>

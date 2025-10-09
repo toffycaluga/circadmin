@@ -1,19 +1,31 @@
+<!-- Modal alerta de suscripción -->
+<div class="modal fade" id="billingModal" tabindex="-1" aria-hidden="true" data-controller="billing">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><%= t('billing_modal.alert.title', default: 'Actualiza tu suscripción') %></h5>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="<%= t('billing_modal.close', default: 'Cerrar') %>"></button>
+      </div>
 
-  <!-- Modal alerta de suscripción -->
-  <div class="modal fade" id="billingModal" tabindex="-1" aria-hidden="true" data-controller="billing">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Actualiza tu suscripción</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <p data-billing-target="message">No tienes cupos disponibles para crear otro circo.</p>
-        </div>
-        <div class="modal-footer">
-          <a href="<%= new_subscription_path %>" class="btn btn-primary">Actualizar</a>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        </div>
+      <div class="modal-body">
+        <p data-billing-target="message">
+          <%= t('billing_modal.alert.message', default: 'No tienes cupos disponibles para crear otro circo.') %>
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <a href="<%= new_subscription_path %>" class="btn btn-primary">
+          <%= t('billing_modal.alert.update', default: 'Actualizar') %>
+        </a>
+        <button type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal">
+          <%= t('billing_modal.cancel', default: 'Cancelar') %>
+        </button>
       </div>
     </div>
   </div>
+</div>

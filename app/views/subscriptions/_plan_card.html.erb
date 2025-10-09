@@ -3,7 +3,7 @@
   class="card plan-card h-100 cursor-pointer p-3"
   data-plan-key="<%= plan.key %>"
   data-plan-id="<%= plan.id %>"
-  data-plan-name="<%= t("plans.#{plan.key}.name") %>"
+  data-plan-name="<%= t("plans.#{plan.key}.name", default: plan.name) %>"
   data-action="click->subscription#selectPlan"
 >
   <div class="card-body d-flex flex-column">
@@ -11,26 +11,29 @@
       <%= radio_button_tag :plan_choice, plan.key, false,
             class: 'form-check-input', id: "plan_#{plan.key}",
             data: { subscription_target: "planRadio" } %>
-      <%= label_tag "plan_#{plan.key}", t("plans.#{plan.key}.name"),
+      <%= label_tag "plan_#{plan.key}",
+            t("plans.#{plan.key}.name", default: plan.name),
             class: 'form-check-label h5 mb-0' %>
     </div>
 
     <h3 class="card-title mb-2">
       <%= number_to_currency(plan.price_cents / 100.0, precision: 0) %>
-      <small class="text-muted">/ <%= t('subscriptions.new.month') %></small>
+      <small class="text-muted">/ <%= t('subscriptions.new.month', default: 'mes') %></small>
     </h3>
 
-    <% if plan.trial_days.positive? %>
+    <% if plan.trial_days.to_i.positive? %>
       <span class="badge bg-success mb-3">
-        <%= t('subscriptions.new.trial_days', count: plan.trial_days) %>
+        <%= t('subscriptions.new.trial_days',
+              count: plan.trial_days,
+              default: { one: "1 día de prueba", other: "%{count} días de prueba" }) %>
       </span>
     <% end %>
 
     <ul class="list-unstyled mt-auto">
-      <% t("plans.#{plan.key}.features").split(',').each do |feat| %>
+      <% Array(t("plans.#{plan.key}.features", default: [])).each do |feat| %>
         <li class="mb-2">
           <i class="bi bi-check-circle-fill text-success me-2"></i>
-          <%= feat.strip %>
+          <%= feat %>
         </li>
       <% end %>
     </ul>

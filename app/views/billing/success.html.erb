@@ -5,22 +5,20 @@
       <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
     </div>
 
-    <h1 class="mb-3">¡Suscripción exitosa! 🎪</h1>
+    <h1 class="mb-3"><%= t("billing.success.title") %></h1>
     <p class="lead text-muted">
-      Gracias por suscribirte a <strong>CircAdmin</strong>.  
-      Ahora tienes acceso a todas las funcionalidades de tu plan.
+      <%= t("billing.success.thanks_html", app_name: t("app.name", default: "CircAdmin")) %>
+      <br>
+      <%= t("billing.success.access") %>
     </p>
 
     <% if Rails.env.development? && @session_id.present? %>
       <p class="small text-muted">
-        Checkout Session ID: <code><%= @session_id %></code>
+        <%= t("billing.success.session_id") %>:
+        <code><%= @session_id %></code>
       </p>
     <% end %>
 
-
     <div class="d-grid gap-3 mt-4">
-      <%= link_to "Ir al portal de facturación", billing_portal_path, class: "btn btn-primary btn-lg" %>
-      <%= link_to "Volver al dashboard", dashboard_index_path, class: "btn btn-outline-secondary" %>
-    </div>
-  </div>
-</div>
+      <%= link_to t("billing.success.portal"), billing_portal_path, class: "btn btn-primary btn-lg" %>
+      <%= link_to t("billing.success.back_to_dashboard"), dashboard_index

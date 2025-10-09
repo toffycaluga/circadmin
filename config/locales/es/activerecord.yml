@@ -29,3 +29,7 @@ es:
           attributes:
             user:
               required: "debe estar presente"
+        payroll_item:
+          attributes:
+            name:
+              blank: "no puede estar vacío"

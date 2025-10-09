@@ -1,12 +1,12 @@
 <div class="d-flex justify-content-end mb-3">
-  <%= form_with url: set_language_path, method: :post, local: true, class: "form-inline" do %>
+  <%= form_with url: set_language_path, method: :post, local: true, class: "form-inline", html: { 'aria-label': t('language_selector.aria_label') } do %>
     <div class="form-group">
       <%= select_tag :locale,
           options_for_select(
             [
-              ['🇪🇸 Español', :es],
-              ['🇺🇸 English', :en],
-              ['🇧🇷 Português', :pt]
+              ["🇪🇸 #{t('language_selector.languages.es')}", :es],
+              ["🇺🇸 #{t('language_selector.languages.en')}", :en],
+              ["🇧🇷 #{t('language_selector.languages.pt')}", :pt]
             ],
             I18n.locale
           ),

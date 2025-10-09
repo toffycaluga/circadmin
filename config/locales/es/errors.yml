@@ -3,3 +3,9 @@ es:
     unauthorized: "No estás autorizado para realizar esta acción."
     unauthorized_short: "No estás autorizado."
     not_found: "No encontrado"
+    not_found:
+      title: "Página no encontrada (404)"
+      message: "Lo sentimos, pero la página que buscas no existe."
+      back_home: "Volver al inicio"
+    messages:
+      form_invalid: "Corrige los errores para continuar"

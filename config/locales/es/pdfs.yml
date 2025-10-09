@@ -1,0 +1,21 @@
+es:
+  pdfs:
+    payroll:
+      header_title: "Nómina"
+      header_full: "%{app_name} — %{title}"
+      detail_title: "Detalle de Nómina"
+      labels:
+        circus: "Circo"
+        payroll_date: "Fecha de nómina"
+      table:
+        name: "Nombre"
+        role: "Cargo"
+        amount: "Monto"
+        notes: "Notas"
+        total: "Total"
+      footer:
+        page_x_of_y: "Página <page> de <total>"
+        generated_by: "Documento generado por %{app_name}"
+    common:
+      branding: "CircAdmin"           # o "CircAdmin — by", si quieres mantener el texto original
+      page_x_of_y: "<page> / <total>"

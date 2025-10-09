@@ -1,7 +1,11 @@
-<h1>¡Hola <%= @user.nombre_completo || @user.email %>!</h1>
+<h1><%= t("users_mailer.invitation.greeting", name: @user.nombre_completo || @user.email) %></h1>
 
-<p>Te han invitado a formar parte del circo "<strong><%= @circus.name %></strong>" en CircAdmin.</p>
+<p>
+  <%= t("users_mailer.invitation.invite_text", circus_name: @circus.name) %>
+</p>
 
-<p><%= link_to "Aceptar invitación", @accept_url %></p>
+<p>
+  <%= link_to t("users_mailer.invitation.accept_button"), @accept_url %>
+</p>
 
-<p>¡Te esperamos!</p>
+<p><%= t("users_mailer.invitation.farewell") %></p>

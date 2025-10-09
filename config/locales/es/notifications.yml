@@ -1,5 +1,10 @@
 es:
   notifications:
+    title: "Mis notificaciones"
+    mark_all: "Marcar todas como leídas"
+    mark_read: "Marcar como leída"
+    none: "No tienes notificaciones por el momento."
+    time_ago: "hace %{time}"
     invitation:
       new:
         title: "Nueva invitación"
@@ -17,3 +22,7 @@ es:
         resent_success: "La invitación fue reenviada correctamente."
         resent_error: "No fue posible reenviar la invitación."
         already_active: "Este usuario ya está activo en el circo."
+    alt_user_image: "Imagen de usuario"
+    sample_user: "John Doe"
+    time_ago: "%{time} atrás"
+    new_ticket: "Nuevo ticket agregado"

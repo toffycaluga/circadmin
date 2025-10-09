@@ -90,14 +90,14 @@ end %>
                           url_for(cu.user.user_profile.profile_picture) :
                           asset_path("avatar.jpg"),
                         class: "img-radius img-fluid rounded-circle",
-                        alt: "Foto de perfil",
+                        alt: t("workers.profile_picture_alt"),
                         width: 60,
                         height: 60,
                         style: "object-fit: cover; aspect-ratio: 1/1;",
                         loading: "lazy"
                       ) %>
                       <h5 class="mt-2">
-                        <%= cu.user.user_profile&.full_name.presence || content_tag(:span, "Nombre no disponible", class: "text-muted") %>
+                        <%= cu.user.user_profile&.full_name.presence || content_tag(:span, t("workers.name_unavailable"), class: "text-muted") %>
                       </h5>
                     </td>
                     <td>
@@ -118,7 +118,7 @@ end %>
                         <% if invitation.present? %>
                           <% if invitation.status == Invitation::STATUSES["pending"] %>
                             <div class="d-flex gap-3">
-                              <span class="badge bg-warning text-dark">Pendiente</span>
+                              <span class="badge bg-warning text-dark"><%= t("workers.statuses.pending") %></span>
                               <% if puede_reenviar %>
                                 <%= button_to resend_email_custom_invitation_path(invitation),
                                   method: :post,
@@ -129,10 +129,10 @@ end %>
                               <% end %>
                             </div>
                           <% elsif invitation.status == Invitation::STATUSES["accepted"] %>
-                            <span class="badge bg-success">Aceptado</span>
+                            <span class="badge bg-success"><%= t("workers.statuses.accepted") %></span>
                           <% end %>
                         <% else %>
-                          <span class="badge bg-secondary">Sin invitación</span>
+                          <span class="badge bg-secondary"><%= t("workers.statuses.no_invitation") %></span>
                         <% end %>
                       </td>
                     <% end %>

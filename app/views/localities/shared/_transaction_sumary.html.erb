@@ -1,3 +1,4 @@
+<!-- app/views/transactions/shared/_summary_by_period.html.erb -->
 <% if summary[:exists] %>
   <div class="alert alert-light border text-dark mb-3">
     <h6 class="mb-1">
@@ -7,10 +8,29 @@
         – <%= l(summary[:to], format: :short) %>
       <% end %>
     </h6>
+
     <ul class="list-unstyled mb-0">
-      <li>➕ <%= t("transactions.summary.incomes") %>: <strong><%= currency_symbol(locality.circus.currency) %> <%= number_with_precision(summary[:incomes], delimiter: ".", separator: ",") %></strong></li>
-      <li>➖ <%= t("transactions.summary.expenses") %>: <strong><%= currency_symbol(locality.circus.currency) %> <%= number_with_precision(summary[:expenses], delimiter: ".", separator: ",") %></strong></li>
-      <li>🧮 <%= t("transactions.summary.balance") %>: <strong><%= currency_symbol(locality.circus.currency) %> <%= number_with_precision(summary[:balance], delimiter: ".", separator: ",") %></strong></li>
+      <li>
+        ➕ <%= t("transactions.summary.incomes") %>:
+        <strong>
+          <%= currency_symbol(locality.circus.currency) %>
+          <%= number_with_precision(summary[:incomes], delimiter: ".", separator: ",") %>
+        </strong>
+      </li>
+      <li>
+        ➖ <%= t("transactions.summary.expenses") %>:
+        <strong>
+          <%= currency_symbol(locality.circus.currency) %>
+          <%= number_with_precision(summary[:expenses], delimiter: ".", separator: ",") %>
+        </strong>
+      </li>
+      <li>
+        🧮 <%= t("transactions.summary.balance") %>:
+        <strong>
+          <%= currency_symbol(locality.circus.currency) %>
+          <%= number_with_precision(summary[:balance], delimiter: ".", separator: ",") %>
+        </strong>
+      </li>
     </ul>
   </div>
 <% end %>

@@ -3,6 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["planInput", "submitButton", "plansContainer", "planRadio"]
+  static values  = { selectPlanMessage: String }
 
   selectPlan(event) {
     const card = event.currentTarget
@@ -19,9 +20,11 @@ export default class extends Controller {
     if (radio) radio.checked = true
 
     // Quita selección previa y marca la card actual
-    this.plansContainerTarget
-      .querySelectorAll(".plan-card.selected")
-      .forEach(el => el.classList.remove("selected"))
+    if (this.hasPlansContainerTarget) {
+      this.plansContainerTarget
+        .querySelectorAll(".plan-card.selected")
+        .forEach(el => el.classList.remove("selected"))
+    }
     card.classList.add("selected")
 
     // Habilita el submit
@@ -34,7 +37,8 @@ export default class extends Controller {
     // Evita submit si no hay plan
     if (!this.hasPlanInputTarget || !this.planInputTarget.value) {
       event.preventDefault()
-      alert("Selecciona un plan para continuar.")
+      const msg = this.hasSelectPlanMessageValue ? this.selectPlanMessageValue : ""
+      alert(msg)
     }
   }
 }

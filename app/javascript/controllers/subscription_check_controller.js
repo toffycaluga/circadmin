@@ -4,7 +4,14 @@ import { Modal } from "bootstrap"
 
 export default class extends Controller {
   static targets = ["modal", "title", "body", "actionButton"]
-  static values  = { circusId: Number, requiredService: String }
+  static values  = {
+    circusId: Number,
+    requiredService: String,
+    // i18n (inyectados desde la vista con t())
+    fallbackTitle: String,
+    fallbackBody: String,
+    loginPath: String
+  }
 
   connect() {
     // Instancia el modal ya sea por target o por id de respaldo
@@ -27,9 +34,7 @@ export default class extends Controller {
     }
 
     // Circus ID
-    const circusId = this.hasCircusIdValue
-      ? this.circusIdValue
-      : document.body.dataset.circusId
+    const circusId = this.hasCircusIdValue ? this.circusIdValue : document.body.dataset.circusId
     if (!circusId) {
       console.error("subscription-check: circusId no definido")
       return this._showFallbackModal()
@@ -57,8 +62,8 @@ export default class extends Controller {
       // Manejo de estados no-200 (401/403/500, etc.)
       if (!res.ok) {
         if (res.status === 401) {
-          // No autenticado -> redirige a login si tu app usa Devise/Turbo
-          return (window.Turbo?.visit ? Turbo.visit("/users/sign_in") : (window.location.href = "/users/sign_in"))
+          const login = this.hasLoginPathValue ? this.loginPathValue : "/users/sign_in"
+          return (window.Turbo?.visit ? Turbo.visit(login) : (window.location.href = login))
         }
         console.warn(`subscription-check: HTTP ${res.status}`)
         return this._showFallbackModal()
@@ -71,11 +76,8 @@ export default class extends Controller {
       }
 
       const json = await res.json()
-      // Opcional: log de depuración
-      // console.debug("subscription-check response:", json)
 
       if (json.allowed) {
-        // Usa Turbo si está disponible para mantener estado Hotwire
         return (window.Turbo?.visit ? Turbo.visit(destination) : (window.location = destination))
       } else {
         this._showModal(json.title, json.body, json.action)
@@ -117,10 +119,8 @@ export default class extends Controller {
   }
 
   _showFallbackModal() {
-    this._showModal(
-      "Ups, ocurrió un problema",
-      "No pudimos verificar tu suscripción. Intenta nuevamente.",
-      null
-    )
+    const title = this.hasFallbackTitleValue ? this.fallbackTitleValue : ""
+    const body  = this.hasFallbackBodyValue  ? this.fallbackBodyValue  : ""
+    this._showModal(title, body, null)
   }
 }

@@ -1,7 +1,7 @@
 es:
   profile:
     full_name:
-      placeholder: "Nombre sin definir"
+      placeholder: "Nombre de usuario no definido"
     title: "Perfil"
     change_cover: "Cambiar imagen de portada"
     upload_new_cover: "Subir nueva portada"
@@ -13,7 +13,10 @@ es:
     tabs:
       home: "Inicio"
       profile: "Perfil"
-      team: "Trabajadores"
+      team: "Equipo"
+      personal_info: "Información personal"
+      contact_info: "Información de contacto"
+      edit: "Editar perfil"  
     labels:
       no_data: "No especificado"
       full_name: "Nombre completo"
@@ -38,3 +41,14 @@ es:
       edit_profile_subtext: "Actualiza tus datos de contacto y ubicación"
       personal_info: "Información personal"
       personal_info_subtext: "Datos que te identifican como usuario"
+      contact_info: "Información de contacto"
+    errors:
+      header:
+        one: "1 error impide guardar el perfil"
+        other: "%{count} errores impiden guardar el perfil"
+    image_options:
+      title: "Foto de perfil"
+      view: "Ver en grande"
+      change: "Cambiar foto"
+    image_viewer:
+      title: "Vista completa de la imagen"

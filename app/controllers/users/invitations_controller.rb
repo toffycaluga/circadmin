@@ -10,7 +10,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
   def create
     unless current_user.circus_users.exists?(circus_id: current_circus.id, role: "owner")
-      flash[:alert] = "No tienes permiso para invitar usuarios a este circo."
+      flash[:alert] = t("users.invitations.permission_denied")
       redirect_to dashboard_index_path
       return
     end
@@ -61,22 +61,21 @@ class Users::InvitationsController < Devise::InvitationsController
     circus_user = CircusUser.find_by(user: user, circus: current_circus)
 
     if user.circuses.exists?(current_circus.id)
-      flash[:alert] = "Este usuario ya forma parte del circo."
+      flash[:alert] = t("users.invitations.already_member")
       Rails.logger.info "El usuario #{user.email} ya es miembro del circo #{current_circus&.name}."
     elsif circus_user.present?
       if circus_user.accepted_at.nil?
         if circus_user.invitation_sent_at.present? && circus_user.invitation_sent_at < 48.hours.ago
-          # Reenviar si han pasado más de 48h
           Rails.logger.info "Reenviando invitación a #{user.email} para el circo #{current_circus&.name}."
           UserMailer.new_circus_invitation(user, current_circus).deliver_later
           circus_user.update!(invitation_sent_at: Time.current)
-          flash[:notice] = "Invitación reenviada a #{user.email}."
+          flash[:notice] = t("users.invitations.invitation_resent", email: user.email)
         else
-          flash[:alert] = "Ya se envió una invitación recientemente. Espera que el usuario la acepte."
+          flash[:alert] = t("users.invitations.recent_invitation")
           Rails.logger.info "Invitación reciente para #{user.email} al circo #{current_circus&.name}. No reenviando."
         end
       else
-        flash[:alert] = "El usuario ya aceptó una invitación previa a este circo."
+        flash[:alert] = t("users.invitations.already_accepted")
         Rails.logger.info "El usuario #{user.email} ya aceptó una invitación al circo #{current_circus&.name}."
       end
     else
@@ -89,7 +88,7 @@ class Users::InvitationsController < Devise::InvitationsController
         invitation_sent_at: Time.current
       )
       UserMailer.new_circus_invitation(user, current_circus).deliver_later
-      flash[:notice] = "Usuario invitado correctamente al circo."
+      flash[:notice] = t("users.invitations.invited_ok")
     end
   end
 
@@ -104,10 +103,10 @@ class Users::InvitationsController < Devise::InvitationsController
         role: role,
         invitation_sent_at: Time.current
       )
-      flash[:notice] = "Invitación enviada a #{email}."
+      flash[:notice] = t("users.invitations.sent", email: email)
       Rails.logger.info "Invitación de Devise enviada a #{email} y asociado al circo."
     else
-      flash[:alert] = user.errors.full_messages.to_sentence
+      flash[:alert] = t("users.invitations.error", error: user.errors.full_messages.to_sentence)
       Rails.logger.error "Error al invitar a #{email}: #{user.errors.full_messages.to_sentence}"
     end
   end

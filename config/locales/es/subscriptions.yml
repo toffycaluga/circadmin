@@ -4,12 +4,18 @@ es:
     new:
       title: "Elige tu plan"
       month: "mes"
-      trial_days: "%{count} días de prueba"
+      subtitle: "Empieza con %{days} días gratis. Luego %{price} al mes."
+      trial_days:
+        one: "1 día de prueba"
+        other: "%{count} días de prueba"
       payment_for: "Pago para"
       close: "Cerrar"
       pay_now: "Continuar"
+      cancel: "Cancelar"
+      continue_to_checkout: "Continuar al pago"
       choose_plan: "Selecciona un plan"
       choose_plan_help: "Puedes cambiar o cancelar cuando quieras."
+      select_plan_first: "Selecciona un plan para continuar."
     create:
       error: "No pudimos procesar tu pago: %{error}"
     pause:
@@ -48,4 +54,10 @@ es:
      subscriptions:
     api:
       create_deprecated: "Este endpoint ya no crea suscripciones. Usa el checkout (BillingController) para completar la compra."
-    
+    new:
+      month: "mes"
+      start_trial: "Comenzar prueba gratuita"
+      pay_now: "Pagar ahora"
+    check:
+      fallback_title: "Ups, ocurrió un problema"
+      fallback_body: "No pudimos verificar tu suscripción. Intenta nuevamente."

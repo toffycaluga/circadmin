@@ -4,22 +4,26 @@
               data: { turbo_frame: "payroll-items" } do |f| %>
   <div class="input-group">
     <%= f.text_field :name,
-                     placeholder: t("payroll_items.form.name", default: "Nombre"),
+                     placeholder: t("payroll_items.form.name"),
                      class: "form-control" %>
+
     <%= f.text_field :role,
-                     placeholder: t("payroll_items.form.role", default: "Cargo"),
+                     placeholder: t("payroll_items.form.role"),
                      class: "form-control" %>
+
     <%= f.number_field :amount,
-                       placeholder: t("payroll_items.form.amount", default: "Monto"),
+                       placeholder: t("payroll_items.form.amount"),
                        class: "form-control",
                        step: 0.01 %>
+
     <%= f.text_field :notes,
-                     placeholder: t("payroll_items.form.notes", default: "Notas"),
+                     placeholder: t("payroll_items.form.notes"),
                      class: "form-control" %>
+
     <%= f.submit(
           payroll_item.persisted? ?
-            t("payroll_items.form.update", default: "Actualizar") :
-            t("payroll_items.form.add",    default: "Agregar"),
+            t("payroll_items.form.update") :
+            t("payroll_items.form.add"),
           class: "btn btn-success"
         ) %>
   </div>

@@ -1,38 +1,37 @@
+<!-- app/views/localities/_locality.html.erb -->
 <div id="<%= dom_id locality %>">
   <p>
-    <strong>Title:</strong>
-    <%= locality.title %>
+    <strong><%= t("localities.fields.title") %>:</strong>
+    <%= locality.title.presence || t("localities.empty.title") %>
   </p>
 
   <p>
-    <strong>Location:</strong>
-    <%= locality.location %>
+    <strong><%= t("localities.fields.location") %>:</strong>
+    <%= locality.location.presence || t("localities.empty.location") %>
   </p>
 
   <p>
-    <strong>City:</strong>
-    <%= locality.city %>
+    <strong><%= t("localities.fields.city") %>:</strong>
+    <%= locality.city.presence || t("localities.empty.city") %>
   </p>
 
   <p>
-    <strong>Start date:</strong>
-    <%= locality.start_date %>
+    <strong><%= t("localities.fields.start_date") %>:</strong>
+    <%= locality.start_date.present? ? l(locality.start_date) : t("localities.empty.start_date") %>
   </p>
 
   <p>
-    <strong>End date:</strong>
-    <%= locality.end_date %>
+    <strong><%= t("localities.fields.end_date") %>:</strong>
+    <%= locality.end_date.present? ? l(locality.end_date) : t("localities.empty.end_date") %>
   </p>
 
   <p>
-    <strong>Active:</strong>
-    <%= locality.active %>
+    <strong><%= t("localities.fields.active") %>:</strong>
+    <%= locality.active? ? t("localities.status.active") : t("localities.status.closed") %>
   </p>
-
 
   <p>
-    <strong>Circus:</strong>
-    <%= locality.circus_id %>
+    <strong><%= t("localities.fields.circus") %>:</strong>
+    <%= locality.circus&.name || t("localities.empty.circus") %>
   </p>
-
 </div>

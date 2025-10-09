@@ -9,11 +9,11 @@
 
   <div class="card-body">
     <%= form_with(model: @user_profile, url: user_profile_path(@user_profile), method: :patch, local: true, class: "needs-validation") do |f| %>
-      
+
       <% if @user_profile.errors.any? %>
         <div class="alert alert-danger">
           <h5 class="alert-heading">
-            <%= pluralize(@user_profile.errors.count, "error") %> <%= t("profile.labels.error_block") %>
+            <%= t("profile.errors.header", count: @user_profile.errors.count) %>
           </h5>
           <ul class="mb-0">
             <% @user_profile.errors.full_messages.each do |msg| %>
