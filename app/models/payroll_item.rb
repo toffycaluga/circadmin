@@ -7,8 +7,8 @@
 #  id         :integer          not null, primary key
 #  payroll_id :integer          not null
 #  name       :string
-#  role       :string
-#  amount     :decimal(12, 2)   # <- recomendable fijar precision/scale en la migración
+#  job_role   :string
+#  amount     :decimal(, )
 #  notes      :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -20,7 +20,7 @@
 class PayrollItem < ApplicationRecord
   belongs_to :payroll, inverse_of: :payroll_items, touch: true
 
-  # No permitir cambiar la FK vía updates masivos
+  # Evita cambiar la FK vía updates masivos
   attr_readonly :payroll_id
 
   # --- Normalizaciones / limpieza de datos ---
@@ -30,17 +30,16 @@ class PayrollItem < ApplicationRecord
 
   # --- Validaciones ---
   validates :name, presence: true, length: { maximum: 200 }
-  validates :role, presence: true, length: { maximum: 100 }
+  validates :job_role, presence: true, length: { maximum: 100 }
   validates :amount,
             presence: true,
             numericality: {
               greater_than_or_equal_to: 0,
-              less_than: 1_000_000_000 # evita números absurdos
+              less_than: 1_000_000_000
             }
   validates :notes, length: { maximum: 5000 }, allow_blank: true
 
-  # --- Callbacks de consistencia contable ---
-  # Centraliza el recálculo aquí. Si lo dejas, elimina las llamadas en el controlador.
+  # --- Consistencia contable (centralizado en el modelo) ---
   after_commit :update_payroll_total, on: %i[create update destroy]
 
   # --- Scopes útiles ---
@@ -50,13 +49,11 @@ class PayrollItem < ApplicationRecord
 
   def strip_strings
     self.name = name.to_s.strip.presence
-    self.role = role.to_s.strip.presence
-    # notes puede ser texto largo; sólo quita espacios extremos
+    self.job_role = job_role.to_s.strip.presence
     self.notes = notes.to_s.strip.presence if notes.present?
   end
 
   def cast_amount
-    # Convierte strings a BigDecimal de forma segura
     return if amount.is_a?(Numeric) || amount.is_a?(BigDecimal)
 
     self.amount = begin
@@ -69,7 +66,6 @@ class PayrollItem < ApplicationRecord
   def sanitize_notes
     return unless notes.present?
 
-    # Evita XSS si en alguna vista se renderiza como HTML
     self.notes = ActionController::Base.helpers.sanitize(notes)
   end
 

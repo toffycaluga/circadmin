@@ -1,22 +1,25 @@
 # == Schema Information
 #
-# Table name: circus
+# Table name: circuses
 #
-#  id          :integer          not null, primary key
-#  name        :string
-#  description :text
-#  country     :string
-#  currency    :string
-#  active      :boolean
-#  user_id     :integer          not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id                 :integer          not null, primary key
+#  name               :string
+#  description        :text
+#  country            :string
+#  currency           :string
+#  active             :boolean          default("true")
+#  user_id            :integer          not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  stripe_customer_id :string
+#  had_trial          :boolean          default("false"), not null
 #
 # Indexes
 #
-#  index_circus_on_user_id  (user_id)
+#  index_circuses_on_stripe_customer_id  (stripe_customer_id)
+#  index_circuses_on_user_id             (user_id)
 #
-# spec/models/circus_spec.rb
+
 require "rails_helper"
 
 RSpec.describe Circus, type: :model do

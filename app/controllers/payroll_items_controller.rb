@@ -8,12 +8,13 @@ class PayrollItemsController < ApplicationController
   # POST /payrolls/:payroll_id/items
   def create
     @payroll_item = @payroll.payroll_items.new
+
     @payroll.with_lock do
       @payroll_item.assign_attributes(safe_payroll_item_params)
 
       ActiveRecord::Base.transaction do
         if @payroll_item.save
-          @payroll.recalculate_total!
+          # El total se recalcula en el modelo (after_commit)
           @payroll_item = PayrollItem.new(payroll: @payroll) # limpia el form
           flash.now[:notice] = t("flash.payroll_items.create.success")
 
@@ -55,7 +56,7 @@ class PayrollItemsController < ApplicationController
     @payroll.with_lock do
       ActiveRecord::Base.transaction do
         if @payroll_item.update(safe_payroll_item_params)
-          @payroll.recalculate_total!
+          # El total se recalcula en el modelo (after_commit)
           @payroll_item = PayrollItem.new(payroll: @payroll)
           flash.now[:notice] = t("flash.payroll_items.update.success")
 
@@ -89,7 +90,7 @@ class PayrollItemsController < ApplicationController
     @payroll.with_lock do
       ActiveRecord::Base.transaction do
         @payroll_item.destroy!
-        @payroll.recalculate_total!
+        # El total se recalcula en el modelo (after_commit)
       end
     end
 
@@ -121,7 +122,7 @@ class PayrollItemsController < ApplicationController
   def set_payroll
     @payroll = Payroll.find_by!(
       id: params[:payroll_id],
-      circus_id: current_user.circus_ids # garantiza pertenencia del usuario
+      circus_id: current_user.circus_ids
     )
   rescue ActiveRecord::RecordNotFound
     flash[:alert] = t("flash.payroll_items.payroll_not_found")
@@ -135,21 +136,18 @@ class PayrollItemsController < ApplicationController
     redirect_back fallback_location: root_path
   end
 
-  # ✅ Filtro estricto + casting + sanitizado = menos falsos positivos y más seguridad.
+  # ✅ Filtro estricto + casting + sanitizado
   def safe_payroll_item_params
-    raw = params.require(:payroll_item).permit(:name, :role, :amount, :notes)
+    raw = params.require(:payroll_item).permit(:name, :job_role, :amount, :notes)
 
-    # Casting seguro de monto (evita inyecciones tipo "1e309" o strings raros)
     raw[:amount] = begin
       BigDecimal(raw[:amount].to_s)
     rescue ArgumentError, TypeError
       0
     end
 
-    # Sanitiza notas para prevenir XSS si luego se renderiza como HTML
     raw[:notes] = ActionController::Base.helpers.sanitize(raw[:notes])
 
-    # Asegura que no haya llaves extra (defensa-in-profundidad)
-    raw.slice(:name, :role, :amount, :notes)
+    raw.slice(:name, :job_role, :amount, :notes)
   end
 end

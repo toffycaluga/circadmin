@@ -3,7 +3,7 @@ en:
     attributes:
       payroll_item:
         name: "Name"
-        role: "Role"
+        job_role: "Role"
         amount: "Amount"
         notes: "Notes"
       subscription:
