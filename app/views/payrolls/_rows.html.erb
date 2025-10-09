@@ -1,7 +1,7 @@
 <% payroll.payroll_items.order(:created_at).each do |item| %>
   <tr id="<%= dom_id(item) %>">
     <td><%= item.name %></td>
-    <td><%= item.role %></td>
+    <td><%= item.job_role %></td>
     <td class="text-end">
       <%= number_to_currency(
             item.amount,

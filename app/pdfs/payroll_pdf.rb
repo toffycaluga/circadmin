@@ -56,7 +56,7 @@ class PayrollPdf < Prawn::Document
 
     headers = [
       I18n.t("pdfs.payroll.table.name"),
-      I18n.t("pdfs.payroll.table.role"),
+      I18n.t("pdfs.payroll.table.job_role"),
       I18n.t("pdfs.payroll.table.amount"),
       I18n.t("pdfs.payroll.table.notes")
     ]
@@ -66,7 +66,7 @@ class PayrollPdf < Prawn::Document
     @payroll.payroll_items.order(:created_at).each do |item|
       data << [
         item.name,
-        item.role,
+        item.job_role,
         "#{currency}#{format('%.2f', item.amount)}",
         item.notes.to_s.truncate(40)
       ]
