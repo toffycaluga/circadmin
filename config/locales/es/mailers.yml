@@ -1,24 +1,24 @@
-es:
+en:
   mailers:
     layout:
-      footer_rights: "Todos los derechos reservados."
+      footer_rights: "All rights reserved."
     invitation_mailer:
-      subject: "Invitación al circo %{circus_name}"
+      subject: "Invitation to the circus %{circus_name}"
       notify:
-        greeting: "Hola %{name},"
-        body_html: "Has sido invitado a unirte al circo <strong>%{circus_name}</strong> como <strong>%{role}</strong>."
-        default_role: "miembro"
-        instructions_html: "Por favor, accede a tu panel para aceptar la invitación."
+        greeting: "Hello %{name},"
+        body_html: "You have been invited to join the circus <strong>%{circus_name}</strong> as a <strong>%{role}</strong>."
+        default_role: "member"
+        instructions_html: "Please log in to your dashboard to accept the invitation."
     user_mailer:
       new_circus_invitation:
-        subject: "¡Has sido invitado a unirte a %{circus_name} en CircAdmin!"
-        greeting: "Hola %{name},"
-        body_html: "Has sido invitado a formar parte del circo <strong>%{circus_name}</strong> en <strong>CircAdmin</strong>."
-        body_text: "Has sido invitado a formar parte del circo %{circus_name} en CircAdmin."
-        accept_button: "Aceptar invitación"
-        footer: "Si no esperabas esta invitación, simplemente ignora este correo."
+        subject: "You’ve been invited to join %{circus_name} on CircAdmin!"
+        greeting: "Hello %{name},"
+        body_html: "You’ve been invited to join the circus <strong>%{circus_name}</strong> on <strong>CircAdmin</strong>."
+        body_text: "You’ve been invited to join the circus %{circus_name} on CircAdmin."
+        accept_button: "Accept invitation"
+        footer: "If you weren’t expecting this invitation, simply ignore this email."
       notify:
-        subject: "Invitación a unirte al circo %{circus_name}"
-        greeting: "Hola %{name},"
-        body_html: "Tienes una nueva invitación para unirte al circo <strong>%{circus_name}</strong>."
-        body_text: "Tienes una nueva invitación para unirte al circo %{circus_name}."
+        subject: "Invitation to join the circus %{circus_name}"
+        greeting: "Hello %{name},"
+        body_html: "You have a new invitation to join the circus <strong>%{circus_name}</strong>."
+        body_text: "You have a new invitation to join the circus %{circus_name}."

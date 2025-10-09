@@ -1,0 +1,7 @@
+pt:
+  users_mailer:
+    invitation:
+      greeting: "Olá %{name}!"
+      invite_text: "Você foi convidado para fazer parte do circo “%{circus_name}” no CircAdmin."
+      accept_button: "Aceitar convite"
+      farewell: "Estamos ansiosos para tê-lo conosco!"

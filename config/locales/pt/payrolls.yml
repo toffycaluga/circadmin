@@ -1,11 +1,46 @@
 pt:
   payrolls:
     section:
-      title: "🧾 Folhas de pagamento registradas"
+      title: "🧾 Folhas de Pagamento Registradas"
       count: "%{count} folha(s)"
       view: "📋 Ver folha"
-      none: "Ainda não há folhas registradas."
-      create: "📝 Criar nova folha"
+      none: "Ainda não há folhas de pagamento registradas."
+      create: "📝 Criar nova folha de pagamento"
     status:
       paid: "Paga"
       unpaid: "Pendente"
+      already_registered: "Despesa já registrada"
+    actions:
+      back: "🔙 Voltar ao circo"
+      register_expense: "💸 Registrar como despesa"
+    confirm:
+      register: "Registrar esta folha como despesa?"
+    total: "Total da folha:"
+    card:
+      header: "🧾 Folha de pagamento de %{period}"
+      total_hidden: "Total %{amount}"
+      view: "Ver folha"
+      view_aria: "Ver detalhes da folha"
+      none: "Ainda não há folha registrada."
+      create: "📝 Criar folha"
+    modal:
+      confirm_expense_title: "Confirmar registro de despesa"
+      date_label: "Data da despesa"
+      locality_label: "Localidade"
+      confirm_button: "Confirmar"
+      confirm_income_title: "Confirmar registro de receita"
+    new:
+      title: "Nova folha de pagamento"
+      heading: "Criar nova folha de pagamento"
+    show:
+      title: "🧾 Detalhes da Folha de Pagamento"
+      actions:
+        register_expense: "Registrar despesa"
+        export_pdf: "Exportar para PDF"
+      table_headers:
+        name: "Nome"
+        role: "Cargo"
+        amount: "Valor"
+        notes: "Observações"
+      table_footer:
+        total_label: "Total da folha:"

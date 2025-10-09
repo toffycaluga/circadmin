@@ -2,13 +2,42 @@ pt:
   plans:
     basic:
       name: "Básico"
-      features: "Gestão de transações diárias, Relatórios semanais e mensais, Gestão de usuários e funções, Exportação para PDF/Excel"
+      subtitle: "Ideal para circos pequenos que estão iniciando sua digitalização"
+      features:
+        - "Gestão de transações diárias"
+        - "Relatórios semanais e mensais"
+        - "Gestão de usuários e funções"
+        - "Exportação para PDF/Excel"
+
     ticketing:
-      name: "Bilheteria"
-      features: "Venda de ingressos online, Controle de acesso, Relatórios de bilheteria"
+      name: "Venda de Ingressos"
+      subtitle: "Controle total sobre bilheteria e acesso aos eventos"
+      features:
+        - "Venda de ingressos online"
+        - "Controle de acesso"
+        - "Relatórios de bilheteria"
+
     concessions:
       name: "Concessões"
-      features: "Inventário de quiosques, Vendas no PDV, Relatórios de consumo"
+      subtitle: "Ideal para gerenciar vendas internas e quiosques"
+      features:
+        - "Inventário de quiosques"
+        - "Vendas em Ponto de Venda (POS)"
+        - "Relatórios de consumo"
+
     all_in_one:
-      name: "Tudo-em-um"
-      features: "Tudo do Básico, Bilheteria e Concessões"
+      name: "Tudo em um"
+      subtitle: "A experiência completa: finanças, ingressos e vendas em um só lugar"
+      features:
+        - "Tudo do plano Básico"
+        - "Venda de Ingressos"
+        - "Concessões"
+
+    default:
+      subtitle: "Administre seu circo sem limites: finanças, ingressos, usuários e mais"
+      features:
+        - "Gestão de transações diárias"
+        - "Relatórios semanais e mensais"
+        - "Controle de usuários e funções"
+        - "Exportação para PDF/Excel"
+        - "Múltiplos circos em uma única conta"

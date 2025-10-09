@@ -1,0 +1,28 @@
+en:
+  invitations:
+    edit:
+      title: "Edit Invitation"
+      heading: "Edit Invitation"
+      show: "View this invitation"
+      back: "Back to invitations"
+    index:
+      title: "Invitations"
+      heading: "Received Invitations"
+      my_invitations: "My Invitations"
+      no_invitations: "You have no invitations at the moment."
+      message: "Message"
+      no_message: "No message"
+      status: "Status"
+    actions:
+      accept: "Accept"
+      reject: "Reject"
+    new:
+      title: "New Invitation"
+      heading: "New Invitation"
+      back: "Back to invitations"
+    show:
+      edit: "Edit this invitation"
+      back: "Back to invitations"
+      destroy: "Delete this invitation"
+      confirm_destroy: "Are you sure you want to delete this invitation?"
+    confirm_resend: "Do you want to resend the invitation by email?"

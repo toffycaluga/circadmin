@@ -1,5 +1,5 @@
 pt:
   cu:
     save: "Salvar"
-    delete: "Remover trabalhador"
+    delete: "Excluir trabalhador"
     confirm: "Tem certeza de que deseja desativar este usuário?"

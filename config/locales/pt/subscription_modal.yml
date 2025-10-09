@@ -1,0 +1,8 @@
+pt:
+  subscription_modal:
+    go_to_subscription: "Ir para a assinatura"
+    cancel: "Cancelar"
+    close: "Fechar"
+    messages:
+      expired: "Seu plano expirou"
+      required: "Você precisa de uma assinatura ativa para acessar esta função"

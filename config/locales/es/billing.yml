@@ -1,6 +1,6 @@
 es:
   billing:
-     success:
+    success:
       title: "¡Suscripción exitosa! 🎪"
       thanks_html: "Gracias por suscribirte a <strong>%{app_name}</strong>."
       access: "Ahora tienes acceso a todas las funcionalidades de tu plan."

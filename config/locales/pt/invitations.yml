@@ -1,0 +1,28 @@
+pt:
+  invitations:
+    edit:
+      title: "Editar Convite"
+      heading: "Editar Convite"
+      show: "Ver este convite"
+      back: "Voltar aos convites"
+    index:
+      title: "Convites"
+      heading: "Convites Recebidos"
+      my_invitations: "Meus Convites"
+      no_invitations: "Você não tem convites no momento."
+      message: "Mensagem"
+      no_message: "Sem mensagem"
+      status: "Status"
+    actions:
+      accept: "Aceitar"
+      reject: "Recusar"
+    new:
+      title: "Novo Convite"
+      heading: "Novo Convite"
+      back: "Voltar aos convites"
+    show:
+      edit: "Editar este convite"
+      back: "Voltar aos convites"
+      destroy: "Excluir este convite"
+      confirm_destroy: "Tem certeza de que deseja excluir este convite?"
+    confirm_resend: "Deseja reenviar o convite por e-mail?"

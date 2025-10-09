@@ -1,4 +1,5 @@
 pt:
   footer:
     copyright: "Todos os direitos reservados"
+    dev_html: "Desenvolvido por <strong>%{company}</strong>."
     dev: "Desenvolvido por"

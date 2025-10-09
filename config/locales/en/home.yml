@@ -1,5 +1,27 @@
 en:
   home:
     welcome: "Welcome to CircAdmin 🎪"
-    greeting: "Hello, %{email} 👋"
-    subtitle: "Manage your circus intelligently and simply"
+    greeting: "Hello, %{email}"
+    subtitle: "Manage your circus smartly and simply"
+    stats:
+      users_registered: "Registered users"
+      active_circuses: "Active circuses"
+    features:
+      finance:
+        title: "Real-Time Financial Management"
+        description: "View income and expenses instantly, by location or date, with advanced filters."
+      reports:
+        title: "Custom Reports"
+        description: "Generate weekly, monthly, or annual reports in PDF or Excel."
+      roles:
+        title: "Multiuser and Roles"
+        description: "Create users with granular permissions based on their role."
+      events:
+        title: "Event Planning"
+        description: "Schedule shows and easily assign artists and venues."
+      exports:
+        title: "Export and Archiving"
+        description: "Download complete histories and store them in the cloud."
+      notifications:
+        title: "Notifications and Alerts"
+        description: "Receive automatic notifications about sales and invoices."

@@ -3,4 +3,9 @@ pt:
     page_title: "Meus Circos"
     new:
       title: "Novo Circo"
-      heading: "Criar Novo Circo"
+      heading: "Criar novo circo"
+    show:
+      edit: "Editar este circo"
+      back: "Voltar à lista de circos"
+      destroy: "Excluir este circo"
+      confirm_destroy: "Tem certeza de que deseja excluir este circo?"

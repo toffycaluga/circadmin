@@ -2,13 +2,42 @@ en:
   plans:
     basic:
       name: "Basic"
-      features: "Daily transaction management, Weekly and monthly reports, User and role management, Export to PDF/Excel"
+      subtitle: "Ideal for small circuses starting their digital journey"
+      features:
+        - "Daily transaction management"
+        - "Weekly and monthly reports"
+        - "User and role management"
+        - "Export to PDF/Excel"
+
     ticketing:
       name: "Ticketing"
-      features: "Online ticket sales, Access control, Box office reports"
+      subtitle: "Full control over ticket sales and event access"
+      features:
+        - "Online ticket sales"
+        - "Access control"
+        - "Box office reports"
+
     concessions:
       name: "Concessions"
-      features: "Kiosk inventory, POS sales, Consumption reports"
+      subtitle: "Perfect for managing internal sales and kiosks"
+      features:
+        - "Kiosk inventory management"
+        - "Point of Sale (POS) sales"
+        - "Consumption reports"
+
     all_in_one:
       name: "All-in-One"
-      features: "Everything in Basic, Ticketing, and Concessions"
+      subtitle: "The complete experience: finances, tickets, and sales in one place"
+      features:
+        - "Everything from Basic"
+        - "Ticketing"
+        - "Concessions"
+
+    default:
+      subtitle: "Manage your circus without limits: finances, tickets, users, and more"
+      features:
+        - "Daily transaction management"
+        - "Weekly and monthly reports"
+        - "User and role control"
+        - "Export to PDF/Excel"
+        - "Multiple circuses under one account"

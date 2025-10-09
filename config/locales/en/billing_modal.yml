@@ -1,0 +1,13 @@
+en:
+  billing_modal:
+    subscribe: "Subscribe"
+    alert:
+      title: "Update your subscription"
+      message: "You don't have any available slots to create another circus."
+      update: "Update"
+      messages:
+        no_slots: "You don't have any available slots to create another circus."
+        expired: "Your current plan has expired. Please update it to continue."
+        limit_reached: "You have reached the maximum number of circuses allowed in your plan."
+    cancel: "Cancel"
+    close: "Close"

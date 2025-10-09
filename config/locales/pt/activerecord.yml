@@ -1,6 +1,13 @@
 pt:
   activerecord:
     attributes:
+      payroll_item:
+        name: "Nome"
+        role: "Função"
+        amount: "Valor"
+        notes: "Observações"
+      subscription:
+        status: "Status"
       user_profile:
         full_name: "Nome completo"
         address: "Endereço"
@@ -10,9 +17,19 @@ pt:
           user: "Proprietário"
     models:
       circus: "Circo"
+      subscription: "Assinatura"
+      payroll_item:
+        one: "Item de folha de pagamento"
+        other: "Itens de folha de pagamento"
     errors:
+      messages:
+        inclusion: "não está incluído na lista"
       models:
         circus:
           attributes:
             user:
               required: "deve estar presente"
+        payroll_item:
+          attributes:
+            name:
+              blank: "não pode ficar em branco"
