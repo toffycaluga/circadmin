@@ -1,5 +1,5 @@
 pt:
   cu_notice:
     deactivate: "Trabalhador removido com sucesso."
-    destroy: "Usuário removido do circo."
+    destroy: "Usuário desativado do circo."
     update: "Função atualizada com sucesso."

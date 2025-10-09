@@ -36,7 +36,7 @@
                         width: 150,
                         height: 150,
                         style: "object-fit: cover; aspect-ratio: 1/1;",
-          loading: "lazy"
+                        loading: "lazy"
                       ) %>
                   <div class="overlay">
                     <span><%= t('profile.change') %></span>
@@ -44,12 +44,14 @@
                 </div>
               </a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="#"><i class="feather icon-upload-cloud mr-2"></i><%= t('profile.upload_new_picture') %></a>
+                <a class="dropdown-item" href="#">
+                  <i class="feather icon-upload-cloud mr-2"></i><%= t('profile.upload_new_picture') %>
+                </a>
               </div>
             </div>
           </div>
           <h5 class="mb-1"><%= current_user.user_profile.full_name %></h5>
-          <p class="mb-2 text-muted"><%= t("profile.title", default: "Artista Circense") %></p>
+          <p class="mb-2 text-muted"><%= t("profile.title", default: "Artista circense") %></p>
         </div>
 
         <!-- Datos del usuario -->

@@ -3,3 +3,10 @@ es:
     dashboard: "Inicio"
     my_circuses: "Mis circos"
     my_documents: "Mis documentos"
+    user_section:
+      title: "Usuario"
+      my_profile: "Mi perfil"
+      settings: "Configuración"
+      logout: "Cerrar sesión"
+    sidebar:
+      aria_label: "Menú lateral"

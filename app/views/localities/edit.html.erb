@@ -1,12 +1,12 @@
-<% content_for :title, "Editing locality" %>
+<% content_for :title, t("localities.edit.title") %>
 
-<h1>Editing locality</h1>
+<h1><%= t("localities.edit.heading") %></h1>
 
 <%= render "form", locality: @locality %>
 
 <br>
 
 <div>
-  <%= link_to "Show this locality", @locality %> |
-  <%= link_to "Back to localities", localities_path %>
+  <%= link_to t("localities.edit.show"), @locality %> |
+  <%= link_to t("localities.edit.back"), localities_path %>
 </div>

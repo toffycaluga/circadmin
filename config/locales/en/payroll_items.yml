@@ -1,0 +1,23 @@
+en:
+  payroll_items:
+    name: "Name"
+    role: "Position"
+    amount: "Amount"
+    notes: "Notes"
+    add: "Add"
+    confirm:
+      delete: "Delete item?"
+    form:
+      name: "Name"
+      role: "Position"
+      amount: "Amount"
+      notes: "Notes"
+      add: "Add"
+      update: "Update"
+    modal:
+      title: "Edit item"
+    actions:
+      edit: "Edit item"
+      delete: "Delete item"
+    confirmations:
+      delete: "Delete item?"

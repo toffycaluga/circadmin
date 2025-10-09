@@ -1,6 +1,13 @@
 es:
   activerecord:
     attributes:
+      payroll_item:
+        name: "Nombre"
+        job_role: "Rol"
+        amount: "Monto"
+        notes: "Notas"
+      subscription:
+        status: "Estado"
       user_profile:
         full_name: "Nombre completo"
         address: "Dirección"
@@ -10,9 +17,19 @@ es:
           user: "Dueño"
     models:
       circus: "Circo"
+      subscription: "Suscripción"
+      payroll_item:
+        one: "Ítem de planilla"
+        other: "Ítems de planilla"
     errors:
+      messages:
+        inclusion: "no está incluido en la lista"
       models:
         circus:
           attributes:
             user:
               required: "debe estar presente"
+        payroll_item:
+          attributes:
+            name:
+              blank: "no puede estar vacío"

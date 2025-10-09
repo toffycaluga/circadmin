@@ -8,22 +8,19 @@
 <%= render "home/features"%>
 
 
-<%= render "home/pricing",
-    title: "Unlimited for all",
-    subtitle: "Administra tu circo sin límites: finanzas, boletos, usuarios y más",
-    price: 100,
-    frequency: "month",
-    features_title: "Qué incluye",
-    features: [
-      "Gestión de transacciones diarias",
-      "Informes semanales y mensuales",
-      "Control de usuarios y roles",
-      "Exportación a PDF/Excel",
-      "Múltiples circos en una sola cuenta"
-    ],
-    cta_text: "Pre order now"
-    
-%>
+<% @plans.each do |plan| %>
+  <%= render "home/pricing",
+      title:          plan.name,
+      subtitle:       plan_subtitle(plan),
+      price:          (plan.price_cents / 100.0),
+      frequency:      plan_frequency,
+      features_title: t("home.pricing.features_title", default: "Qué incluye"),
+      features:       plan_features(plan),
+      cta_text:       plan_cta_text(plan),
+      cta_url:        plan_cta_url(plan, circus: (defined?(@circus) ? @circus : nil)),
+      plan:           plan %>
+<% end %>
+
 
       <%= render "home/stats", stats: @stats %>
 

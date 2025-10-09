@@ -1,0 +1,6 @@
+pt:
+  nav:
+    messages: "Mensagens"
+    unread:
+      one: "1 mensagem não lida"
+      other: "%{count} mensagens não lidas"

@@ -1,25 +1,25 @@
 pt:
   circus:
+    title: "Circo"
     activate: "Ativar"
     deactivate: "Desativar"
     status:
       confirm_change: "Tem certeza de que deseja alterar o status do circo?"
       changed: "Status do circo atualizado."
     form:
-      name: "Nome do Circo"
+      name: "Nome do circo"
       description: "Descrição"
       country: "País"
       currency: "Moeda"
-      logo: "Logo do Circo"
+      logo: "Logo do circo"
     edit_title: "Editar Circo"
-    edit_heading: "✏️ Editar Informações do Circo"
+    edit_heading: "✏️ Editar informações do circo"
     links:
-      show: "👁 Ver este Circo"
-      back: "🔙 Voltar à Lista"
-    title: "Circo"
+      show: "👁 Ver este circo"
+      back: "🔙 Voltar à lista"
     admin:
       title: "Administração do Circo"
-      heading: "Administração de: %{name}"
+      heading: "Gerenciando: %{name}"
       subtitle: "Gerencie seu circo com alegria e precisão 🎭"
     info:
       title: "Informações do Circo"
@@ -34,9 +34,11 @@ pt:
       tooltip: "Status operacional do circo"
       confirm_change: "Tem certeza de que deseja alterar o status do circo?"
     actions:
-      edit: "Editar Circo"
+      edit: "Editar circo"
       back: "Voltar ao Painel"
       title: "Opções"
       activate: "Ativar"
       deactivate: "Desativar"
       manage: "Gerenciar"
+    labels:
+      name: "Circo"

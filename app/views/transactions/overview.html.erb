@@ -1,43 +1,46 @@
 <div class="card shadow-sm mb-4">
   <div class="card-header bg-light">
-    <h5 class="mb-0"><%= t("transactions.filters.title", default: "Filtros de resumen") %></h5>
+    <h5 class="mb-0"><%= t("transactions.filters.title") %></h5>
   </div>
+
   <div class="card-body">
     <%= form_with url: overview_transactions_locality_path(@locality), method: :get, local: true, html: { data: { controller: "filter" } } do %>
       <div class="row g-3 align-items-end">
         <div class="col-md-3">
           <div class="form-group">
-            <%= label_tag :group, t("transactions.filters.group_by", default: "Agrupar por"), class: "form-label" %>
+            <%= label_tag :group, t("transactions.filters.group_by"), class: "form-label" %>
             <%= select_tag :group,
               options_for_select([
-                [t("transactions.group.day", default: "Día"), "daily"],
-                [t("transactions.group.week", default: "Semana"), "weekly"],
-                [t("transactions.group.month", default: "Mes"), "monthly"],
-                [t("transactions.group.total", default: "Total"), "total"]
+                [t("transactions.group.day"), "daily"],
+                [t("transactions.group.week"), "weekly"],
+                [t("transactions.group.month"), "monthly"],
+                [t("transactions.group.total"), "total"]
               ], @group_type),
               class: "form-select",
               data: { action: "change->filter#submit" } %>
           </div>
         </div>
+
         <div class="col-md-3">
           <div class="form-group">
-            <%= label_tag :type, t("transactions.filters.type", default: "Tipo de transacción"), class: "form-label" %>
+            <%= label_tag :type, t("transactions.filters.type"), class: "form-label" %>
             <%= select_tag :type,
               options_for_select([
-                [t("transactions.type.income", default: "Ingresos"), "income"],
-                [t("transactions.type.expense", default: "Egresos"), "expense"]
+                [t("transactions.type.income"), "income"],
+                [t("transactions.type.expense"), "expense"]
               ], @type),
               class: "form-select",
               data: { action: "change->filter#submit" } %>
           </div>
         </div>
+
         <div class="col-md-3">
           <div class="form-group">
-            <%= label_tag :order, t("transactions.filters.order_by", default: "Ordenar por"), class: "form-label" %>
+            <%= label_tag :order, t("transactions.filters.order_by"), class: "form-label" %>
             <%= select_tag :order,
               options_for_select([
-                [t("transactions.order.date", default: "Fecha"), "date"],
-                [t("transactions.order.amount", default: "Monto"), "amount"]
+                [t("transactions.order.date"), "date"],
+                [t("transactions.order.amount"), "amount"]
               ], @order),
               class: "form-select",
               data: { action: "change->filter#submit" } %>
@@ -45,10 +48,12 @@
         </div>
       </div>
     <% end %>
+
     <div class="row mt-4">
       <% border_color = @type == "income" ? "border-success" : "border-danger" %>
       <% amount_color = @type == "income" ? "text-success" : "text-danger" %>
-      <% icon_class = @type == "income" ? "fas fa-arrow-down text-success" : "fas fa-arrow-up text-danger" %>
+      <% icon_class   = @type == "income" ? "fas fa-arrow-down text-success" : "fas fa-arrow-up text-danger" %>
+
       <% @summaries.each do |label, amount| %>
         <div class="col-md-4">
           <div class="card mb-4 shadow border-start border-4 <%= border_color %>">
@@ -61,9 +66,9 @@
               <h4 class="<%= amount_color %> fw-bold">
                 <%= number_to_currency(amount, unit: currency_symbol(currency_code)) %>
               </h4>
-              <%= link_to t("transactions.filters.see_more", default: "Ver más"),
-                summary_details_transactions_locality_path(@locality, group: @group_type, type: @type, date: label),
-                class: "btn btn-sm btn-outline-primary mt-2" %>
+              <%= link_to t("transactions.filters.see_more"),
+                          summary_details_transactions_locality_path(@locality, group: @group_type, type: @type, date: label),
+                          class: "btn btn-sm btn-outline-primary mt-2" %>
             </div>
           </div>
         </div>

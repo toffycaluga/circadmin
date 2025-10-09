@@ -1,9 +1,9 @@
 en:
   date:
     formats:
-      default: "%d/%m/%Y"
-      short: "%d %b"
-      long: "%d %B %Y"
+      default: "%m/%d/%Y"
+      short: "%b %d"
+      long: "%B %d, %Y"
     abbr_month_names:
       - ~
       - "Jan"

@@ -3,9 +3,10 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title"><%= t("profile.image_options.title", default: "Foto de perfil") %></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <h5 class="modal-title"><%= t("profile.image_options.title") %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t('shared.actions.close') %>"></button>
       </div>
+
       <div class="modal-body text-center">
         <%= image_tag(
           user.user_profile&.profile_picture&.attached? ?
@@ -19,8 +20,19 @@
         ) %>
 
         <div class="d-grid gap-2">
-          <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#viewProfileImageModal" data-bs-dismiss="modal">👁 Ver en grande</button>
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changeProfileImageModal" data-bs-dismiss="modal">✏️ Cambiar foto</button>
+          <button class="btn btn-outline-secondary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#viewProfileImageModal"
+                  data-bs-dismiss="modal">
+            👁 <%= t("profile.image_options.view") %>
+          </button>
+
+          <button class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#changeProfileImageModal"
+                  data-bs-dismiss="modal">
+            ✏️ <%= t("profile.image_options.change") %>
+          </button>
         </div>
       </div>
     </div>

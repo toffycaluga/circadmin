@@ -1,11 +1,11 @@
-<% content_for :title, "New invitation" %>
+<% content_for :title, t("invitations.new.title") %>
 
-<h1>New invitation</h1>
+<h1><%= t("invitations.new.heading") %></h1>
 
 <%= render "form", invitation: @invitation %>
 
 <br>
 
 <div>
-  <%= link_to "Back to invitations", invitations_path %>
+  <%= link_to t("invitations.new.back"), invitations_path %>
 </div>

@@ -1,16 +1,22 @@
-<p style="color: green"><%= notice %></p>
+<!-- app/views/localities/index.html.erb -->
+<% if notice.present? %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<%= t('shared.close') %>"></button>
+  </div>
+<% end %>
 
-<% content_for :title, "Localities" %>
+<% content_for :title, t("localities.index.title") %>
 
-<h1>Localities</h1>
+<h1><%= t("localities.index.heading") %></h1>
 
 <div id="localities">
   <% @localities.each do |locality| %>
     <%= render locality %>
     <p>
-      <%= link_to "Show this locality", locality %>
+      <%= link_to t("localities.index.show"), locality %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New locality", new_locality_path %>
+<%= link_to t("localities.index.new"), new_locality_path, class: "btn btn-primary mt-3" %>

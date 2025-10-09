@@ -24,3 +24,25 @@ es:
       view_aria: "Ver detalle de la nómina"
       none: "No hay nómina registrada aún."
       create: "📝 Crear nómina"
+    modal:
+      confirm_expense_title: "Confirmar registro de gasto"
+      date_label: "Fecha del gasto"
+      locality_label: "Localidad"
+      confirm_button: "Confirmar"
+      confirm_income_title: "Confirmar registro de ingreso"
+    total: "Total planilla:"
+    new:
+      title: "Nueva planilla"
+      heading: "Crear nueva planilla"
+    show:
+      title: "🧾 Detalle de Nómina"
+      actions:
+        register_expense: "Registrar gasto"
+        export_pdf: "Exportar a PDF"
+      table_headers:
+        name: "Nombre"
+        role: "Cargo"
+        amount: "Monto"
+        notes: "Notas"
+      table_footer:
+        total_label: "Total nómina:"

@@ -1,0 +1,34 @@
+<%# app/views/subscriptions/new.html.erb %>
+<%= form_with url: billing_checkout_path(circus_id: @circus.id),
+              method: :post,
+              local: true,
+              id: "subscription-form",
+              data: { turbo: false, controller: "subscription", action: "submit->subscription#validate" } do |f| %>
+
+  <h1 class="mb-4"><%= t('subscriptions.new.title') %></h1>
+
+  <% basic = @plans.find { |p| p.key == 'basic' } %>
+  <% price = basic ? number_to_currency(basic.price_cents / 100.0, precision: 0) : "-" %>
+  <% days  = basic&.trial_days || 0 %>
+
+  <p class="lead mb-5">
+    <%= t('subscriptions.new.subtitle', days: days, price: price) %>
+  </p>
+
+  <div class="row mb-4" data-subscription-target="plansContainer">
+    <% @plans.each do |plan| %>
+      <div class="col-md-4 mb-4">
+        <%= render 'plan_card', plan: plan %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= hidden_field_tag :plan, nil, id: "selected_plan", data: { subscription_target: "planInput" } %>
+
+  <div class="d-flex gap-2">
+    <%= link_to t('subscriptions.new.cancel'), root_path, class: "btn btn-outline-secondary" %>
+    <button type="submit" class="btn btn-primary" data-subscription-target="submitButton" disabled>
+      <%= t('subscriptions.new.continue_to_checkout') %>
+    </button>
+  </div>
+<% end %>

@@ -20,8 +20,10 @@
 
 FactoryBot.define do
   factory :circus_user do
-    user { nil }
-    circus { nil }
-    role { "MyString" }
+    association :user
+    association :circus
+    role { "owner" }
+    active { true }
+    accepted_at { Time.current }
   end
 end

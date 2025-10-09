@@ -1,0 +1,13 @@
+pt:
+  billing_modal:
+    subscribe: "Assinar"
+    alert:
+      title: "Atualize sua assinatura"
+      message: "Você não tem vagas disponíveis para criar outro circo."
+      update: "Atualizar"
+      messages:
+        no_slots: "Você não tem vagas disponíveis para criar outro circo."
+        expired: "Seu plano atual expirou. Atualize-o para continuar."
+        limit_reached: "Você atingiu o número máximo de circos no seu plano."
+    cancel: "Cancelar"
+    close: "Fechar"

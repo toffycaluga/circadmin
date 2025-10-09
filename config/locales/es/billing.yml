@@ -1,0 +1,15 @@
+es:
+  billing:
+    success:
+      title: "¡Suscripción exitosa! 🎪"
+      thanks_html: "Gracias por suscribirte a <strong>%{app_name}</strong>."
+      access: "Ahora tienes acceso a todas las funcionalidades de tu plan."
+      session_id: "Checkout Session ID"
+      portal: "Ir al portal de facturación"
+      back_to_dashboard: "Volver al dashboard"
+    invalid_session: "La sesión de pago es inválida o ha expirado."
+    portal_not_configured: "El portal de cliente de Stripe (modo test) no está configurado aún."
+    cancelled:
+      title: "Pago cancelado"
+      message: "Puedes intentar nuevamente cuando quieras."
+      back_to_dashboard: "Volver al panel"

@@ -1,26 +1,29 @@
-<% content_for :page_title ,t("dashboard.title") %>
-  
+<% content_for :page_title, t("dashboard.title") %>
+
 <% content_for :breadcrumb do %>
-  <li class="breadcrumb-item"><%= link_to t("dashboard.title"), dashboard_index_path %></li>
-  <li class="breadcrumb-item active"><% t("invitations.title") %></li>
+  <li class="breadcrumb-item">
+    <%= link_to t("dashboard.title"), dashboard_index_path %>
+  </li>
+  <li class="breadcrumb-item active">
+    <%= t("invitations.index.title") %>
+  </li>
 <% end %>
 
-
-<% content_for :title, "Invitaciones recibidas" %>
+<% content_for :title, t("invitations.index.heading") %>
 
 <% if notice %>
   <div class="alert alert-success alert-dismissible fade show" role="alert">
     <%= notice %>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <button type="button" class="close" data-dismiss="alert" aria-label="<%= t('shared.close') %>">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
 <% end %>
 
-<h2 class="mb-4">Mis invitaciones</h2>
+<h2 class="mb-4"><%= t("invitations.index.my_invitations") %></h2>
 
 <% if @invitations.empty? %>
-  <div class="alert alert-info">No tienes invitaciones en este momento.</div>
+  <div class="alert alert-info"><%= t("invitations.index.no_invitations") %></div>
 <% else %>
   <div class="row">
     <% @invitations.each do |invitation| %>
@@ -31,16 +34,28 @@
               <i class="feather icon-users mr-2"></i>
               <%= invitation.circus.name %>
             </h5>
-            <p class="card-text"><strong>Mensaje:</strong> <%= invitation.message %></p>
+
             <p class="card-text">
-              <strong>Estado:</strong> <%= status_badge(invitation) %>
+              <strong><%= t("invitations.index.message") %>:</strong>
+              <%= invitation.message.presence || t("invitations.index.no_message") %>
+            </p>
+
+            <p class="card-text">
+              <strong><%= t("invitations.index.status") %>:</strong>
+              <%= status_badge(invitation) %>
             </p>
 
             <% if invitation.status == Invitation::STATUSES["pending"] %>
               <div class="d-flex justify-content-between">
-                <%= button_to "Aceptar", accept_invitation_path(invitation), method: :patch, class: "btn btn-success btn-sm" %>
-                <%= button_to "Rechazar", reject_invitation_path(invitation), method: :patch, class: "btn btn-outline-danger btn-sm" %>
+                <%= button_to t("invitations.actions.accept"),
+                    accept_invitation_path(invitation),
+                    method: :patch,
+                    class: "btn btn-success btn-sm" %>
 
+                <%= button_to t("invitations.actions.reject"),
+                    reject_invitation_path(invitation),
+                    method: :patch,
+                    class: "btn btn-outline-danger btn-sm" %>
               </div>
             <% end %>
           </div>

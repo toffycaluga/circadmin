@@ -1,12 +1,15 @@
 <!-- app/views/invitation_mailer/notify.html.erb -->
 <p>
-  Hola <%= @invitation.user.user_profile&.full_name.presence || @invitation.user.email %>,
+  <%= t("mailers.invitation_mailer.notify.greeting",
+         name: @invitation.user.user_profile&.full_name.presence || @invitation.user.email) %>
 </p>
 
 <p>
-  Has sido invitado a unirte al circo "<%= @invitation.circus.name %>" como <%= @circus_user&.role || 'miembro' %>.
+  <%= t("mailers.invitation_mailer.notify.body_html",
+         circus_name: @invitation.circus.name,
+         role: @circus_user&.role || t("mailers.invitation_mailer.notify.default_role")) %>
 </p>
 
 <p>
-  Por favor, accede a tu panel para aceptar la invitación.
+  <%= t("mailers.invitation_mailer.notify.instructions_html") %>
 </p>

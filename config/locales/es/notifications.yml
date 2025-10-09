@@ -1,0 +1,28 @@
+es:
+  notifications:
+    title: "Mis notificaciones"
+    mark_all: "Marcar todas como leídas"
+    mark_read: "Marcar como leída"
+    none: "No tienes notificaciones por el momento."
+    time_ago: "hace %{time}"
+    invitation:
+      new:
+        title: "Nueva invitación"
+        body: "Has recibido una invitación para unirte al circo %{circus} con el rol %{role}."
+      resent:
+        title: "Invitación reenviada"
+        body: "Se ha reenviado la invitación desde %{sender_email} para el circo %{circus}."
+    flash:
+      invitation:
+        no_active_circus: "No hay un circo activo seleccionado."
+        email_blank: "Debes ingresar un correo electrónico."
+        email_invalid: "El formato del correo electrónico no es válido."
+        invite_success: "Invitación enviada a %{email}."
+        invite_error: "No se pudo enviar la invitación: %{errors}"
+        resent_success: "La invitación fue reenviada correctamente."
+        resent_error: "No fue posible reenviar la invitación."
+        already_active: "Este usuario ya está activo en el circo."
+    alt_user_image: "Imagen de usuario"
+    sample_user: "John Doe"
+    time_ago: "%{time} atrás"
+    new_ticket: "Nuevo ticket agregado"

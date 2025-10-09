@@ -1,0 +1,24 @@
+en:
+  mailers:
+    layout:
+      footer_rights: "All rights reserved."
+    invitation_mailer:
+      subject: "Invitation to the circus %{circus_name}"
+      notify:
+        greeting: "Hello %{name},"
+        body_html: "You have been invited to join the circus <strong>%{circus_name}</strong> as a <strong>%{role}</strong>."
+        default_role: "member"
+        instructions_html: "Please log in to your dashboard to accept the invitation."
+    user_mailer:
+      new_circus_invitation:
+        subject: "You’ve been invited to join %{circus_name} on CircAdmin!"
+        greeting: "Hello %{name},"
+        body_html: "You’ve been invited to join the circus <strong>%{circus_name}</strong> on <strong>CircAdmin</strong>."
+        body_text: "You’ve been invited to join the circus %{circus_name} on CircAdmin."
+        accept_button: "Accept invitation"
+        footer: "If you weren’t expecting this invitation, simply ignore this email."
+      notify:
+        subject: "Invitation to join the circus %{circus_name}"
+        greeting: "Hello %{name},"
+        body_html: "You have a new invitation to join the circus <strong>%{circus_name}</strong>."
+        body_text: "You have a new invitation to join the circus %{circus_name}."

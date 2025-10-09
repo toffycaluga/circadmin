@@ -2,7 +2,7 @@ pt:
   devise:
     login: "Entrar"
     logout: "Sair"
-    register: "Registrar"
+    register: "Cadastrar-se"
     edit: "Editar"
     forgot: "Esqueceu sua senha?"
     confirmation: "Não recebeu as instruções de confirmação?"
@@ -10,12 +10,12 @@ pt:
     sessions:
       new:
         title: "Entrar"
-        submit: "Iniciar sessão"
+        submit: "Acessar"
         remember_me: "Lembrar-me"
         forgot_password: "Esqueceu sua senha?"
     registrations:
       new:
-        title: "Registrar"
+        title: "Cadastrar-se"
         submit: "Criar conta"
         have_account: "Já tem uma conta?"
       edit:
@@ -31,13 +31,17 @@ pt:
         submit: "Alterar minha senha"
     confirmations:
       new:
-        title: "Reenviar confirmação"
-        submit: "Enviar instruções"
-    unlocks:
-      new:
-        title: "Reenviar desbloqueio"
-        submit: "Enviar instruções"
-    confirmations:
-      new:
         title: "Reenviar instruções de confirmação"
         submit: "Reenviar instruções de confirmação"
+    unlocks:
+      new:
+        title: "Reenviar instruções de desbloqueio"
+        submit: "Enviar instruções"
+    mailer:
+      email_changed:
+        greeting: "Olá %{email}!"
+        pending_change_html: "Estamos entrando em contato para informar que seu e-mail está sendo alterado para <strong>%{new_email}</strong>."
+        changed_html: "Estamos entrando em contato para informar que seu e-mail foi alterado para <strong>%{new_email}</strong>."
+      password_change:
+        greeting: "Olá %{email}!"
+        message: "Estamos entrando em contato para informar que sua senha foi alterada."

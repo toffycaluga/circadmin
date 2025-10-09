@@ -1,5 +1,6 @@
 es:
   circus:
+    title: "Circo"
     activate: "Activar"
     deactivate: "Desactivar"
     status:
@@ -41,3 +42,5 @@ es:
       activate: "Activar"
       deactivate: "Desactivar"
       manage: "Gestión"
+    labels:
+      name: "Circo"

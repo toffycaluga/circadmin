@@ -1,5 +1,12 @@
 en:
   navigation:
-    dashboard: "Dashboard"
-    my_circuses: "My Circuses"
-    my_documents: "My Documents"
+    dashboard: "Home"
+    my_circuses: "My circuses"
+    my_documents: "My documents"
+    user_section:
+      title: "User"
+      my_profile: "My profile"
+      settings: "Settings"
+      logout: "Log out"
+    sidebar:
+      aria_label: "Sidebar menu"

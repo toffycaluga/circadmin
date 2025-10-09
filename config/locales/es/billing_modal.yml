@@ -1,0 +1,13 @@
+es:
+  billing_modal:
+    subscribe: "Suscribirme"
+    alert:
+      title: "Actualiza tu suscripción"
+      message: "No tienes cupos disponibles para crear otro circo."
+      update: "Actualizar"
+      messages:
+        no_slots: "No tienes cupos disponibles para crear otro circo."
+        expired: "Tu plan actual ha expirado. Actualízalo para continuar."
+        limit_reached: "Has alcanzado el número máximo de circos en tu plan."
+    cancel: "Cancelar"
+    close: "Cerrar"

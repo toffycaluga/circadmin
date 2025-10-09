@@ -1,0 +1,28 @@
+es:
+  invitations:
+    edit:
+      title: "Editar invitación"
+      heading: "Editar invitación"
+      show: "Ver esta invitación"
+      back: "Volver a las invitaciones"
+    index:
+      title: "Invitaciones"
+      heading: "Invitaciones recibidas"
+      my_invitations: "Mis invitaciones"
+      no_invitations: "No tienes invitaciones en este momento."
+      message: "Mensaje"
+      no_message: "Sin mensaje"
+      status: "Estado"
+    actions:
+      accept: "Aceptar"
+      reject: "Rechazar"
+    new:
+      title: "Nueva invitación"
+      heading: "Nueva invitación"
+      back: "Volver a las invitaciones"
+    show:
+      edit: "Editar esta invitación"
+      back: "Volver a las invitaciones"
+      destroy: "Eliminar esta invitación"
+      confirm_destroy: "¿Estás seguro de que deseas eliminar esta invitación?"
+    confirm_resend: "¿Quieres reenviar la invitación por correo?"

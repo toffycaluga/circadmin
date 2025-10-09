@@ -1,37 +1,36 @@
 <div id="<%= dom_id transaction %>">
   <p>
-    <strong>Title:</strong>
+    <strong><%= t("transactions.show.title") %>:</strong>
     <%= transaction.title %>
   </p>
 
   <p>
-    <strong>Amount:</strong>
-    <%= transaction.amount %>
+    <strong><%= t("transactions.show.amount") %>:</strong>
+    <%= number_to_currency(transaction.amount, unit: currency_symbol(transaction.circus.currency)) %>
   </p>
 
   <p>
-    <strong>Transaction type:</strong>
-    <%= transaction.transaction_type %>
+    <strong><%= t("transactions.show.transaction_type") %>:</strong>
+    <%= t("transactions.type.#{transaction.transaction_type}") %>
   </p>
 
   <p>
-    <strong>Description:</strong>
-    <%= transaction.description %>
+    <strong><%= t("transactions.show.description") %>:</strong>
+    <%= transaction.description.presence || t("transactions.show.no_description") %>
   </p>
 
   <p>
-    <strong>Date:</strong>
-    <%= transaction.date %>
+    <strong><%= t("transactions.show.date") %>:</strong>
+    <%= l(transaction.date, format: :long) %>
   </p>
 
   <p>
-    <strong>User:</strong>
-    <%= transaction.user_id %>
+    <strong><%= t("transactions.show.user") %>:</strong>
+    <%= transaction.user&.user_profile&.full_name || t("transactions.show.unknown_user") %>
   </p>
 
   <p>
-    <strong>Circus:</strong>
-    <%= transaction.circus_id %>
+    <strong><%= t("transactions.show.circus") %>:</strong>
+    <%= transaction.circus&.name || t("transactions.show.unknown_circus") %>
   </p>
-
 </div>

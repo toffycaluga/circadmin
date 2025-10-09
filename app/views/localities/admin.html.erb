@@ -1,76 +1,72 @@
 <div class="container mt-4">
-  <%= render "localities/shared/header", locality: @locality ,
-  incomes: @incomes,
-  expenses: @expenses
-  %>
-  <hr>
- 
-
-  <%= render "localities/shared/summary_cards", 
-           incomes: @incomes, 
-           expenses: @expenses, 
-           locality: @locality %>
+  <%= render "localities/shared/header",
+             locality: @locality,
+             incomes: @incomes,
+             expenses: @expenses %>
 
   <hr>
- <%# inicio bloque resumenes %>
- <div class="row">
-  <%# Resumen ingreso diario %>
-  <% if @last_day_summary %>
-  <%= render "transactions/shared/summary_card",
-    title: t("summary_card.last_day"),
-    locality: @locality,
-    amount: @last_day_summary[:total],
-    change_percent: @last_day_summary[:change_percent],
-    categories: @last_day_summary[:by_category],
-    target_date: @last_day_summary[:target_date],
-    period: :day %>
-  <% end %>
 
-  <%# resumen ultima semana %>
-  <% if @weekly_summary %>
-    <%= render "transactions/shared/summary_card",
-      title: t("summary_card.last_weekly"),
-      locality: @locality,
-      amount: @weekly_summary[:total],
-      change_percent: @weekly_summary[:change_percent],
-      categories: @weekly_summary[:by_category],
-      range: @weekly_summary[:range],
-      period: :week %>
-  <% end %>
+  <%= render "localities/shared/summary_cards",
+             incomes: @incomes,
+             expenses: @expenses,
+             locality: @locality %>
 
-  <%# resumen mensual %>
+  <hr>
 
-  <% if @monthly_summary %>
-    <%= render "transactions/shared/summary_card",
-      title: t("summary_card.last_monthly"),
-      locality: @locality,
-      amount: @monthly_summary[:total],
-      change_percent: @monthly_summary[:change_percent],
-      categories: @monthly_summary[:by_category],
-      range: @monthly_summary[:range],
-      period: :month %>
-  <% end %>
+  <%# inicio bloque resúmenes %>
+  <div class="row">
+    <%# Resumen último día %>
+    <% if @last_day_summary %>
+      <%= render "transactions/shared/summary_card",
+                 title: t("summary_card.last_day"),
+                 locality: @locality,
+                 amount: @last_day_summary[:total],
+                 change_percent: @last_day_summary[:change_percent],
+                 categories: @last_day_summary[:by_category],
+                 target_date: @last_day_summary[:target_date],
+                 period: :day %>
+    <% end %>
 
+    <%# Resumen última semana %>
+    <% if @weekly_summary %>
+      <%= render "transactions/shared/summary_card",
+                 title: t("summary_card.last_weekly"),
+                 locality: @locality,
+                 amount: @weekly_summary[:total],
+                 change_percent: @weekly_summary[:change_percent],
+                 categories: @weekly_summary[:by_category],
+                 range: @weekly_summary[:range],
+                 period: :week %>
+    <% end %>
 
-  <%# resumen total %>
-  <% if @overall_summary %>
-    <%= render "transactions/shared/summary_card",
-      title: t("summary_card.overall"),
-      locality: @locality,
-      amount: @overall_summary[:total],
-      change_percent: 0,
-      categories: @overall_summary[:by_category],
-      range: @overall_summary[:range],
-      period: :all %>
-  <% end %>
+    <%# Resumen último mes %>
+    <% if @monthly_summary %>
+      <%= render "transactions/shared/summary_card",
+                 title: t("summary_card.last_monthly"),
+                 locality: @locality,
+                 amount: @monthly_summary[:total],
+                 change_percent: @monthly_summary[:change_percent],
+                 categories: @monthly_summary[:by_category],
+                 range: @monthly_summary[:range],
+                 period: :month %>
+    <% end %>
 
-</div>
-
- <%# fin bloque resumenes %>
-  <div class="row gap-2 px-4">
-    <%= render "localities/shared/incomes", incomes: @incomes, locality: @locality, circus: @locality.circus %>
-
-    <%= render "localities/shared/expenses", expenses: @expenses, locality: @locality, circus:@locality.circus %>
+    <%# Resumen total %>
+    <% if @overall_summary %>
+      <%= render "transactions/shared/summary_card",
+                 title: t("summary_card.overall"),
+                 locality: @locality,
+                 amount: @overall_summary[:total],
+                 change_percent: 0,
+                 categories: @overall_summary[:by_category],
+                 range: @overall_summary[:range],
+                 period: :all %>
+    <% end %>
   </div>
- 
+  <%# fin bloque resúmenes %>
+
+  <div class="row gap-2 px-4">
+    <%= render "localities/shared/incomes",  incomes: @incomes,  locality: @locality, circus: @locality.circus %>
+    <%= render "localities/shared/expenses", expenses: @expenses, locality: @locality, circus: @locality.circus %>
+  </div>
 </div>

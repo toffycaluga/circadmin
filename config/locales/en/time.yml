@@ -1,6 +1,7 @@
-es:
+en:
   time:
     formats:
-      default: "%d/%m/%Y %H:%M"
-      short: "%d %b"
-      long: "%d de %B de %Y a las %H:%M"
+      default: "%m/%d/%Y %H:%M"
+      short: "%b %d"
+      long: "%B %d, %Y at %H:%M"
+      date_only: "%m/%d/%Y"

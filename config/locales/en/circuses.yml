@@ -3,4 +3,9 @@ en:
     page_title: "My Circuses"
     new:
       title: "New Circus"
-      heading: "Create New Circus"
+      heading: "Create new circus"
+    show:
+      edit: "Edit this circus"
+      back: "Back to circus list"
+      destroy: "Delete this circus"
+      confirm_destroy: "Are you sure you want to delete this circus?"

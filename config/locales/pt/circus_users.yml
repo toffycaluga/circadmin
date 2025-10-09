@@ -1,0 +1,18 @@
+pt:
+  circus_users:
+    edit:
+      title: "Editar função de %{email} no circo"
+    fields:
+      role: "Função"
+    actions:
+      update: "Atualizar"
+      deactivate: "Desativar usuário"
+    confirmations:
+      deactivate: "Tem certeza de que deseja desativar este usuário?"
+    row:
+      profile_picture_alt: "Foto de perfil"
+      actions:
+        save: "Salvar"
+        deactivate: "Excluir"
+      confirmations:
+        deactivate: "Tem certeza de que deseja excluir este usuário?"

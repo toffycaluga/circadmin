@@ -1,0 +1,14 @@
+en:
+  shared:
+    close: "Close"
+    cancel: "Cancel"
+    actions:
+      close: "Close"
+      add: "Add"
+      update: "Update"
+      back: "Back"
+      edit: "Edit"
+      delete: "Delete"
+      confirm_delete: "Are you sure you want to delete this record?"
+    actions: "Actions"
+    view_more: "View more"

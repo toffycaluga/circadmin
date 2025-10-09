@@ -1,4 +1,4 @@
-<nav class="pcoded-navbar menu-light collapsed">
+<nav class="pcoded-navbar menu-light collapsed" aria-label="<%= t('navigation.sidebar.aria_label', default: 'Menú lateral') %>">
   <div class="sidenav-inner">
     <div class="navbar-wrapper">
       <div class="navbar-content scroll-div">
@@ -9,26 +9,23 @@
   </div>
 </nav>
 
-
 <style>
-	/* por ejemplo en app/assets/stylesheets/side_nav.scss */
-	.pcoded-navbar {
-	width: 240px;
-	transition: transform .3s ease;
-	transform: translateX(230px);
-	}
+  /* app/assets/stylesheets/side_nav.scss */
+  .pcoded-navbar {
+    width: 240px;
+    transition: transform 0.3s ease;
+    transform: translateX(230px);
+  }
 
-	/* cuando tenga .collapsed lo empuja fuera */
-	.pcoded-navbar.collapsed {
-	transform: translateX(-260px);
-	}
+  /* cuando tenga .collapsed lo empuja fuera */
+  .pcoded-navbar.collapsed {
+    transform: translateX(-260px);
+  }
 
-	/* siempre visible en desktop */
-	@media (min-width: 992px) {
-	.pcoded-navbar {
-		transform: translateX(0) !important;
-	}
-	}
-
-
+  /* siempre visible en desktop */
+  @media (min-width: 992px) {
+    .pcoded-navbar {
+      transform: translateX(0) !important;
+    }
+  }
 </style>

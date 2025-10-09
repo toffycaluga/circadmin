@@ -1,18 +1,35 @@
 en:
   activerecord:
     attributes:
+      payroll_item:
+        name: "Name"
+        job_role: "Role"
+        amount: "Amount"
+        notes: "Notes"
+      subscription:
+        status: "Status"
       user_profile:
-        full_name: "Full name"
+        full_name: "Full Name"
         address: "Address"
         country: "Country"
-        profile_picture: "Profile picture"
+        profile_picture: "Profile Picture"
         circus:
           user: "Owner"
     models:
       circus: "Circus"
+      subscription: "Subscription"
+      payroll_item:
+        one: "Payroll Item"
+        other: "Payroll Items"
     errors:
+      messages:
+        inclusion: "is not included in the list"
       models:
         circus:
           attributes:
             user:
               required: "must be present"
+        payroll_item:
+          attributes:
+            name:
+              blank: "can't be blank"

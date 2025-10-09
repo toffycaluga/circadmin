@@ -4,24 +4,33 @@ es:
       title: "Nuevo perfil de usuario"
       heading: "Crear tu perfil"
     show:
-      title: "Perfil"
+      title: "Perfil de usuario"
       header: "Perfil: %{name}"
+      user: "Usuario"
+      full_name: "Nombre completo"
+      address: "Dirección"
+      country: "País"
+      currency_type: "Tipo de moneda"
     edit:
       title: "Editar perfil de usuario"
       heading: "Editar tu perfil"
       show: "Ver este perfil de usuario"
-      profile_picture_section: "Foto de perfil"
-      upload_picture: "Subir nueva foto"
+      profile_picture_section: "Imagen de perfil"
+      profile_picture_alt: "Imagen de perfil"
+      upload_picture: "Subir imagen"
       picture_updated: "La foto de perfil fue actualizada con éxito."
       picture_failed: "No se pudo actualizar la foto de perfil."
       no_picture: "Aún no tienes una foto de perfil"
+      select_picture: "Selecciona una imagen"
+      upload_picture: "Subir imagen"
     actions:
-      save: "Guardar perfil"
-      back: "← Volver "
-      back_to_list: "← Volver a los perfiles"
+      save: "Guardar"
+      back: "Volver"
+      back_to_list: "Volver a los perfiles"
       edit: "Editar"
       destroy: "Eliminar"
       confirm_destroy: "¿Estás seguro de que deseas eliminar este perfil?"
+      new: "Nuevo perfil"
     notices:
       created: "El perfil fue creado exitosamente."
       updated: "El perfil fue actualizado exitosamente."
@@ -37,3 +46,18 @@ es:
       country: "Ej: España"
     alerts:
       picture_failed: "No se pudo actualizar la foto de perfil. Intenta nuevamente."
+    profile_picture:
+      change_modal_title: "Cambiar foto de perfil"
+    labels:
+      full_name: "Nombre completo"
+      address: "Dirección"
+      country: "País"
+    index:
+      title: "Perfiles de usuario"
+      heading: "Listado de perfiles"
+      unnamed: "Sin nombre"
+      show: "Ver perfil"
+    errors:
+      header:
+        one: "1 error impide guardar el perfil"
+        other: "%{count} errores impiden guardar el perfil"

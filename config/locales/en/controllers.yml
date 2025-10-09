@@ -1,0 +1,62 @@
+en:
+  controllers:
+    application:
+      ensure_circus_context:
+        select_before_continue: "You must select a circus before continuing."
+        select_before_invite: "You must select a circus before inviting."
+      accept_invitation:
+        success: "You have accepted to be part of %{circus_name}!"
+        none_pending: "You have no pending invitations for this circus."
+    shared:
+      circus_required:
+        none_created: "You don't have any circuses created yet."
+        select_one: "You must select a circus to continue."
+    billing:
+      start_checkout:
+        select_service: "You must select at least one service."
+        service_without_price: "The service '%{service}' has no Price configured."
+        cannot_start: "Checkout could not be started: %{error}"
+      create_checkout_session:
+        plan_without_price: "The plan '%{plan}' has no Price configured in Stripe."
+        invalid_price_id_type: "The configured ID for plan '%{plan}' is not a valid Stripe Price."
+        invalid_plan_or_circus: "Invalid plan or circus."
+        price_missing_in_stripe: "The Stripe Price ID for plan '%{plan}' does not exist in your account or current mode."
+        cannot_start: "Checkout could not be started: %{error}"
+      portal:
+        cannot_open: "Could not open portal: %{error}"
+    circus_users:
+      unauthorized: "You don't have permission to perform this action."
+      update:
+        success: "Role successfully updated."
+        invalid_role: "Invalid role."
+      destroy:
+        success: "User successfully deactivated."
+      deactivate:
+        success: "User successfully deactivated."
+    circuses:
+      create:
+        success: "Circus successfully created."
+      update:
+        success: "Circus successfully updated."
+      destroy:
+        success: "Circus successfully deleted."
+      accept_invitation:
+        success: "You have accepted the invitation to the circus %{circus_name}."
+        none_pending: "You don't have a pending invitation for this circus."
+      access:
+        must_accept: "You must accept the invitation before accessing the circus."
+    invitations:
+      accept:
+        title: "Invitation accepted"
+        body: "%{user_email} has accepted your invitation to the circus %{circus_name}."
+        success: "Invitation accepted."
+      reject:
+        title: "Invitation rejected"
+        body: "%{user_email} has rejected your invitation to the circus %{circus_name}."
+        success: "Invitation rejected."
+      create:
+        success: "Invitation successfully created."
+      update:
+        success: "Invitation successfully updated."
+      destroy:
+        success: "Invitation successfully deleted."

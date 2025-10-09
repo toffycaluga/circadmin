@@ -1,5 +1,12 @@
 pt:
   navigation:
-    dashboard: "Painel de Controle"
-    my_circuses: "Meus Circos"
-    my_documents: "Meus Documentos"
+    dashboard: "Início"
+    my_circuses: "Meus circos"
+    my_documents: "Meus documentos"
+    user_section:
+      title: "Usuário"
+      my_profile: "Meu perfil"
+      settings: "Configurações"
+      logout: "Sair"
+    sidebar:
+      aria_label: "Menu lateral"

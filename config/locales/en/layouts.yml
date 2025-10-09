@@ -2,4 +2,4 @@ en:
   layouts:
     application:
       title: "CircAdmin"
-      back_home: "Back to Home"
+      back_home: "Back to home"

@@ -1,0 +1,24 @@
+pt:
+  mailers:
+    layout:
+      footer_rights: "Todos os direitos reservados."
+    invitation_mailer:
+      subject: "Convite para o circo %{circus_name}"
+      notify:
+        greeting: "Olá %{name},"
+        body_html: "Você foi convidado a se juntar ao circo <strong>%{circus_name}</strong> como <strong>%{role}</strong>."
+        default_role: "membro"
+        instructions_html: "Por favor, acesse seu painel para aceitar o convite."
+    user_mailer:
+      new_circus_invitation:
+        subject: "Você foi convidado para se juntar ao %{circus_name} no CircAdmin!"
+        greeting: "Olá %{name},"
+        body_html: "Você foi convidado para fazer parte do circo <strong>%{circus_name}</strong> no <strong>CircAdmin</strong>."
+        body_text: "Você foi convidado para fazer parte do circo %{circus_name} no CircAdmin."
+        accept_button: "Aceitar convite"
+        footer: "Se você não esperava este convite, simplesmente ignore este e-mail."
+      notify:
+        subject: "Convite para se juntar ao circo %{circus_name}"
+        greeting: "Olá %{name},"
+        body_html: "Você tem um novo convite para se juntar ao circo <strong>%{circus_name}</strong>."
+        body_text: "Você tem um novo convite para se juntar ao circo %{circus_name}."

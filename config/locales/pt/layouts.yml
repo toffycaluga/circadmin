@@ -2,4 +2,4 @@ pt:
   layouts:
     application:
       title: "CircAdmin"
-      back_home: "Voltar para a Página Inicial"
+      back_home: "Voltar ao início"

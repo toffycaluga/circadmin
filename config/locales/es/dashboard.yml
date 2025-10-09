@@ -1,7 +1,7 @@
 es:
   dashboard:
     active_locality: "Localidad activa:"
-    title: "Panel Principal"
+    title: "Panel de control"
     welcome: "Bienvenido a CircAdmin 🎪"
     intro: "Administra tus circos de forma clara y ordenada."
     my_circuses: "Mis circos"
@@ -16,3 +16,16 @@ es:
       add_income: "💰 Ingreso"
       add_expense: "💸 Egreso"
       summary: "📊 Resumen"
+      full_summary: "📊 Resumen de Ingresos y Gastos"
+    financial_resources:
+      title: "Recursos financieros"
+      description: "Accede rápidamente a los registros de ingresos y egresos de tu circo."
+    localities:
+      title: "Localidades"
+      description: "Crea y administra las localidades (plazas/eventos) de tu circo."
+      new_locality: "Nueva localidad"
+      admin: "Administrar"
+      none_found: "Aún no hay localidades registradas."
+    header:
+      title: "Panel de control"
+      breadcrumb: "Panel de control"

@@ -10,7 +10,7 @@
           url_for(current_user.user_profile.profile_picture.variant(resize_to_limit: [200, 200])) :
           asset_path("avatar.jpg"),
         class: "rounded-circle mb-3 img-fluid",
-        alt: "Imagen de perfil"
+        alt: t("user_profiles.edit.profile_picture_alt")
       ) %>
 
       <%= form_with model: @user_profile,
@@ -31,4 +31,3 @@
     </div>
   </div>
 </div>
-

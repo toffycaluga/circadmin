@@ -1,6 +1,11 @@
 <div class="mb-3 d-flex gap-2 justify-content-center col-md-4 col-sm-12">
-  <%# boton egresos %>
-  <%= link_to t("transactions.actions.add_expense"), new_transaction_path(transaction_type: "expense", locality_id: locality.id), class: "btn btn-danger " %>
-  <%#  boton ingresos %>
-  <%= link_to t("transactions.actions.add_income"), new_transaction_path(transaction_type: "income", locality_id: locality.id), class: "btn btn-success " %>
+  <%# Botón de egresos %>
+  <%= link_to t("transactions.actions.add_expense", default: "Agregar egreso"),
+              new_transaction_path(transaction_type: "expense", locality_id: locality.id),
+              class: "btn btn-danger" %>
+
+  <%# Botón de ingresos %>
+  <%= link_to t("transactions.actions.add_income", default: "Agregar ingreso"),
+              new_transaction_path(transaction_type: "income", locality_id: locality.id),
+              class: "btn btn-success" %>
 </div>

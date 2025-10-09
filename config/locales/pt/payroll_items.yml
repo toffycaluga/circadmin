@@ -1,0 +1,23 @@
+pt:
+  payroll_items:
+    name: "Nome"
+    role: "Cargo"
+    amount: "Valor"
+    notes: "Observações"
+    add: "Adicionar"
+    confirm:
+      delete: "Excluir item?"
+    form:
+      name: "Nome"
+      role: "Cargo"
+      amount: "Valor"
+      notes: "Observações"
+      add: "Adicionar"
+      update: "Atualizar"
+    modal:
+      title: "Editar item"
+    actions:
+      edit: "Editar item"
+      delete: "Excluir item"
+    confirmations:
+      delete: "Excluir item?"

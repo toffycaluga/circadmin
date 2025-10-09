@@ -1,4 +1,5 @@
-<% is_income = transaction.transaction_type == "income" %>
+<% tx_type = transaction.transaction_type || params[:transaction_type] || "income" %>
+<% is_income = tx_type == "income" %>
 
 <%= form_with(model: transaction, local: true, html: { multipart: true }) do |form| %>
   <% if transaction.errors.any? %>
@@ -15,15 +16,14 @@
   <%= form.hidden_field :transaction_type, value: transaction.transaction_type || params[:transaction_type] %>
   <%= form.hidden_field :locality_id, value: transaction.locality_id || params[:locality_id] %>
 
-
   <!-- Título -->
   <div class="form-group">
     <%= form.label :title, t("transactions.form.title") %>
     <%= form.text_field :title,
       class: "form-control",
-      placeholder: t("transactions.form.placeholders.title.#{transaction.transaction_type}") %>
+      placeholder: t("transactions.form.placeholders.title.#{tx_type}") %>
     <small class="form-text text-muted">
-      <%= t("transactions.form.hints.title.#{transaction.transaction_type}") %>
+      <%= t("transactions.form.hints.title.#{tx_type}") %>
     </small>
   </div>
 
@@ -40,9 +40,9 @@
   <div class="form-group">
     <%= form.label :category, t("transactions.form.category") %>
     <%= form.select :category,
-  (is_income ? Transaction::INCOME_CATEGORIES : Transaction::EXPENSE_CATEGORIES).map { |c| [t("transactions.categories.#{c}"), c] },
-  { prompt: t("transactions.form.prompts.category") },
-  class: "form-control" %>
+      (is_income ? Transaction::INCOME_CATEGORIES : Transaction::EXPENSE_CATEGORIES).map { |c| [t("transactions.categories.#{c}"), c] },
+      { prompt: t("transactions.form.prompts.category") },
+      class: "form-control" %>
     <small class="form-text text-muted">
       <%= t("transactions.form.hints.category") %>
     </small>
@@ -53,9 +53,9 @@
     <%= form.label :description, t("transactions.form.description") %>
     <%= form.text_area :description,
       class: "form-control",
-      placeholder: t("transactions.form.placeholders.description.#{transaction.transaction_type}") %>
+      placeholder: t("transactions.form.placeholders.description.#{tx_type}") %>
     <small class="form-text text-muted">
-      <%= t("transactions.form.hints.description.#{transaction.transaction_type}") %>
+      <%= t("transactions.form.hints.description.#{tx_type}") %>
     </small>
   </div>
 
@@ -69,7 +69,7 @@
   </div>
 
   <!-- Comprobante (solo para egresos) -->
-  <% if !is_income %>
+  <% unless is_income %>
     <div class="form-group">
       <%= form.label :receipt, t("transactions.form.receipt") %>
       <%= form.file_field :receipt, class: "form-control" %>
@@ -79,8 +79,7 @@
 
       <% if transaction.receipt.attached? %>
         <p class="mt-2"><%= t("transactions.form.current_receipt") %></p>
-        <%= image_tag transaction.receipt.variant(resize_to_limit: [400, 400]), class: "img-thumbnail" ,
-          loading: "lazy"%>
+        <%= image_tag transaction.receipt.variant(resize_to_limit: [400, 400]), class: "img-thumbnail", loading: "lazy" %>
       <% end %>
     </div>
   <% end %>

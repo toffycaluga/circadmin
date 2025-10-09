@@ -1,0 +1,31 @@
+<!-- app/views/shared/_subscription_modal.html.erb -->
+<div
+  id="subscriptionModal"
+  class="modal fade"
+  tabindex="-1"
+  aria-hidden="true"
+  data-subscription-check-target="modal"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" data-subscription-check-target="title"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t('subscription_modal.close', default: 'Cerrar') %>"></button>
+      </div>
+
+      <div class="modal-body" data-subscription-check-target="body"></div>
+
+      <div class="modal-footer">
+        <a href="#" class="btn btn-primary" data-subscription-check-target="actionButton">
+          <%= t('subscription_modal.go_to_subscription', default: 'Ir a suscripción') %>
+        </a>
+
+        <%# 
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <%= t('subscription_modal.cancel', default: 'Cancelar') %>
+        </button>
+        %>
+      </div>
+    </div>
+  </div>
+</div>
