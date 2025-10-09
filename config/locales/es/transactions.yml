@@ -3,7 +3,9 @@ es:
     export:
       title: "Resumen"
       title_pdf: "Resumen de Transacciones"
-      range: "Rango"
+      title_excel: "Resumen de Transacciones"
+      range: "Período"
+      total: "Total"
       generated_by: "Documento generado por %{app_name}"
       headers:
         date: "Fecha"
@@ -18,18 +20,17 @@ es:
       description: "Descripción"
       user: "Registrado por"
     details:
-      back_to_summary: "volver al resumen"
-      title: "Detalle de transacciones"
+      back_to_summary: "Volver al resumen"
+      title: "Detalle de las transacciones"
       export_pdf: "📄 Exportar PDF"
       export_excel: "📊 Exportar Excel"
-      back_to_summary: "Volver al resumen"
     graph:
-      title: "Resumen financiero del terreno"
+      title: "Resumen Financiero de la Localidad"
       subtitle: "Ingresos vs Egresos"
-      subtitle_daily: "Ingresos vs Egresos por día"
-      subtitle_weekly: "Ingresos vs Egresos por semana"
-      subtitle_monthly: "Ingresos vs Egresos por mes"
-      subtitle_total: "Ingresos vs Egresos totales"
+      subtitle_daily: "Ingresos vs Egresos por Día"
+      subtitle_weekly: "Ingresos vs Egresos por Semana"
+      subtitle_monthly: "Ingresos vs Egresos por Mes"
+      subtitle_total: "Ingresos vs Egresos Totales"
     filters:
       group_by: "Agrupar por"
       type: "Tipo de transacción"
@@ -45,7 +46,6 @@ es:
         income: "Ingresos"
         expense: "Egresos"
       apply: "Filtrar"
-      see_more: "Ver más"
     group:
       day: "Día"
       week: "Semana"
@@ -59,21 +59,21 @@ es:
       date: "Fecha"
       category: "Categoría"
     sections:
-      expenses_title: "💸 Gastos"
+      expenses_title: "💸 Egresos"
       incomes_title: "💰 Ingresos"
-      incomes_title: "Ingresos recientes"
+      recent_incomes: "Ingresos recientes"
     actions:
-      add_expense: "➕ Agregar gasto"
-      add_income: "➕ Agregar ingreso"
-      see_more_expenses: "Ver más gastos"
+      add_expense: "➕ Añadir egreso"
+      add_income: "➕ Añadir ingreso"
+      see_more_expenses: "Ver más egresos"
       see_more_incomes: "Ver más ingresos"
       new_income: "Registrar ingreso"
-      new_expense: "Registrar gasto"
+      new_expense: "Registrar egreso"
       view_all: "Ver todas las transacciones"
-      back: "← Volver a la plaza"
+      back: "← Volver a la localidad"
     empty:
-      expenses: "No se registran egresos aún en esta localidad."
-      incomes: "No se registran ingresos aún en esta localidad."
+      expenses: "Aún no hay egresos registrados en esta localidad."
+      incomes: "Aún no hay ingresos registrados en esta localidad."
     categories:
       ticket_sales: "Boletería"
       boleteria: "Boletería"
@@ -84,8 +84,8 @@ es:
       souvenires: "Souvenires"
       others: "Otros"
       otros: "Otros"
-      payroll: "Planilla"
-      rent: "Alquiler"
+      payroll: "Planilla de sueldos"
+      rent: "Arriendo"
       transport: "Transporte"
       food: "Alimentación"
       permits: "Permisos"
@@ -99,45 +99,8 @@ es:
         month: "Resumen mensual"
         total: "Resumen total"
       incomes: "Ingresos"
-      expenses: "Gastos"
+      expenses: "Egresos"
       balance: "Balance"
-    form:
-      errors_title: "%{count} error(es) impidieron guardar la transacción:"
-      title: "Título"
-      amount: "Monto"
-      category: "Categoría"
-      description: "Descripción"
-      date: "Fecha"
-      receipt: "Comprobante (solo para gastos)"
-      current_receipt: "Comprobante actual:"
-      submit: "Guardar"
-      prompts:
-        category: "Selecciona una categoría"
-      placeholders:
-        title:
-          income: "Ventas de entradas vermouth"
-          expense: "Ej: Compra de materiales"
-        amount: "Ej: 15000"
-        description:
-          income: "Ej: Ingreso por función extra"
-          expense: "Ej: Detalles del gasto realizado"
-      hints:
-        title:
-          income: "Describe el origen del ingreso."
-          expense: "Describe el motivo del gasto."
-        amount: "Ingresa el monto en la moneda del circo."
-        category: "Ayuda a clasificar mejor la transacción."
-        description:
-          income: "Puedes incluir el tipo de ingreso."
-          expense: "Puedes especificar detalles útiles para la contabilidad."
-        date: "¿Cuándo ocurrió esta transacción?"
-        receipt: "Opcional, puedes subir una boleta o factura."
-    new:
-      title: "Nueva transacción"
-      income_title: "Registrar ingreso"
-      expense_title: "Registrar egreso"        # cuando transaction_type == "expense"
-    overview:
-      total: "Total"
     form:
       errors_title:
         one: "1 error impide guardar esta transacción"
@@ -147,24 +110,36 @@ es:
       category: "Categoría"
       description: "Descripción"
       date: "Fecha"
-      receipt: "Comprobante"
-      current_receipt: "Comprobante actual"
+      receipt: "Comprobante (solo para egresos)"
+      current_receipt: "Comprobante actual:"
       submit: "Guardar"
-
       prompts:
         category: "Selecciona una categoría"
-
-      hints:
-        amount: "Ingresa el monto con decimales si es necesario (ej.: 1234,56)."
-        category: "Elige la categoría que mejor represente este movimiento."
-        date: "Fecha en la que ocurrió el movimiento."
-        receipt: "Adjunta una imagen del comprobante (opcional)."
+      placeholders:
         title:
-          income: "Ej.: Boletería, Dulcería, Souvenires"
-          expense: "Ej.: Arriendo, Transporte, Sueldos"
+          income: "Ej.: Venta de entradas matiné"
+          expense: "Ej.: Compra de materiales"
+        amount: "Ej.: 15000"
         description:
-          income: "Agrega detalles del ingreso si lo necesitas."
-          expense: "Agrega detalles del egreso o nota interna."
+          income: "Ej.: Ingreso por función extra"
+          expense: "Ej.: Detalles del gasto"
+      hints:
+        title:
+          income: "Describe el origen del ingreso."
+          expense: "Describe el motivo del egreso."
+        amount: "Ingresa el monto en la moneda del circo."
+        category: "Ayuda a clasificar mejor la transacción."
+        description:
+          income: "Puedes incluir el tipo de ingreso."
+          expense: "Puedes incluir detalles útiles para la contabilidad."
+        date: "¿Cuándo ocurrió esta transacción?"
+        receipt: "Opcional — puedes subir un comprobante o factura."
+    new:
+      title: "Nueva transacción"
+      income_title: "Registrar ingreso"
+      expense_title: "Registrar egreso"
+    overview:
+      total: "Total"
     show:
       title: "Título"
       amount: "Monto"
@@ -178,29 +153,23 @@ es:
       unknown_circus: "Circo desconocido"
       registered_by: "Registrado por"
       category: "Categoría"
-      attached_receipt: "Recibo adjunto"
-      pdf_unsupported: "Tu navegador no soporta PDF embebido."
-      download_pdf: "Descargar el PDF"
+      attached_receipt: "Comprobante adjunto"
+      pdf_unsupported: "Tu navegador no soporta PDF incrustado."
+      download_pdf: "Descargar PDF"
       receipt: "Comprobante"
       view_receipt: "Ver comprobante"
       no_receipt: "No adjuntado"
       edit_link: "Editar esta transacción"
       back_link: "Volver a las transacciones"
       destroy_link: "Eliminar esta transacción"
-      confirm_destroy: "¿Estás seguro de que deseas eliminar esta transacción?"
+      confirm_destroy: "¿Seguro que deseas eliminar esta transacción?"
     edit:
       title: "Editar transacción"
       heading: "Editar transacción"
       show_link: "Ver esta transacción"
       back_link: "Volver a las transacciones"
-    export:
-      title_excel: "Resumen de Transacciones"
-      range: "Rango"
-      total: "Total"
-      generated_by: "Documento generado por CircAdmin"
     index:
       title: "Transacciones"
       heading: "Transacciones"
       show_link: "Ver esta transacción"
       new_link: "Nueva transacción"
-
