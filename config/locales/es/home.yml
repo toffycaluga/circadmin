@@ -1,7 +1,7 @@
 es:
   home:
     welcome: "Bienvenido a CircAdmin 🎪"
-    greeting: "Hola, %{email}"
+    greeting_label: "Hola!"
     subtitle: "Administra tu circo de forma inteligente y simple"
     stats:
       users_registered: "Usuarios registrados"

@@ -2,10 +2,13 @@
   <div class="container">
     <div class="site-header-inner">
       <div class="brand header-brand">
-        <h1 class="m-0">
+        <h1 class="m-0 text-white">
+        <div class="d-flex">
           <%= link_to root_path do %>
             <%= image_tag logo_path, alt: alt_text, class: "header-logo-image" %>
           <% end %>
+          <%= title %>
+        </div>
         </h1>
       </div>
       <%# <nav class="header-links"> %>
