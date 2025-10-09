@@ -22,11 +22,17 @@
 
 FactoryBot.define do
   factory :plan do
-    name { "MyString" }
-    stripe_price_id { "MyString" }
-    price_cents { 1 }
-    allowed_circuses { 1 }
-    features { "MyText" }
-    active { false }
+    key { "basic" }
+    name { "Basic" }
+    price_cents { 2000 }
+    active { true }
+    stripe_price_id { "price_test_123" }
+    trial_days { 14 }
+    # name { "MyString" }
+    # stripe_price_id { "MyString" }
+    # price_cents { 1 }
+    # allowed_circuses { 1 }
+    # features { "MyText" }
+    # active { false }
   end
 end

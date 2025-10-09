@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_16_145442) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_08_154848) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -184,6 +184,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_16_145442) do
     t.index ["service_key"], name: "index_subscription_items_on_service_key"
     t.index ["stripe_subscription_item_id"], name: "index_subscription_items_on_stripe_subscription_item_id", unique: true
     t.index ["subscription_id", "service_key"], name: "idx_one_active_item_per_service", unique: true, where: "(active = true)"
+    t.index ["subscription_id", "service_key"], name: "uniq_active_item_per_service_per_subscription", unique: true, where: "(active = true)"
     t.index ["subscription_id"], name: "index_subscription_items_on_subscription_id"
   end
 
@@ -200,9 +201,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_16_145442) do
     t.string "stripe_customer_id"
     t.boolean "active", default: false, null: false
     t.boolean "cancel_at_period_end", default: false, null: false
+    t.string "latest_invoice_id"
+    t.string "latest_invoice_status"
+    t.string "latest_charge_id"
+    t.datetime "paid_through_at"
     t.index ["checkout_session_id"], name: "index_subscriptions_on_checkout_session_id", unique: true
     t.index ["circus_id"], name: "index_subscriptions_on_circus_id"
     t.index ["circus_id"], name: "index_subscriptions_one_active_per_circus", unique: true, where: "(active = true)"
+    t.index ["circus_id"], name: "uniq_active_subscription_per_circus", unique: true, where: "(active = true)"
     t.index ["price_id"], name: "index_subscriptions_on_price_id"
     t.index ["stripe_subscription_id"], name: "index_subscriptions_on_stripe_subscription_id", unique: true
   end

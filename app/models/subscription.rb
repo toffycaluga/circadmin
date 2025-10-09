@@ -15,6 +15,10 @@
 #  stripe_customer_id     :string
 #  active                 :boolean          default("false"), not null
 #  cancel_at_period_end   :boolean          default("false"), not null
+#  latest_invoice_id      :string
+#  latest_invoice_status  :string
+#  latest_charge_id       :string
+#  paid_through_at        :datetime
 #
 # Indexes
 #
@@ -23,6 +27,7 @@
 #  index_subscriptions_on_price_id                (price_id)
 #  index_subscriptions_on_stripe_subscription_id  (stripe_subscription_id) UNIQUE
 #  index_subscriptions_one_active_per_circus      (circus_id) UNIQUE
+#  uniq_active_subscription_per_circus            (circus_id) UNIQUE
 #
 
 class Subscription < ApplicationRecord

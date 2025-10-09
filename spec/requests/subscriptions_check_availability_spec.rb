@@ -4,7 +4,7 @@ require "rails_helper"
 RSpec.describe "Subscriptions#check_availability", type: :request do
   let(:password) { "Password!123" }
   let(:user)     { create(:user, :confirmed, password:, password_confirmation: password) }
-  let(:circus)   { create(:circus, user:, stripe_customer_id: "cus_123") }
+  let(:circus)   { create(:circus, user:) }
 
   before do
     post user_session_path, params: { user: { email: user.email, password: } }
@@ -12,7 +12,7 @@ RSpec.describe "Subscriptions#check_availability", type: :request do
   end
 
   def get_json
-    get circus_subscription_check_availability_path(circus), as: :json
+    get check_availability_circus_subscription_path(circus), as: :json
     JSON.parse(response.body)
   end
 
@@ -30,13 +30,14 @@ RSpec.describe "Subscriptions#check_availability", type: :request do
     )
     SubscriptionItem.create!(
       subscription: sub, stripe_subscription_item_id: "si_1",
-      price_id: "price_123", service_key: "core", quantity: 1, active: true
+      stripe_product_id: "prod_core", price_id: "price_123",
+      service_key: "core", quantity: 1, active: true
     )
     body = get_json
     expect(body["allowed"]).to eq(true)
   end
 
-  it "allowed:false si falta item requerido" do
+  it "allowed:false si falta el item requerido" do
     Subscription.create!(
       circus:, stripe_subscription_id: "sub_2", status: "active",
       current_period_start: Time.now, current_period_end: Time.now + 30.days,

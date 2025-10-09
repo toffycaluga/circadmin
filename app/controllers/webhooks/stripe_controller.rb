@@ -1,10 +1,8 @@
-# app/controllers/webhooks/stripe_controller.rb
 class Webhooks::StripeController < ApplicationController
-  # Evita que filtros globales bloqueen el webhook
+  # Evita bloqueos por CSRF o autenticación
   skip_before_action :verify_authenticity_token
   skip_before_action :authenticate_user!, raise: false
   skip_before_action :redirect_if_profile_incomplete, raise: false
-  # si tienes otros before_action globales (set_locale, etc.), sáltalos aquí también
 
   def receive
     payload = request.body.read
@@ -13,9 +11,9 @@ class Webhooks::StripeController < ApplicationController
 
     event =
       if secret.present?
-        Stripe::Webhook.construct_event(payload, sig, secret) # => Stripe::Event
+        Stripe::Webhook.construct_event(payload, sig, secret)
       else
-        JSON.parse(payload, symbolize_names: true)             # DevOnly: si aún no configuras secret
+        JSON.parse(payload, symbolize_names: true) # Dev-only si aún no configuras secret
       end
 
     type = event.is_a?(Stripe::Event) ? event.type        : event[:type]
@@ -28,7 +26,7 @@ class Webhooks::StripeController < ApplicationController
          "customer.subscription.updated",
          "customer.subscription.deleted"
       on_subscription_changed(obj)
-    when "invoice.payment_succeeded"
+    when "invoice.payment_succeeded", "invoice.paid"
       on_invoice_payment_succeeded(obj)
     when "invoice.payment_failed"
       on_invoice_payment_failed(obj)
@@ -43,23 +41,19 @@ class Webhooks::StripeController < ApplicationController
   end
 
   private
-
-  # -----------------------
-  # Event handlers
-  # -----------------------
-
   def on_checkout_session_completed(session)
     circus = circus_from_session(session)
     return unless circus
 
-    # Guarda customer en Circus
-    if session.customer.present? && circus.stripe_customer_id != session.customer
-      circus.update!(stripe_customer_id: session.customer)
+    customer_id    = session.respond_to?(:customer)     ? session.customer     : session[:customer]
+    subscription_id = session.respond_to?(:subscription) ? session.subscription : session[:subscription]
+
+    if customer_id.present? && circus.stripe_customer_id != customer_id
+      circus.update!(stripe_customer_id: customer_id)
     end
 
-    # Crea/actualiza la Subscription del circo
-    if session.subscription.present?
-      subscription = Stripe::Subscription.retrieve(session.subscription)
+    if subscription_id.present?
+      subscription = Stripe::Subscription.retrieve(subscription_id)
       upsert_subscription!(circus, subscription)
     end
 
@@ -75,31 +69,42 @@ class Webhooks::StripeController < ApplicationController
   end
 
   def on_invoice_payment_succeeded(invoice)
-    circus = Circus.find_by(stripe_customer_id: invoice.customer)
+    customer_id     = invoice.respond_to?(:customer)     ? invoice.customer     : invoice[:customer]
+    subscription_id = invoice.respond_to?(:subscription) ? invoice.subscription : invoice[:subscription]
+
+    circus = Circus.find_by(stripe_customer_id: customer_id)
     return unless circus
 
-    if (sub_id = invoice.subscription).present?
-      subscription = Stripe::Subscription.retrieve(sub_id)
+    if subscription_id.present?
+      subscription = Stripe::Subscription.retrieve(subscription_id)
       upsert_subscription!(circus, subscription)
     end
 
-    Rails.logger.info("[Stripe] invoice.payment_succeeded circus=#{circus.id}")
+      Rails.logger.info("[Stripe] invoice.payment_succeeded circus=#{circus.id}")
   end
 
+
   def on_invoice_payment_failed(invoice)
-    circus = Circus.find_by(stripe_customer_id: invoice.customer)
+    customer_id = invoice.respond_to?(:customer) ? invoice.customer : invoice[:customer]
+    circus = Circus.find_by(stripe_customer_id: customer_id)
     return unless circus
 
+    latest_invoice_id     = invoice.respond_to?(:id)     ? invoice.id     : invoice[:id]
+    latest_invoice_status = invoice.respond_to?(:status) ? invoice.status : invoice[:status]
+
     if (sub = circus.subscriptions.order(id: :desc).first)
-      sub.update!(status: "past_due")
+      sub.update!(
+        status:               "past_due",
+        active:               false,
+        latest_invoice_id:    latest_invoice_id,
+        latest_invoice_status: latest_invoice_status
+      )
     end
 
     Rails.logger.warn("[Stripe] invoice.payment_failed circus=#{circus.id} -> past_due")
   end
 
-  # -----------------------
   # Helpers
-  # -----------------------
 
   def circus_from_session(session)
     circus_id = (session.respond_to?(:metadata) ? session.metadata&.[]("circus_id") : session[:metadata]&.[](:circus_id)) ||
@@ -113,7 +118,7 @@ class Webhooks::StripeController < ApplicationController
   def parse_circus_from_client_ref(client_ref)
     return nil if client_ref.blank?
     parts = client_ref.to_s.split(":")
-    parts[1] # lo casteamos a entero al usarlo
+    parts[1]
   end
 
   def upsert_subscription!(circus, subscription)
@@ -121,21 +126,54 @@ class Webhooks::StripeController < ApplicationController
     price_id   = first_item&.price&.id
 
     attrs = {
-      circus_id:             circus.id,
+      circus_id:              circus.id,
       stripe_subscription_id: subscription.id,
-      status:                subscription.status, # "trialing", "active", etc.
-      current_period_start:  Time.at(subscription.current_period_start),
-      current_period_end:    Time.at(subscription.current_period_end),
-      price_id:              price_id,
-      updated_at:            Time.current,
-      created_at:            Time.current
+      status:                 subscription.status,
+      current_period_start:   Time.at(subscription.current_period_start),
+      current_period_end:     Time.at(subscription.current_period_end),
+      price_id:               price_id,
+      latest_invoice_id:      subscription.latest_invoice&.id,
+      latest_invoice_status:  subscription.latest_invoice&.status,
+      paid_through_at:        Time.at(subscription.current_period_end),
+      active:                 %w[active trialing].include?(subscription.status),
+      updated_at:             Time.current,
+      created_at:             Time.current
     }
 
-    # Requiere que tengas el índice único en stripe_subscription_id
-    # (lo tienes: "index_subscriptions_on_stripe_subscription_id")
     Subscription.upsert(
       attrs,
       unique_by: :index_subscriptions_on_stripe_subscription_id
     )
+
+    # Items
+    seen_ids = []
+    subscription.items&.data&.each do |it|
+      price = it.price
+      service_key = (price.metadata && price.metadata["service_key"]).presence || map_product_to_service(price.product)
+
+      item = SubscriptionItem.find_or_initialize_by(stripe_subscription_item_id: it.id)
+      item.update!(
+        subscription_id:   Subscription.find_by(stripe_subscription_id: subscription.id)&.id,
+        stripe_product_id: (price.product.is_a?(String) ? price.product : price.product&.id),
+        price_id:          price.id,
+        service_key:       service_key,
+        quantity:          it.quantity || 1,
+        active:            true,
+        unit_amount:       price.unit_amount,
+        currency:          price.currency,
+        interval:          price.recurring&.interval,
+        interval_count:    price.recurring&.interval_count
+      )
+      seen_ids << item.id
+    end
+    Subscription.find_by(stripe_subscription_id: subscription.id)
+                &.subscription_items
+                &.where.not(id: seen_ids)
+                &.update_all(active: false)
+  end
+
+  def map_product_to_service(product_id_or_obj)
+    product_id = product_id_or_obj.is_a?(String) ? product_id_or_obj : product_id_or_obj&.id
+    {}[product_id] || "core"
   end
 end

@@ -15,6 +15,10 @@
 #  stripe_customer_id     :string
 #  active                 :boolean          default("false"), not null
 #  cancel_at_period_end   :boolean          default("false"), not null
+#  latest_invoice_id      :string
+#  latest_invoice_status  :string
+#  latest_charge_id       :string
+#  paid_through_at        :datetime
 #
 # Indexes
 #
@@ -23,15 +27,25 @@
 #  index_subscriptions_on_price_id                (price_id)
 #  index_subscriptions_on_stripe_subscription_id  (stripe_subscription_id) UNIQUE
 #  index_subscriptions_one_active_per_circus      (circus_id) UNIQUE
+#  uniq_active_subscription_per_circus            (circus_id) UNIQUE
 #
 
 FactoryBot.define do
   factory :subscription do
-    circus { nil }
-    stripe_subscription_id { "MyString" }
-    status { "MyString" }
-    current_period_start { "2025-07-11 10:17:13" }
-    current_period_end { "2025-07-11 10:17:13" }
-    price_id { "MyString" }
+    association :circus
+    stripe_subscription_id { "sub_test_#{SecureRandom.hex(4)}" }
+    status { "trialing" }
+    current_period_start { Time.current }
+    current_period_end { 30.days.from_now }
+    active { true }
+    checkout_session_id { "cs_test_#{SecureRandom.hex(4)}" }
+    stripe_customer_id { "cus_test_#{SecureRandom.hex(4)}" }
+    price_id { "price_test_123" }
+    # circus { nil }
+    # stripe_subscription_id { "MyString" }
+    # status { "MyString" }
+    # current_period_start { "2025-07-11 10:17:13" }
+    # current_period_end { "2025-07-11 10:17:13" }
+    # price_id { "MyString" }
   end
 end

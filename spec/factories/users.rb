@@ -40,5 +40,11 @@
 
 FactoryBot.define do
   factory :user do
+    email { Faker::Internet.email }
+    password { "Password!123" }
+
+    trait :confirmed do
+      confirmed_at { Time.current }
+    end
   end
 end

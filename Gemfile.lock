@@ -163,6 +163,8 @@ GEM
     factory_bot_rails (6.4.4)
       factory_bot (~> 6.5)
       railties (>= 5.0.0)
+    faker (3.5.2)
+      i18n (>= 1.8.11, < 2)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-gnu)
@@ -509,6 +511,7 @@ DEPENDENCIES
   devise_invitable
   dotenv-rails
   factory_bot_rails
+  faker (~> 3.5)
   figaro
   groupdate
   image_processing (~> 1.2)
