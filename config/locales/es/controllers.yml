@@ -1,0 +1,62 @@
+es:
+  controllers:
+      application:
+        ensure_circus_context:
+          select_before_continue: "Debes seleccionar un circo antes de continuar."
+          select_before_invite: "Debes seleccionar un circo antes de invitar."
+        accept_invitation:
+          success: "¡Has aceptado ser parte de %{circus_name}!"
+          none_pending: "No tienes invitaciones pendientes para este circo."
+      shared:
+        circus_required:
+          none_created: "Aún no tienes circos creados."
+          select_one: "Debes seleccionar un circo para continuar."
+      billing:
+        start_checkout:
+          select_service: "Debes seleccionar al menos un servicio."
+          service_without_price: "El servicio '%{service}' no tiene Price configurado."
+          cannot_start: "No se pudo iniciar el checkout: %{error}"
+        create_checkout_session:
+          plan_without_price: "El plan '%{plan}' no tiene Price configurado en Stripe."
+          invalid_price_id_type: "El ID configurado para el plan '%{plan}' no es un Price válido de Stripe."
+          invalid_plan_or_circus: "Plan o circo inválido."
+          price_missing_in_stripe: "El Price ID de Stripe para el plan '%{plan}' no existe en tu cuenta o en el modo actual."
+          cannot_start: "No se pudo iniciar el checkout: %{error}"
+        portal:
+          cannot_open: "No se pudo abrir el portal: %{error}"
+      circus_users:
+        unauthorized: "No tienes permiso para realizar esta acción."
+        update:
+          success: "Rol actualizado correctamente."
+          invalid_role: "Rol inválido."
+        destroy:
+          success: "Usuario desactivado correctamente."
+        deactivate:
+          success: "Usuario desactivado correctamente."
+      circuses:
+        create:
+          success: "Circo creado con éxito."
+        update:
+          success: "Circo actualizado con éxito."
+        destroy:
+          success: "Circo eliminado correctamente."
+        accept_invitation:
+          success: "Has aceptado la invitación al circo %{circus_name}."
+          none_pending: "No tienes una invitación pendiente para este circo."
+        access:
+          must_accept: "Debes aceptar la invitación antes de acceder al circo."
+      invitations:
+        accept:
+          title: "Invitación aceptada"
+          body: "%{user_email} ha aceptado tu invitación al circo %{circus_name}."
+          success: "Invitación aceptada."
+        reject:
+          title: "Invitación rechazada"
+          body: "%{user_email} ha rechazado tu invitación al circo %{circus_name}."
+          success: "Invitación rechazada."
+        create:
+          success: "Invitación creada correctamente."
+        update:
+          success: "Invitación actualizada correctamente."
+        destroy:
+          success: "Invitación eliminada correctamente."

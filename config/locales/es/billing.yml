@@ -1,0 +1,5 @@
+es:
+  billing:
+    success: "¡Pago completado! Tu suscripción quedó registrada."
+    invalid_session: "La sesión de pago es inválida o ha expirado."
+    portal_not_configured: "El portal de cliente de Stripe (modo test) no está configurado aún."

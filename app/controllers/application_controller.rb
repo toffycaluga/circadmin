@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
                     alert: t("errors.unauthorized", default: "No estás autorizado para realizar esta acción.")
       end
       format.json do
-        render json: { error: t("errors.unauthorized", default: "No estás autorizado.") }, status: :forbidden
+        render json: { error: t("errors.unauthorized_short", default: "No estás autorizado.") }, status: :forbidden
       end
     end
   end
@@ -73,11 +73,11 @@ class ApplicationController < ActionController::Base
   def ensure_circus_context!
     # Para controladores bajo Admin::..., controller_path es "admin/xxx"
     if controller_path.start_with?("admin/") && session[:circus_id].blank?
-      redirect_to dashboard_index_path, alert: "Debes seleccionar un circo antes de continuar." and return
+      redirect_to dashboard_index_path, alert: t("controllers.application.ensure_circus_context.select_before_continue") and return
     end
 
     if controller_name == "custom_invitations" && session[:circus_id].blank?
-      redirect_to dashboard_index_path, alert: "Debes seleccionar un circo antes de invitar." and return
+      redirect_to dashboard_index_path, alert: t("controllers.application.ensure_circus_context.select_before_invite") and return
     end
   end
 
@@ -109,9 +109,9 @@ class ApplicationController < ActionController::Base
 
     if circus_user.present? && circus_user.accepted_at.nil?
       circus_user.update!(accepted_at: Time.current)
-      flash[:notice] = "¡Has aceptado ser parte de #{@circus.name}!"
+      flash[:notice] = t("controllers.application.accept_invitation.success", circus_name: @circus.name)
     else
-      flash[:alert] = "No tienes invitaciones pendientes para este circo."
+      flash[:alert] = t("controllers.application.accept_invitation.none_pending")
     end
 
     redirect_to dashboard_index_path

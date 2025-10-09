@@ -3,3 +3,6 @@ es:
     welcome: "Bienvenido a CircAdmin 🎪"
     greeting: "Hola, %{email} 👋"
     subtitle: "Administra tu circo de forma inteligente y simple"
+    stats:
+      users_registered: "Usuarios registrados"
+      active_circuses: "Circos activos"

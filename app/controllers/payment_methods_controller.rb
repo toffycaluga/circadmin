@@ -12,12 +12,14 @@ class PaymentMethodsController < ApplicationController
 
   def create
     pm_id = params[:payment_method_id]
+
     # Attacha método de pago
     Stripe::PaymentMethod.attach(pm_id, { customer: @circus.stripe_customer_id })
     Stripe::Customer.update(
       @circus.stripe_customer_id,
       invoice_settings: { default_payment_method: pm_id }
     )
+
     # Guarda en DB
     @circus.payment_methods.update_all(default: false)
     @circus.payment_methods.create!(
@@ -28,14 +30,24 @@ class PaymentMethodsController < ApplicationController
       exp_year:                 params[:exp_year],
       default:                  true
     )
-    redirect_to circus_payment_methods_path(@circus), notice: "Método agregado"
+
+    redirect_to circus_payment_methods_path(@circus),
+                notice: t("flash.payment_methods.create.success")
+  rescue Stripe::StripeError => e
+    redirect_to circus_payment_methods_path(@circus),
+                alert: t("flash.payment_methods.create.failure", error: e.message)
   end
 
   def destroy
     pm = @circus.payment_methods.find(params[:id])
     Stripe::PaymentMethod.detach(pm.stripe_payment_method_id)
     pm.destroy
-    redirect_to circus_payment_methods_path(@circus), notice: "Método eliminado"
+
+    redirect_to circus_payment_methods_path(@circus),
+                notice: t("flash.payment_methods.destroy.success")
+  rescue Stripe::StripeError => e
+    redirect_to circus_payment_methods_path(@circus),
+                alert: t("flash.payment_methods.destroy.failure", error: e.message)
   end
 
   private

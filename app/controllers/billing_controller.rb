@@ -13,13 +13,13 @@ class BillingController < ApplicationController
 
     service_keys = Array(params[:service_keys]).presence
     unless service_keys
-      return redirect_to fallback_path, alert: "Debes seleccionar al menos un servicio."
+      return redirect_to fallback_path, alert: t("controllers.billing.start_checkout.select_service")
     end
 
     line_items = service_keys.map do |key|
       { price: price_for(key), quantity: 1 }
     rescue KeyError
-      return redirect_to fallback_path, alert: "El servicio '#{key}' no tiene Price configurado."
+      return redirect_to fallback_path, alert: t("controllers.billing.start_checkout.service_without_price", service: key)
     end
 
     session = Stripe::Checkout::Session.create(
@@ -35,7 +35,7 @@ class BillingController < ApplicationController
     redirect_to session.url, allow_other_host: true, status: :see_other
   rescue Stripe::InvalidRequestError => e
     Rails.logger.error("[Stripe start_checkout] #{e.message} circus=#{@circus.id} keys=#{params[:service_keys].inspect}")
-    redirect_to fallback_path, alert: "No se pudo iniciar el checkout: #{e.message}"
+    redirect_to fallback_path, alert: t("controllers.billing.start_checkout.cannot_start", error: e.message)
   end
 
   # ------------------------------------------------------------
@@ -51,7 +51,7 @@ class BillingController < ApplicationController
     price_id = plan.stripe_price_id.to_s
     if price_id.blank?
       Rails.logger.error("[Checkout] Plan '#{plan.key}' sin stripe_price_id")
-      return redirect_to fallback_path, alert: "El plan '#{plan.key}' no tiene Price configurado en Stripe."
+      return redirect_to fallback_path, alert: t("controllers.billing.create_checkout_session.plan_without_price", plan: plan.key)
     end
 
     if price_id.start_with?("prod_")
@@ -61,7 +61,7 @@ class BillingController < ApplicationController
     end
 
     unless price_id.start_with?("price_")
-      return redirect_to fallback_path, alert: "El ID configurado para el plan '#{plan.key}' no es un Price válido de Stripe."
+      return redirect_to fallback_path, alert: t("controllers.billing.create_checkout_session.invalid_price_id_type", plan: plan.key)
     end
 
     subscription_data = {}
@@ -91,14 +91,14 @@ class BillingController < ApplicationController
     redirect_to session.url, allow_other_host: true, status: :see_other
 
   rescue ActiveRecord::RecordNotFound
-    redirect_to fallback_path, alert: "Plan o circo inválido."
+    redirect_to fallback_path, alert: t("controllers.billing.create_checkout_session.invalid_plan_or_circus")
   rescue Stripe::InvalidRequestError => e
     Rails.logger.error("[Stripe Checkout Error] #{e.message} (circus=#{@circus&.id} plan=#{plan_key} price_id=#{price_id})")
     msg =
       if e.code == "resource_missing" && e.param.to_s.include?("line_items[0][price]")
-        "El Price ID de Stripe para el plan '#{plan_key}' no existe en tu cuenta/modo actual."
+        t("controllers.billing.create_checkout_session.price_missing_in_stripe", plan: plan_key)
       else
-        "No se pudo iniciar el checkout: #{e.message}"
+        t("controllers.billing.create_checkout_session.cannot_start", error: e.message)
       end
     redirect_to fallback_path, alert: msg
   end
@@ -161,7 +161,7 @@ class BillingController < ApplicationController
       redirect_to dashboard_index_path, alert: t("billing.portal_not_configured", default: "El portal de cliente de Stripe (modo test) no está configurado aún.")
     else
       Rails.logger.error("[Billing#portal] #{e.message}")
-      redirect_to dashboard_index_path, alert: "No se pudo abrir el portal: #{e.message}"
+      redirect_to dashboard_index_path, alert: t("controllers.billing.portal.cannot_open", error: e.message)
     end
   end
 
@@ -207,7 +207,7 @@ class BillingController < ApplicationController
         active:               will_be_active,
         checkout_session_id:  checkout_session_id.presence || sub.checkout_session_id,
         stripe_customer_id:   stripe_customer_id.presence   || sub.stripe_customer_id,
-        price_id:             head_price_id.presence        || sub.price_id # <- guarda un price de referencia
+        price_id:             head_price_id.presence        || sub.price_id
       )
       sub.save!
 
@@ -226,7 +226,7 @@ class BillingController < ApplicationController
           price_id:                    price.id,
           service_key:                 service_key,
           quantity:                    it.quantity || 1,
-          active:                      true, # <- este queda activo porque viene de Stripe
+          active:                      true,
           unit_amount:                 price.unit_amount,
           currency:                    price.currency,
           interval:                    price.recurring&.interval,
@@ -303,8 +303,8 @@ class BillingController < ApplicationController
     else
       case current_user.circuses.count
       when 1 then @circus = current_user.circuses.first
-      when 0 then redirect_to dashboard_index_path, alert: "Aún no tienes circos creados." and return
-      else        redirect_to dashboard_index_path, alert: "Debes seleccionar un circo para continuar." and return
+      when 0 then redirect_to dashboard_index_path, alert: t("controllers.shared.circus_required.none_created") and return
+      else        redirect_to dashboard_index_path, alert: t("controllers.shared.circus_required.select_one") and return
       end
     end
   end

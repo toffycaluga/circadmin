@@ -1,0 +1,74 @@
+es:
+  flash:
+    notifications:
+      mark_as_read:
+        success: "Notificación marcada como leída."
+        failure: "No se pudo marcar la notificación como leída."
+      all_marked_read:
+        success: "Todas las notificaciones fueron marcadas como leídas."
+      show:
+        opened: "Has abierto una notificación."
+      not_found: "Notificación no encontrada."
+    payment_methods:
+      create:
+        success: "Método de pago agregado correctamente."
+        failure: "No se pudo agregar el método de pago: %{error}"
+      destroy:
+        success: "Método de pago eliminado correctamente."
+        failure: "No se pudo eliminar el método de pago: %{error}"
+    payroll_items:
+      create:
+        success: "Ítem de planilla agregado correctamente."
+        failure: "No se pudo agregar el ítem de planilla. Revisa los campos."
+      update:
+        success: "Ítem de planilla actualizado correctamente."
+        failure: "No se pudo actualizar el ítem de planilla. Revisa los campos."
+      destroy:
+        success: "Ítem de planilla eliminado correctamente."
+      not_found: "Ítem de planilla no encontrado."
+      payroll_not_found: "Planilla no encontrada o no tienes permisos para acceder."
+    payrolls:
+      create:
+        already_exists: "Ya existe una planilla para este circo."
+        success: "Planilla creada. Ahora puedes agregar ítems."
+      register_expense:
+        success: "Gasto registrado correctamente."
+        failure: "No se pudo registrar el gasto: %{error}"
+      mark_as_paid:
+        success: "Planilla marcada como pagada."
+      subscription:
+        select_circus: "Debes seleccionar un circo."
+        required: "Necesitas una suscripción para acceder a esta funcionalidad."
+        missing_service: "Tu suscripción no incluye el módulo requerido (%{service})."
+    subscriptions:
+      not_found: "Suscripción no encontrada."
+      pause:
+        success: "Suscripción pausada correctamente."
+        error: "No se pudo pausar la suscripción: %{error}"
+      resume:
+        success: "Suscripción reactivada correctamente."
+        error: "No se pudo reactivar la suscripción: %{error}"
+    transactions:
+      create:
+        success: "Transacción registrada correctamente."
+        failure: "No se pudo registrar la transacción. Revisa los campos."
+      update:
+        success: "Transacción actualizada correctamente."
+        failure: "No se pudo actualizar la transacción. Revisa los campos."
+      destroy:
+        success: "Transacción eliminada correctamente."
+    user_profiles:
+      create:
+        success: "Perfil de usuario creado correctamente."
+        failure: "No se pudo crear el perfil. Revisa los campos."
+      update:
+        success: "Perfil actualizado correctamente."
+        failure: "No se pudo actualizar el perfil. Revisa los campos."
+      picture:
+        update:
+          success: "Foto de perfil actualizada correctamente."
+          failure: "No se pudo actualizar la foto de perfil."
+      destroy:
+        success: "Perfil eliminado correctamente."
+      unauthorized: "No tienes permiso para acceder a este perfil."
+      not_found: "Perfil no encontrado."

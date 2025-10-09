@@ -1,0 +1,5 @@
+es:
+  errors:
+    unauthorized: "No estás autorizado para realizar esta acción."
+    unauthorized_short: "No estás autorizado."
+    not_found: "No encontrado"

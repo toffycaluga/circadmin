@@ -3,12 +3,11 @@ class CircusesController < ApplicationController
   layout "dashboard"
   before_action :authenticate_user!
 
-  # --- aquí cargamos el concern antes de usar su método ---
   include SubscriptionCheckable
 
-  before_action :set_circus, only: %i[show edit update destroy admin]
+  before_action :set_circus, only: %i[show edit update destroy admin toggle_status accept_invitation]
   before_action :check_user_is_active_in_circus, only: %i[show admin]
-  # before_action :check_subscription,               only: %i[admin]
+  # before_action :check_subscription, only: %i[admin]
 
   # GET /circuses
   def index
@@ -40,7 +39,7 @@ class CircusesController < ApplicationController
     respond_to do |format|
       if @circus.save
         CircusUser.create!(user: current_user, circus: @circus, role: "owner")
-        format.html { redirect_to root_path, notice: "Circo creado con éxito." }
+        format.html { redirect_to root_path, notice: t("controllers.circuses.create.success") }
         format.json { render :show, status: :created, location: @circus }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -57,7 +56,7 @@ class CircusesController < ApplicationController
   def update
     respond_to do |format|
       if @circus.update(circus_params)
-        format.html { redirect_to @circus, notice: "Circo actualizado con éxito." }
+        format.html { redirect_to @circus, notice: t("controllers.circuses.update.success") }
         format.json { render :show, status: :ok, location: @circus }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -70,7 +69,7 @@ class CircusesController < ApplicationController
   def destroy
     @circus.destroy
     respond_to do |format|
-      format.html { redirect_to circuses_path, notice: "Circo eliminado correctamente." }
+      format.html { redirect_to circuses_path, notice: t("controllers.circuses.destroy.success") }
       format.json { head :no_content }
     end
   end
@@ -103,9 +102,9 @@ class CircusesController < ApplicationController
 
     if circus_user && circus_user.accepted_at.nil?
       circus_user.update!(accepted_at: Time.current)
-      flash[:notice] = "Has aceptado la invitación al circo #{@circus.name}."
+      flash[:notice] = t("controllers.circuses.accept_invitation.success", circus_name: @circus.name)
     else
-      flash[:alert] = "No tienes una invitación pendiente para este circo."
+      flash[:alert]  = t("controllers.circuses.accept_invitation.none_pending")
     end
 
     redirect_to dashboard_index_path
@@ -130,7 +129,7 @@ class CircusesController < ApplicationController
   def check_user_is_active_in_circus
     cu = current_user.circus_users.find_by(circus: @circus)
     unless cu&.active?
-      redirect_to root_path, alert: "Debes aceptar la invitación antes de acceder al circo."
+      redirect_to root_path, alert: t("controllers.circuses.access.must_accept")
     end
   end
 

@@ -25,7 +25,27 @@ es:
       limit_reached:
         title: "Límite alcanzado"
         body: "Ya tienes %{current} de %{allowed} elementos permitidos. Actualiza tu plan."
+      service_needed:
+        title: "Falta(n) módulo(s) requerido(s)"
+        body: "Tu suscripción actual no incluye todos los servicios requeridos."
+      error:
+        title: "Ups, ocurrió un problema"
+        body: "No pudimos verificar tu suscripción. Intenta nuevamente."
       invalid_subscription:
         title: "Suscripción inválida"
         body: "No encontramos tu suscripción. Por favor elige un plan."
- 
+    modal:
+      required:
+        title: "Suscripción necesaria"
+        body: "Debes elegir o actualizar tu plan para acceder a esta sección."
+      limit_reached:
+        title: "Límite alcanzado"
+        body: "Has alcanzado el límite permitido de circos (%{current}/%{allowed}). Actualiza tu plan para continuar."
+      invalid:
+        title: "Suscripción inválida"
+        body: "No encontramos tu suscripción. Por favor, elige un plan válido."
+    
+     subscriptions:
+    api:
+      create_deprecated: "Este endpoint ya no crea suscripciones. Usa el checkout (BillingController) para completar la compra."
+    

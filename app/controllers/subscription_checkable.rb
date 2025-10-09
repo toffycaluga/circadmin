@@ -7,8 +7,8 @@ module SubscriptionCheckable
   def check_subscription
     unless current_user.stripe_subscription_id.present?
       return trigger_modal(
-        title:  "Suscripción necesaria",
-        body:   "Debes elegir o actualizar tu plan para acceder a esta sección.",
+        title:  t("subscriptions.modal.required.title"),
+        body:   t("subscriptions.modal.required.body"),
         action: new_subscription_path
       )
     end
@@ -18,21 +18,23 @@ module SubscriptionCheckable
 
     if current_user.circus_count > allowed
       trigger_modal(
-        title:  "Límite alcanzado",
-        body:   "Tienes #{current_user.circus_count}/#{allowed}. Actualiza tu plan.",
+        title:  t("subscriptions.modal.limit_reached.title"),
+        body:   t("subscriptions.modal.limit_reached.body",
+                  current: current_user.circus_count,
+                  allowed: allowed),
         action: new_subscription_path
       )
     end
 
   rescue Stripe::InvalidRequestError
     trigger_modal(
-      title:  "Suscripción inválida",
-      body:   "No encontramos tu suscripción. Por favor elige un plan.",
+      title:  t("subscriptions.modal.invalid.title"),
+      body:   t("subscriptions.modal.invalid.body"),
       action: new_subscription_path
     )
   end
 
-  # Si aún no lo tienes en ApplicationController, puedes moverlo aquí:
+  # Puedes mantener este método aquí o moverlo a ApplicationController
   def trigger_modal(title:, body:, action:)
     respond_to do |format|
       format.html { redirect_to action, alert: body }

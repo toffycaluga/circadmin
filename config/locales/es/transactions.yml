@@ -106,3 +106,5 @@ es:
       title: "Nueva Transacción"           # fallback genérico
       income_title: "Nuevo Ingreso"        # cuando transaction_type == "income"
       expense_title: "Nuevo Egreso"        # cuando transaction_type == "expense"
+    overview:
+      total: "Total"

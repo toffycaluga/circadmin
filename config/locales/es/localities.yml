@@ -29,3 +29,7 @@ es:
       created: "La localidad fue creada con éxito."
       updated: "La localidad fue actualizada con éxito."
       destroyed: "La localidad fue eliminada."
+      deactivated: "El evento ha sido marcado como cerrado."
+      reactivated: "El evento ha sido reactivado."
+    alerts:
+      no_data: "No hay datos para mostrar."

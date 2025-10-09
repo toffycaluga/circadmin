@@ -30,11 +30,11 @@ class PayrollsController < ApplicationController
   def create
     if @circus.payrolls.exists?
       redirect_to payroll_path(@circus.payrolls.first),
-                  alert: "Ya existe una planilla para este circo"
+                  alert: t("flash.payrolls.create.already_exists")
     else
       @payroll = @circus.payrolls.create!(title: "Planilla", date: Date.today)
       redirect_to payroll_path(@payroll),
-                  notice: "Planilla creada. Ahora puedes agregar ítems."
+                  notice: t("flash.payrolls.create.success")
     end
   end
 
@@ -45,7 +45,6 @@ class PayrollsController < ApplicationController
 
   # GET /payrolls/:id/confirm_expense
   def confirm_expense
-    # Cargamos las localidades activas del circo sin asumir la asociación
     @localities = Locality.where(circus_id: @payroll.circus_id, active: true)
 
     render turbo_stream: turbo_stream.update(
@@ -79,15 +78,13 @@ class PayrollsController < ApplicationController
         filename:     "nomina_#{@payroll.circus.name}_#{expense_date}.pdf",
         content_type: "application/pdf"
       )
-      flash[:notice] = "Gasto registrado correctamente."
+      flash[:notice] = t("flash.payrolls.register_expense.success")
     rescue => e
-      flash[:alert] = "No se pudo registrar el gasto: #{e.message}"
+      flash[:alert] = t("flash.payrolls.register_expense.failure", error: e.message)
     end
 
     respond_to do |format|
-      # 🚀 turbo_stream envía un 303 See Other para forzar full-page visit
       format.turbo_stream { head :see_other, location: admin_circus_path(@payroll.circus) }
-      # Fallback HTML (para navegadores sin Turbo)
       format.html          { redirect_to admin_circus_path(@payroll.circus) }
     end
   end
@@ -96,7 +93,7 @@ class PayrollsController < ApplicationController
   def mark_as_paid
     @payroll.update!(paid: true)
     redirect_to payroll_path(@payroll),
-                notice: "Planilla marcada como pagada"
+                notice: t("flash.payrolls.mark_as_paid.success")
   end
 
   private
@@ -110,7 +107,6 @@ class PayrollsController < ApplicationController
       id:        params[:id],
       circus_id: current_user.circus_ids
     )
-    # para el guard, garantiza @circus
     @circus ||= @payroll.circus
   end
 
@@ -120,13 +116,11 @@ class PayrollsController < ApplicationController
 
   # ============== SUSCRIPTION GUARD ==============
 
-  # Exige suscripción activa del circo y (opcionalmente) un servicio específico.
-  # Redirige a la selección de plan si no cumple.
   def require_subscription!(required_service = nil)
     circus = @circus || @payroll&.circus || current_user.circuses.find_by(id: params[:circus_id])
 
     unless circus
-      return redirect_to(dashboard_index_path, alert: "Debes seleccionar un circo.") # fallback defensivo
+      return redirect_to(dashboard_index_path, alert: t("flash.payrolls.subscription.select_circus"))
     end
 
     sub = current_active_subscription_for(circus)
@@ -134,19 +128,18 @@ class PayrollsController < ApplicationController
     unless sub
       return redirect_to(
         new_circus_subscription_path(circus),
-        alert: "Necesitas una suscripción para acceder a esta funcionalidad."
+        alert: t("flash.payrolls.subscription.required")
       )
     end
 
     if required_service.present? && !subscription_allows_service?(sub, required_service)
       redirect_to(
         new_circus_subscription_path(circus),
-        alert: "Tu suscripción no incluye el módulo requerido (#{required_service})."
+        alert: t("flash.payrolls.subscription.missing_service", service: required_service)
       )
     end
   end
 
-  # Suscripción activa localmente y no expirada.
   def current_active_subscription_for(circus)
     sub = circus.subscriptions.where(active: true)
                               .order(current_period_end: :desc)
@@ -158,7 +151,6 @@ class PayrollsController < ApplicationController
     sub
   end
 
-  # ¿La suscripción incluye el servicio?
   def subscription_allows_service?(subscription, service_key)
     subscription.subscription_items.where(active: true, service_key: service_key).exists?
   end

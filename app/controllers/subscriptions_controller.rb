@@ -10,9 +10,8 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    render json: {
-      error: "Este endpoint ya no crea suscripciones. Usa el checkout (BillingController) para completar la compra."
-    }, status: :unprocessable_entity
+    render json: { error: t("subscriptions.api.create_deprecated") },
+           status: :unprocessable_entity
   end
 
   def show
@@ -20,7 +19,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def pause
-    return redirect_to(circus_subscription_path(@circus), alert: I18n.t("subscriptions.not_found")) unless @subscription
+    return redirect_to(circus_subscription_path(@circus), alert: t("flash.subscriptions.not_found")) unless @subscription
 
     stripe_sub = Stripe::Subscription.update(
       @subscription.stripe_subscription_id,
@@ -28,25 +27,23 @@ class SubscriptionsController < ApplicationController
     )
     @subscription.update!(status: stripe_sub.status, active: active_like_status?(stripe_sub.status))
 
-    redirect_to circus_subscription_path(@circus), notice: I18n.t("subscriptions.pause.success")
+    redirect_to circus_subscription_path(@circus), notice: t("flash.subscriptions.pause.success")
   rescue Stripe::StripeError => e
-    redirect_to circus_subscription_path(@circus), alert: I18n.t("subscriptions.pause.error", error: e.message)
+    redirect_to circus_subscription_path(@circus), alert: t("flash.subscriptions.pause.error", error: e.message)
   end
 
   def resume
-    return redirect_to(circus_subscription_path(@circus), alert: I18n.t("subscriptions.not_found")) unless @subscription
+    return redirect_to(circus_subscription_path(@circus), alert: t("flash.subscriptions.not_found")) unless @subscription
 
     stripe_sub = Stripe::Subscription.update(@subscription.stripe_subscription_id, pause_collection: nil)
     @subscription.update!(status: stripe_sub.status, active: active_like_status?(stripe_sub.status))
 
-    redirect_to circus_subscription_path(@circus), notice: I18n.t("subscriptions.resume.success")
+    redirect_to circus_subscription_path(@circus), notice: t("flash.subscriptions.resume.success")
   rescue Stripe::StripeError => e
-    redirect_to circus_subscription_path(@circus), alert: I18n.t("subscriptions.resume.error", error: e.message)
+    redirect_to circus_subscription_path(@circus), alert: t("flash.subscriptions.resume.error", error: e.message)
   end
 
   # JSON: ¿puede usar el/los servicio(s) requerido(s)?
-  # Soporta keys variadas (service/item/feature/module/capability/required/needs...),
-  # arrays o CSV, anidamientos y booleanos estilo ?ticketing=1.
   def check_availability
     Rails.logger.info("[check_availability] circus=#{@circus.id} sub=#{@subscription&.id} status=#{@subscription&.status} active_col=#{@subscription&.read_attribute(:active)}")
 
@@ -55,9 +52,9 @@ class SubscriptionsController < ApplicationController
       Rails.logger.info("[check_availability] circus=#{@circus.id} => NO ACTIVE SUBSCRIPTION")
       return render json: {
         allowed: false,
-        title:   I18n.t("subscriptions.check_availability.subscription_needed.title", default: "Necesitas una suscripción activa"),
-        body:    I18n.t("subscriptions.check_availability.subscription_needed.body",  default: "Activa un plan para continuar."),
-        action:  new_circus_subscription_path(@circus)
+        title:  t("subscriptions.check_availability.subscription_needed.title"),
+        body:   t("subscriptions.check_availability.subscription_needed.body"),
+        action: new_circus_subscription_path(@circus)
       }, status: :ok
     end
 
@@ -78,10 +75,8 @@ class SubscriptionsController < ApplicationController
         missing = (required - included)
         return render json: {
           allowed: false,
-          title:   I18n.t("subscriptions.check_availability.service_needed.title",
-                          default: "Falta(n) módulo(s) requerido(s)"),
-          body:    I18n.t("subscriptions.check_availability.service_needed.body",
-                          default: "Tu suscripción actual no incluye todos los servicios requeridos."),
+          title:   t("subscriptions.check_availability.service_needed.title"),
+          body:    t("subscriptions.check_availability.service_needed.body"),
           missing: missing,
           action:  new_circus_subscription_path(@circus)
         }, status: :ok
@@ -93,9 +88,9 @@ class SubscriptionsController < ApplicationController
     Rails.logger.error("[check_availability] #{e.class}: #{e.message}")
     render json: {
       allowed: false,
-      title:   "Ups, ocurrió un problema",
-      body:    "No pudimos verificar tu suscripción. Intenta nuevamente.",
-      action:  new_circus_subscription_path(@circus)
+      title:  t("subscriptions.check_availability.error.title"),
+      body:   t("subscriptions.check_availability.error.body"),
+      action: new_circus_subscription_path(@circus)
     }, status: :ok
   end
 
@@ -143,11 +138,7 @@ class SubscriptionsController < ApplicationController
   end
 
   # === Helpers de check_availability ===
-
-  # Recorrido profundo de params para extraer requerimientos, admitiendo:
-  # - Keys que "suenen" a feature/servicio: /(feature|item|service|module|capability|require|need)/i
-  # - Values string/array (CSV o lista) o booleanos (?ticketing=1 -> agrega "ticketing")
-  # - Ignora keys estándar (controller, action, format, id, circus_id)
+  # (todo igual que tu versión original)
   def aggressively_normalize_required_services(params)
     allowed_key_regex = /(feature|item|service|module|capability|require|need)/i
     ignore_keys = %w[controller action format id circus_id subscription subscriptions]
@@ -161,14 +152,10 @@ class SubscriptionsController < ApplicationController
           next if ignore_keys.include?(k_str)
 
           if allowed_key_regex.match?(k_str)
-            if v == true || v == "1" || v == 1
-              acc << k_str
-            end
+            acc << k_str if v == true || v == "1" || v == 1
             walker.call(v, key_path + [ k_str ])
           else
-            if v == true || v == "1" || v == 1
-              acc << k_str
-            end
+            acc << k_str if v == true || v == "1" || v == 1
             walker.call(v, key_path + [ k_str ])
           end
         end
@@ -187,13 +174,11 @@ class SubscriptionsController < ApplicationController
     end
 
     walker.call(params.to_unsafe_h)
-
     acc.flatten!
     acc = acc.map { |s| s.to_s.strip.downcase }.reject(&:blank?).uniq
     acc
   end
 
-  # Canoniza nombres: tickets/ticket/ticketing => ticketing, report/reports/reporting => reporting, etc.
   def canonicalize_items(items)
     items.map { |it| canonicalize_item(it) }.uniq
   end
@@ -207,47 +192,30 @@ class SubscriptionsController < ApplicationController
     s
   end
 
-  # ¿La suscripción incluye TODOS los items requeridos?
   def subscription_includes_all_items?(subscription, required_items)
     included = included_items_for(subscription)
     (required_items - included).empty?
   end
 
-  # Items faltantes para la suscripción dada
   def missing_items(subscription, required_items)
     included = included_items_for(subscription)
     (required_items - included)
   end
 
-  # Obtiene los items incluidos por la suscripción actual desde múltiples fuentes y canoniza:
-  # - subscription.subscription_items.active.service_key
-  # - subscription.plan.items / plan.features
-  # - subscription.items / subscription.features (si existen)
   def included_items_for(subscription)
     included = []
 
     if subscription.respond_to?(:subscription_items)
-      included += subscription.subscription_items
-                              .where(active: true)
-                              .pluck(:service_key)
+      included += subscription.subscription_items.where(active: true).pluck(:service_key)
     end
 
     if subscription.respond_to?(:plan) && subscription.plan
-      if subscription.plan.respond_to?(:items)
-        included += Array(subscription.plan.items)
-      end
-      if subscription.plan.respond_to?(:features)
-        included += Array(subscription.plan.features)
-      end
+      included += Array(subscription.plan.items)    if subscription.plan.respond_to?(:items)
+      included += Array(subscription.plan.features) if subscription.plan.respond_to?(:features)
     end
 
-    if subscription.respond_to?(:items)
-      included += Array(subscription.items)
-    end
-
-    if subscription.respond_to?(:features)
-      included += Array(subscription.features)
-    end
+    included += Array(subscription.items)    if subscription.respond_to?(:items)
+    included += Array(subscription.features) if subscription.respond_to?(:features)
 
     included = included.map { |s| s.to_s.downcase }.reject(&:blank?)
     canonicalize_items(included)
