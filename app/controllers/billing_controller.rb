@@ -2,6 +2,7 @@
 class BillingController < ApplicationController
   before_action :authenticate_user!
   before_action :load_circus!
+  before_action :prevent_duplicate_checkout, only: [ :start_checkout, :create_checkout_session ]
   layout "dashboard"
 
   # ------------------------------------------------------------
@@ -113,22 +114,28 @@ class BillingController < ApplicationController
 
     stripe_session = Stripe::Checkout::Session.retrieve(
       id: session_id,
-      expand: [ "subscription.items.data.price", "customer" ]
+      expand: [
+        "subscription.items.data.price",
+        "subscription.latest_invoice.payment_intent", # <- importante para estados “incomplete”
+        "customer"
+      ]
     )
 
-    paid    = (stripe_session.payment_status == "paid")
     sub_obj = stripe_session.subscription
     raise ActiveRecord::RecordNotFound, "Subscription missing in session" if sub_obj.blank?
+
+    local_status, will_be_active = map_status_from_subscription(sub_obj)
 
     upsert_subscription_and_items!(
       circus: @circus,
       sub_obj: sub_obj,
-      paid_flag: paid,
+      paid_flag: will_be_active, # nombre legacy; usamos el boolean ya calculado
       checkout_session_id: session_id,
       stripe_customer_id: (stripe_session.customer.is_a?(String) ? stripe_session.customer : stripe_session.customer&.id)
     )
 
-    flash[:notice] = t("billing.success")
+    Rails.logger.info("[Billing#success] circus=#{@circus.id} sub=#{sub_obj.id} status=#{local_status} active=#{will_be_active}")
+    flash[:notice] = t("billing.success.title") # evita renderizar el hash entero
     redirect_to dashboard_index_path
 
   rescue Stripe::InvalidRequestError => e
@@ -173,19 +180,17 @@ class BillingController < ApplicationController
   # una sola suscripción activa por circo.
   def upsert_subscription_and_items!(circus:, sub_obj:, paid_flag:, checkout_session_id:, stripe_customer_id:)
     stripe_sub_id = sub_obj.id
-    local_status  = map_status(sub_obj.status, paid_flag)
+
+    # El estado local ahora viene decidido por map_status_from_subscription
+    local_status  = paid_flag ? (sub_obj.status == "trialing" ? "trialing" : "active") : (sub_obj.status || "incomplete")
 
     Subscription.transaction do
-      # Bloqueamos todas las filas de subscriptions del circo para evitar carreras
       scope = Subscription.where(circus_id: circus.id).lock
 
-      # Upsert por ID de suscripción de Stripe (idempotente)
       sub = scope.find_or_initialize_by(stripe_subscription_id: stripe_sub_id)
 
-      # ¿Quedará activa esta suscripción según el estado de Stripe?
       will_be_active = %w[active trialing].include?(local_status)
 
-      # ⚠️ Desactiva otras activas ANTES de guardar la nueva/actualizada
       if will_be_active
         if sub.new_record?
           scope.where(active: true).update_all(active: false)
@@ -194,10 +199,8 @@ class BillingController < ApplicationController
         end
       end
 
-      # Toma un price_id de referencia (primer item) para la cabecera
       head_price_id = sub_obj.items&.data&.first&.price&.id
 
-      # Suscripción madre
       sub.assign_attributes(
         circus_id:            circus.id,
         status:               local_status,
@@ -211,7 +214,8 @@ class BillingController < ApplicationController
       )
       sub.save!
 
-      # Items activos en Stripe → upsert locales (dejan activo el que viene de Stripe)
+      Rails.logger.info("[upsert_sub] circus=#{circus.id} saved sub id=#{sub.id} status=#{sub.status} active=#{sub.active}")
+
       seen_ids = []
       Array(sub_obj.items&.data).each do |it|
         price = it.price
@@ -239,21 +243,27 @@ class BillingController < ApplicationController
         seen_ids << item.id
       end
 
-      # Desactivar SOLO los items locales que YA NO están en Stripe
       sub.subscription_items.where.not(id: seen_ids).update_all(active: false)
+      Rails.logger.info("[upsert_sub] items=#{seen_ids.size} active; deactivated=#{sub.subscription_items.where(active: false).count}")
     end
   end
 
-  def map_status(stripe_status, paid)
-    case stripe_status
-    when "active", "trialing" then stripe_status
-    when "past_due"           then "past_due"
-    when "canceled"           then "canceled"
-    when "unpaid"             then "unpaid"
-    when "paused"             then "paused"
-    when "incomplete_expired" then "incomplete_expired"
-    when "incomplete", nil    then paid ? "active" : "incomplete"
-    else "incomplete"
+  # Nuevo: inferimos estado fiable desde la suscripción de Stripe
+  def map_status_from_subscription(sub)
+    case sub.status
+    when "active"   then [ "active",   true ]
+    when "trialing" then [ "trialing", true ]
+    when "past_due" then [ "past_due", true ]    # a tu criterio seguir permitiendo acceso
+    when "canceled" then [ "canceled", false ]
+    when "unpaid"   then [ "unpaid",   false ]
+    when "paused"   then [ "paused",   false ]
+    when "incomplete", "incomplete_expired", nil
+      pi_ok   = sub.latest_invoice&.payment_intent&.status == "succeeded"
+      inv_ok  = sub.latest_invoice&.paid
+      active_now = pi_ok || inv_ok
+      [ active_now ? "active" : (sub.status || "incomplete"), active_now ]
+    else
+      [ sub.status, false ]
     end
   end
 
@@ -290,7 +300,6 @@ class BillingController < ApplicationController
     {
       # 'prod_xxx' => 'core',
       # 'prod_yyy' => 'ticketing',
-      # ...
     }[product_id] || "core"
   end
 
@@ -307,6 +316,18 @@ class BillingController < ApplicationController
       else        redirect_to dashboard_index_path, alert: t("controllers.shared.circus_required.select_one") and return
       end
     end
+  end
+
+  def current_active_subscription
+    @current_active_subscription ||= @circus.subscriptions.where(active: true).order(current_period_end: :desc).first
+  end
+
+  # Evita checkouts si ya hay una suscripción activa (protege de cobros duplicados)
+  def prevent_duplicate_checkout
+    return unless current_active_subscription.present?
+    Rails.logger.info("[Billing] prevent_duplicate_checkout circus=#{@circus.id} sub_id=#{current_active_subscription.id}")
+    redirect_to portal_billing_path(circus_id: @circus.id),
+      notice: t("billing.already_active", default: "Ya tienes una suscripción activa. Adminístrala en el portal de facturación.")
   end
 
   def plan_param
