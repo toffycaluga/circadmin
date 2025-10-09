@@ -59,54 +59,55 @@
         <li class="nav-item">
           <%= render 'shared/dashboard/template_nav_menu/notificacion' %>
         </li>
-        <li class="nav-item dropdown drp-user">
+        <%# <li class="nav-item dropdown drp-user"> %>
           <!-- Dropdown usuario -->
-          <a class="nav-link dropdown-toggle text-white"
-             href="#"
-             id="userDropdown"
-             role="button"
-             data-bs-toggle="dropdown"
-             aria-expanded="false"
-             aria-label="<%= t('header.user_menu_toggle', default: 'Abrir menú de usuario') %>">
-            <i class="feather icon-user"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-end profile-notification"
-               aria-labelledby="userDropdown">
-            <div class="pro-head d-flex align-items-center px-3 py-2">
-              <%= image_tag(
-                    current_user&.user_profile&.profile_picture&.attached? ?
-                      url_for(current_user.user_profile.profile_picture) :
-                      asset_path("avatar.jpg"),
-                    class: "img-radius rounded-circle border border-secondary",
-                    alt: t("profile.picture_alt", default: "Foto de perfil"),
-                    width: 40,
-                    height: 40,
-                    loading: "lazy",
-                    style: "object-fit: cover;"
-                  ) %>
-              <div class="d-flex flex-column ms-2">
-                <strong><%= current_user.user_profile&.full_name.presence || current_user.email %></strong>
-                <small class="text-muted"><%= current_user.email %></small>
-              </div>
-              <%= button_to destroy_user_session_path,
-                            method: :delete,
-                            class: "ms-auto dud-logout btn",
-                            form: { data: { turbo: false }, class: "d-inline ms-auto dud-logout" },
-                            title: t("header.logout", default: "Cerrar sesión") do %>
-                <i class="feather icon-log-out"></i>
-              <% end %>
-            </div>
+          <%# <a class="nav-link dropdown-toggle text-white" %>
+             <%# href="#" %>
+             <%# id="userDropdown" %>
+             <%# role="button" %>
+             <%# data-bs-toggle="dropdown" %>
+             <%# aria-expanded="false" %>
+             <%# aria-label="<%= t('header.user_menu_toggle', default: 'Abrir menú de usuario')"> %> 
+            <%# <i class="feather icon-user"></i> %>
+          <%# </a> %>
+          <%# <div class="dropdown-menu dropdown-menu-end profile-notification" %>
+               <%# aria-labelledby="userDropdown"> %>
+            <%# <div class="pro-head d-flex align-items-center px-3 py-2"> %>
+              <%# <%= image_tag( %>
+                    <%# current_user&.user_profile&.profile_picture&.attached? ? %>
+                      <%# url_for(current_user.user_profile.profile_picture) : %>
+                      <%# asset_path("avatar.jpg"), %>
+                    <%# class: "img-radius rounded-circle border border-secondary", %>
+                    <%# alt: t("profile.picture_alt", default: "Foto de perfil"), %>
+                    <%# width: 40, %>
+                    <%# height: 40, %>
+
+                    <%# loading: "lazy", %>
+                    <%# style: "object-fit: cover;" %>
+                  <%# ) %> 
+              <%# <div class="d-flex flex-column ms-2"> %>
+                <%# <strong><%= current_user.user_profile&.full_name.presence || current_user.email</strong> %> 
+                <%# <small class="text-muted"><%= current_user.email</small> %> 
+              <%# </div> %>
+              <%# <%= button_to destroy_user_session_path, %>
+                            <%# method: :delete, %>
+                            <%# class: "ms-auto dud-logout btn", %>
+                            <%# form: { data: { turbo: false }, class: "d-inline ms-auto dud-logout" }, %>
+                            <%# title: t("header.logout", default: "Cerrar sesión") do %> 
+                <%# <i class="feather icon-log-out"></i> %>
+              <%# <% end %> 
+            <%# </div> %>
             <%# <ul class="pro-body list-unstyled mb-0">
               <li>
                 <%= link_to user_profile_path(current_user),
                             class: "dropdown-item d-flex align-items-center" do %>
                   <%# <i class="feather icon-user me-2"></i> %>
-                  <%# <%= t("header.profile", default: "Perfil") %> %>
-                <%# <% end %> %>
+                  <%# <%= t("header.profile", default: "Perfil") %> 
+                <%# <% end %> 
               <%# </li> %>
-            <%# </ul> %> %>
-          </div>
-        </li>
+            <%# </ul> %> 
+          <%# </div> %>
+        <%# </li> %>
       </ul>
     </div>
 
