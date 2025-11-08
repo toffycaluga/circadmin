@@ -81,6 +81,10 @@ Rails.application.routes.draw do
       get  :check_availability, defaults: { format: :json }
       post :pause
       post :resume
+      post :cancel
+      post :cancel_at_period_end
+      post :uncancel
+      post :sync
     end
 
     # Métodos de pago anidados (REST)
