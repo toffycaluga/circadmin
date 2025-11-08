@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="card-header">
+    <h2><%= t('subscription.title', default: 'Gestión de Suscripción') %></h2>
+  </div>
+  <div class="card-body">
+    <% if @subscription.present? %>
+      <dl class="row">
+        <dt class="col-sm-4">Plan</dt>
+        <dd class="col-sm-8"><%= @subscription.items.data.first&.price&.nickname || @subscription.items.data.first&.price&.id %></dd>
+
+        <dt class="col-sm-4">Estado</dt>
+        <dd class="col-sm-8"><span class="badge bg-secondary"><%= @subscription.status %></span></dd>
+
+        <dt class="col-sm-4">Renueva / Termina</dt>
+        <dd class="col-sm-8"><%= Time.at(@subscription.current_period_end).to_datetime.strftime('%Y-%m-%d %H:%M') %></dd>
+
+        <dt class="col-sm-4">Cancel al fin de período</dt>
+        <dd class="col-sm-8"><%= @subscription.cancel_at_period_end ? 'Sí' : 'No' %></dd>
+
+        <dt class="col-sm-4">Pausada</dt>
+        <dd class="col-sm-8"><%= @subscription.pause_collection.present? ? 'Sí' : 'No' %></dd>
+      </dl>
+
+      <div class="d-flex flex-wrap gap-2 mt-3">
+        <% if @subscription.pause_collection.present? %>
+          <%= button_to t('subscription.actions.resume', default: 'Reanudar cobro'), resume_subscription_path, method: :post, class: "btn btn-success",
+                data: { turbo_confirm: '¿Reanudar cobro de esta suscripción?' } %>
+        <% else %>
+          <%= button_to t('subscription.actions.pause', default: 'Pausar cobro'), pause_subscription_path, method: :post, class: "btn btn-warning",
+                data: { turbo_confirm: '¿Pausar el cobro? (no se intentará cobrar mientras esté pausada)' } %>
+        <% end %>
+
+        <% if @subscription.cancel_at_period_end %>
+          <%= button_to t('subscription.actions.uncancel', default: 'Revertir cancelación diferida'), uncancel_subscription_path, method: :post, class: "btn btn-outline-secondary",
+                data: { turbo_confirm: '¿Revertir la cancelación al final del período?' } %>
+        <% else %>
+          <%= button_to t('subscription.actions.cancel_at_period_end', default: 'Cancelar al final del período'), cancel_at_period_end_subscription_path, method: :post, class: "btn btn-outline-danger",
+                data: { turbo_confirm: '¿Cancelar al final del período actual?' } %>
+        <% end %>
+
+        <%= button_to t('subscription.actions.cancel_now', default: 'Cancelar ahora (inmediato)'), cancel_subscription_path, method: :post, class: "btn btn-danger",
+              data: { turbo_confirm: 'Esto cancelará de inmediato la suscripción. ¿Continuar?' } %>
+
+        <%= button_to t('subscription.actions.sync', default: 'Sincronizar'), sync_subscription_path, method: :post, class: "btn btn-outline-primary" %>
+      </div>
+    <% else %>
+      <div class="alert alert-warning">No se pudo cargar la suscripción.</div>
+    <% end %>
+  </div>
+</div>
