@@ -9,6 +9,10 @@ class Ability
       can :manage, :all
     end
 
+    if user.owner_of?(current_circus) # ajusta a tu lógica
+      can :manage, :subscription
+    end
+
 
     # === 🎪 CIRCOS ===
 

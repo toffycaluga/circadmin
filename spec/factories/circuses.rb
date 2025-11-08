@@ -2,17 +2,21 @@
 #
 # Table name: circuses
 #
-#  id                 :integer          not null, primary key
-#  name               :string
-#  description        :text
-#  country            :string
-#  currency           :string
-#  active             :boolean          default("true")
-#  user_id            :integer          not null
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  stripe_customer_id :string
-#  had_trial          :boolean          default("false"), not null
+#  id                          :integer          not null, primary key
+#  name                        :string
+#  description                 :text
+#  country                     :string
+#  currency                    :string
+#  active                      :boolean          default("true")
+#  user_id                     :integer          not null
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  stripe_customer_id          :string
+#  had_trial                   :boolean          default("false"), not null
+#  stripe_subscription_status  :string
+#  stripe_current_period_end   :datetime
+#  stripe_cancel_at_period_end :boolean
+#  stripe_pause_collection     :jsonb
 #
 # Indexes
 #
