@@ -19,9 +19,19 @@ class SubscriptionsController < ApplicationController
   end
 
   # ====== Vista de estado ======
+ # app/controllers/subscriptions_controller.rb
   def show
     @subscription ||= @circus.subscriptions.order(current_period_end: :desc).first
+    @stripe_sub = nil
+
+    if @subscription&.stripe_subscription_id.present?
+      @stripe_sub = Stripe::Subscription.retrieve(@subscription.stripe_subscription_id)
+    end
+  rescue Stripe::StripeError => e
+    Rails.logger.warn("[subscriptions#show] stripe_error=#{e.message}")
+    @stripe_error = e.message
   end
+
 
   # ====== Acciones Stripe: pausa / reanuda / cancelaciones ======
   def pause

@@ -14,40 +14,52 @@ pt:
         success: "Método de pagamento adicionado com sucesso."
         failure: "Não foi possível adicionar o método de pagamento: %{error}"
       destroy:
-        success: "Método de pagamento excluído com sucesso."
-        failure: "Não foi possível excluir o método de pagamento: %{error}"
+        success: "Método de pagamento removido com sucesso."
+        failure: "Não foi possível remover o método de pagamento: %{error}"
     payroll_items:
       create:
-        success: "Item de folha de pagamento adicionado com sucesso."
+        success: "Item da folha adicionado com sucesso."
         failure: "Não foi possível adicionar o item da folha. Verifique os campos."
       update:
-        success: "Item de folha de pagamento atualizado com sucesso."
+        success: "Item da folha atualizado com sucesso."
         failure: "Não foi possível atualizar o item da folha. Verifique os campos."
       destroy:
-        success: "Item de folha de pagamento excluído com sucesso."
-      not_found: "Item de folha de pagamento não encontrado."
-      payroll_not_found: "Folha de pagamento não encontrada ou você não tem permissão para acessá-la."
+        success: "Item da folha removido com sucesso."
+      not_found: "Item da folha não encontrado."
+      payroll_not_found: "Folha não encontrada ou você não tem permissão para acessá-la."
     payrolls:
       create:
-        already_exists: "Já existe uma folha de pagamento para este circo."
-        success: "Folha de pagamento criada. Agora você pode adicionar itens."
+        already_exists: "Já existe uma folha para este circo."
+        success: "Folha criada. Agora você pode adicionar itens."
       register_expense:
         success: "Despesa registrada com sucesso."
         failure: "Não foi possível registrar a despesa: %{error}"
       mark_as_paid:
-        success: "Folha de pagamento marcada como paga."
+        success: "Folha marcada como paga."
       subscription:
         select_circus: "Você deve selecionar um circo."
-        required: "É necessário ter uma assinatura para acessar esta funcionalidade."
+        required: "É necessária uma assinatura para acessar este recurso."
         missing_service: "Sua assinatura não inclui o módulo necessário (%{service})."
     subscriptions:
-      not_found: "Assinatura não encontrada."
+      not_found: "Nenhuma assinatura ativa encontrada para este circo."
       pause:
         success: "Assinatura pausada com sucesso."
-        error: "Não foi possível pausar a assinatura: %{error}"
+        error: "Erro ao pausar a assinatura: %{error}"
       resume:
-        success: "Assinatura reativada com sucesso."
-        error: "Não foi possível reativar a assinatura: %{error}"
+        success: "Assinatura retomada com sucesso."
+        error: "Erro ao retomar a assinatura: %{error}"
+      cancel_now:
+        success: "A assinatura foi cancelada imediatamente."
+        error: "Erro ao cancelar a assinatura: %{error}"
+      cancel_at_period_end:
+        success: "A assinatura será cancelada no final do período atual."
+        error: "Não foi possível agendar o cancelamento no final do período: %{error}"
+      uncancel:
+        success: "Cancelamento agendado revertido. A assinatura continuará ativa."
+        error: "Não foi possível reverter o cancelamento agendado: %{error}"
+      sync:
+        success: "Status da assinatura sincronizado com sucesso."
+        error: "Não foi possível sincronizar a assinatura: %{error}"
     transactions:
       create:
         success: "Transação registrada com sucesso."
@@ -56,7 +68,7 @@ pt:
         success: "Transação atualizada com sucesso."
         failure: "Não foi possível atualizar a transação. Verifique os campos."
       destroy:
-        success: "Transação excluída com sucesso."
+        success: "Transação removida com sucesso."
     user_profiles:
       create:
         success: "Perfil de usuário criado com sucesso."
@@ -66,10 +78,10 @@ pt:
         failure: "Não foi possível atualizar o perfil. Verifique os campos."
       picture:
         update:
-          success: "Foto de perfil atualizada com sucesso."
-          failure: "Não foi possível atualizar a foto de perfil."
+          success: "Foto do perfil atualizada com sucesso."
+          failure: "Não foi possível atualizar a foto do perfil."
       destroy:
-        success: "Perfil excluído com sucesso."
+        success: "Perfil removido com sucesso."
       unauthorized: "Você não tem permissão para acessar este perfil."
       not_found: "Perfil não encontrado."
     close: "Fechar"

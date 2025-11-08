@@ -1,6 +1,6 @@
 en:
   navigation:
-    dashboard: "Home"
+    dashboard: "Dashboard"
     my_circuses: "My circuses"
     my_documents: "My documents"
     user_section:
@@ -10,3 +10,5 @@ en:
       logout: "Log out"
     sidebar:
       aria_label: "Sidebar menu"
+    billing: "Billing"
+    admin: "Administration"

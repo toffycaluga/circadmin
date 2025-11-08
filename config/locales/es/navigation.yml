@@ -10,3 +10,5 @@ es:
       logout: "Cerrar sesión"
     sidebar:
       aria_label: "Menú lateral"
+    billing: "Facturación"
+    admin: "Administración"      
