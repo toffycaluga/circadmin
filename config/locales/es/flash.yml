@@ -41,13 +41,25 @@ es:
         required: "Necesitas una suscripción para acceder a esta funcionalidad."
         missing_service: "Tu suscripción no incluye el módulo requerido (%{service})."
     subscriptions:
-      not_found: "Suscripción no encontrada."
+      not_found: "No se encontró una suscripción activa para este circo."
       pause:
         success: "Suscripción pausada correctamente."
-        error: "No se pudo pausar la suscripción: %{error}"
+        error: "Error al pausar la suscripción: %{error}"
       resume:
-        success: "Suscripción reactivada correctamente."
-        error: "No se pudo reactivar la suscripción: %{error}"
+        success: "Suscripción reanudada correctamente."
+        error: "Error al reanudar la suscripción: %{error}"
+      cancel_now:
+        success: "La suscripción fue cancelada inmediatamente."
+        error: "Error al cancelar la suscripción: %{error}"
+      cancel_at_period_end:
+        success: "La suscripción se cancelará al finalizar el período actual."
+        error: "No se pudo programar la cancelación al final del período: %{error}"
+      uncancel:
+        success: "Se revirtió la cancelación programada. La suscripción continuará activa."
+        error: "No se pudo revertir la cancelación: %{error}"
+      sync:
+        success: "Estado de la suscripción sincronizado correctamente."
+        error: "No se pudo sincronizar la suscripción: %{error}"
     transactions:
       create:
         success: "Transacción registrada correctamente."

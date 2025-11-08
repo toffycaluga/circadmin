@@ -2,30 +2,46 @@
 class SubscriptionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_circus
-  before_action :set_current_subscription, only: [ :show, :pause, :resume, :check_availability ]
+  before_action :set_current_subscription, only: [
+    :show, :pause, :resume, :cancel, :cancel_at_period_end, :uncancel, :sync, :check_availability
+  ]
   layout "dashboard"
 
+  # ====== Alta / selección de plan ======
   def new
     @plans = Plan.active.order(:price_cents) rescue []
   end
 
+  # (Deprecated) API legacy
   def create
     render json: { error: t("subscriptions.api.create_deprecated") },
            status: :unprocessable_entity
   end
 
+  # ====== Vista de estado ======
+ # app/controllers/subscriptions_controller.rb
   def show
     @subscription ||= @circus.subscriptions.order(current_period_end: :desc).first
+    @stripe_sub = nil
+
+    if @subscription&.stripe_subscription_id.present?
+      @stripe_sub = Stripe::Subscription.retrieve(@subscription.stripe_subscription_id)
+    end
+  rescue Stripe::StripeError => e
+    Rails.logger.warn("[subscriptions#show] stripe_error=#{e.message}")
+    @stripe_error = e.message
   end
 
+
+  # ====== Acciones Stripe: pausa / reanuda / cancelaciones ======
   def pause
     return redirect_to(circus_subscription_path(@circus), alert: t("flash.subscriptions.not_found")) unless @subscription
 
     stripe_sub = Stripe::Subscription.update(
       @subscription.stripe_subscription_id,
-      pause_collection: { behavior: "void" }
+      pause_collection: { behavior: "void" } # otras opciones: 'mark_uncollectible', 'keep_as_draft'
     )
-    @subscription.update!(status: stripe_sub.status, active: active_like_status?(stripe_sub.status))
+    apply_status_from_stripe!(stripe_sub)
 
     redirect_to circus_subscription_path(@circus), notice: t("flash.subscriptions.pause.success")
   rescue Stripe::StripeError => e
@@ -35,19 +51,76 @@ class SubscriptionsController < ApplicationController
   def resume
     return redirect_to(circus_subscription_path(@circus), alert: t("flash.subscriptions.not_found")) unless @subscription
 
-    stripe_sub = Stripe::Subscription.update(@subscription.stripe_subscription_id, pause_collection: nil)
-    @subscription.update!(status: stripe_sub.status, active: active_like_status?(stripe_sub.status))
+    stripe_sub = Stripe::Subscription.update(
+      @subscription.stripe_subscription_id,
+      pause_collection: nil
+    )
+    apply_status_from_stripe!(stripe_sub)
 
     redirect_to circus_subscription_path(@circus), notice: t("flash.subscriptions.resume.success")
   rescue Stripe::StripeError => e
     redirect_to circus_subscription_path(@circus), alert: t("flash.subscriptions.resume.error", error: e.message)
   end
 
-  # JSON: ¿puede usar el/los servicio(s) requerido(s)?
+  # Cancelación inmediata
+  def cancel
+    return redirect_to(circus_subscription_path(@circus), alert: t("flash.subscriptions.not_found")) unless @subscription
+
+    stripe_sub = Stripe::Subscription.cancel(@subscription.stripe_subscription_id)
+    apply_status_from_stripe!(stripe_sub, force_inactive: true)
+
+    redirect_to circus_subscription_path(@circus), notice: t("flash.subscriptions.cancel_now.success")
+  rescue Stripe::StripeError => e
+    redirect_to circus_subscription_path(@circus), alert: t("flash.subscriptions.cancel_now.error", error: e.message)
+  end
+
+  # Programar cancelación al final del período
+  def cancel_at_period_end
+    return redirect_to(circus_subscription_path(@circus), alert: t("flash.subscriptions.not_found")) unless @subscription
+
+    stripe_sub = Stripe::Subscription.update(
+      @subscription.stripe_subscription_id,
+      cancel_at_period_end: true
+    )
+    apply_status_from_stripe!(stripe_sub) # queda active hasta el fin del período
+
+    redirect_to circus_subscription_path(@circus), notice: t("flash.subscriptions.cancel_at_period_end.success")
+  rescue Stripe::StripeError => e
+    redirect_to circus_subscription_path(@circus), alert: t("flash.subscriptions.cancel_at_period_end.error", error: e.message)
+  end
+
+  # Revertir cancelación diferida
+  def uncancel
+    return redirect_to(circus_subscription_path(@circus), alert: t("flash.subscriptions.not_found")) unless @subscription
+
+    stripe_sub = Stripe::Subscription.update(
+      @subscription.stripe_subscription_id,
+      cancel_at_period_end: false
+    )
+    apply_status_from_stripe!(stripe_sub)
+
+    redirect_to circus_subscription_path(@circus), notice: t("flash.subscriptions.uncancel.success")
+  rescue Stripe::StripeError => e
+    redirect_to circus_subscription_path(@circus), alert: t("flash.subscriptions.uncancel.error", error: e.message)
+  end
+
+  # Sincroniza estado y bandera active con Stripe (por si hubo cambios en Dashboard)
+  def sync
+    return redirect_to(circus_subscription_path(@circus), alert: t("flash.subscriptions.not_found")) unless @subscription
+
+    stripe_sub = Stripe::Subscription.retrieve(@subscription.stripe_subscription_id)
+    apply_status_from_stripe!(stripe_sub)
+
+    redirect_to circus_subscription_path(@circus), notice: t("flash.subscriptions.sync.success")
+  rescue Stripe::StripeError => e
+    redirect_to circus_subscription_path(@circus), alert: t("flash.subscriptions.sync.error", error: e.message)
+  end
+
+  # ====== JSON: ¿puede usar el/los servicio(s) requerido(s)? ======
   def check_availability
     Rails.logger.info("[check_availability] circus=#{@circus.id} sub=#{@subscription&.id} status=#{@subscription&.status} active_col=#{@subscription&.read_attribute(:active)}")
 
-    # 1) Suscripción activa (columna booleana o status active-like)
+    # 1) Suscripción activa (col boolean o status active-like)
     unless @subscription && (@subscription.read_attribute(:active) || active_like_status?(@subscription.status))
       Rails.logger.info("[check_availability] circus=#{@circus.id} => NO ACTIVE SUBSCRIPTION")
       return render json: {
@@ -67,7 +140,7 @@ class SubscriptionsController < ApplicationController
     required = [ "core" ] if required.empty?
 
     if required.any?
-      included = included_items_for(@subscription) # fusiona múltiples fuentes y canoniza
+      included = included_items_for(@subscription)
       has_all  = (required - included).empty?
       Rails.logger.info("[check_availability] included=#{included.inspect} has_all=#{has_all}")
 
@@ -125,6 +198,17 @@ class SubscriptionsController < ApplicationController
     end
   end
 
+  # === Normalizadores de estado ===
+  def apply_status_from_stripe!(stripe_sub, force_inactive: false)
+    status = stripe_sub.status.to_s
+    active_flag = force_inactive ? false : active_like_status?(status)
+    # Solo tocamos columnas existentes y seguras
+    @subscription.update!(
+      status: status,
+      active: active_flag
+    )
+  end
+
   def active_like_status?(status)
     %w[active trialing].include?(status.to_s)
   end
@@ -137,8 +221,7 @@ class SubscriptionsController < ApplicationController
     params.permit(:plan_id, :payment_method_id)
   end
 
-  # === Helpers de check_availability ===
-  # (todo igual que tu versión original)
+  # === Helpers de check_availability (tus versiones) ===
   def aggressively_normalize_required_services(params)
     allowed_key_regex = /(feature|item|service|module|capability|require|need)/i
     ignore_keys = %w[controller action format id circus_id subscription subscriptions]

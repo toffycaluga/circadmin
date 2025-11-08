@@ -14,8 +14,8 @@ en:
         success: "Payment method added successfully."
         failure: "Could not add the payment method: %{error}"
       destroy:
-        success: "Payment method deleted successfully."
-        failure: "Could not delete the payment method: %{error}"
+        success: "Payment method removed successfully."
+        failure: "Could not remove the payment method: %{error}"
     payroll_items:
       create:
         success: "Payroll item added successfully."
@@ -32,31 +32,43 @@ en:
         already_exists: "A payroll already exists for this circus."
         success: "Payroll created. You can now add items."
       register_expense:
-        success: "Expense successfully recorded."
+        success: "Expense registered successfully."
         failure: "Could not register the expense: %{error}"
       mark_as_paid:
         success: "Payroll marked as paid."
       subscription:
         select_circus: "You must select a circus."
-        required: "You need a subscription to access this feature."
+        required: "A subscription is required to access this feature."
         missing_service: "Your subscription does not include the required module (%{service})."
     subscriptions:
-      not_found: "Subscription not found."
+      not_found: "No active subscription found for this circus."
       pause:
-        success: "Subscription successfully paused."
-        error: "Could not pause the subscription: %{error}"
+        success: "Subscription paused successfully."
+        error: "Error while pausing the subscription: %{error}"
       resume:
-        success: "Subscription successfully resumed."
-        error: "Could not resume the subscription: %{error}"
+        success: "Subscription resumed successfully."
+        error: "Error while resuming the subscription: %{error}"
+      cancel_now:
+        success: "Subscription was canceled immediately."
+        error: "Error while canceling the subscription: %{error}"
+      cancel_at_period_end:
+        success: "Subscription will be canceled at the end of the current period."
+        error: "Could not schedule cancellation at period end: %{error}"
+      uncancel:
+        success: "Scheduled cancellation reverted. The subscription will remain active."
+        error: "Could not revert the scheduled cancellation: %{error}"
+      sync:
+        success: "Subscription status synced successfully."
+        error: "Could not sync the subscription: %{error}"
     transactions:
       create:
-        success: "Transaction successfully recorded."
-        failure: "Could not record the transaction. Please check the fields."
+        success: "Transaction registered successfully."
+        failure: "Could not register the transaction. Please check the fields."
       update:
-        success: "Transaction successfully updated."
+        success: "Transaction updated successfully."
         failure: "Could not update the transaction. Please check the fields."
       destroy:
-        success: "Transaction successfully deleted."
+        success: "Transaction deleted successfully."
     user_profiles:
       create:
         success: "User profile created successfully."

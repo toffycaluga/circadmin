@@ -54,3 +54,16 @@ es:
     check:
       fallback_title: "Ups, ocurrió un problema"
       fallback_body: "No se pudo verificar tu suscripción. Intenta nuevamente."
+    title: "Gestión de Suscripción"
+    current_plan: "Plan actual"
+    status: "Estado"
+    renew_or_end: "Renueva / Termina"
+    cancel_at_period_end: "Cancelación al fin de período"
+    paused: "Pausada"
+    actions:
+      pause: "Pausar cobro"
+      resume: "Reanudar cobro"
+      cancel_now: "Cancelar ahora (inmediato)"
+      cancel_at_period_end: "Cancelar al final del período"
+      uncancel: "Revertir cancelación diferida"
+      sync: "Sincronizar"

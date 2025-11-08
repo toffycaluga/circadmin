@@ -1,0 +1,100 @@
+<!-- app/views/subscriptions/show.html.erb -->
+<div class="card">
+  <div class="card-header">
+    <h2><%= t('subscription.title', default: 'Gestión de Suscripción') %></h2>
+  </div>
+
+  <div class="card-body">
+    <% if @stripe_error.present? %>
+      <div class="alert alert-warning">
+        No se pudo cargar la info en Stripe: <%= @stripe_error %>. Mostrando datos locales.
+      </div>
+    <% end %>
+
+    <% if @subscription.present? %>
+      <% plan_label =
+           (@stripe_sub&.items&.data&.first&.price&.nickname) ||
+           (@stripe_sub&.items&.data&.first&.price&.id) ||
+           (@subscription.try(:plan)&.try(:name)) ||
+           (@subscription.respond_to?(:plan_nickname) ? @subscription.plan_nickname : nil) ||
+           (@subscription.respond_to?(:plan_id) ? @subscription.plan_id : nil) ||
+           "—"
+      %>
+
+      <% current_period_end_ts =
+           (@stripe_sub&.current_period_end) ||
+           (@subscription.respond_to?(:current_period_end) ? @subscription.current_period_end&.to_i : nil)
+      %>
+
+      <% current_period_end_str =
+           current_period_end_ts.present? ?
+             Time.at(current_period_end_ts).to_datetime.strftime('%Y-%m-%d %H:%M') :
+             "—"
+      %>
+
+      <% cancel_at_period_end =
+           (@stripe_sub&.cancel_at_period_end) ||
+           (@subscription.respond_to?(:cancel_at_period_end) ? @subscription.cancel_at_period_end : false)
+      %>
+
+      <% paused =
+           (@stripe_sub&.pause_collection.present?) ||
+           (@subscription.respond_to?(:status) && @subscription.status.to_s == 'paused')
+      %>
+
+      <dl class="row">
+        <dt class="col-sm-4"><%= t('subscription.current_plan', default: 'Plan actual') %></dt>
+        <dd class="col-sm-8"><%= plan_label %></dd>
+
+        <dt class="col-sm-4"><%= t('subscription.status', default: 'Estado') %></dt>
+        <dd class="col-sm-8"><span class="badge bg-secondary"><%= @subscription.status %></span></dd>
+
+        <dt class="col-sm-4"><%= t('subscription.renew_or_end', default: 'Renueva / Termina') %></dt>
+        <dd class="col-sm-8"><%= current_period_end_str %></dd>
+
+        <dt class="col-sm-4"><%= t('subscription.cancel_at_period_end', default: 'Cancelación al fin de período') %></dt>
+        <dd class="col-sm-8"><%= cancel_at_period_end ? 'Sí' : 'No' %></dd>
+
+        <dt class="col-sm-4"><%= t('subscription.paused', default: 'Pausada') %></dt>
+        <dd class="col-sm-8"><%= paused ? 'Sí' : 'No' %></dd>
+      </dl>
+
+      <div class="d-flex flex-wrap gap-2 mt-3">
+        <% if paused %>
+          <%= button_to t('subscription.actions.resume', default: 'Reanudar cobro'),
+                        resume_circus_subscription_path(@circus),
+                        method: :post, class: "btn btn-success",
+                        data: { turbo_confirm: '¿Reanudar cobro de esta suscripción?' } %>
+        <% else %>
+          <%= button_to t('subscription.actions.pause', default: 'Pausar cobro'),
+                        pause_circus_subscription_path(@circus),
+                        method: :post, class: "btn btn-warning",
+                        data: { turbo_confirm: '¿Pausar el cobro?' } %>
+        <% end %>
+
+        <% if cancel_at_period_end %>
+          <%= button_to t('subscription.actions.uncancel', default: 'Revertir cancelación diferida'),
+                        uncancel_circus_subscription_path(@circus),
+                        method: :post, class: "btn btn-outline-secondary",
+                        data: { turbo_confirm: '¿Revertir la cancelación al final del período?' } %>
+        <% else %>
+          <%= button_to t('subscription.actions.cancel_at_period_end', default: 'Cancelar al final del período'),
+                        cancel_at_period_end_circus_subscription_path(@circus),
+                        method: :post, class: "btn btn-outline-danger",
+                        data: { turbo_confirm: '¿Cancelar al final del período actual?' } %>
+        <% end %>
+
+        <%= button_to t('subscription.actions.cancel_now', default: 'Cancelar ahora (inmediato)'),
+                      cancel_circus_subscription_path(@circus),
+                      method: :post, class: "btn btn-danger",
+                      data: { turbo_confirm: 'Esto cancelará de inmediato la suscripción. ¿Continuar?' } %>
+
+        <%= button_to t('subscription.actions.sync', default: 'Sincronizar'),
+                      sync_circus_subscription_path(@circus),
+                      method: :post, class: "btn btn-outline-primary" %>
+      </div>
+    <% else %>
+      <div class="alert alert-warning">No se encontró una suscripción para este circo.</div>
+    <% end %>
+  </div>
+</div>

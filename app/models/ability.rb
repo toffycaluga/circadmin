@@ -1,14 +1,24 @@
+# app/models/ability.rb
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
-    # Evita errores si el usuario no está logueado
+  # circus es opcional. Si no lo pasas, todo funciona igual.
+  def initialize(user, circus = nil)
+    # Invitado (no autenticado)
     return unless user
 
-    if user.superadmin?
-      can :manage, :all
-    end
+    # === SUPERADMIN ===
+    can :manage, :all if user.superadmin?
 
+    # === SUSCRIPCIONES ===
+    # Si viene un circo en contexto, autoriza solo si es owner de ese circo.
+    if circus.present?
+      cu = user.circus_users.find_by(circus_id: circus.id)
+      can :manage, :subscription if cu&.role == "owner" && cu.active? && cu.accepted_at.present?
+    else
+      # Sin contexto: permite gestionar suscripciones si es owner activo en al menos un circo.
+      can :manage, :subscription if user.circus_users.where(role: "owner", active: true).exists?
+    end
 
     # === 🎪 CIRCOS ===
 
@@ -16,22 +26,22 @@ class Ability
     can :read, Circus, circus_users: { user_id: user.id }
 
     # Puede acceder a la vista de administración si es owner o tiene invitación activa y aceptada
-    can :admin, Circus do |circus|
-      cu = user.circus_users.find_by(circus_id: circus.id)
+    can :admin, Circus do |c|
+      cu = user.circus_users.find_by(circus_id: c.id)
       cu&.role == "owner" || (cu&.active? && cu&.accepted_at.present?)
     end
 
     # Puede gestionar totalmente el circo solo si es el dueño
-    can :manage, Circus do |circus|
-      cu = user.circus_users.find_by(circus_id: circus.id)
+    can :manage, Circus do |c|
+      cu = user.circus_users.find_by(circus_id: c.id)
       cu&.role == "owner"
     end
 
     # === 📍 LOCALIDADES ===
 
     # Puede gestionar localidades si es owner o admin del circo
-    can :manage, Locality do |locality|
-      cu = user.circus_users.find_by(circus_id: locality.circus_id)
+    can :manage, Locality do |loc|
+      cu = user.circus_users.find_by(circus_id: loc.circus_id)
       cu&.role.in?(%w[owner admin])
     end
 
@@ -47,10 +57,10 @@ class Ability
     # Puede leer transacciones si pertenecen a un circo al que está asociado
     can :read, Transaction do |tx|
       user_circus_ids = user.circuses.pluck(:id)
-      tx.circus_id.in?(user_circus_ids)
+      user_circus_ids.include?(tx.circus_id)
     end
 
-    # === 👥 USUARIOS DEL CIRCO ===
+    # === 👥 USUARIOS DEL CIRCO (CircusUser) ===
 
     # Puede gestionar usuarios solo si es dueño del circo
     can :manage, CircusUser, circus: { id: user.owned_circuses.ids }
@@ -73,7 +83,7 @@ class Ability
       end
     end
 
-    # Puede subir documentos si tiene rol válido en ese circo
+    # Puede subir/editar documentos si tiene rol válido en ese circo
     can [ :new, :edit, :create ], Document do |doc|
       cu = user.circus_users.find_by(circus_id: doc.circus_id)
       cu&.role.in?(%w[owner admin representative]) &&
