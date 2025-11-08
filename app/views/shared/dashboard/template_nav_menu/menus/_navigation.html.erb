@@ -15,7 +15,7 @@
     <% end %>
   </li>
 
-  <!-- Mis documentos (título general) -->
+  <!-- Mis documentos -->
   <li class="nav-item">
     <%= link_to documents_path, class: "nav-link d-flex align-items-center" do %>
       <span class="pcoded-micon"><i class="feather icon-folder me-2"></i></span>
@@ -23,13 +23,34 @@
     <% end %>
   </li>
 
-  <!-- Sublinks por circo -->
+  <!-- 📑 Sublinks solo de documentos (por circo) -->
   <% current_user.circuses.each do |circus| %>
     <li class="nav-item ms-4">
-      <%= link_to by_circus_documents_path(circus.id), class: "nav-link small" do %>
+      <%= link_to by_circus_documents_path(circus.id), class: "nav-link small d-flex align-items-center" do %>
         <i class="feather icon-circle me-2 text-muted"></i>
         <%= truncate(circus.name, length: 20) %>
       <% end %>
     </li>
+  <% end %>
+
+  <!-- 💳 Sección separada: Facturación -->
+  <% if can?(:manage, :subscription) %>
+    <li class="nav-item mt-3">
+      <span class="nav-link disabled text-uppercase small text-muted">
+        <i class="feather icon-credit-card me-2"></i>
+        <%= t("navigation.billing", default: "Facturación") %>
+      </span>
+    </li>
+    <% current_user.circuses.each do |circus| %>
+      <li class="nav-item ms-4">
+        <%= link_to circus_subscription_path(circus), class: "nav-link small d-flex align-items-center" do %>
+          <i class="feather icon-arrow-right me-2 text-muted"></i>
+          <span><%= truncate(circus.name, length: 20) %></span>
+          <% if circus.respond_to?(:stripe_subscription_status) && circus.stripe_subscription_status.present? %>
+            <span class="badge bg-secondary ms-2"><%= circus.stripe_subscription_status %></span>
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
   <% end %>
 </ul>

@@ -5,52 +5,65 @@ en:
       month: "month"
       subtitle: "Start with %{days} free days. Then %{price} per month."
       trial_days:
-        one: "1-day trial"
-        other: "%{count}-day trial"
+        one: "1 day trial"
+        other: "%{count} days trial"
       payment_for: "Payment for"
       close: "Close"
       pay_now: "Continue"
       cancel: "Cancel"
-      continue_to_checkout: "Continue to payment"
+      continue_to_checkout: "Continue to checkout"
       choose_plan: "Select a plan"
-      choose_plan_help: "You can change or cancel anytime."
+      choose_plan_help: "You can change or cancel it anytime."
       select_plan_first: "Select a plan to continue."
     create:
-      error: "We couldn’t process your payment: %{error}"
+      error: "Payment could not be processed: %{error}"
     pause:
-      success: "Subscription successfully paused."
-      error: "Error while pausing subscription: %{error}"
+      success: "Subscription paused successfully."
+      error: "Error while pausing the subscription: %{error}"
     resume:
-      success: "Subscription successfully resumed."
-      error: "Error while resuming subscription: %{error}"
+      success: "Subscription resumed successfully."
+      error: "Error while resuming the subscription: %{error}"
     check_availability:
       subscription_needed:
-        title: "Subscription Required"
+        title: "Subscription required"
         body: "You must choose or update your plan before continuing."
       limit_reached:
-        title: "Limit Reached"
-        body: "You already have %{current} out of %{allowed} allowed items. Upgrade your plan."
+        title: "Limit reached"
+        body: "You already have %{current} of %{allowed} allowed items. Please upgrade your plan."
       service_needed:
-        title: "Required Module(s) Missing"
-        body: "Your current subscription doesn’t include all required services."
+        title: "Missing required modules"
+        body: "Your current subscription does not include all the required services."
       error:
         title: "Oops, something went wrong"
-        body: "We couldn’t verify your subscription. Please try again."
+        body: "We could not verify your subscription. Please try again."
       invalid_subscription:
-        title: "Invalid Subscription"
-        body: "We couldn’t find your subscription. Please choose a plan."
+        title: "Invalid subscription"
+        body: "We couldn't find your subscription. Please select a plan."
     modal:
       required:
-        title: "Subscription Required"
+        title: "Subscription required"
         body: "You must choose or update your plan to access this section."
       limit_reached:
-        title: "Limit Reached"
-        body: "You’ve reached your allowed limit of circuses (%{current}/%{allowed}). Upgrade your plan to continue."
+        title: "Limit reached"
+        body: "You have reached the allowed number of circuses (%{current}/%{allowed}). Please upgrade your plan to continue."
       invalid:
-        title: "Invalid Subscription"
-        body: "We couldn’t find your subscription. Please select a valid plan."
+        title: "Invalid subscription"
+        body: "We couldn't find your subscription. Please select a valid plan."
     api:
       create_deprecated: "This endpoint no longer creates subscriptions. Use the checkout (BillingController) to complete the purchase."
     check:
       fallback_title: "Oops, something went wrong"
-      fallback_body: "We couldn’t verify your subscription. Please try again."
+      fallback_body: "We could not verify your subscription. Please try again."
+    title: "Subscription Management"
+    current_plan: "Current plan"
+    status: "Status"
+    renew_or_end: "Renews / Ends"
+    cancel_at_period_end: "Cancellation at period end"
+    paused: "Paused"
+    actions:
+      pause: "Pause billing"
+      resume: "Resume billing"
+      cancel_now: "Cancel now (immediate)"
+      cancel_at_period_end: "Cancel at end of period"
+      uncancel: "Revert scheduled cancellation"
+      sync: "Sync status"

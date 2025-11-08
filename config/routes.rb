@@ -81,6 +81,10 @@ Rails.application.routes.draw do
       get  :check_availability, defaults: { format: :json }
       post :pause
       post :resume
+      post :cancel
+      post :cancel_at_period_end    # opcional: programar baja al final del periodo
+      post :uncancel                # opcional: revertir cancel_at_period_end
+      post :sync                    # traer estado desde Stripe y cachear
     end
 
     # Métodos de pago anidados (REST)

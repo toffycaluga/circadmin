@@ -10,3 +10,5 @@ pt:
       logout: "Sair"
     sidebar:
       aria_label: "Menu lateral"
+    billing: "Faturamento"
+    admin: "Administração"
