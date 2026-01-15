@@ -1,0 +1,7 @@
+pt:
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M"
+      short: "%d %b"
+      long: "%d de %B de %Y às %H:%M"
+      date_only: "%d/%m/%Y"

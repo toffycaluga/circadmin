@@ -1,0 +1,31 @@
+en:
+  dashboard:
+    active_locality: "Active locality:"
+    title: "Dashboard"
+    welcome: "Welcome to CircAdmin 🎪"
+    intro: "Manage your circuses clearly and efficiently."
+    my_circuses: "My circuses"
+    associated_circuses: "Associated circuses"
+    no_owned_circuses: "You are not the owner of any circus yet."
+    no_associated_circuses: "You are not associated with any circus."
+    not_member: "You do not belong to this circus"
+    profile_picture_alt: "Profile picture"
+    actions:
+      admin: "🎛 Manage"
+      edit: "✏️ Edit"
+      add_income: "💰 Income"
+      add_expense: "💸 Expense"
+      summary: "📊 Summary"
+      full_summary: "📊 Income and Expense Summary"
+    financial_resources:
+      title: "Financial resources"
+      description: "Quickly access your circus income and expense records."
+    localities:
+      title: "Localities"
+      description: "Create and manage the localities (venues/events) of your circus."
+      new_locality: "New locality"
+      admin: "Manage"
+      none_found: "No localities registered yet."
+    header:
+      title: "Dashboard"
+      breadcrumb: "Dashboard"

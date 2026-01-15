@@ -1,0 +1,31 @@
+<%= form_with model: [payroll, payroll_item],
+              url: payroll_payroll_item_path(payroll, payroll_item),
+              method: :patch,
+              local: false,
+              data: { turbo_frame: "payroll_item_modal" } do |f| %>
+
+  <div class="mb-3">
+    <%= f.label :name, t("payroll_items.form.name"), class: "form-label" %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :job_role, t("payroll_items.form.job_role"), class: "form-label" %>
+    <%= f.text_field :job_role, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :amount, t("payroll_items.form.amount"), class: "form-label" %>
+    <%= f.number_field :amount, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :notes, t("payroll_items.form.notes"), class: "form-label" %>
+    <%= f.text_area :notes, rows: 3, class: "form-control" %>
+  </div>
+
+  <div class="d-flex justify-content-end">
+    <%= f.submit t("payroll_items.form.update"), class: "btn btn-primary me-2" %>
+  </div>
+
+<% end %>

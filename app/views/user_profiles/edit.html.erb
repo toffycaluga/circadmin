@@ -5,15 +5,14 @@
     <div class="col-xl-4 col-md-10">
       <!-- 🖼 Formulario parcial para la foto de perfil -->
       <%= render "profile_picture_form", user_profile: @user_profile %>
-
     </div>
-    <div class="col-xl-8 col-lg-10">
 
+    <div class="col-xl-8 col-lg-10">
       <div class="card shadow-sm border-0">
         <div class="card-header bg-gradient bg-warning text-dark d-flex align-items-center justify-content-between">
           <h4 class="mb-0">
             <i class="fas fa-user-edit me-2"></i>
-            <%= t("user_profiles.edit.heading", default: "Editar Perfil") %>
+            <%= t("user_profiles.edit.heading") %>
           </h4>
           <span class="badge bg-light text-dark"><%= current_user.email %></span>
         </div>
@@ -23,7 +22,10 @@
 
             <% if @user_profile.errors.any? %>
               <div class="alert alert-danger">
-                <h6 class="mb-2"><i class="fas fa-exclamation-circle me-1"></i><%= t("errors.messages.form_invalid", default: "Corrige los errores para continuar") %></h6>
+                <h6 class="mb-2">
+                  <i class="fas fa-exclamation-circle me-1"></i>
+                  <%= t("errors.messages.form_invalid") %>
+                </h6>
                 <ul class="mb-0">
                   <% @user_profile.errors.full_messages.each do |msg| %>
                     <li><%= msg %></li>
@@ -33,29 +35,27 @@
             <% end %>
 
             <div class="mb-3">
-              <%= form.label :full_name, t("user_profiles.form.full_name", default: "Nombre completo"), class: "form-label" %>
-              <%= form.text_field :full_name, class: "form-control", placeholder: t("user_profiles.placeholders.full_name", default: "Ej: Toffy Caluga") %>
+              <%= form.label :full_name, t("user_profiles.form.full_name"), class: "form-label" %>
+              <%= form.text_field :full_name, class: "form-control", placeholder: t("user_profiles.placeholders.full_name") %>
             </div>
 
             <div class="mb-3">
-              <%= form.label :address, t("user_profiles.form.address", default: "Dirección"), class: "form-label" %>
-              <%= form.text_field :address, class: "form-control", placeholder: t("user_profiles.placeholders.address", default: "Ej: Calle Ficticia 123") %>
+              <%= form.label :address, t("user_profiles.form.address"), class: "form-label" %>
+              <%= form.text_field :address, class: "form-control", placeholder: t("user_profiles.placeholders.address") %>
             </div>
 
             <div class="mb-3">
-              <%= form.label :country, t("user_profiles.form.country", default: "País"), class: "form-label" %>
-              <%= form.text_field :country, class: "form-control", placeholder: t("user_profiles.placeholders.country", default: "Ej: España") %>
+              <%= form.label :country, t("user_profiles.form.country"), class: "form-label" %>
+              <%= form.text_field :country, class: "form-control", placeholder: t("user_profiles.placeholders.country") %>
             </div>
 
             <div class="d-grid mt-4">
-              <%= form.submit t("user_profiles.actions.save", default: "Guardar cambios"), class: "btn btn-primary btn-lg" %>
+              <%= form.submit t("user_profiles.actions.save"), class: "btn btn-primary btn-lg" %>
             </div>
           <% end %>
         </div>
       </div>
-
-
     </div>
-    
+
   </div>
 </div>

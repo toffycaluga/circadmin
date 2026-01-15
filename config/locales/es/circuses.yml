@@ -1,0 +1,11 @@
+es:
+  circuses:
+    page_title: "Mis Circos"
+    new:
+      title: "Nuevo circo"
+      heading: "Crear nuevo circo"
+    show:
+      edit: "Editar este circo"
+      back: "Volver a la lista de circos"
+      destroy: "Eliminar este circo"
+      confirm_destroy: "¿Estás seguro de que deseas eliminar este circo?"

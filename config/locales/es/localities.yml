@@ -1,0 +1,79 @@
+es:
+  localities:
+    name: "Localidad"
+    actions:
+      edit: "Editar evento"
+      close: "Cerrar evento"
+      reopen: "Reabrir evento"
+    confirmations:
+      close: "¿Seguro que deseas cerrar este evento? No se podrán registrar más transacciones hasta reabrirlo."
+      reopen: "¿Deseas reabrir este evento y habilitar nuevamente los registros?" 
+    status:
+      closed: "Evento cerrado"
+    form:
+      form_errors: "Impidieron guardar la localidad"
+      title: "Nombre de la localidad"
+      title_placeholder: "Ej. Plaza de armas, Feria de verano"
+      location: "Dirección"
+      location_placeholder: "Ej. Calle Falsa 123, Sector norte"
+      city: "Ciudad"
+      city_placeholder: "Ej. Valparaíso"
+      start_date: "Fecha de inicio"
+      end_date: "Fecha de término (opcional)"
+      active: "Localidad activa"
+      active_hint: "Activa esta casilla si ya están trabajando en esta localidad. Si solo está en preparación (publicidad, permisos, etc.), no la marques aún, pero puedes registrar gastos desde ya."
+      notes: "Observaciones"
+      notes_placeholder: "Ej. Dueño del terreno: Juan Pérez, terreno privado"
+      submit: "Guardar"
+    notices:
+      created: "La localidad fue creada con éxito."
+      updated: "La localidad fue actualizada con éxito."
+      destroyed: "La localidad fue eliminada."
+      deactivated: "El evento ha sido marcado como cerrado."
+      reactivated: "El evento ha sido reactivado."
+    alerts:
+      no_data: "No hay datos para mostrar."
+    admin:
+      heading: "Administración del evento"
+      untitled: "Sin nombre"
+      in_progress: "en curso"
+    fields:
+      title: "Título"
+      location: "Dirección"
+      city: "Ciudad"
+      start_date: "Fecha de inicio"
+      end_date: "Fecha de término"
+      active: "Estado"
+      circus: "Circo"
+      dates: "Fechas"
+    summary:
+      title: "📊 Resumen"
+      total_incomes: "Total ingresos"
+      total_expenses: "Total gastos"
+      balance: "Balance"
+      chart_title: "Distribución de ingresos y gastos"
+      last_updated: "Última actualización: %{date}"
+    edit:
+      title: "Editar localidad"
+      heading: "Editar localidad"
+      show: "Ver esta localidad"
+      back: "Volver a las localidades"
+    index:
+      title: "Localidades"
+      heading: "Localidades"
+      show: "Ver esta localidad"
+      new: "Nueva localidad"
+      new:
+        title: "Nueva localidad"
+    status:
+      active: "Activa"
+      closed: "Cerrada"
+    empty:
+      title: "Sin título"
+      location: "Sin dirección"
+      city: "Sin ciudad"
+      start_date: "Sin fecha de inicio"
+      end_date: "Sin fecha de término"
+      circus: "Sin circo asignado"
+    labels:
+      name: "Localidad"

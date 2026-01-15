@@ -1,0 +1,14 @@
+en:
+  navigation:
+    dashboard: "Dashboard"
+    my_circuses: "My circuses"
+    my_documents: "My documents"
+    user_section:
+      title: "User"
+      my_profile: "My profile"
+      settings: "Settings"
+      logout: "Log out"
+    sidebar:
+      aria_label: "Sidebar menu"
+    billing: "Billing"
+    admin: "Administration"

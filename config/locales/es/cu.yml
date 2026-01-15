@@ -1,0 +1,5 @@
+es:
+  cu:
+    save: "Guardar"
+    delete: "Eliminar trabajador"
+    confirm: "¿Seguro que quieres desactivar este usuario?"

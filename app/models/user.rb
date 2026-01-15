@@ -19,9 +19,18 @@
 #  invited_by_id          :integer
 #  invitations_count      :integer          default("0")
 #  inviting_circus_id     :integer
+#  superadmin             :boolean          default("false"), not null
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string
+#  stripe_subscription_id :string
+#  had_trial              :boolean          default("false"), not null
+#  circuses_count         :integer          default("0"), not null
 #
 # Indexes
 #
+#  index_users_on_confirmation_token    (confirmation_token)
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_invitation_token      (invitation_token) UNIQUE
 #  index_users_on_invited_by            (invited_by_type,invited_by_id)
@@ -33,7 +42,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+        :recoverable, :rememberable, :validatable, :confirmable
 
 
   has_one :user_profile, dependent: :destroy
@@ -67,6 +76,11 @@ class User < ApplicationRecord
   # Circenses donde estoy asociado con un rol
   def associated_circuses
     circuses # from has_many :circuses, through: :circus_users
+  end
+
+  # Método reutilizable, testeable y fácil de mockear
+  def circus_count
+    circuses_count
   end
 
   private

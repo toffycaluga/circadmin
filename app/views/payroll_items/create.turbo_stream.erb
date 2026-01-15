@@ -1,0 +1,19 @@
+<%= turbo_stream.replace "payroll-items" do %>
+  <%= render partial: "payroll_items/list",
+             locals: { payroll: @payroll } %>
+<% end %>
+
+<%= turbo_stream.replace "payroll-form" do %>
+  <%= render partial: "payroll_items/form",
+             locals: { payroll: @payroll,
+                       payroll_item: PayrollItem.new } %>
+<% end %>
+
+<%= turbo_stream.replace "payroll-total" do %>
+  <%= number_to_currency(
+        @payroll.total,
+        unit: currency_symbol(@payroll.circus.currency),
+        delimiter: ".",
+        separator: ","
+      ) %>
+<% end %>

@@ -99,9 +99,6 @@ GEM
       aws-sigv4 (~> 1.5)
     aws-sigv4 (1.11.0)
       aws-eventstream (~> 1, >= 1.0.2)
-    axlsx_rails (0.6.1)
-      actionpack (>= 3.1)
-      caxlsx (>= 3.0)
     base64 (0.2.0)
     bcrypt (3.1.20)
     bcrypt_pbkdf (1.1.1)
@@ -110,7 +107,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
-    brakeman (7.0.2)
+    brakeman (7.1.0)
       racc
     builder (3.3.0)
     cancancan (3.6.1)
@@ -128,6 +125,9 @@ GEM
       marcel (~> 1.0)
       nokogiri (~> 1.10, >= 1.10.4)
       rubyzip (>= 1.3.0, < 3)
+    caxlsx_rails (0.6.4)
+      actionpack (>= 3.1)
+      caxlsx (>= 3.0)
     chartkick (5.1.5)
     concurrent-ruby (1.3.5)
     connection_pool (2.5.0)
@@ -150,6 +150,9 @@ GEM
       devise (>= 4.6)
     diff-lcs (1.6.1)
     dotenv (3.1.8)
+    dotenv-rails (3.1.8)
+      dotenv (= 3.1.8)
+      railties (>= 6.1)
     drb (2.2.1)
     ed25519 (1.3.0)
     erubi (1.13.1)
@@ -160,6 +163,8 @@ GEM
     factory_bot_rails (6.4.4)
       factory_bot (~> 6.5)
       railties (>= 5.0.0)
+    faker (3.5.2)
+      i18n (>= 1.8.11, < 2)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-gnu)
@@ -439,6 +444,7 @@ GEM
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.1.6)
+    stripe (15.3.0)
     thor (1.3.2)
     thruster (0.1.12)
     thruster (0.1.12-aarch64-linux)
@@ -492,18 +498,20 @@ DEPENDENCIES
   acts-as-taggable-on
   annotate
   aws-sdk-s3
-  axlsx_rails
   bootsnap
   brakeman
   cancancan
   capybara
+  caxlsx_rails
   chartkick
   countries
   debug
   devise
   devise-i18n-views (~> 0.3.7)
   devise_invitable
+  dotenv-rails
   factory_bot_rails
+  faker (~> 3.5)
   figaro
   groupdate
   image_processing (~> 1.2)
@@ -528,6 +536,7 @@ DEPENDENCIES
   solid_cache
   solid_queue
   stimulus-rails
+  stripe
   thruster
   turbo-rails
   tzinfo-data

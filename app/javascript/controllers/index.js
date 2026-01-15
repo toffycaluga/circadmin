@@ -1,5 +1,6 @@
-// Import and register all your controllers from the importmap via controllers/**/*_controller
-import { application } from "controllers/application"
+// app/javascript/controllers/index.js
+import { application } from "./application"
 import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
-eagerLoadControllersFrom("controllers", application)
 
+// esto carga TODO *.js bajo app/javascript/controllers
+eagerLoadControllersFrom("controllers", application)

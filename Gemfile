@@ -105,7 +105,13 @@ gem "chartkick"
 
 gem "prawn"
 gem "prawn-table"
-gem "axlsx_rails"
+gem "caxlsx_rails"
 
 gem "pagy"
 gem "acts-as-taggable-on"
+
+# Gemfile
+gem "stripe"
+gem "dotenv-rails", groups: [ :development, :test ] # para manejar tus claves en .env
+
+gem "faker", "~> 3.5", groups: [ :development, :test ]

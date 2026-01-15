@@ -1,0 +1,54 @@
+en:
+  profile:
+    full_name:
+      placeholder: "Username not defined"
+    title: "Profile"
+    change_cover: "Change cover image"
+    upload_new_cover: "Upload new cover"
+    picture_alt: "Profile picture"
+    change_picture: "Change profile picture"
+    change: "Change"
+    upload_new_picture: "Upload new photo"
+    title: "Circus Artist"
+    tabs:
+      home: "Home"
+      profile: "Profile"
+      team: "Team"
+      personal_info: "Personal Information"
+      contact_info: "Contact Information"
+      edit: "Edit Profile"
+    labels:
+      no_data: "Not specified"
+      full_name: "Full name"
+      gender: "Gender"
+      birth_date: "Date of birth"
+      marital_status: "Marital status"
+      occupation: "Occupation"
+      mobile: "Phone"
+      location: "Location"
+      skills: "Skills"
+      jobs: "Jobs"
+      edit: "Edit"
+      placeholder_comment: "Write a comment..."
+      phone: "Phone"
+      web: "Website"
+      email: "Email"
+      address: "Address"
+      country: "Country"
+      save: "Save changes"
+    sections:
+      edit_profile: "Edit personal information"
+      edit_profile_subtext: "Update your contact and location details"
+      personal_info: "Personal Information"
+      personal_info_subtext: "Details that identify you as a user"
+      contact_info: "Contact Information"
+    errors:
+      header:
+        one: "1 error prevents saving the profile"
+        other: "%{count} errors prevent saving the profile"
+    image_options:
+      title: "Profile picture"
+      view: "View full size"
+      change: "Change photo"
+    image_viewer:
+      title: "Full image view"

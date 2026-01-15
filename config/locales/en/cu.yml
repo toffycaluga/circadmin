@@ -1,0 +1,5 @@
+en:
+  cu:
+    save: "Save"
+    delete: "Delete worker"
+    confirm: "Are you sure you want to deactivate this user?"

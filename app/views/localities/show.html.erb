@@ -4,11 +4,21 @@
   <hr>
 
   <div class="row">
-    <%= render "localities/shared/incomes", incomes: @incomes, locality: @locality %>
-    <%= render "localities/shared/expenses", expenses: @expenses, locality: @locality %>
+    <%= render "localities/shared/incomes",
+               incomes:  @incomes,
+               locality: @locality,
+               circus:   @locality.circus %>
+
+    <%= render "localities/shared/expenses",
+               expenses: @expenses,
+               locality: @locality,
+               circus:   @locality.circus %>
   </div>
 
   <hr>
 
-  <%= render "localities/shared/summary", incomes: @incomes, expenses: @expenses %>
+  <%= render "localities/shared/summary",
+             incomes:  @incomes,
+             expenses: @expenses,
+             locality: @locality %>
 </div>

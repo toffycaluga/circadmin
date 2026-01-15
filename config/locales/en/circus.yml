@@ -1,0 +1,44 @@
+en:
+  circus:
+    title: "Circus"
+    activate: "Activate"
+    deactivate: "Deactivate"
+    status:
+      confirm_change: "Are you sure you want to change the circus status?"
+      changed: "Circus status updated."
+    form:
+      name: "Circus name"
+      description: "Description"
+      country: "Country"
+      currency: "Currency"
+      logo: "Circus logo"
+    edit_title: "Edit Circus"
+    edit_heading: "✏️ Edit circus information"
+    links:
+      show: "👁 View this circus"
+      back: "🔙 Back to list"
+    admin:
+      title: "Circus Administration"
+      heading: "Managing: %{name}"
+      subtitle: "Manage your circus with joy and precision 🎭"
+    info:
+      title: "Circus Information"
+      status: "Status:"
+      country: "Location:"
+      currency: "Currency:"
+      unknown: "Not specified"
+      last_updated: "Last updated:"
+    status:
+      active: "Active"
+      inactive: "Inactive"
+      tooltip: "Operational status of the circus"
+      confirm_change: "Are you sure you want to change the circus status?"
+    actions:
+      edit: "Edit circus"
+      back: "Back to Dashboard"
+      title: "Options"
+      activate: "Activate"
+      deactivate: "Deactivate"
+      manage: "Manage"
+    labels:
+      name: "Circus"

@@ -1,0 +1,8 @@
+pt:
+  navbar:
+    brand: "CircAdmin"
+    toggle_menu: "Abrir menu principal"
+    logout: "Sair"
+    settings: "Configurações"
+    help: "Ajuda"
+    account: "Minha conta"

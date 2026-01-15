@@ -1,0 +1,8 @@
+en:
+  navbar:
+    brand: "CircAdmin"
+    toggle_menu: "Open main menu"
+    logout: "Log out"
+    settings: "Settings"
+    help: "Help"
+    account: "My account"

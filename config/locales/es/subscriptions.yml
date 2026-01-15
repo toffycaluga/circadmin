@@ -1,0 +1,69 @@
+es:
+  subscriptions:
+    new:
+      title: "Elige tu plan"
+      month: "mes"
+      subtitle: "Comienza con %{days} días gratis. Luego %{price} por mes."
+      trial_days:
+        one: "1 día de prueba"
+        other: "%{count} días de prueba"
+      payment_for: "Pago para"
+      close: "Cerrar"
+      pay_now: "Continuar"
+      cancel: "Cancelar"
+      continue_to_checkout: "Continuar al pago"
+      choose_plan: "Selecciona un plan"
+      choose_plan_help: "Puedes cambiarlo o cancelarlo en cualquier momento."
+      select_plan_first: "Selecciona un plan para continuar."
+    create:
+      error: "No se pudo procesar tu pago: %{error}"
+    pause:
+      success: "Suscripción pausada correctamente."
+      error: "Error al pausar la suscripción: %{error}"
+    resume:
+      success: "Suscripción reanudada correctamente."
+      error: "Error al reanudar la suscripción: %{error}"
+    check_availability:
+      subscription_needed:
+        title: "Suscripción necesaria"
+        body: "Debes elegir o actualizar tu plan antes de continuar."
+      limit_reached:
+        title: "Límite alcanzado"
+        body: "Ya tienes %{current} de %{allowed} elementos permitidos. Actualiza tu plan."
+      service_needed:
+        title: "Faltan módulos necesarios"
+        body: "Tu suscripción actual no incluye todos los servicios requeridos."
+      error:
+        title: "Ups, ocurrió un problema"
+        body: "No se pudo verificar tu suscripción. Intenta nuevamente."
+      invalid_subscription:
+        title: "Suscripción inválida"
+        body: "No encontramos tu suscripción. Por favor, elige un plan."
+    modal:
+      required:
+        title: "Suscripción necesaria"
+        body: "Debes elegir o actualizar tu plan para acceder a esta sección."
+      limit_reached:
+        title: "Límite alcanzado"
+        body: "Has alcanzado el límite permitido de circos (%{current}/%{allowed}). Actualiza tu plan para continuar."
+      invalid:
+        title: "Suscripción inválida"
+        body: "No encontramos tu suscripción. Por favor, selecciona un plan válido."
+    api:
+      create_deprecated: "Este endpoint ya no crea suscripciones. Usa el checkout (BillingController) para completar la compra."
+    check:
+      fallback_title: "Ups, ocurrió un problema"
+      fallback_body: "No se pudo verificar tu suscripción. Intenta nuevamente."
+    title: "Gestión de Suscripción"
+    current_plan: "Plan actual"
+    status: "Estado"
+    renew_or_end: "Renueva / Termina"
+    cancel_at_period_end: "Cancelación al fin de período"
+    paused: "Pausada"
+    actions:
+      pause: "Pausar cobro"
+      resume: "Reanudar cobro"
+      cancel_now: "Cancelar ahora (inmediato)"
+      cancel_at_period_end: "Cancelar al final del período"
+      uncancel: "Revertir cancelación diferida"
+      sync: "Sincronizar"

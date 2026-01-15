@@ -1,0 +1,26 @@
+es:
+  users:
+    invite:
+      email_placeholder: "Correo electrónico del usuario"
+      select_role_prompt: "Seleccionar rol"
+      role_label: "Rol"
+      submit: "Invitar"
+      mail: "Correo"
+    invitations:
+      title: "Invitar nuevo usuario"  
+      permission_denied: "No tienes permiso para invitar usuarios a este circo."
+      already_member: "Este usuario ya forma parte del circo."
+      recent_invitation: "Ya se envió una invitación recientemente. Espera que el usuario la acepte."
+      invitation_resent: "Invitación reenviada a %{email}."
+      already_accepted: "El usuario ya aceptó una invitación previa a este circo."
+      invited_ok: "Usuario invitado correctamente al circo."
+      sent: "Invitación enviada a %{email}."
+      error: "Ocurrió un error al enviar la invitación: %{error}"
+      fields:
+        email: "Correo electrónico"
+        role: "Rol"
+      actions:
+        send: "Enviar invitación"
+    sessions:
+      already_signed_in: "Ya tienes una sesión activa."
+    

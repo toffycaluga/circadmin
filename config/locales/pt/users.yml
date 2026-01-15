@@ -1,0 +1,25 @@
+pt:
+  users:
+    invite:
+      email_placeholder: "Endereço de e-mail do usuário"
+      select_role_prompt: "Selecionar função"
+      role_label: "Função"
+      submit: "Convidar"
+      mail: "E-mail"
+    invitations:
+      title: "Convidar novo usuário"
+      permission_denied: "Você não tem permissão para convidar usuários para este circo."
+      already_member: "Este usuário já faz parte do circo."
+      recent_invitation: "Um convite já foi enviado recentemente. Aguarde o usuário aceitá-lo."
+      invitation_resent: "Convite reenviado para %{email}."
+      already_accepted: "O usuário já aceitou um convite anterior para este circo."
+      invited_ok: "Usuário convidado com sucesso para o circo."
+      sent: "Convite enviado para %{email}."
+      error: "Ocorreu um erro ao enviar o convite: %{error}"
+      fields:
+        email: "E-mail"
+        role: "Função"
+      actions:
+        send: "Enviar convite"
+    sessions:
+      already_signed_in: "Você já tem uma sessão ativa."

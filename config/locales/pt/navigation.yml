@@ -1,0 +1,14 @@
+pt:
+  navigation:
+    dashboard: "Início"
+    my_circuses: "Meus circos"
+    my_documents: "Meus documentos"
+    user_section:
+      title: "Usuário"
+      my_profile: "Meu perfil"
+      settings: "Configurações"
+      logout: "Sair"
+    sidebar:
+      aria_label: "Menu lateral"
+    billing: "Faturamento"
+    admin: "Administração"

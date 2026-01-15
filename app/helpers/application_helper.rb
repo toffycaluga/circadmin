@@ -1,5 +1,8 @@
 module ApplicationHelper
     include Pagy::Frontend
+    def role_label(role)
+      I18n.t("circus_users.roles.#{role}", default: role.to_s.humanize)
+    end
 
     def load_template_scripts(type = :plugins)
       path = case type

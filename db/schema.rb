@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_18_032542) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_08_223629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -64,6 +64,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_18_032542) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "stripe_customer_id"
+    t.boolean "had_trial", default: false, null: false
+    t.string "stripe_subscription_status"
+    t.datetime "stripe_current_period_end"
+    t.boolean "stripe_cancel_at_period_end"
+    t.jsonb "stripe_pause_collection"
+    t.index ["stripe_customer_id"], name: "index_circuses_on_stripe_customer_id"
     t.index ["user_id"], name: "index_circuses_on_user_id"
   end
 
@@ -115,6 +122,101 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_18_032542) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
+  create_table "payment_methods", force: :cascade do |t|
+    t.bigint "circus_id", null: false
+    t.string "stripe_payment_method_id", null: false
+    t.string "card_brand", null: false
+    t.string "last4", null: false
+    t.integer "exp_month", null: false
+    t.integer "exp_year", null: false
+    t.boolean "default", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["circus_id"], name: "index_payment_methods_on_circus_id"
+  end
+
+  create_table "payroll_items", force: :cascade do |t|
+    t.bigint "payroll_id", null: false
+    t.string "name"
+    t.string "job_role"
+    t.decimal "amount"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payroll_id"], name: "index_payroll_items_on_payroll_id"
+  end
+
+  create_table "payrolls", force: :cascade do |t|
+    t.string "title"
+    t.date "date"
+    t.decimal "total"
+    t.bigint "circus_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["circus_id"], name: "index_payrolls_on_circus_id"
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "stripe_price_id", null: false
+    t.integer "price_cents", null: false
+    t.integer "allowed_circuses", null: false
+    t.text "features"
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "trial_days", default: 0, null: false
+    t.string "key", null: false
+    t.index ["key"], name: "index_plans_on_key", unique: true
+    t.index ["stripe_price_id"], name: "index_plans_on_stripe_price_id"
+  end
+
+  create_table "subscription_items", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "subscription_id", null: false
+    t.string "stripe_subscription_item_id"
+    t.string "stripe_product_id"
+    t.string "price_id"
+    t.string "service_key", default: "core", null: false
+    t.integer "quantity", default: 1, null: false
+    t.boolean "active", default: true, null: false
+    t.integer "unit_amount"
+    t.string "currency"
+    t.string "interval"
+    t.integer "interval_count"
+    t.index ["service_key"], name: "index_subscription_items_on_service_key"
+    t.index ["stripe_subscription_item_id"], name: "index_subscription_items_on_stripe_subscription_item_id", unique: true
+    t.index ["subscription_id", "service_key"], name: "idx_one_active_item_per_service", unique: true, where: "(active = true)"
+    t.index ["subscription_id", "service_key"], name: "uniq_active_item_per_service_per_subscription", unique: true, where: "(active = true)"
+    t.index ["subscription_id"], name: "index_subscription_items_on_subscription_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "circus_id", null: false
+    t.string "stripe_subscription_id", null: false
+    t.string "status", null: false
+    t.datetime "current_period_start", null: false
+    t.datetime "current_period_end", null: false
+    t.string "price_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "checkout_session_id"
+    t.string "stripe_customer_id"
+    t.boolean "active", default: false, null: false
+    t.boolean "cancel_at_period_end", default: false, null: false
+    t.string "latest_invoice_id"
+    t.string "latest_invoice_status"
+    t.string "latest_charge_id"
+    t.datetime "paid_through_at"
+    t.index ["checkout_session_id"], name: "index_subscriptions_on_checkout_session_id", unique: true
+    t.index ["circus_id"], name: "index_subscriptions_on_circus_id"
+    t.index ["circus_id"], name: "index_subscriptions_one_active_per_circus", unique: true, where: "(active = true)"
+    t.index ["circus_id"], name: "uniq_active_subscription_per_circus", unique: true, where: "(active = true)"
+    t.index ["price_id"], name: "index_subscriptions_on_price_id"
+    t.index ["stripe_subscription_id"], name: "index_subscriptions_on_stripe_subscription_id", unique: true
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.bigint "tag_id"
     t.string "taggable_type"
@@ -158,8 +260,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_18_032542) do
     t.datetime "updated_at", null: false
     t.string "category"
     t.bigint "locality_id", null: false
+    t.bigint "payroll_id"
     t.index ["circus_id"], name: "index_transactions_on_circus_id"
     t.index ["locality_id"], name: "index_transactions_on_locality_id"
+    t.index ["payroll_id"], name: "index_transactions_on_payroll_id"
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
@@ -192,6 +296,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_18_032542) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.integer "inviting_circus_id"
+    t.boolean "superadmin", default: false, null: false
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.string "stripe_subscription_id"
+    t.boolean "had_trial", default: false, null: false
+    t.integer "circuses_count", default: 0, null: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
@@ -211,9 +324,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_18_032542) do
   add_foreign_key "invitations", "users", column: "sender_id"
   add_foreign_key "localities", "circuses"
   add_foreign_key "notifications", "users"
+  add_foreign_key "payment_methods", "circuses"
+  add_foreign_key "payroll_items", "payrolls"
+  add_foreign_key "payrolls", "circuses"
+  add_foreign_key "subscription_items", "subscriptions"
+  add_foreign_key "subscriptions", "circuses"
   add_foreign_key "taggings", "tags"
   add_foreign_key "transactions", "circuses"
   add_foreign_key "transactions", "localities"
+  add_foreign_key "transactions", "payrolls"
   add_foreign_key "transactions", "users"
   add_foreign_key "user_profiles", "users"
 end

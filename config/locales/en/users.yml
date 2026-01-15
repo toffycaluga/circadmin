@@ -1,0 +1,25 @@
+en:
+  users:
+    invite:
+      email_placeholder: "User’s email address"
+      select_role_prompt: "Select role"
+      role_label: "Role"
+      submit: "Invite"
+      mail: "Email"
+    invitations:
+      title: "Invite new user"
+      permission_denied: "You do not have permission to invite users to this circus."
+      already_member: "This user is already a member of the circus."
+      recent_invitation: "An invitation was already sent recently. Please wait for the user to accept it."
+      invitation_resent: "Invitation resent to %{email}."
+      already_accepted: "The user has already accepted a previous invitation to this circus."
+      invited_ok: "User successfully invited to the circus."
+      sent: "Invitation sent to %{email}."
+      error: "An error occurred while sending the invitation: %{error}"
+      fields:
+        email: "Email"
+        role: "Role"
+      actions:
+        send: "Send invitation"
+    sessions:
+      already_signed_in: "You are already signed in."

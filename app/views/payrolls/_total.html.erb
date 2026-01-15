@@ -1,0 +1,5 @@
+<%# locals: payroll %>
+<div id="payroll-total" class="d-flex justify-content-end align-items-center">
+  <strong class="me-2"><%= t("payrolls.total", default: "Total planilla:") %></strong>
+  <span><%= number_to_currency(payroll.total_amount) %></span>
+</div>

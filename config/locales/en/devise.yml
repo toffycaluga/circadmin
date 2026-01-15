@@ -1,0 +1,47 @@
+en:
+  devise:
+    login: "Log in"
+    logout: "Log out"
+    register: "Sign up"
+    edit: "Edit"
+    forgot: "Forgot your password?"
+    confirmation: "Didn't receive confirmation instructions?"
+    unlock: "Didn't receive unlock instructions?"
+    sessions:
+      new:
+        title: "Log in"
+        submit: "Sign in"
+        remember_me: "Remember me"
+        forgot_password: "Forgot your password?"
+    registrations:
+      new:
+        title: "Sign up"
+        submit: "Create account"
+        have_account: "Already have an account?"
+      edit:
+        title: "Edit account"
+        submit: "Update"
+        cancel: "Cancel my account"
+    passwords:
+      new:
+        title: "Forgot your password?"
+        submit: "Send instructions"
+      edit:
+        title: "Reset password"
+        submit: "Change my password"
+    confirmations:
+      new:
+        title: "Resend confirmation instructions"
+        submit: "Resend confirmation instructions"
+    unlocks:
+      new:
+        title: "Resend unlock instructions"
+        submit: "Send instructions"
+    mailer:
+      email_changed:
+        greeting: "Hello %{email}!"
+        pending_change_html: "We’re contacting you to let you know that your email is being changed to <strong>%{new_email}</strong>."
+        changed_html: "We’re contacting you to let you know that your email has been changed to <strong>%{new_email}</strong>."
+      password_change:
+        greeting: "Hello %{email}!"
+        message: "We’re contacting you to let you know that your password has been changed."

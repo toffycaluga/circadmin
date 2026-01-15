@@ -1,0 +1,92 @@
+pt:
+  flash:
+    notifications:
+      mark_as_read:
+        success: "Notificação marcada como lida."
+        failure: "Não foi possível marcar a notificação como lida."
+      all_marked_read:
+        success: "Todas as notificações foram marcadas como lidas."
+      show:
+        opened: "Você abriu uma notificação."
+      not_found: "Notificação não encontrada."
+    payment_methods:
+      create:
+        success: "Método de pagamento adicionado com sucesso."
+        failure: "Não foi possível adicionar o método de pagamento: %{error}"
+      destroy:
+        success: "Método de pagamento removido com sucesso."
+        failure: "Não foi possível remover o método de pagamento: %{error}"
+    payroll_items:
+      create:
+        success: "Item da folha adicionado com sucesso."
+        failure: "Não foi possível adicionar o item da folha. Verifique os campos."
+      update:
+        success: "Item da folha atualizado com sucesso."
+        failure: "Não foi possível atualizar o item da folha. Verifique os campos."
+      destroy:
+        success: "Item da folha removido com sucesso."
+      not_found: "Item da folha não encontrado."
+      payroll_not_found: "Folha não encontrada ou você não tem permissão para acessá-la."
+    payrolls:
+      create:
+        already_exists: "Já existe uma folha para este circo."
+        success: "Folha criada. Agora você pode adicionar itens."
+      register_expense:
+        success: "Despesa registrada com sucesso."
+        failure: "Não foi possível registrar a despesa: %{error}"
+      mark_as_paid:
+        success: "Folha marcada como paga."
+      subscription:
+        select_circus: "Você deve selecionar um circo."
+        required: "É necessária uma assinatura para acessar este recurso."
+        missing_service: "Sua assinatura não inclui o módulo necessário (%{service})."
+    subscriptions:
+      not_found: "Nenhuma assinatura ativa encontrada para este circo."
+      pause:
+        success: "Assinatura pausada com sucesso."
+        error: "Erro ao pausar a assinatura: %{error}"
+      resume:
+        success: "Assinatura retomada com sucesso."
+        error: "Erro ao retomar a assinatura: %{error}"
+      cancel_now:
+        success: "A assinatura foi cancelada imediatamente."
+        error: "Erro ao cancelar a assinatura: %{error}"
+      cancel_at_period_end:
+        success: "A assinatura será cancelada no final do período atual."
+        error: "Não foi possível agendar o cancelamento no final do período: %{error}"
+      uncancel:
+        success: "Cancelamento agendado revertido. A assinatura continuará ativa."
+        error: "Não foi possível reverter o cancelamento agendado: %{error}"
+      sync:
+        success: "Status da assinatura sincronizado com sucesso."
+        error: "Não foi possível sincronizar a assinatura: %{error}"
+    transactions:
+      create:
+        success: "Transação registrada com sucesso."
+        failure: "Não foi possível registrar a transação. Verifique os campos."
+      update:
+        success: "Transação atualizada com sucesso."
+        failure: "Não foi possível atualizar a transação. Verifique os campos."
+      destroy:
+        success: "Transação removida com sucesso."
+    user_profiles:
+      create:
+        success: "Perfil de usuário criado com sucesso."
+        failure: "Não foi possível criar o perfil. Verifique os campos."
+      update:
+        success: "Perfil atualizado com sucesso."
+        failure: "Não foi possível atualizar o perfil. Verifique os campos."
+      picture:
+        update:
+          success: "Foto do perfil atualizada com sucesso."
+          failure: "Não foi possível atualizar a foto do perfil."
+      destroy:
+        success: "Perfil removido com sucesso."
+      unauthorized: "Você não tem permissão para acessar este perfil."
+      not_found: "Perfil não encontrado."
+    close: "Fechar"
+    success:
+      updated: "As alterações foram salvas com sucesso."
+      created: "O registro foi criado com sucesso."
+    errors:
+      generic: "Ocorreu um erro. Por favor, tente novamente."

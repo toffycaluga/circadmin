@@ -1,0 +1,5 @@
+pt:
+  layouts:
+    application:
+      title: "CircAdmin"
+      back_home: "Voltar ao início"

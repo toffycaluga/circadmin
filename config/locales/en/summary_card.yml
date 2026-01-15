@@ -1,0 +1,9 @@
+en:
+  summary_card:
+    weekly: "Weekly Summary"
+    monthly: "Monthly Summary"
+    view_details: "View details"
+    last_day: "Last Day Summary"
+    last_weekly: "Last Week Summary"
+    last_monthly: "Last Month Summary"
+    overall: "Overall Summary"

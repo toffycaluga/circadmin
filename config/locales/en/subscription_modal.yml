@@ -1,0 +1,8 @@
+en:
+  subscription_modal:
+    go_to_subscription: "Go to subscription"
+    cancel: "Cancel"
+    close: "Close"
+    messages:
+      expired: "Your plan has expired"
+      required: "You need an active subscription to access this feature"

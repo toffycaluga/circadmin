@@ -1,25 +1,25 @@
+<!-- app/views/localities/shared/_summary_row.html.erb -->
 <div class="row">
   <div class="col-md-4">
-    <%= render "localities/shared/summary_card", 
-                title: "Total ingresos", 
-                amount: incomes.sum(:amount), 
-                color_class: "bg-c-green", 
-                circus: locality.circus%>
+    <%= render "localities/shared/summary_card",
+                title: t("localities.summary.total_incomes"),
+                amount: incomes.sum(:amount),
+                color_class: "bg-c-green",
+                circus: locality.circus %>
   </div>
 
   <div class="col-md-4">
-    <%= render "localities/shared/summary_card", 
-                title: "Total gastos", 
-                amount: expenses.sum(:amount), 
+    <%= render "localities/shared/summary_card",
+                title: t("localities.summary.total_expenses"),
+                amount: expenses.sum(:amount),
                 color_class: "bg-c-red",
-                circus: locality.circus%>
-
+                circus: locality.circus %>
   </div>
 
   <div class="col-md-4">
-    <%= render "localities/shared/summary_card", 
-                title: "Balance", 
-                amount: incomes.sum(:amount) - expenses.sum(:amount), 
+    <%= render "localities/shared/summary_card",
+                title: t("localities.summary.balance"),
+                amount: incomes.sum(:amount) - expenses.sum(:amount),
                 color_class: "bg-c-blue",
                 circus: locality.circus %>
   </div>

@@ -1,11 +1,14 @@
-<% content_for :title, "New circu" %>
+<%# app/views/circuses/new.html.erb %>
+<% content_for :title, t('circuses.new.title') %>
 
-<h1>New circus</h1>
-
-<%= render "form", circus: @circus %>
-
-<br>
-
-<div>
-  <%= link_to "Back to circus", circuses_path %>
+<div class="card shadow mb-4">
+  <div class="card-header bg-primary text-white">
+    <h1 class="h4 mb-0"><%= t('circuses.new.heading') %></h1>
+  </div>
+  <div class="card-body">
+    <%= render 'form', circus: @circus %>
+  </div>
+  <div class="card-footer text-end">
+    <%= link_to t('helpers.links.back'), circuses_path, class: 'btn btn-outline-secondary' %>
+  </div>
 </div>

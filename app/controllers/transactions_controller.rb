@@ -12,42 +12,34 @@ class TransactionsController < ApplicationController
 
   # =============== VISTA DE RESUMEN DETALLADO (en pantalla) ===============
   def summary_details
-    @locality = Locality.find(params[:id])
+    @locality   = Locality.find(params[:id])
     @group_type = params[:group]
-    @type = params[:type]
-    @label = parse_label(params[:date], @group_type) # genera un Date base desde el string
+    @type       = params[:type]
+    @label      = parse_label(params[:date], @group_type) # genera un Date base desde el string
 
     scope = @type == "income" ? @locality.transactions.incomes : @locality.transactions.expenses
 
     @transactions = case @group_type
     when "daily"
-      scope.where(date: @label)
-
+                      scope.where(date: @label)
     when "weekly"
-      first_date = scope.minimum(:date)
-      if first_date
-        scope.where(date: @label.beginning_of_week..@label.end_of_week)
-      else
-        scope.none
-      end
-
+                      first_date = scope.minimum(:date)
+                      first_date ? scope.where(date: @label.beginning_of_week..@label.end_of_week) : scope.none
     when "monthly"
-      scope.where(date: @label.beginning_of_month..@label.end_of_month)
-
+                      scope.where(date: @label.beginning_of_month..@label.end_of_month)
     when "total"
-      scope
-
+                      scope
     else
-      scope.none
+                      scope.none
     end
   end
 
   # =============== EXPORTACIÓN PDF ===============
   def export_pdf
-    @locality = Locality.find(params[:locality_id])
-    @type = params[:type]
+    @locality   = Locality.find(params[:locality_id])
+    @type       = params[:type]
     @group_type = params[:group]
-    @label = parse_label(params[:label], @group_type)
+    @label      = parse_label(params[:label], @group_type)
 
     @transactions = filter_summary_transactions
 
@@ -60,22 +52,22 @@ class TransactionsController < ApplicationController
 
   # =============== EXPORTACIÓN EXCEL ===============
   def export_excel
-    @locality = Locality.find(params[:locality_id])
-    @type = params[:type]
+    @locality   = Locality.find(params[:locality_id])
+    @type       = params[:type]
     @group_type = params[:group]
-    @label = parse_label(params[:label], @group_type)
+    @label      = parse_label(params[:label], @group_type)
 
     @transactions = filter_summary_transactions
 
     respond_to do |format|
-      format.xlsx {
-        response.headers["Content-Disposition"] = "attachment; filename=resumen_transacciones_#{Time.now.strftime('%Y%m%d')}.xlsx"
-      }
+      format.xlsx do
+        response.headers["Content-Disposition"] =
+          "attachment; filename=resumen_transacciones_#{Time.now.strftime('%Y%m%d')}.xlsx"
+      end
     end
   end
 
   # =============== PARSEO DE FECHAS PARA AGRUPACIONES ===============
-  # Devuelve un Date en base al string recibido y el tipo de agrupación
   def parse_label(label, group_type)
     return Date.today if label.blank?
 
@@ -90,7 +82,6 @@ class TransactionsController < ApplicationController
   end
 
   # =============== USADO POR EXPORTADORES PARA FILTRAR DATOS ===============
-  # Devuelve el mismo conjunto de datos que se muestra en summary_details
   def filter_summary_transactions
     scope = @locality.transactions
     scope = scope.where(transaction_type: @type) if @type.present?
@@ -98,16 +89,12 @@ class TransactionsController < ApplicationController
     case @group_type
     when "daily"
       scope.where(date: @label)
-
     when "weekly"
       scope.where(date: @label.beginning_of_week..@label.end_of_week)
-
     when "monthly"
       scope.where(date: @label.beginning_of_month..@label.end_of_month)
-
     when "total"
       scope
-
     else
       scope.none
     end
@@ -115,23 +102,23 @@ class TransactionsController < ApplicationController
 
   # =============== DASHBOARD DE AGRUPACIONES PRINCIPALES ===============
   def overview
-    @locality = Locality.find(params[:id])
+    @locality   = Locality.find(params[:id])
     @group_type = params[:group] || "daily"
-    @type = params[:type] || "income"
-    @order = params[:order] || "date"
+    @type       = params[:type]  || "income"
+    @order      = params[:order] || "date"
 
     scope = Transaction.where(locality: @locality, transaction_type: @type)
 
     @summaries = case @group_type
     when "daily"
-      scope.group_by_day(:date).sum(:amount)
+                   scope.group_by_day(:date).sum(:amount)
     when "weekly"
-      first_date = scope.minimum(:date)
-      first_date ? scope.group_by_week(:date, week_start: :monday, range: first_date.beginning_of_week..).sum(:amount) : {}
+                   first_date = scope.minimum(:date)
+                   first_date ? scope.group_by_week(:date, week_start: :monday, range: first_date.beginning_of_week..).sum(:amount) : {}
     when "monthly"
-      scope.group_by_month(:date).sum(:amount)
+                   scope.group_by_month(:date).sum(:amount)
     else
-      { "Total" => scope.sum(:amount) }
+                   { I18n.t("transactions.overview.total") => scope.sum(:amount) }
     end
   end
 
@@ -139,8 +126,8 @@ class TransactionsController < ApplicationController
   def new
     @transaction = Transaction.new(
       transaction_type: params[:transaction_type],
-      locality_id: params[:locality_id],
-      date: Time.current
+      locality_id:      params[:locality_id],
+      date:             Time.current
     )
     @locality = Locality.find(params[:locality_id])
   end
@@ -148,28 +135,35 @@ class TransactionsController < ApplicationController
   def edit; end
 
   def create
-    @transaction = Transaction.new(transaction_params)
-    @transaction.user = current_user
+    @transaction        = Transaction.new(transaction_params)
+    @transaction.user   = current_user
     @transaction.circus = current_circus
 
     if @transaction.save
-      redirect_to admin_locality_path(@transaction.locality), notice: "Transacción registrada correctamente."
+      redirect_to admin_locality_path(@transaction.locality),
+                  notice: t("flash.transactions.create.success")
     else
+      flash.now[:alert] = t("flash.transactions.create.failure")
       render :new, status: :unprocessable_entity
     end
   end
 
   def update
     if @transaction.update(transaction_params)
-      redirect_to locality_path(@transaction.locality), notice: "Transacción actualizada correctamente."
+      redirect_to locality_path(@transaction.locality),
+                  notice: t("flash.transactions.update.success")
     else
+      flash.now[:alert] = t("flash.transactions.update.failure")
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @transaction.destroy!
-    redirect_to transactions_path, status: :see_other, notice: "Transacción eliminada correctamente."
+    flash[:notice] = t("flash.transactions.destroy.success")
+
+    previous = (session[:history] && session[:history][1]) || transactions_path
+    redirect_to previous, status: :see_other
   end
 
   def card

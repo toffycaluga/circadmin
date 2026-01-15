@@ -1,0 +1,29 @@
+<!-- app/views/payroll_items/_modal.html.erb -->
+<div class="modal-backdrop show"></div>
+
+<div
+  class="modal d-block"
+  tabindex="-1"
+  role="dialog"
+  aria-modal="true"
+  data-action="click->modal#stop"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content p-4">
+      <div class="modal-header">
+        <h5 class="modal-title"><%= t("payroll_items.modal.title") %></h5>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="<%= t('shared.close') %>"
+          data-action="modal#close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <%= render partial: "payroll_items/form_modal",
+                   locals: { payroll: payroll, payroll_item: payroll_item } %>
+      </div>
+    </div>
+  </div>
+</div>

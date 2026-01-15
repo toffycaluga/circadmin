@@ -1,3 +1,4 @@
+<%# app/views/shared/dashboard/main/_workers_tabs.html.erb %>
 <% current_cu = current_user.circus_users.find_by(circus: @circus) %>
 <% es_owner = current_cu&.role == "owner" %>
 <% filtered_circus_users = if es_owner
@@ -11,30 +12,63 @@
 else
   @circus_users
 end %>
-<div class="col-lg-7 mb-4">
-  <div class="card card table-card">
+
+<div class="col-lg-7 mb-4" data-controller="menu">
+  <div class="card table-card">
     <div class="card-body">
+      <!-- Nav tabs -->
       <ul class="nav nav-tabs px-3 pt-3 mb-0" id="myTab" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active text-uppercase" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active text-uppercase"
+            id="workers-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#workers"
+            type="button"
+            role="tab"
+            aria-controls="workers"
+            aria-selected="true">
             <%= t("workers.title") %>
-          </a>
+          </button>
         </li>
+
         <% if es_owner %>
-          <li class="nav-item">
-            <a class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link text-uppercase"
+              id="add-worker-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#add-worker"
+              type="button"
+              role="tab"
+              aria-controls="add-worker"
+              aria-selected="false">
               <%= t("workers.add") %>
-            </a>
+            </button>
           </li>
-          <li class="nav-item">
-            <a class="nav-link text-uppercase" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link text-uppercase"
+              id="edit-worker-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#edit-worker"
+              type="button"
+              role="tab"
+              aria-controls="edit-worker"
+              aria-selected="false">
               <i class="fas fa-cog"></i> <%= t("workers.edit") %>
-            </a>
+            </button>
           </li>
         <% end %>
       </ul>
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+      <!-- Tab panes -->
+      <div class="tab-content mt-4" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="workers"
+          role="tabpanel"
+          aria-labelledby="workers-tab">
           <div class="table-responsive">
             <table class="table table-hover m-0">
               <thead>
@@ -50,28 +84,28 @@ end %>
               <tbody>
                 <% filtered_circus_users.each do |cu| %>
                   <tr>
-                    <td>
-                      <div class="text-center">
-                        <%= image_tag(
+                    <td class="text-center">
+                      <%= image_tag(
                         cu.user.user_profile&.profile_picture&.attached? ?
                           url_for(cu.user.user_profile.profile_picture) :
                           asset_path("avatar.jpg"),
                         class: "img-radius img-fluid rounded-circle",
-                        alt: "Foto de perfil",
+                        alt: t("workers.profile_picture_alt"),
                         width: 60,
                         height: 60,
                         style: "object-fit: cover; aspect-ratio: 1/1;",
-          loading: "lazy"
+                        loading: "lazy"
                       ) %>
-                        <h5 class="mt-2">
-                          <%= cu.user.user_profile&.full_name.presence || content_tag(:span, "Nombre no disponible", class: "text-muted") %>
-                        </h5>
-                      </div>
+                      <h5 class="mt-2">
+                        <%= cu.user.user_profile&.full_name.presence || content_tag(:span, t("workers.name_unavailable"), class: "text-muted") %>
+                      </h5>
                     </td>
                     <td>
                       <h6 class="mb-1"><%= cu.user.email %></h6>
                     </td>
-                    <td><span class="fw-bold"><%= t("roles.#{cu.role}") %></span></td>
+                    <td>
+                      <span class="fw-bold"><%= t("roles.#{cu.role}") %></span>
+                    </td>
                     <% if es_owner %>
                       <td>
                         <% invitation = cu.user.invitations
@@ -80,26 +114,25 @@ end %>
                           .order(created_at: :desc)
                           .first %>
                         <% puede_reenviar = invitation&.sender_id == current_user.id %>
+
                         <% if invitation.present? %>
                           <% if invitation.status == Invitation::STATUSES["pending"] %>
                             <div class="d-flex gap-3">
-                              <span class="badge bg-warning text-dark">Pendiente</span>
+                              <span class="badge bg-warning text-dark"><%= t("workers.statuses.pending") %></span>
                               <% if puede_reenviar %>
                                 <%= button_to resend_email_custom_invitation_path(invitation),
                                   method: :post,
                                   class: "btn btn-sm btn-outline-secondary d-flex align-items-center gap-1",
-                                  data: {
-                                    turbo_confirm: "¿Estás seguro que deseas reenviar esta invitación? Se enviará nuevamente al correo del usuario."
-                                  } do %>
-                                  <i class="fas fa-paper-plane"></i> Reenviar
+                                  data: { turbo_confirm: t("invitations.confirm_resend") } do %>
+                                  <i class="fas fa-paper-plane"></i> <%= t("workers.resend") %>
                                 <% end %>
                               <% end %>
                             </div>
                           <% elsif invitation.status == Invitation::STATUSES["accepted"] %>
-                            <span class="badge bg-success">Aceptado</span>
+                            <span class="badge bg-success"><%= t("workers.statuses.accepted") %></span>
                           <% end %>
                         <% else %>
-                          <span class="badge bg-secondary">Sin invitación</span>
+                          <span class="badge bg-secondary"><%= t("workers.statuses.no_invitation") %></span>
                         <% end %>
                       </td>
                     <% end %>
@@ -109,14 +142,19 @@ end %>
             </table>
           </div>
         </div>
+
         <% if es_owner %>
-          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div
+            class="tab-pane fade"
+            id="add-worker"
+            role="tabpanel"
+            aria-labelledby="add-worker-tab">
             <div class="table-responsive">
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th><%= t("users.invite.mail")%></th>
-                    <th><%= t("users.invite.role_label")%></th>
+                    <th><%= t("users.invite.mail") %></th>
+                    <th><%= t("users.invite.role_label") %></th>
                     <th></th>
                   </tr>
                 </thead>
@@ -126,13 +164,18 @@ end %>
               </table>
             </div>
           </div>
-          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+          <div
+            class="tab-pane fade"
+            id="edit-worker"
+            role="tabpanel"
+            aria-labelledby="edit-worker-tab">
             <div class="table-responsive">
               <table class="table table-hover table-borderless">
                 <thead>
                   <tr>
-                    <th><%= t("users.invite.mail")%></th>
-                    <th><%= t("users.invite.role_label")%></th>
+                    <th><%= t("users.invite.mail") %></th>
+                    <th><%= t("users.invite.role_label") %></th>
                     <th></th>
                   </tr>
                 </thead>

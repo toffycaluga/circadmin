@@ -1,0 +1,34 @@
+pt:
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d %b"
+      long: "%d de %B de %Y"
+    abbr_month_names:
+      - ~
+      - "jan"
+      - "fev"
+      - "mar"
+      - "abr"
+      - "mai"
+      - "jun"
+      - "jul"
+      - "ago"
+      - "set"
+      - "out"
+      - "nov"
+      - "dez"
+    month_names:
+      - ~
+      - "Janeiro"
+      - "Fevereiro"
+      - "Março"
+      - "Abril"
+      - "Maio"
+      - "Junho"
+      - "Julho"
+      - "Agosto"
+      - "Setembro"
+      - "Outubro"
+      - "Novembro"
+      - "Dezembro"

@@ -1,0 +1,24 @@
+es:
+  insights:
+    title: "Análisis detallado"
+    range: "Rango de fechas"
+    filters:
+      title: "Filtros de búsqueda"
+      start_date: "Desde"
+      end_date: "Hasta"
+      category: "Categoría"
+      apply: "Aplicar filtros"
+      all_categories: "Todas las categorías"
+    summary:
+      title: "Resumen por categoría"
+      no_data: "No hay resumen disponible para este período."
+    transactions:
+      title: "Transacciones detalladas"
+      no_data: "No hay transacciones para este período."
+    detail:
+      title: "Detalle del resumen"
+      range: "Rango"
+      total: "Total"
+      transactions_title: "Transacciones registradas"
+      no_transactions: "No hay transacciones registradas para este período."
+      back: "Volver"

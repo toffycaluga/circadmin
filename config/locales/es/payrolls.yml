@@ -1,0 +1,48 @@
+es:
+  payrolls:
+    section:
+      title: "🧾 Planillas registradas"
+      count: "%{count} planilla(s)"
+      view: "📋 Ver planilla"
+      none: "No hay planillas registradas aún."
+      create: "📝 Crear nueva planilla"
+    status:
+      paid: "Pagada"
+      unpaid: "Pendiente"
+    actions:
+      back: "🔙 Volver al circo"
+      register_expense: "💸 Registrar como gasto"
+    confirm:
+      register: "¿Registrar esta planilla como gasto?"
+    status:
+      already_registered: "Gasto ya registrado"
+    total: "Total planilla:"
+    card:
+      header: "🧾 Nómina de %{period}"
+      total_hidden: "Total %{amount}"
+      view: "Ver nómina"
+      view_aria: "Ver detalle de la nómina"
+      none: "No hay nómina registrada aún."
+      create: "📝 Crear nómina"
+    modal:
+      confirm_expense_title: "Confirmar registro de gasto"
+      date_label: "Fecha del gasto"
+      locality_label: "Localidad"
+      confirm_button: "Confirmar"
+      confirm_income_title: "Confirmar registro de ingreso"
+    total: "Total planilla:"
+    new:
+      title: "Nueva planilla"
+      heading: "Crear nueva planilla"
+    show:
+      title: "🧾 Detalle de Nómina"
+      actions:
+        register_expense: "Registrar gasto"
+        export_pdf: "Exportar a PDF"
+      table_headers:
+        name: "Nombre"
+        role: "Cargo"
+        amount: "Monto"
+        notes: "Notas"
+      table_footer:
+        total_label: "Total nómina:"

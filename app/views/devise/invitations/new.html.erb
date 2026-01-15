@@ -1,13 +1,24 @@
+<!-- app/views/users/invitations/new.html.erb -->
+<h3><%= t("users.invitations.title") %></h3>
+
 <%= form_for(User.new, as: :user, url: user_invitation_path, method: :post) do |f| %>
-  <%= f.label :email %>
-  <%= f.email_field :email, class: "form-control" %>
+  <div class="form-group mb-3">
+    <%= f.label :email, t("users.invitations.fields.email") %>
+    <%= f.email_field :email, class: "form-control" %>
+  </div>
 
-  <%= label_tag 'user[role]', "Role" %>
-  <%= select_tag 'user[role]', options_for_select(
-        CircusUser::ROLES
-          .reject { |r| r == "owner" }
-          .map { |r| [role_label(r), r] }
-      ), class: "form-control" %>
+  <div class="form-group mb-3">
+    <%= label_tag 'user[role]', t("users.invitations.fields.role") %>
+    <%= select_tag 'user[role]',
+          options_for_select(
+            CircusUser::ROLES
+              .reject { |r| r == "owner" }
+              .map { |r| [role_label(r), r] }
+          ),
+          class: "form-control" %>
+  </div>
 
-  <%= f.submit "Send Invitation", class: "btn btn-primary" %>
+  <div class="form-group">
+    <%= f.submit t("users.invitations.actions.send"), class: "btn btn-primary" %>
+  </div>
 <% end %>

@@ -1,0 +1,7 @@
+en:
+  time:
+    formats:
+      default: "%m/%d/%Y %H:%M"
+      short: "%b %d"
+      long: "%B %d, %Y at %H:%M"
+      date_only: "%m/%d/%Y"

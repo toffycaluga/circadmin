@@ -1,0 +1,6 @@
+en:
+  roles:
+    admin: "Administrator"
+    accountant: "Accountant"
+    representative: "Representative"
+    owner: "Owner"

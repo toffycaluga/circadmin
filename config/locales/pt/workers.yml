@@ -1,0 +1,18 @@
+pt:
+  workers:
+    title: "Trabalhadores"
+    user: "Usuário"
+    role: "Cargo"
+    mail: "E-mail"
+    action: "Ações"
+    add: "Adicionar trabalhador"
+    edit: "Editar trabalhador"
+    back: "Voltar aos trabalhadores"
+    status: "Status"
+    profile_picture_alt: "Foto de perfil"
+    name_unavailable: "Nome não disponível"
+    resend: "Reenviar"
+    statuses:
+      pending: "Pendente"
+      accepted: "Aceito"
+      no_invitation: "Sem convite"

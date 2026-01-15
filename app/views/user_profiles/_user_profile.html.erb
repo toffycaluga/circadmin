@@ -1,27 +1,26 @@
 <div id="<%= dom_id user_profile %>">
   <p>
-    <strong>User:</strong>
+    <strong><%= t("user_profiles.show.user") %>:</strong>
     <%= user_profile.user_id %>
   </p>
 
   <p>
-    <strong>Nombre completo:</strong>
+    <strong><%= t("user_profiles.show.full_name") %>:</strong>
     <%= user_profile.nombre_completo %>
   </p>
 
   <p>
-    <strong>Direccion:</strong>
+    <strong><%= t("user_profiles.show.address") %>:</strong>
     <%= user_profile.direccion %>
   </p>
 
   <p>
-    <strong>Pais:</strong>
+    <strong><%= t("user_profiles.show.country") %>:</strong>
     <%= user_profile.pais %>
   </p>
 
   <p>
-    <strong>Tipo moneda:</strong>
+    <strong><%= t("user_profiles.show.currency_type") %>:</strong>
     <%= user_profile.tipo_moneda %>
   </p>
-
 </div>

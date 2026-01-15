@@ -1,0 +1,10 @@
+es:
+  summary_card:
+    weekly: "Resumen semanal"
+    monthly: "Resumen mensual"
+    view_details: "Ver detalles"
+    last_day: "Resumen del último día"
+    last_weekly: "Resumen de la última semana"
+    last_monthly: "Resumen del último mes"
+    overall: "Resumen total"
+  

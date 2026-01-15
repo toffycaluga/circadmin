@@ -1,0 +1,63 @@
+pt:
+  user_profiles:
+    new:
+      title: "Novo Perfil de Usuário"
+      heading: "Crie seu perfil"
+    show:
+      title: "Perfil de Usuário"
+      header: "Perfil: %{name}"
+      user: "Usuário"
+      full_name: "Nome completo"
+      address: "Endereço"
+      country: "País"
+      currency_type: "Tipo de moeda"
+    edit:
+      title: "Editar Perfil de Usuário"
+      heading: "Edite seu perfil"
+      show: "Ver este perfil de usuário"
+      profile_picture_section: "Foto de Perfil"
+      profile_picture_alt: "Foto de perfil"
+      upload_picture: "Enviar imagem"
+      picture_updated: "Foto de perfil atualizada com sucesso."
+      picture_failed: "Não foi possível atualizar a foto de perfil."
+      no_picture: "Você ainda não tem uma foto de perfil"
+      select_picture: "Selecione uma imagem"
+      upload_picture: "Enviar imagem"
+    actions:
+      save: "Salvar"
+      back: "Voltar"
+      back_to_list: "Voltar aos perfis"
+      edit: "Editar"
+      destroy: "Excluir"
+      confirm_destroy: "Tem certeza de que deseja excluir este perfil?"
+      new: "Novo perfil"
+    notices:
+      created: "Perfil criado com sucesso."
+      updated: "Perfil atualizado com sucesso."
+      destroyed: "Perfil excluído."
+      picture_updated: "Foto de perfil atualizada com sucesso 🎉"
+    form:
+      full_name: "Nome completo"
+      address: "Endereço"
+      country: "País"
+    placeholders:
+      full_name: "Ex.: Toffy Caluga"
+      address: "Ex.: Rua Fictícia 123"
+      country: "Ex.: Espanha"
+    alerts:
+      picture_failed: "Não foi possível atualizar a foto de perfil. Tente novamente."
+    profile_picture:
+      change_modal_title: "Alterar Foto de Perfil"
+    labels:
+      full_name: "Nome completo"
+      address: "Endereço"
+      country: "País"
+    index:
+      title: "Perfis de Usuário"
+      heading: "Lista de Perfis"
+      unnamed: "Sem nome"
+      show: "Ver perfil"
+    errors:
+      header:
+        one: "1 erro impede o salvamento do perfil"
+        other: "%{count} erros impedem o salvamento do perfil"

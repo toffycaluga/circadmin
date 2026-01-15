@@ -1,35 +1,77 @@
 <% content_for :page_title, @transaction.title %>
+
 <div class="container my-4">
   <div class="card shadow-sm mx-auto" style="max-width: 900px;">
     <div class="card-header bg-light d-flex justify-content-between align-items-center">
       <h5 class="mb-0">
-        <%= @transaction.transaction_type == "income" ? "💰 Ingreso" : "💸 Egreso" %>
+        <%= @transaction.transaction_type == "income" ? "💰 #{t('transactions.type.income')}" : "💸 #{t('transactions.type.expense')}" %>
         — <%= @transaction.title %>
       </h5>
-      <%= link_to "Volver", request.referer || transactions_path, class: "btn btn-sm btn-outline-secondary" %>
+      <%= link_to t("shared.actions.back"), request.referer || transactions_path, class: "btn btn-sm btn-outline-secondary" %>
     </div>
 
     <div class="card-body">
       <div class="row">
         <!-- Datos -->
         <div class="col-md-7 col-12 mb-3">
-          <p><strong>Registrado por:</strong> <%= @transaction.user.user_profile&.full_name || @transaction.user.email %></p>
-          <p><strong>Monto:</strong> <%= number_to_currency(@transaction.amount, unit: currency_symbol(@transaction.locality.circus.currency)) %></p>
-          <p><strong>Fecha:</strong> <%= l(@transaction.date, format: :long) %></p>
-          <p><strong>Categoría:</strong> <%= t("transactions.categories.#{@transaction.category}", default: @transaction.category.titleize) %></p>
+          <p>
+            <strong><%= t("transactions.show.registered_by") %>:</strong>
+            <%= @transaction.user.user_profile&.full_name || @transaction.user.email %>
+          </p>
+
+          <p>
+            <strong><%= t("transactions.show.amount") %>:</strong>
+            <%= number_to_currency(@transaction.amount, unit: currency_symbol(@transaction.locality.circus.currency)) %>
+          </p>
+
+          <p>
+            <strong><%= t("transactions.show.date") %>:</strong>
+            <%= l(@transaction.date, format: :long) %>
+          </p>
+
+          <p>
+            <strong><%= t("transactions.show.category") %>:</strong>
+            <% cat_key = "transactions.categories.#{@transaction.category}" %>
+            <%= I18n.exists?(cat_key) ? t(cat_key) : @transaction.category.to_s.titleize %>
+          </p>
+
           <% if @transaction.description.present? %>
-            <p><strong>Descripción:</strong> <%= @transaction.description %></p>
+            <p>
+              <strong><%= t("transactions.show.description") %>:</strong>
+              <%= @transaction.description %>
+            </p>
           <% end %>
         </div>
 
-        <!-- Imagen del recibo -->
+        <!-- Recibo -->
         <% if @transaction.transaction_type == "expense" && @transaction.receipt.attached? %>
           <div class="col-md-5 col-12 text-center">
-            <h6 class="text-muted">Recibo adjunto:</h6>
-            <%= image_tag url_for(@transaction.receipt),
-                class: "img-fluid rounded shadow-sm mb-2",
-                style: "max-height: 400px;",
-          loading: "lazy" %>
+            <h6 class="text-muted"><%= t("transactions.show.attached_receipt") %>:</h6>
+            <% blob = @transaction.receipt.blob %>
+
+            <% if blob.image? %>
+              <%= image_tag url_for(@transaction.receipt),
+                    class: "img-fluid rounded shadow-sm mb-2",
+                    style: "max-height: 400px;",
+                    loading: "lazy" %>
+
+            <% elsif blob.content_type == "application/pdf" %>
+              <object data="<%= url_for(@transaction.receipt) %>"
+                      type="application/pdf"
+                      width="100%"
+                      height="400">
+                <p>
+                  <%= t("transactions.show.pdf_unsupported") %>
+                  <%= link_to t("transactions.show.download_pdf"),
+                              rails_blob_path(@transaction.receipt, disposition: "attachment") %>.
+                </p>
+              </object>
+
+            <% else %>
+              <%= link_to blob.filename.to_s,
+                          rails_blob_path(@transaction.receipt, disposition: "attachment"),
+                          class: "btn btn-outline-primary" %>
+            <% end %>
           </div>
         <% end %>
       </div>
@@ -37,8 +79,12 @@
 
     <% if current_user == @transaction.user %>
       <div class="card-footer bg-light text-end">
-        <%= link_to "✏️ Editar", edit_transaction_path(@transaction), class: "btn btn-outline-primary btn-sm" %>
-        <%= link_to "🗑️ Eliminar", transaction_path(@transaction), method: :delete, data: { confirm: "¿Estás seguro?" }, class: "btn btn-outline-danger btn-sm" %>
+        <%= link_to "✏️ #{t('shared.actions.edit')}", edit_transaction_path(@transaction), class: "btn btn-outline-primary btn-sm" %>
+        <%= button_to "🗑️ #{t('shared.actions.delete')}",
+                      transaction_path(@transaction),
+                      method: :delete,
+                      data: { confirm: t("shared.actions.confirm_delete") },
+                      class: "btn btn-outline-danger btn-sm" %>
       </div>
     <% end %>
   </div>

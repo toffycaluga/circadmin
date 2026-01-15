@@ -1,0 +1,54 @@
+es:
+  profile:
+    full_name:
+      placeholder: "Nombre de usuario no definido"
+    title: "Perfil"
+    change_cover: "Cambiar imagen de portada"
+    upload_new_cover: "Subir nueva portada"
+    picture_alt: "Foto de perfil"
+    change_picture: "Cambiar imagen de perfil"
+    change: "Cambiar"
+    upload_new_picture: "Subir nueva foto"
+    title: "Artista Circense"
+    tabs:
+      home: "Inicio"
+      profile: "Perfil"
+      team: "Equipo"
+      personal_info: "Información personal"
+      contact_info: "Información de contacto"
+      edit: "Editar perfil"  
+    labels:
+      no_data: "No especificado"
+      full_name: "Nombre completo"
+      gender: "Género"
+      birth_date: "Fecha de nacimiento"
+      marital_status: "Estado civil"
+      occupation: "Ocupación"
+      mobile: "Teléfono"
+      location: "Ubicación"
+      skills: "Habilidades"
+      jobs: "Trabajos"
+      edit: "Editar"
+      placeholder_comment: "Escribe un comentario..."
+      phone: "Teléfono"
+      web: "Sitio web"
+      email: "Correo electrónico"
+      address: "Dirección"
+      country: "País"
+      save: "Guardar cambios"
+    sections:
+      edit_profile: "Editar información personal"
+      edit_profile_subtext: "Actualiza tus datos de contacto y ubicación"
+      personal_info: "Información personal"
+      personal_info_subtext: "Datos que te identifican como usuario"
+      contact_info: "Información de contacto"
+    errors:
+      header:
+        one: "1 error impide guardar el perfil"
+        other: "%{count} errores impiden guardar el perfil"
+    image_options:
+      title: "Foto de perfil"
+      view: "Ver en grande"
+      change: "Cambiar foto"
+    image_viewer:
+      title: "Vista completa de la imagen"

@@ -1,0 +1,46 @@
+en:
+  payrolls:
+    section:
+      title: "🧾 Registered Payrolls"
+      count: "%{count} payroll(s)"
+      view: "📋 View payroll"
+      none: "No payrolls registered yet."
+      create: "📝 Create new payroll"
+    status:
+      paid: "Paid"
+      unpaid: "Pending"
+      already_registered: "Expense already recorded"
+    actions:
+      back: "🔙 Back to circus"
+      register_expense: "💸 Register as expense"
+    confirm:
+      register: "Register this payroll as an expense?"
+    total: "Total payroll:"
+    card:
+      header: "🧾 Payroll for %{period}"
+      total_hidden: "Total %{amount}"
+      view: "View payroll"
+      view_aria: "View payroll details"
+      none: "No payroll recorded yet."
+      create: "📝 Create payroll"
+    modal:
+      confirm_expense_title: "Confirm expense registration"
+      date_label: "Expense date"
+      locality_label: "Locality"
+      confirm_button: "Confirm"
+      confirm_income_title: "Confirm income registration"
+    new:
+      title: "New payroll"
+      heading: "Create new payroll"
+    show:
+      title: "🧾 Payroll Details"
+      actions:
+        register_expense: "Register expense"
+        export_pdf: "Export to PDF"
+      table_headers:
+        name: "Name"
+        role: "Position"
+        amount: "Amount"
+        notes: "Notes"
+      table_footer:
+        total_label: "Total payroll:"

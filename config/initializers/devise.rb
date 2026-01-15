@@ -24,7 +24,12 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = "CirCAdmin<no-reply@cirxoft.com>"
+  # Para que Devise genere enlaces apuntando a tu dominio
+  config.mailer_sender = "no-reply@circadmin.cirxoft.com"
+  # config.mailer.default_url_options = {
+  #   host: "circadmin.cirxoft.com",
+  #   protocol: "https"
+  # }
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'

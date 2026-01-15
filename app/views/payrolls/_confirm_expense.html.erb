@@ -1,0 +1,43 @@
+<div class="modal-backdrop show" data-action="click->modal#close"></div>
+
+<div class="modal d-block" tabindex="-1" role="dialog" data-action="click->modal#stop">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content p-4">
+      <div class="modal-header">
+        <h5 class="modal-title"><%= t("payrolls.modal.confirm_expense_title") %></h5>
+        <button type="button"
+                class="btn-close"
+                aria-label="<%= t('shared.close') %>"
+                data-action="modal#close"></button>
+      </div>
+
+      <div class="modal-body">
+        <%= form_with url: register_expense_payroll_path(payroll),
+                      method: :post,
+                      data: { turbo_frame: "_top" } do |f| %>
+          <div class="mb-3">
+            <%= f.label :date, t("payrolls.modal.date_label"), class: "form-label" %>
+            <%= f.date_field :date, value: Date.today, class: "form-control" %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :locality_id, t("payrolls.modal.locality_label"), class: "form-label" %>
+            <%= f.select :locality_id,
+                         localities.map { |l| [l.title, l.id] },
+                         {},
+                         class: "form-select" %>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <%= f.submit t("payrolls.modal.confirm_button"), class: "btn btn-primary me-2" %>
+            <button type="button"
+                    class="btn btn-outline-secondary"
+                    data-action="modal#close">
+              <%= t("shared.cancel") %>
+            </button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

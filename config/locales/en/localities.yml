@@ -1,0 +1,79 @@
+en:
+  localities:
+    name: "Locality"
+    actions:
+      edit: "Edit event"
+      close: "Close event"
+      reopen: "Reopen event"
+    confirmations:
+      close: "Are you sure you want to close this event? No more transactions can be recorded until it is reopened."
+      reopen: "Do you want to reopen this event and enable new records?"
+    status:
+      closed: "Event closed"
+    form:
+      form_errors: "Prevented saving the locality"
+      title: "Locality name"
+      title_placeholder: "e.g., Main Square, Summer Fair"
+      location: "Address"
+      location_placeholder: "e.g., 123 Fake Street, North sector"
+      city: "City"
+      city_placeholder: "e.g., Valparaíso"
+      start_date: "Start date"
+      end_date: "End date (optional)"
+      active: "Active locality"
+      active_hint: "Check this box if you are already working in this locality. If it’s still in preparation (advertising, permits, etc.), leave it unchecked, but you can already record expenses."
+      notes: "Notes"
+      notes_placeholder: "e.g., Land owner: John Doe, private property"
+      submit: "Save"
+    notices:
+      created: "The locality was successfully created."
+      updated: "The locality was successfully updated."
+      destroyed: "The locality was deleted."
+      deactivated: "The event has been marked as closed."
+      reactivated: "The event has been reactivated."
+    alerts:
+      no_data: "No data to display."
+    admin:
+      heading: "Event Administration"
+      untitled: "Untitled"
+      in_progress: "in progress"
+    fields:
+      title: "Title"
+      location: "Address"
+      city: "City"
+      start_date: "Start date"
+      end_date: "End date"
+      active: "Status"
+      circus: "Circus"
+      dates: "Dates"
+    summary:
+      title: "📊 Summary"
+      total_incomes: "Total incomes"
+      total_expenses: "Total expenses"
+      balance: "Balance"
+      chart_title: "Income and expense distribution"
+      last_updated: "Last updated: %{date}"
+    edit:
+      title: "Edit locality"
+      heading: "Edit locality"
+      show: "View this locality"
+      back: "Back to localities"
+    index:
+      title: "Localities"
+      heading: "Localities"
+      show: "View this locality"
+      new: "New locality"
+      new:
+        title: "New locality"
+    status:
+      active: "Active"
+      closed: "Closed"
+    empty:
+      title: "No title"
+      location: "No address"
+      city: "No city"
+      start_date: "No start date"
+      end_date: "No end date"
+      circus: "No circus assigned"
+    labels:
+      name: "Locality"

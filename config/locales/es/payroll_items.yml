@@ -1,0 +1,23 @@
+es:
+  payroll_items:
+    name: "Nombre"
+    role: "Cargo"
+    amount: "Monto"
+    notes: "Notas"
+    add: "Agregar"
+    confirm:
+      delete: "¿Eliminar ítem?"
+    form:
+      name: "Nombre"
+      role: "Cargo"
+      amount: "Monto"
+      notes: "Notas"
+      add: "Agregar"
+      update: "Actualizar"
+    modal:
+      title: "Editar ítem"
+    actions:
+      edit: "Editar ítem"
+      delete: "Eliminar ítem"
+    confirmations:
+      delete: "¿Eliminar ítem?"

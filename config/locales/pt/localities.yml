@@ -1,0 +1,79 @@
+pt:
+  localities:
+    name: "Localidade"
+    actions:
+      edit: "Editar evento"
+      close: "Encerrar evento"
+      reopen: "Reabrir evento"
+    confirmations:
+      close: "Tem certeza de que deseja encerrar este evento? Não será possível registrar mais transações até reabri-lo."
+      reopen: "Deseja reabrir este evento e habilitar novos registros?"
+    status:
+      closed: "Evento encerrado"
+    form:
+      form_errors: "Impediram o salvamento da localidade"
+      title: "Nome da localidade"
+      title_placeholder: "Ex.: Praça Central, Feira de Verão"
+      location: "Endereço"
+      location_placeholder: "Ex.: Rua Falsa 123, Setor Norte"
+      city: "Cidade"
+      city_placeholder: "Ex.: Valparaíso"
+      start_date: "Data de início"
+      end_date: "Data de término (opcional)"
+      active: "Localidade ativa"
+      active_hint: "Marque esta opção se você já estiver trabalhando nesta localidade. Se ainda estiver em preparação (publicidade, autorizações, etc.), deixe desmarcada, mas já é possível registrar despesas."
+      notes: "Observações"
+      notes_placeholder: "Ex.: Dono do terreno: João Silva, propriedade privada"
+      submit: "Salvar"
+    notices:
+      created: "A localidade foi criada com sucesso."
+      updated: "A localidade foi atualizada com sucesso."
+      destroyed: "A localidade foi excluída."
+      deactivated: "O evento foi marcado como encerrado."
+      reactivated: "O evento foi reativado."
+    alerts:
+      no_data: "Não há dados para exibir."
+    admin:
+      heading: "Administração do Evento"
+      untitled: "Sem título"
+      in_progress: "em andamento"
+    fields:
+      title: "Título"
+      location: "Endereço"
+      city: "Cidade"
+      start_date: "Data de início"
+      end_date: "Data de término"
+      active: "Status"
+      circus: "Circo"
+      dates: "Datas"
+    summary:
+      title: "📊 Resumo"
+      total_incomes: "Total de receitas"
+      total_expenses: "Total de despesas"
+      balance: "Balanço"
+      chart_title: "Distribuição de receitas e despesas"
+      last_updated: "Última atualização: %{date}"
+    edit:
+      title: "Editar localidade"
+      heading: "Editar localidade"
+      show: "Ver esta localidade"
+      back: "Voltar às localidades"
+    index:
+      title: "Localidades"
+      heading: "Localidades"
+      show: "Ver esta localidade"
+      new: "Nova localidade"
+      new:
+        title: "Nova localidade"
+    status:
+      active: "Ativa"
+      closed: "Encerrada"
+    empty:
+      title: "Sem título"
+      location: "Sem endereço"
+      city: "Sem cidade"
+      start_date: "Sem data de início"
+      end_date: "Sem data de término"
+      circus: "Sem circo atribuído"
+    labels:
+      name: "Localidade"

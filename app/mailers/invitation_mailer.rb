@@ -6,7 +6,7 @@ class InvitationMailer < ApplicationMailer
 
     mail(
       to: invitation.user.email,
-      subject: "Invitación al circo #{invitation.circus.name}"
+      subject: I18n.t("mailers.invitation_mailer.subject", circus_name: invitation.circus.name)
     )
   end
 end

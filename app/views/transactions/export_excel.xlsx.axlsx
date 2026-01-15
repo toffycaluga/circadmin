@@ -1,11 +1,11 @@
 wb = xlsx_package.workbook
-wb.add_worksheet(name: t("transactions.export.title_excel", default: "Resumen")) do |sheet|
+wb.add_worksheet(name: t("transactions.export.title_excel")) do |sheet|
   styles = wb.styles
 
   # Estilos generales
-  title_style = styles.add_style sz: 14, b: true, alignment: { horizontal: :center }
-  label_style = styles.add_style b: true, sz: 10
-  info_style = styles.add_style sz: 10
+  title_style  = styles.add_style sz: 14, b: true, alignment: { horizontal: :center }
+  label_style  = styles.add_style b: true, sz: 10
+  info_style   = styles.add_style sz: 10
 
   header_style = styles.add_style(
     b: true,
@@ -23,30 +23,30 @@ wb.add_worksheet(name: t("transactions.export.title_excel", default: "Resumen"))
     border: Axlsx::STYLE_THIN_BORDER
   )
 
-  # Estilo para formato moneda de Excel (nativo)
+  # Estilo moneda nativo de Excel
   currency_style = styles.add_style(
-    num_fmt: 5, # Estilo moneda estándar en Excel
+    num_fmt: 5, # moneda estándar Excel (depende de la configuración regional del visor)
     alignment: { horizontal: :right },
     border: Axlsx::STYLE_THIN_BORDER
   )
 
-  total_style = styles.add_style b: true, sz: 10
+  total_style  = styles.add_style b: true, sz: 10
   footer_style = styles.add_style sz: 9, i: true, alignment: { horizontal: :center }, fg_color: "777777"
 
   # Título principal
-  sheet.add_row [ t("transactions.export.title_excel", default: "Resumen de Transacciones") ], style: title_style
+  sheet.add_row [ t("transactions.export.title_excel") ], style: title_style
   sheet.merge_cells("A1:F1")
   sheet.add_row []
 
   # Datos informativos
-  sheet.add_row [ t("localities.name", default: "Localidad"), @locality.title ], style: [ label_style, info_style ]
-  sheet.add_row [ t("circus.title", default: "Circo"), @locality.circus.name ], style: [ label_style, info_style ]
-  sheet.add_row [ t("transactions.type.#{@type}", default: "Tipo"), t("transactions.type.#{@type}", default: @type.titleize) ], style: [ label_style, info_style ]
+  sheet.add_row [ t("localities.labels.name"), @locality.title ],           style: [ label_style, info_style ]
+  sheet.add_row [ t("circus.labels.name"),     @locality.circus.name ],     style: [ label_style, info_style ]
+  sheet.add_row [ t("transactions.fields.type"), t("transactions.type.#{@type}") ], style: [ label_style, info_style ]
 
   if @transactions.any?
-    min = @transactions.minimum(:date)&.strftime("%d/%m/%Y")
-    max = @transactions.maximum(:date)&.strftime("%d/%m/%Y")
-    sheet.add_row [ t("transactions.export.range", default: "Rango"), "#{min} - #{max}" ], style: [ label_style, info_style ]
+    min_date = I18n.l(@transactions.minimum(:date).to_date, format: :default)
+    max_date = I18n.l(@transactions.maximum(:date).to_date, format: :default)
+    sheet.add_row [ t("transactions.export.range"), "#{min_date} - #{max_date}" ], style: [ label_style, info_style ]
   end
 
   sheet.add_row [] # espacio antes de la tabla
@@ -64,28 +64,25 @@ wb.add_worksheet(name: t("transactions.export.title_excel", default: "Resumen"))
   # Filas de transacciones
   @transactions.each do |tx|
     sheet.add_row [
-      l(tx.date.to_date, format: :long),
+      I18n.l(tx.date.to_date, format: :long),
       tx.title,
-      tx.amount, # numérico puro, estilo moneda
-      t("transactions.categories.#{tx.category}", default: tx.category.titleize),
+      tx.amount, # numérico puro, formato moneda via currency_style
+      t("transactions.categories.#{tx.category}", default: tx.category.to_s.titleize),
       tx.description.to_s.truncate(100),
-      tx.user.user_profile&.full_name || tx.user.email
+      (tx.user.user_profile&.full_name || tx.user.email)
     ], style: [ cell_style, cell_style, currency_style, cell_style, cell_style, cell_style ]
   end
 
   # Total final
   total = @transactions.sum(&:amount)
   sheet.add_row []
-  sheet.add_row [
-    t("transactions.export.total", default: "Total"), "", total
-  ], style: [ total_style, nil, currency_style ]
+  sheet.add_row [ t("transactions.export.total"), "", total ],
+                style: [ total_style, nil, currency_style ]
 
   # Footer generado por
   sheet.add_row []
-  generated_at = Time.current.strftime("%d/%m/%Y %H:%M")
-  sheet.add_row [
-    "#{t("transactions.export.generated_by", default: "Documento generado por CircAdmin")} — #{generated_at}"
-  ], style: footer_style
+  generated_at = I18n.l(Time.current, format: :default)
+  sheet.add_row [ "#{t('transactions.export.generated_by')} — #{generated_at}" ], style: footer_style
   sheet.merge_cells("A#{sheet.rows.size}:F#{sheet.rows.size}")
 
   # Anchos personalizados
